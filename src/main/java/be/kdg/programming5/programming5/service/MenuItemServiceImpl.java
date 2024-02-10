@@ -46,8 +46,19 @@ public class MenuItemServiceImpl implements MenuItemService {
      * @return The menu item with the specified identifier, or null if not found.
      */
     @Override
-    public MenuItem getMenuItemById(int id) {
+    public MenuItem getMenuItem(int id) {
         return menuItemRepository.findById(id).orElse(null);
+    }
+
+    /**
+     * Retrieves a menu item with its associated chefs.
+     *
+     * @param id The identifier of the menu item.
+     * @return The menu item with the specified identifier, or null if not found.
+     */
+    @Override
+    public MenuItem getMenuItemWithChefs(int id) {
+        return menuItemRepository.findByIdWithChefs(id).orElse(null);
     }
 
     /**
@@ -119,13 +130,13 @@ public class MenuItemServiceImpl implements MenuItemService {
     @Override
     @Transactional
     public void deleteMenuItem(int id) {
-        MenuItem menuItem = getMenuItemById(id);
+/*        MenuItem menuItem = getMenuItem(id);
         if (menuItem != null) {
             menuItem.getChefs().forEach(chef -> {
                 chef.getMenuItems().remove(menuItem);
                 chefRepository.save(chef);
             });
             menuItemRepository.deleteById(id);
-        }
+        }*/
     }
 }

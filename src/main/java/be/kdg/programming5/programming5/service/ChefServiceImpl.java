@@ -46,8 +46,19 @@ public class ChefServiceImpl implements ChefService {
      * @return The chef with the specified identifier, or null if not found.
      */
     @Override
-    public Chef getChefById(int id) {
+    public Chef getChef(int id) {
         return chefRepository.findById(id).orElse(null);
+    }
+
+    /**
+     * Retrieves a chef with its associated menu items.
+     *
+     * @param id The identifier of the chef.
+     * @return The chef with the specified identifier, or null if not found.
+     */
+    @Override
+    public Chef getChefWithMenuItems(int id) {
+        return chefRepository.findByIdWithMenuItems(id).orElse(null);
     }
 
     /**
@@ -107,13 +118,13 @@ public class ChefServiceImpl implements ChefService {
     @Override
     @Transactional
     public void deleteChef(int id) {
-        Chef chef = getChefById(id);
+/*        Chef chef = getChef(id);
         if (chef != null) {
             chef.getMenuItems().forEach(menuItem -> {
                 menuItem.getChefs().remove(chef);
                 menuItemRepository.save(menuItem);
             });
             chefRepository.deleteById(id);
-        }
+        }*/
     }
 }

@@ -24,7 +24,7 @@ public interface RestaurantService {
      * @param id The ID of the restaurant to retrieve.
      * @return The restaurant with the specified ID, or null if not found.
      */
-    Restaurant getRestaurantById(int id);
+    Restaurant getRestaurant(int id);
 
     /**
      * Adds a new restaurant to the system.

@@ -82,7 +82,7 @@ public class MenuItemController {
     public String addMenuItem(@ModelAttribute("addMenuItemViewModel") @Valid AddMenuItemViewModel viewModel) {
         try {
             logger.debug("Adding menu item {}", viewModel.getName());
-            Restaurant restaurant = restaurantService.getRestaurantById(viewModel.getRestaurantId());
+            Restaurant restaurant = restaurantService.getRestaurant(viewModel.getRestaurantId());
             menuItemService.addMenuItem(
                     viewModel.getName(),
                     viewModel.getPrice(),
@@ -133,7 +133,7 @@ public class MenuItemController {
     public String showMenuItemDetails(@PathVariable int id, Model model) {
         String pageTitle = "Menu Item Details";
         model.addAttribute("pageTitle", pageTitle);
-        model.addAttribute("menu_item", menuItemService.getMenuItemById(id));
+        model.addAttribute("menu_item", menuItemService.getMenuItem(id));
         return "menu/details";
     }
 }

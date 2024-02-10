@@ -79,7 +79,7 @@ public class ChefController {
     public String addChef(@ModelAttribute("addChefViewModel") @Valid AddChefViewModel viewModel) {
         try {
             logger.debug("Adding chef {}", viewModel.getFirstName());
-            Restaurant restaurant = restaurantService.getRestaurantById(viewModel.getRestaurantId());
+            Restaurant restaurant = restaurantService.getRestaurant(viewModel.getRestaurantId());
             chefService.addChef(
                     viewModel.getFirstName(),
                     viewModel.getLastName(),
@@ -130,7 +130,7 @@ public class ChefController {
         String pageTitle = "Chef Details";
         HistoryUtil.updateHistory(session, pageTitle);
         model.addAttribute("pageTitle", pageTitle);
-        model.addAttribute("chef", chefService.getChefById(id));
+        model.addAttribute("chef", chefService.getChef(id));
         return "chef/details";
     }
 }

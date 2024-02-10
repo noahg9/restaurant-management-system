@@ -41,7 +41,7 @@ public class RestaurantServiceImpl implements RestaurantService {
      * @return The restaurant with the specified identifier, or null if not found.
      */
     @Override
-    public Restaurant getRestaurantById(int id) {
+    public Restaurant getRestaurant(int id) {
         return restaurantRepository.findById(id).orElse(null);
     }
 

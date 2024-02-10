@@ -27,8 +27,8 @@ public class MenuItem extends AbstractEntity<Integer> implements Serializable {
     @JoinColumn(name = "RESTAURANT_ID")
     private Restaurant restaurant;
 
-    @ManyToMany(mappedBy = "menuItems", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
-    private List<Chef> chefs;
+    @OneToMany(mappedBy = "menuItems")
+    private List<MenuItemChef> chefs;
 
     protected MenuItem() {}
 
@@ -118,17 +118,12 @@ public class MenuItem extends AbstractEntity<Integer> implements Serializable {
         restaurant.addMenuItem(this);
     }
 
-    public List<Chef> getChefs() {
+    public List<MenuItemChef> getChefs() {
         return this.chefs;
     }
 
-    public void setChefs(List<Chef> chefs) {
+    public void setChefs(List<MenuItemChef> chefs) {
         this.chefs = chefs;
-    }
-
-    public void addChef(Chef chef) {
-        chefs.add(Objects.requireNonNull(chef, "Chef cannot be null"));
-        chef.addMenuItem(this);
     }
 
     /**
@@ -145,21 +140,6 @@ public class MenuItem extends AbstractEntity<Integer> implements Serializable {
                 random.nextBoolean(),
                 random.nextInt(3)
         );
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(restaurant.getName())
-                .append(" offers ").append(name.toLowerCase());
-
-        if (vegetarian) {
-            sb.append(" (vegetarian)");
-        }
-
-        sb.append(" for $").append(price);
-
-        return sb.toString();
     }
 
     @Override

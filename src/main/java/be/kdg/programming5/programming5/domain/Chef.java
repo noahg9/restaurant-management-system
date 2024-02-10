@@ -26,11 +26,8 @@ public class Chef extends AbstractEntity<Integer> implements Serializable {
     @JoinColumn(name = "RESTAURANT_ID")
     private Restaurant restaurant;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "MENU_ITEMS_CHEFS",
-            joinColumns = @JoinColumn(name = "CHEF_ID"),
-            inverseJoinColumns = @JoinColumn(name = "MENU_ITEM_ID"))
-    private List<MenuItem> menuItems;
+    @OneToMany(mappedBy = "chefs")
+    private List<MenuItemChef> menuItems;
 
     protected Chef() {}
 
@@ -94,30 +91,12 @@ public class Chef extends AbstractEntity<Integer> implements Serializable {
         restaurant.addChef(this);
     }
 
-    public List<MenuItem> getMenuItems() {
+    public List<MenuItemChef> getMenuItems() {
         return menuItems;
     }
 
-    public void setMenuItems(List<MenuItem> menuItems) {
+    public void setMenuItems(List<MenuItemChef> menuItems) {
         this.menuItems = menuItems;
-    }
-
-    public void addMenuItem(MenuItem menuItem) {
-        menuItems.add(Objects.requireNonNull(menuItem, "MenuItem cannot be null"));
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        int age = calculateAge();
-
-        sb.append(firstName).append(' ').append(lastName).append(" (age ").append(age).append(") ");
-
-        if (restaurant != null) {
-            sb.append("works at ").append(restaurant.getName());
-        }
-
-        return sb.toString();
     }
 
     @Override

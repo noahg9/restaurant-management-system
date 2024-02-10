@@ -25,7 +25,9 @@ public interface ChefService {
      * @param id The ID of the chef to retrieve.
      * @return The chef with the specified ID, or null if not found.
      */
-    Chef getChefById(int id);
+    Chef getChef(int id);
+
+    Chef getChefWithMenuItems(int chefId);
 
     /**
      * Retrieves a list of chefs by their first or last name.

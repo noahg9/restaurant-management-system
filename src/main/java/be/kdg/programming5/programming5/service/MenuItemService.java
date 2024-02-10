@@ -25,7 +25,9 @@ public interface MenuItemService {
      * @param id The ID of the menu item to retrieve.
      * @return The menu item with the specified ID, or null if not found.
      */
-    MenuItem getMenuItemById(int id);
+    MenuItem getMenuItem(int id);
+
+    MenuItem getMenuItemWithChefs(int id);
 
     /**
      * Retrieves a list of menu items with a price less than the specified maximum price.
