@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/head :: head">
+    <!-- Include the head fragment for common head elements -->
+</head>
+
+<body>
+<!-- Include the navbar fragment -->
+<header th:insert="~{fragments/navbar::copy}"></header>
+
+<main>
+    <!-- Page Title with multilingual support -->
+    <h1 class="page-title" th:text="#{home.header}">Home</h1>
+
+    <!-- Welcome message with multilingual support -->
+    <p th:text="#{home.welcome}">Welcome to our database of restaurants.</p>
+
+    <!-- Nice format for navbar links on the home page -->
+    <div class="home-links">
+        <div>
+            <!-- Link to Chef List -->
+            <a th:href="@{/chef/list}" class="home-link">
+                <span th:text="#{navbar.chefList}">Chef List</span>
+            </a>
+        </div>
+        <div>
+            <!-- Link to Menu Item List -->
+            <a th:href="@{/menu/list}" class="home-link">
+                <span th:text="#{navbar.menuItemList}">Menu Item List</span>
+            </a>
+        </div>
+        <div>
+            <!-- Link to Add Chef -->
+            <a th:href="@{/chef/add}" class="home-link">
+                <span th:text="#{navbar.addChef}">Add Chef</span>
+            </a>
+        </div>
+        <div>
+            <!-- Link to Add Menu Item -->
+            <a th:href="@{/menu/add}" class="home-link">
+                <span th:text="#{navbar.addMenuItem}">Add Menu Item</span>
+            </a>
+        </div>
+        <div>
+            <!-- Link to Session History -->
+            <a th:href="@{/session/history}" class="home-link">
+                <span th:text="#{navbar.history}">History</span>
+            </a>
+        </div>
+    </div>
+
+    <div>
+        <img th:src="@{/images/home-image.jpg}" alt="Home Image"/>
+    </div>
+</main>
+
+<!-- Include the footer fragment -->
+<footer th:insert="~{fragments/footer::copy}"></footer>
+</body>
+
+</html>

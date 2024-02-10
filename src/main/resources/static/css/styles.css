@@ -1,0 +1,314 @@
+/* Reset some default browser styles */
+body, h1, h2, h3, p, ul, ol, li {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Set a common font family and size for the entire page */
+body {
+    font-family: Poppins, sans-serif;
+    font-size: 20px;
+    line-height: 1.6;
+    background-color: white;
+    color: midnightblue;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding-top: 70px;
+    font-weight: normal;
+    text-align: center;
+}
+
+/* Container styling for centering content */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Style the footer */
+footer {
+    margin-top: auto;
+    padding: 15px;
+    background: linear-gradient(to right, mediumblue, midnightblue);
+    color: white;
+    box-shadow: 0 -4px 12px lightcyan;
+}
+
+/* Navigation link styling */
+nav a {
+    color: #3498db;
+    text-decoration: none;
+    margin: 0 15px;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: #2c3e50;
+}
+
+/* Style buttons with Bootstrap styles */
+.btn, button {
+    display: inline-block;
+    margin: 20px auto;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px lightcyan;
+}
+
+.btn:hover, button:hover {
+    background-color: midnightblue;
+    color: white;
+    box-shadow: 0 6px 12px lightcyan;
+}
+
+/* Table Styling */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: 0 4px 8px lightcyan;
+    background-color: white;
+    border: 1px solid lightcyan;
+    border-radius: 8px;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid lightcyan;
+}
+
+th {
+    background-color: lightcyan;
+    font-weight: bold;
+    color: black;
+}
+
+tr:hover {
+    background-color: lightcyan;
+}
+
+/* Improve timestamp styling */
+.timestamp {
+    font-weight: bold;
+    color: dodgerblue;
+}
+
+/* Add some spacing between the cells in smaller screens */
+@media screen and (max-width: 600px) {
+    td {
+        padding: 10px;
+    }
+
+    td:before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        width: 50%;
+    }
+}
+
+/* Adjust the width of input-group-text */
+.input-group-text {
+    display: inline-block;
+    width: 160px;
+    text-align: center;
+}
+
+/* Responsive utility class to center content horizontally */
+.text-center {
+    text-align: center;
+}
+
+/* Additional Styles for Better Overall Appearance */
+
+/* Style the button container */
+.button-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Style the container for tables */
+.table-container {
+    margin: 20px;
+    box-shadow: 0 4px 12px lightcyan;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* Style the form container */
+.form-container {
+    max-width: 400px;
+    margin: 0 auto;
+    box-shadow: 0 4px 12px lightcyan;
+    border-radius: 12px;
+    padding: 20px;
+    background-color: white;
+}
+
+/* Style the chef and menu table containers */
+.chef-table-container,
+.menu-table-container {
+    margin: 0 auto;
+    box-shadow: 0 4px 12px lightcyan;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* Style the history and detail table containers */
+.history-table-container,
+.detail-table-container {
+    max-width: 600px;
+    margin: 0 auto;
+    box-shadow: 0 4px 12px lightcyan;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* Style the container for the center-aligned content */
+.center-container {
+    text-align: center;
+}
+
+/* Improve overall link styling */
+a {
+    color: #3498db;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: midnightblue;
+}
+
+/* Navbar styling */
+.navbar {
+    padding: 10px;
+    background: linear-gradient(to right, mediumblue, midnightblue);
+    box-shadow: 0 2px 8px lightcyan;
+    position: fixed;
+    top: -80px;
+    width: 100%;
+    transition: top 0.3s;
+    z-index: 1000;
+}
+
+.navbar:hover {
+    top: 0;
+}
+
+.navbar-brand {
+    font-size: 28px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: white;
+}
+
+.navbar-toggler {
+    border: none;
+    color: white;
+}
+
+.navbar-toggler-icon {
+    background-color: white;
+}
+
+.navbar-nav {
+    /* margin-left: auto; Remove to align items to the left */
+}
+
+.nav-item {
+    margin-right: 20px;
+}
+
+.nav-link {
+    font-size: 18px;
+    color: #fff;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: yellow;
+}
+
+.fixed-top {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    animation: fadeInDown 0.5s;
+}
+
+#language-switch {
+    height: 40px;
+    padding-top: 5px;
+    background-color: white;
+    color: midnightblue;
+}
+
+/* Page Title Styling */
+.page-title {
+    color: dodgerblue;
+    font-size: 32px;
+    margin-bottom: 15px;
+    text-align: center;
+    letter-spacing: 2px;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px lightcyan;
+}
+
+/* Media Query for small screens */
+@media screen and (max-width: 768px) {
+    .navbar-nav {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .nav-item {
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.btn-light {
+    background-color: white;
+    color: midnightblue;
+    border: 1px solid midnightblue;
+    height: 40px;
+    padding-top: 5px;
+}
+
+.btn-light:hover {
+    background-color: midnightblue;
+    color: white;
+}
+
+.home-link {
+    font-size: 18px;
+    color: dodgerblue;
+    transition: color 0.3s ease;
+    text-decoration: underline;
+}
+
+.home-link:hover {
+    color: yellow;
+}

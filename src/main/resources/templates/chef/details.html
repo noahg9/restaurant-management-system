@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/head :: head">
+    <!-- Include the common head elements -->
+</head>
+<body th:object="${chef}">
+<!-- Include the navbar fragment -->
+<header th:insert="~{fragments/navbar::copy}"></header>
+
+<!-- Page Title with multilingual support -->
+<h1 class="page-title" th:text="#{chef.detailsHeader}">Chef Details</h1>
+
+<div class="detail-table-container">
+    <!-- Table for displaying Chef details -->
+    <table class="table">
+        <tbody>
+        <!-- Row for Chef ID -->
+        <tr>
+            <th th:text="#{chef.id}">ID</th>
+            <td th:text="*{id}"></td>
+        </tr>
+        <!-- Row for First Name -->
+        <tr>
+            <th th:text="#{chef.firstName}">First Name</th>
+            <td th:text="*{firstName}"></td>
+        </tr>
+        <!-- Row for Last Name -->
+        <tr>
+            <th th:text="#{chef.lastName}">Last Name</th>
+            <td th:text="*{lastName}"></td>
+        </tr>
+        <!-- Row for Date of Birth -->
+        <tr>
+            <th th:text="#{chef.dateOfBirth}">Date Of Birth</th>
+            <td th:text="${#temporals.format(chef.dateOfBirth.atStartOfDay(), 'd MMMM yyyy')}"></td>
+        </tr>
+        <tr>
+            <th th:text="#{chef.age}">Age</th>
+            <td th:text="*{calculateAge()}"></td>
+        </tr>
+        <tr>
+            <th th:text="#{chef.restaurant}">Restaurant</th>
+            <td th:text="${chef.restaurant?.name}"></td>
+        </tr>
+        <tr>
+            <th th:text="#{chef.menuItems}">Menu Items</th>
+            <td>
+                <span th:if="${chef.menuItems != null and not #lists.isEmpty(chef.menuItems)}">
+                    <span th:each="menuItem : ${chef.menuItems}">
+                        <span th:text="${menuItem.name}"></span><br/>
+                    </span>
+                </span>
+                <span th:if="${chef.menuItems == null or #lists.isEmpty(chef.menuItems)}" th:text="#{chef.noMenuItems}">
+                    No menu items
+                </span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="center-container">
+        <!-- Link to return to Chef List -->
+        <a th:href="@{/chef/list}"><button type="button"><i class="fas fa-arrow-left"></i> Return</button></a>
+    </div>
+</div>
+
+<!-- Include the footer fragment -->
+<footer th:insert="~{fragments/footer::copy}"></footer>
+</body>
+</html>

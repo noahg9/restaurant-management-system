@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/head :: head">
+    <!-- Include the common head elements -->
+</head>
+<body>
+<!-- Include the navbar fragment -->
+<header th:insert="~{fragments/navbar::copy}"></header>
+
+<!-- Page Title with multilingual support -->
+<h1 class="page-title" th:text="#{history.header}">History</h1>
+
+<!-- Container for displaying the session history entries -->
+<div class="history-table-container">
+    <!-- Table for rendering session history details -->
+    <table class="table">
+        <thead>
+        <!-- Table header with multilingual column names -->
+        <tr>
+            <th th:text="#{history.page}">Page</th>
+            <th th:text="#{history.time}">Time</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Iterate over session history and display each entry -->
+        <tr th:each="entry : ${history}">
+            <!-- Display session history details -->
+            <td>
+                <i class="fas fa-file"></i>
+                <span th:text="${entry.page}"></span>
+            </td>
+            <td>
+                <i class="far fa-clock"></i>
+                <!-- Format and display timestamp -->
+                <span th:text="${#temporals.format(entry.timestamp, 'd MMM HH:mm')}"></span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Include the footer fragment -->
+<footer th:insert="~{fragments/footer::copy}"></footer>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/head :: head">
+</head>
+
+<body>
+<header th:insert="~{fragments/navbar::copy}"></header>
+<h1 class="page-title" th:text="#{chef.addHeader}">Add Chef</h1>
+
+<section class="banner-area relative" id="home">
+    <div class="center-container">
+        <form th:action="@{/chef/add}" th:object="${addChefViewModel}" method="post" class="form-container">
+            <div class="form-group nameInput">
+                <div class="col-md-auto col-12">
+                    <label th:for="firstName" class="form-label d-md-none" th:text="#{chef.firstName}">First Name</label>
+                    <div class="input-group mb-3">
+                            <span class="input-group-text">
+                                <label class="form-check-label" th:for="inputFirstName" th:text="#{chef.firstName}">
+                                    <i class="fas fa-user"></i> First Name
+                                </label>
+                            </span>
+                        <input type="text" class="form-control" id="inputFirstName" th:placeholder="#{chef.firstName}" th:field="*{firstName}" required>
+                    </div>
+                </div>
+                <div class="col-md-auto col-12">
+                    <label th:for="lastName" class="form-label d-md-none" th:text="#{chef.lastName}">Last Name</label>
+                    <div class="input-group mb-3">
+                            <span class="input-group-text">
+                                <label class="form-check-label" th:for="inputLastName" th:text="#{chef.lastName}">
+                                    <i class="fas fa-user"></i> Last Name
+                                </label>
+                            </span>
+                        <input type="text" class="form-control" id="inputLastName" th:placeholder="#{chef.lastName}" th:field="*{lastName}" required>
+                    </div>
+                </div>
+                <div class="form-group dateEstablishedInput">
+                    <label th:for="dateOfBirth" class="form-label d-md-none" th:text="#{chef.dateOfBirth}">Date of Birth</label>
+                    <div class="input-group mb-3">
+                            <span class="input-group-text">
+                                <label class="form-check-label" for="inputDateOfBirth" th:text="#{chef.dateOfBirth}">
+                                    <i class="far fa-calendar-alt"></i> Date Of Birth
+                                </label>
+                            </span>
+                        <input type="date" class="form-control" id="inputDateOfBirth" th:field="*{dateOfBirth}" required>
+                    </div>
+                </div>
+                <div class="form-group restaurantIdInput">
+                    <label th:for="restaurantId" class="form-label d-md-none" th:text="#{chef.restaurant}">Restaurant</label>
+                    <div class="input-group mb-3">
+                            <span class="input-group-text">
+                                <label class="form-check-label" for="inputRestaurantId" th:text="#{chef.restaurant}">
+                                    <i class="fas fa-building"></i> Restaurant
+                                </label>
+                            </span>
+                        <select name="restaurantId" id="inputRestaurantId">
+                            <option th:each="restaurant:${restaurants}" th:value="${restaurant.id}" th:text="${restaurant.name}">Select restaurant</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="btn-container">
+                    <button type="submit" class="btn btn-primary" th:text="#{chef.add}">Add</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+<footer th:insert="~{fragments/footer::copy}"></footer>
+</body>
+</html>

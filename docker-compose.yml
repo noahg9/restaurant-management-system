@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  postgres_programming5_db:
+    image: postgres:16.1-alpine
+    restart: always
+    environment:
+      POSTGRES_DB: 'programming5'
+      POSTGRES_USER: 'admin'
+      POSTGRES_PASSWORD: 'admin'
+    ports:
+      - '5432:5432'

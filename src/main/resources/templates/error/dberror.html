@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:include="fragments/head :: head">
+    <!-- Include head fragment for common head elements -->
+</head>
+<body>
+<header th:insert="~{fragments/navbar::copy}"></header>
+
+<div class="container">
+    <!-- Error Content -->
+    <div>
+        <h1>An error has occurred...</h1>
+    </div>
+
+    <div>
+        <img th:src="@{/images/error-icon.png}" alt="Error Icon"/>
+    </div>
+
+    <div>
+        <!-- Link to go back to the home page -->
+        <a class="btn" th:href="@{/}">Back to home</a>
+    </div>
+</div>
+
+<footer th:insert="~{fragments/footer::copy}"></footer>
+</body>
+</html>

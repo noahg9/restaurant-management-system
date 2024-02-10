@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head">
+    <!-- Include the head fragment for common head elements -->
+</head>
+<body>
+<!-- Include the navbar fragment -->
+<header th:insert="~{fragments/navbar::copy}"></header>
+
+<!-- Page Title with multilingual support -->
+<h1 class="page-title" th:text="#{chef.listHeader}">Chef List</h1>
+
+<div class="chef-table-container">
+    <!-- Table displaying Chef information -->
+    <table class="table">
+        <thead>
+        <!-- Table header with multilingual column names -->
+        <tr>
+            <th th:text="#{chef.name}">Name</th>
+            <th th:text="#{chef.dateOfBirth}">Date of Birth</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Iterate over each chef in the list -->
+        <tr th:each="chef : ${list}">
+            <td>
+                <!-- Display Chef's full name -->
+                <span th:text="${chef.firstName + ' ' + chef.lastName}"></span>
+
+                <!-- Link to Chef details page -->
+                <a th:href="@{/chef/details/{id}(id=${chef.id})}">
+                    <i class="fas fa-info-circle"></i>
+                </a>
+            </td>
+            <td>
+                <!-- Format and display Chef's date of birth -->
+                <span th:text="${#temporals.format(chef.dateOfBirth.atStartOfDay(), 'd MMMM yyyy')}"></span>
+            </td>
+            <td>
+                <!-- Form for deleting Chef with hidden input for Chef ID -->
+                <form method="post" th:action="@{/chef/delete}" th:object="${chef}" th:method="delete">
+                    <input type="hidden" th:if="${chef}" th:name="id" th:value="${chef.id}" />
+                    <button type="submit">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Include the footer fragment -->
+<footer th:insert="~{fragments/footer::copy}"></footer>
+</body>
+</html>

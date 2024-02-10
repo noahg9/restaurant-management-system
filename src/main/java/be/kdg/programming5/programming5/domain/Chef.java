@@ -1,0 +1,159 @@
+package be.kdg.programming5.programming5.domain;
+
+import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.List;
+import java.util.Objects;
+import java.util.Random;
+
+/**
+ * Represents a Chef in a restaurant, including personal information and associated menu items.
+ * Extends AbstractEntity for common entity properties.
+ */
+@Entity
+@Table(name = "CHEFS")
+public class Chef extends AbstractEntity<Integer> implements Serializable {
+
+    private String firstName;
+    private String lastName;
+    private LocalDate dateOfBirth;
+
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "RESTAURANT_ID")
+    private Restaurant restaurant;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "MENU_ITEMS_CHEFS",
+            joinColumns = @JoinColumn(name = "CHEF_ID"),
+            inverseJoinColumns = @JoinColumn(name = "MENU_ITEM_ID"))
+    private List<MenuItem> menuItems;
+
+    protected Chef() {}
+
+    public Chef(String firstName, String lastName, LocalDate dateOfBirth) {
+        setFirstName(firstName);
+        setLastName(lastName);
+        setDateOfBirth(dateOfBirth);
+    }
+
+    public Chef(int id, String firstName, String lastName, LocalDate dateOfBirth) {
+        super(id);
+        setFirstName(firstName);
+        setLastName(lastName);
+        setDateOfBirth(dateOfBirth);
+    }
+
+    public Chef(String firstName, String lastName, LocalDate dateOfBirth, Restaurant restaurant) {
+        this(firstName, lastName, dateOfBirth);
+        setRestaurant(restaurant);
+    }
+
+    public Chef(int id, String firstName, String lastName, LocalDate dateOfBirth, Restaurant restaurant) {
+        this(id, firstName, lastName, dateOfBirth);
+        setRestaurant(restaurant);
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        validateName(firstName, "First name");
+        this.firstName = firstName.trim();
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        validateName(lastName, "Last name");
+        this.lastName = lastName.trim();
+    }
+
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        Objects.requireNonNull(dateOfBirth, "Date of birth cannot be null");
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(Restaurant restaurant) {
+        Objects.requireNonNull(restaurant, "Restaurant cannot be null");
+        this.restaurant = restaurant;
+        restaurant.addChef(this);
+    }
+
+    public List<MenuItem> getMenuItems() {
+        return menuItems;
+    }
+
+    public void setMenuItems(List<MenuItem> menuItems) {
+        this.menuItems = menuItems;
+    }
+
+    public void addMenuItem(MenuItem menuItem) {
+        menuItems.add(Objects.requireNonNull(menuItem, "MenuItem cannot be null"));
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        int age = calculateAge();
+
+        sb.append(firstName).append(' ').append(lastName).append(" (age ").append(age).append(") ");
+
+        if (restaurant != null) {
+            sb.append("works at ").append(restaurant.getName());
+        }
+
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Chef chef = (Chef) o;
+        return id == chef.id &&
+                Objects.equals(firstName, chef.firstName) &&
+                Objects.equals(lastName, chef.lastName) &&
+                Objects.equals(dateOfBirth, chef.dateOfBirth);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, lastName, dateOfBirth);
+    }
+
+    public static Chef randomChef() {
+        Random random = new Random();
+        return new Chef(
+                "chef",
+                "#" + random.nextInt(1000),
+                LocalDate.of(1940 + random.nextInt(60), random.nextInt(12) + 1, random.nextInt(27) + 1)
+        );
+    }
+
+    private void validateName(String name, String fieldName) {
+        Objects.requireNonNull(name, fieldName + " cannot be null");
+        if (name.trim().isEmpty()) {
+            throw new IllegalArgumentException(fieldName + " cannot be empty");
+        }
+    }
+
+    public int calculateAge() {
+        LocalDate currentDate = LocalDate.now();
+        return Period.between(dateOfBirth, currentDate).getYears();
+    }
+}

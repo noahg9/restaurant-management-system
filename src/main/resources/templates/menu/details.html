@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:include="fragments/head :: head">
+</head>
+
+<body th:object="${menu_item}">
+<header th:insert="~{fragments/navbar::copy}"></header>
+<h1 class="page-title" th:text="#{menu.detailsHeader}">Add Menu Item</h1>
+
+<div class="detail-table-container">
+    <table class="table">
+        <tbody>
+        <tr>
+            <th th:text="#{menu.id}">ID</th>
+            <td th:text="*{id}"></td>
+        </tr>
+        <tr>
+            <th th:text="#{menu.name}">Name</th>
+            <td th:text="*{name}"></td>
+        </tr>
+        <tr>
+            <th th:text="#{menu.price}">Price</th>
+            <td th:text="*{price}"></td>
+        </tr>
+        <tr>
+            <th th:text="#{menu.course}">Course</th>
+            <td th:text="*{course}"></td>
+        </tr>
+        <tr>
+            <th th:text="#{menu.spiceLvl}">Spice Level</th>
+            <td th:text="*{spiceLvl}"></td>
+        </tr>
+        <tr>
+            <th th:text="#{menu.restaurant}">Restaurant</th>
+            <td th:text="${menu_item.restaurant?.name}"></td>
+        </tr>
+        <tr>
+            <th th:text="#{menu.chefs}">Chefs</th>
+            <td>
+                <span th:if="${menu_item.chefs != null and not #lists.isEmpty(menu_item.chefs)}">
+                    <span th:each="chef : ${menu_item.chefs}">
+                        <span th:text="${chef.firstName} + ' ' + ${chef.lastName}"></span><br/>
+                    </span>
+                </span>
+                <span th:if="${menu_item.chefs == null or #lists.isEmpty(menu_item.chefs)}" th:text="#{menu.noChefs}">
+                    No chefs
+                </span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="center-container">
+        <a th:href="@{/menu/list}"><button type="button"><i class="fas fa-arrow-left"></i> Return</button></a>
+    </div>
+</div>
+
+<footer th:insert="~{fragments/footer::copy}"></footer>
+</body>
+</html>
