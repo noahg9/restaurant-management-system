@@ -20,7 +20,7 @@ public interface MenuItemRepository extends JpaRepository<MenuItem, Integer> {
                     from MenuItem menuItem
                         left join fetch menuItem.chefs chefs
                         left join fetch menuItem.chefs
-                    where menuItem.id = :menuItemId
+                    where menuItem.id = :id
             """)
     Optional<MenuItem> findByIdWithChefs(int id);
 

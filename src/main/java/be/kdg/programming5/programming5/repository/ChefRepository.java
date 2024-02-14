@@ -21,7 +21,7 @@ public interface ChefRepository extends JpaRepository<Chef, Integer> {
                     from Chef chef
                         left join fetch chef.menuItems menuItems
                         left join fetch chef.menuItems
-                    where chef.id = :chefId
+                    where chef.id = :id
             """)
     Optional<Chef> findByIdWithMenuItems(int id);
 

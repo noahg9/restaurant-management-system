@@ -26,7 +26,7 @@ public class Chef extends AbstractEntity<Integer> implements Serializable {
     @JoinColumn(name = "RESTAURANT_ID")
     private Restaurant restaurant;
 
-    @OneToMany(mappedBy = "chefs")
+    @OneToMany(mappedBy = "chef")
     private List<MenuItemChef> menuItems;
 
     protected Chef() {}
