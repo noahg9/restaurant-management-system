@@ -20,6 +20,13 @@ public interface ChefService {
     List<Chef> getChefs();
 
     /**
+     * Retrieves a list of all chefs with its associated menu items.
+     *
+     * @return A list of all chefs.
+     */
+    public List<Chef> getChefsWithMenuItems();
+
+    /**
      * Retrieves a chef by their ID.
      *
      * @param id The ID of the chef to retrieve.

@@ -22,7 +22,7 @@ public class Chef extends AbstractEntity<Integer> implements Serializable {
     private String lastName;
     private LocalDate dateOfBirth;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne
     @JoinColumn(name = "RESTAURANT_ID")
     private Restaurant restaurant;
 

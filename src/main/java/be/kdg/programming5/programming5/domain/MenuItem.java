@@ -23,7 +23,7 @@ public class MenuItem extends AbstractEntity<Integer> implements Serializable {
     private boolean vegetarian;
     private int spiceLvl;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne
     @JoinColumn(name = "RESTAURANT_ID")
     private Restaurant restaurant;
 

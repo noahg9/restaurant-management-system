@@ -23,10 +23,10 @@ public class Restaurant extends AbstractEntity<Integer> implements Serializable 
     private LocalDate dateEstablished;
     private int seatingCapacity;
 
-    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "restaurant")
     private List<MenuItem> menuItems = new ArrayList<>();
 
-    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "restaurant")
     private List<Chef> chefs = new ArrayList<>();
 
     protected Restaurant() {}

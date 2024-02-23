@@ -40,6 +40,16 @@ public class ChefServiceImpl implements ChefService {
     }
 
     /**
+     * Retrieves a list of all chefs with its associated menu items.
+     *
+     * @return A list of all chefs.
+     */
+    @Override
+    public List<Chef> getChefsWithMenuItems() {
+        return chefRepository.findAllWithMenuItems();
+    }
+
+    /**
      * Retrieves a chef by its identifier.
      *
      * @param id The identifier of the chef.

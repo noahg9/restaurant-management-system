@@ -40,6 +40,16 @@ public class MenuItemServiceImpl implements MenuItemService {
     }
 
     /**
+     * Retrieves a list of all menu items with its associated chefs.
+     *
+     * @return A list of all menu items.
+     */
+    @Override
+    public List<MenuItem> getMenuItemsWithChefs() {
+        return menuItemRepository.findAllWithChefs();
+    }
+
+    /**
      * Retrieves a menu item by its identifier.
      *
      * @param id The identifier of the menu item.

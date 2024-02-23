@@ -4,6 +4,7 @@ import be.kdg.programming5.programming5.domain.Chef;
 import be.kdg.programming5.programming5.domain.MenuItem;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -16,15 +17,11 @@ import java.util.Optional;
 @Repository
 public interface ChefRepository extends JpaRepository<Chef, Integer> {
 
-    @Query("""
-                    select chef
-                    from Chef chef
-                        left join fetch chef.menuItems menuItems
-                        left join fetch chef.menuItems
-                    where chef.id = :id
-            """)
-    Optional<Chef> findByIdWithMenuItems(int id);
+    @Query("from Chef c left join fetch c.menuItems m left join fetch c.menuItems where c.id = :id")
+    Optional<Chef> findByIdWithMenuItems(@Param("id") int id);
 
+    @Query("FROM MenuItem m LEFT JOIN FETCH m.chefs c LEFT JOIN FETCH c.menuItem")
+    List<Chef> findAllWithMenuItems();
 
     /**
      * Finds chefs by either first name or last name, ignoring case.

@@ -19,6 +19,14 @@ public interface MenuItemService {
      */
     List<MenuItem> getMenuItems();
 
+
+    /**
+     * Retrieves a list of all menu items with its associated chefs.
+     *
+     * @return A list of all menu items.
+     */
+    public List<MenuItem> getMenuItemsWithChefs();
+
     /**
      * Retrieves a menu item by its ID.
      *
@@ -27,6 +35,13 @@ public interface MenuItemService {
      */
     MenuItem getMenuItem(int id);
 
+
+    /**
+     * Retrieves a menu item with its associated chefs.
+     *
+     * @param id The identifier of the menu item.
+     * @return The menu item with the specified identifier, or null if not found.
+     */
     MenuItem getMenuItemWithChefs(int id);
 
     /**
