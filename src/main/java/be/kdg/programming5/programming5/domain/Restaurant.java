@@ -19,8 +19,14 @@ import java.util.Random;
 @Table(name = "RESTAURANTS")
 public class Restaurant extends AbstractEntity<Integer> implements Serializable {
 
+
+    @Column
     private String name;
+
+    @Column
     private LocalDate dateEstablished;
+
+    @Column
     private int seatingCapacity;
 
     @OneToMany(mappedBy = "restaurant")

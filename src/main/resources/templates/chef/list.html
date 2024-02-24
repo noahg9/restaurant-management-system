@@ -42,7 +42,7 @@
                 <form method="post" th:action="@{/chef/delete}" th:object="${chef}" th:method="delete">
                     <input type="hidden" th:if="${chef}" th:name="id" th:value="${chef.id}" />
                     <button type="submit">
-                        <i class="fas fa-trash-alt"></i>
+                        <i class="btn btn-danger btn-sm"></i>    <!-- fas fa-trash-alt -->
                     </button>
                 </form>
             </td>

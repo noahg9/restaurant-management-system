@@ -1,0 +1,27 @@
+### Home page
+
+GET http://localhost:8080
+
+### API: One chef
+
+GET http://localhost:8080/api/chefs/1
+
+### API: All menu items of a chef
+
+GET http://localhost:8080/api/chefs/1/menuitems
+
+### API: Search chefs
+
+GET http://localhost:8080/api/chefs?search=ramsey
+
+### API: One menu item
+
+GET http://localhost:8080/api/menuitems/1
+
+### API: All chefs of a menu item
+
+GET http://localhost:8080/api/menuitems/1/chefs
+
+### API: Search menu items
+
+GET http://localhost:8080/api/menuitems?search=salad

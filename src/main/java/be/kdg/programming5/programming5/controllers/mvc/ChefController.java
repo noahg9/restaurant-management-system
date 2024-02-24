@@ -133,4 +133,12 @@ public class ChefController {
         model.addAttribute("chef", chefService.getChef(id));
         return "chef/details";
     }
+
+    @GetMapping("/search")
+    public String searchIssues(HttpSession session, Model model) {
+        String pageTitle = "Search Chefs";
+        HistoryUtil.updateHistory(session, pageTitle);
+        model.addAttribute("pageTitle", pageTitle);
+        return "chef/search";
+    }
 }

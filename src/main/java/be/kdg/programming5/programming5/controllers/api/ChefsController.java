@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/menuitems")
+@RequestMapping("/api/chefs")
 public class ChefsController {
     private final ChefService chefService;
     private final MenuItemService menuItemService;
@@ -43,7 +43,7 @@ public class ChefsController {
         if (search == null) {
             return ResponseEntity.ok(chefService.getChefs());
         } else {
-            var searchResult = chefService.searchChefsByNameLike(search);
+            var searchResult = chefService.searchChefsByFirstNameLikeOrLastNameLike(search, search);
             if (searchResult.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             } else {

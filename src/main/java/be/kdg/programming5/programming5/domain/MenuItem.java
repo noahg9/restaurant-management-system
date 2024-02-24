@@ -16,11 +16,20 @@ import java.util.Random;
 @Table(name = "MENU_ITEMS")
 public class MenuItem extends AbstractEntity<Integer> implements Serializable {
 
+    @Column
     private String name;
+
+    @Column
     private double price;
+
+    @Column
     @Enumerated(EnumType.STRING)
     private Course course;
+
+    @Column
     private boolean vegetarian;
+
+    @Column
     private int spiceLvl;
 
     @ManyToOne

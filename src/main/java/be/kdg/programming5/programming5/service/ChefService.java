@@ -87,8 +87,8 @@ public class ChefService {
         return chefRepository.findByMenuItemId(menuItemId);
     }
 
-    public List<Chef> searchChefsByNameLike(String searchTerm) {
-        return chefRepository.findChefsByNameLike(searchTerm);
+    public List<Chef> searchChefsByFirstNameLikeOrLastNameLike(String searchTerm1, String searchTerm2) {
+        return chefRepository.findChefsByFirstNameLikeOrLastNameLike(searchTerm1, searchTerm2);
     }
 
     /**

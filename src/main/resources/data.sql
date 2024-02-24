@@ -15,10 +15,10 @@ values
 -- Insert data into MENU_ITEMS table
 insert into MENU_ITEMS (NAME, PRICE, COURSE, VEGETARIAN, SPICE_LVL, RESTAURANT_ID)
 values
-    ('Beef burger', 3.5, 'Main', FALSE, 0, 1),
-    ('Red pepper pizza', 5, 'Main', FALSE, 2, 1),
-    ('Spaghetti carbonara', 5, 'Main', FALSE, 0, 2),
-    ('Vanilla ice Cream', 1.5, 'Dessert', TRUE, 0, 1);
+    ('Ceasar Salad', 3.5, 'Main', FALSE, 0, 1),
+    ('Grilled Salmon', 5, 'Main', FALSE, 2, 1),
+    ('Spaghetti Carbonara', 5, 'Main', FALSE, 0, 2),
+    ('Vanilla Ice Cream', 1.5, 'Dessert', TRUE, 0, 1);
 
 -- Insert data into MENU_ITEMS_CHEFS table
 insert into MENU_ITEMS_CHEFS (MENU_ITEM_ID, CHEF_ID)
