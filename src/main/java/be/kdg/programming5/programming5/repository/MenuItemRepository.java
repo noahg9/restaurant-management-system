@@ -17,11 +17,28 @@ import java.util.Optional;
 @Repository
 public interface MenuItemRepository extends JpaRepository<MenuItem, Integer> {
 
-    @Query("from MenuItem m left join fetch m.chefs c left join fetch m.chefs where m.id = :id")
+    @Query("""
+        select m from MenuItem m
+        left join fetch m.chefs c
+        left join fetch m.chefs
+        where m.id = :id
+        """)
     Optional<MenuItem> findByIdWithChefs(@Param("id") int id);
 
-    @Query("FROM Chef c LEFT JOIN FETCH c.menuItems m LEFT JOIN FETCH m.chef")
+    @Query("""
+        select c from Chef c
+        left join fetch c.menuItems m
+        left join fetch m.chef
+        """)
     List<MenuItem> findAllWithChefs();
+
+    @Query("""
+           select m from MenuItem m
+           left join m.chefs chefs
+           left join chefs.chef c
+           where c.id = :chefId
+           """)
+    List<MenuItem> findByChefId(int chefId);
 
     /**
      * Finds menu items with a price less than or equal to the specified maximum price.
@@ -37,4 +54,7 @@ public interface MenuItemRepository extends JpaRepository<MenuItem, Integer> {
      * @return A list of vegetarian menu items.
      */
     List<MenuItem> findByVegetarianTrue();
+
+    List<MenuItem> findMenuItemsByNameLike(String searchTerm);
+
 }

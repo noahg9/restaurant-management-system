@@ -1,61 +1,95 @@
 package be.kdg.programming5.programming5.service;
 
 import be.kdg.programming5.programming5.domain.Restaurant;
+import be.kdg.programming5.programming5.repository.RestaurantRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
 
 /**
- * Service interface for managing restaurants.
+ * Service implementation using Spring Data JPA for Restaurant-related operations.
  */
-public interface RestaurantService {
+@Service
+public class RestaurantService {
+    private final RestaurantRepository restaurantRepository;
+
+    /**
+     * Constructs a SpringDataRestaurantService with the specified repository.
+     *
+     * @param restaurantRepository The repository for Restaurant entities.
+     */
+    public RestaurantService(RestaurantRepository restaurantRepository) {
+        this.restaurantRepository = restaurantRepository;
+    }
 
     /**
      * Retrieves a list of all restaurants.
      *
-     * @return List of restaurants.
+     * @return A list of all restaurants.
      */
-    List<Restaurant> getRestaurants();
+    
+    public List<Restaurant> getRestaurants() {
+        return restaurantRepository.findAll();
+    }
 
     /**
-     * Retrieves a restaurant by its ID.
+     * Retrieves a restaurant by its identifier.
      *
-     * @param id The ID of the restaurant to retrieve.
-     * @return The restaurant with the specified ID, or null if not found.
+     * @param id The identifier of the restaurant.
+     * @return The restaurant with the specified identifier, or null if not found.
      */
-    Restaurant getRestaurant(int id);
+    
+    public Restaurant getRestaurant(int id) {
+        return restaurantRepository.findById(id).orElse(null);
+    }
 
     /**
-     * Adds a new restaurant to the system.
+     * Adds a new restaurant with the specified details.
      *
-     * @param name             The name of the restaurant.
+     * @param name            The name of the restaurant.
      * @param dateEstablished The date the restaurant was established.
      * @param seatingCapacity The seating capacity of the restaurant.
-     * @return The newly added restaurant.
+     * @return The newly created restaurant.
      */
-    Restaurant addRestaurant(String name, LocalDate dateEstablished, int seatingCapacity);
-
-    /**
-     * Adds a new restaurant to the system.
-     *
-     * @param restaurant The restaurant object to add.
-     * @return The newly added restaurant.
-     */
-    Restaurant addRestaurant(Restaurant restaurant);
-
-    /**
-     * Updates an existing restaurant.
-     *
-     * @param restaurant The restaurant with updated information.
-     */
+    
     @Transactional
-    void updateRestaurant(Restaurant restaurant);
+    public Restaurant addRestaurant(String name, LocalDate dateEstablished, int seatingCapacity) {
+        return restaurantRepository.save(new Restaurant(name, dateEstablished, seatingCapacity));
+    }
 
     /**
-     * Deletes a restaurant by its ID.
+     * Adds a restaurant to the system.
      *
-     * @param id The ID of the restaurant to delete.
+     * @param restaurant The restaurant to add.
+     * @return The added restaurant.
      */
-    void deleteRestaurant(int id);
+    
+    @Transactional
+    public Restaurant addRestaurant(Restaurant restaurant) {
+        return restaurantRepository.save(restaurant);
+    }
+
+    /**
+     * Updates a restaurant's information.
+     *
+     * @param restaurant The restaurant to update.
+     */
+    
+    @Transactional
+    public void updateRestaurant(Restaurant restaurant) {
+        // Implementation needed based on the specific requirements.
+    }
+
+    /**
+     * Deletes a restaurant by its identifier.
+     *
+     * @param id The identifier of the restaurant to delete.
+     */
+    
+    @Transactional
+    public void deleteRestaurant(int id) {
+        restaurantRepository.deleteById(id);
+    }
 }

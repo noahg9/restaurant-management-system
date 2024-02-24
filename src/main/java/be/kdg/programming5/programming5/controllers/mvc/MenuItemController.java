@@ -1,10 +1,10 @@
-package be.kdg.programming5.programming5.presentation.controllers;
+package be.kdg.programming5.programming5.controllers.mvc;
 
 import be.kdg.programming5.programming5.domain.Course;
 import be.kdg.programming5.programming5.domain.Restaurant;
 import be.kdg.programming5.programming5.domain.util.HistoryUtil;
 import be.kdg.programming5.programming5.exceptions.DatabaseException;
-import be.kdg.programming5.programming5.presentation.viewmodel.AddMenuItemViewModel;
+import be.kdg.programming5.programming5.controllers.mvc.viewmodel.AddMenuItemViewModel;
 import be.kdg.programming5.programming5.service.MenuItemService;
 import be.kdg.programming5.programming5.service.RestaurantService;
 import jakarta.servlet.http.HttpSession;

@@ -1,4 +1,4 @@
-package be.kdg.programming5.programming5.presentation.viewmodel;
+package be.kdg.programming5.programming5.controllers.mvc.viewmodel;
 
 import be.kdg.programming5.programming5.domain.Course;
 import jakarta.validation.constraints.DecimalMin;

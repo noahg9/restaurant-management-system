@@ -1,4 +1,4 @@
-package be.kdg.programming5.programming5.presentation.viewmodel;
+package be.kdg.programming5.programming5.controllers.mvc.viewmodel;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

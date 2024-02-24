@@ -17,11 +17,28 @@ import java.util.Optional;
 @Repository
 public interface ChefRepository extends JpaRepository<Chef, Integer> {
 
-    @Query("from Chef c left join fetch c.menuItems m left join fetch c.menuItems where c.id = :id")
+    @Query("""
+        select c from Chef c
+        left join fetch c.menuItems m
+        left join fetch c.menuItems
+        where c.id = :id
+        """)
     Optional<Chef> findByIdWithMenuItems(@Param("id") int id);
 
-    @Query("FROM MenuItem m LEFT JOIN FETCH m.chefs c LEFT JOIN FETCH c.menuItem")
+    @Query("""
+        select m from MenuItem m
+        left join fetch m.chefs c
+        left join fetch c.menuItem
+        """)
     List<Chef> findAllWithMenuItems();
+
+    @Query("""
+           select c from Chef c
+           left join c.menuItems menuItems
+           left join menuItems.menuItem m
+           where m.id = :menuItemId
+           """)
+    List<Chef> findByMenuItemId(int menuItemId);
 
     /**
      * Finds chefs by either first name or last name, ignoring case.
@@ -31,4 +48,6 @@ public interface ChefRepository extends JpaRepository<Chef, Integer> {
      * @return A list of chefs matching the specified first name or last name.
      */
     List<Chef> findByFirstNameIgnoreCaseContainingOrLastNameIgnoreCaseContaining(String firstName, String lastName);
+
+    List<Chef> findChefsByNameLike(String searchTerm);
 }

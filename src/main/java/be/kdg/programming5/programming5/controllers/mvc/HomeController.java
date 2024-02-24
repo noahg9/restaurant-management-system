@@ -1,4 +1,4 @@
-package be.kdg.programming5.programming5.presentation.controllers;
+package be.kdg.programming5.programming5.controllers.mvc;
 
 import be.kdg.programming5.programming5.domain.util.HistoryUtil;
 import jakarta.servlet.http.HttpServletRequest;

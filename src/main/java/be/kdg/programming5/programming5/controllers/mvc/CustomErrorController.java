@@ -1,4 +1,4 @@
-package be.kdg.programming5.programming5.presentation.controllers;
+package be.kdg.programming5.programming5.controllers.mvc;
 
 import org.springframework.boot.web.servlet.error.ErrorAttributes;
 import org.springframework.boot.web.servlet.error.ErrorController;
