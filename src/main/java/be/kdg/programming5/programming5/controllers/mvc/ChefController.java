@@ -42,13 +42,13 @@ public class ChefController {
      * @param model   Model object to add attributes for the view.
      * @return View name for displaying the list of chefs.
      */
-    @GetMapping("/list")
+    @GetMapping("/chefs")
     public String showChefList(HttpSession session, Model model) {
         String pageTitle = "Chef List";
         HistoryUtil.updateHistory(session, pageTitle);
         model.addAttribute("pageTitle", pageTitle);
-        model.addAttribute("list", chefService.getChefs());
-        return "chef/list";
+        model.addAttribute("list", chefService.getAllChefs());
+        return "chefs";
     }
 
     /**
@@ -58,7 +58,7 @@ public class ChefController {
      * @param model   Model object to add attributes for the view.
      * @return View name for the add chef form.
      */
-    @GetMapping("/add")
+    @GetMapping("/add-chef")
     public String showAddChefForm(HttpSession session, Model model) {
         logger.debug("Showing chef form");
         String pageTitle = "Add Chef";
@@ -66,7 +66,7 @@ public class ChefController {
         model.addAttribute("pageTitle", pageTitle);
         model.addAttribute("addChefViewModel", new AddChefViewModel());
         model.addAttribute("restaurants", restaurantService.getRestaurants());
-        return "chef/add";
+        return "add-chef";
     }
 
     /**
@@ -75,7 +75,7 @@ public class ChefController {
      * @param viewModel Form data for adding a new chef.
      * @return Redirect URL after adding the chef.
      */
-    @PostMapping("/add")
+    @PostMapping("/add-chef")
     public String addChef(@ModelAttribute("addChefViewModel") @Valid AddChefViewModel viewModel) {
         try {
             logger.debug("Adding chef {}", viewModel.getFirstName());
@@ -93,7 +93,7 @@ public class ChefController {
             logger.error("Error adding chef: " + e.getMessage());
             return "/error/error";
         }
-        return "redirect:/chef/list";
+        return "redirect:/chef/chefs";
     }
 
 
@@ -107,8 +107,8 @@ public class ChefController {
     public String deleteChef(@RequestParam("id") int chefId) {
         try {
             logger.debug("Deleting chef with ID: " + chefId);
-            chefService.deleteChef(chefId);
-            return "redirect:/chef/list";
+            chefService.removeChef(chefId);
+            return "redirect:/chef/chefs";
         } catch (DatabaseException e) {
             logger.error("Database error deleting chef: " + e.getMessage());
             return "dberror";
@@ -125,20 +125,20 @@ public class ChefController {
      * @param model Model object to add attributes for the view.
      * @return View name for displaying chef details.
      */
-    @GetMapping("/details/{id}")
+    @GetMapping("/chef/{id}")
     public String showChefDetails(@PathVariable int id, HttpSession session, Model model) {
         String pageTitle = "Chef Details";
         HistoryUtil.updateHistory(session, pageTitle);
         model.addAttribute("pageTitle", pageTitle);
         model.addAttribute("chef", chefService.getChef(id));
-        return "chef/details";
+        return "chef";
     }
 
-    @GetMapping("/search")
+    @GetMapping("/search-chefs")
     public String searchIssues(HttpSession session, Model model) {
         String pageTitle = "Search Chefs";
         HistoryUtil.updateHistory(session, pageTitle);
         model.addAttribute("pageTitle", pageTitle);
-        return "chef/search";
+        return "search-chefs";
     }
 }

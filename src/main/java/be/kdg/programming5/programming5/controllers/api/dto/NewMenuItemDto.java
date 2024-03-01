@@ -2,13 +2,10 @@ package be.kdg.programming5.programming5.controllers.api.dto;
 
 import be.kdg.programming5.programming5.domain.Course;
 import be.kdg.programming5.programming5.domain.Restaurant;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.validation.constraints.NotBlank;
 
-import java.time.LocalDate;
-
-public class MenuItemDto {
-    private int id;
+public class NewMenuItemDto {
+    @NotBlank
     private String name;
     private double price;
     private Course course;
@@ -16,25 +13,16 @@ public class MenuItemDto {
     private int spiceLvl;
     private Restaurant restaurant;
 
-    public MenuItemDto() {
+    public NewMenuItemDto() {
     }
 
-    public MenuItemDto(int id, String name, double price, Course course, boolean vegetarian, int spiceLvl, Restaurant restaurant) {
-        this.id = id;
+    public NewMenuItemDto(String name, double price, Course course, boolean vegetarian, int spiceLvl, Restaurant restaurant) {
         this.name = name;
         this.price = price;
         this.course = course;
         this.vegetarian = vegetarian;
         this.spiceLvl = spiceLvl;
         this.restaurant = restaurant;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {

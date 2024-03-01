@@ -1,34 +1,29 @@
 package be.kdg.programming5.programming5.controllers.api.dto;
 
 import be.kdg.programming5.programming5.domain.Restaurant;
+import jakarta.validation.constraints.NotBlank;
 
 import java.time.LocalDate;
 
-public class ChefDto {
-    private int id;
+public class NewChefDto {
+
+    @NotBlank
     private String firstName;
+    @NotBlank
     private String lastName;
     private LocalDate dateOfBirth;
     private Restaurant restaurant;
 
-    public ChefDto() {
+    public NewChefDto() {
     }
 
-    public ChefDto(int id, String firstName, String lastName, LocalDate dateOfBirth, Restaurant restaurant) {
-        this.id = id;
+    public NewChefDto(String firstName, String lastName, LocalDate dateOfBirth, Restaurant restaurant) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
         this.restaurant = restaurant;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getFirstName() {
         return firstName;

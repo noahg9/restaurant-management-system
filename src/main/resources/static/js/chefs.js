@@ -15,3 +15,51 @@ async function handleDeleteChef(event) {
         row.parentNode.removeChild(row);
     }
 }
+
+const firstNameInput = document.getElementById("inputFirstName");
+const lastNameInput = document.getElementById("inputLastName");
+const dateOfBirthInput = document.getElementById("inputDateOfBirth");
+const addButton = document.getElementById("addButton");
+const issueTableBody = document.getElementById("issueTableBody");
+
+async function addNewChef() {
+    const response = await fetch(`/api/chefs`, {
+        method: "POST",
+        body: JSON.stringify({
+            firstName: firstNameInput.value,
+            lastName: lastNameInput.value,
+            dateOfBirth: dateOfBirthInput.value
+        }),
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        }
+    })
+    if (response.status === 201) {
+        const chef = await response.json()
+        addChefToTable(chef);
+    }
+}
+
+/**
+ * @param {{id: number, firstName: string, lastName: string, dateOfBirth: date}} chef
+ */
+function addChefToTable(chef) {
+    const tableRow = document.createElement("tr");
+    tableRow.id = `issue_${chef.id}`;
+    tableRow.innerHTML = `
+        <td>${chef.firstName}</td>
+        <td>${chef.lastName}</td>
+        <td>${chef.dateOfBirth}</td>
+        <td></td>
+        <td><a href="/chef?id=${chef.id}">Details</a></td>
+        <td><button type="button" class="btn btn-danger btn-sm">Delete</button></td>
+    `
+    issueTableBody.appendChild(tableRow);
+
+    const newDeleteButton = tableRow.querySelector('button');
+    newDeleteButton.addEventListener("click", handleDeleteChef)
+}
+
+addButton.addEventListener("click", addNewChef);
+

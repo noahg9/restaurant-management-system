@@ -32,7 +32,7 @@
             <td>
                 <span th:text="${menu_item.name}"></span>
                 <!-- Link to details page -->
-                <a th:href="@{/menu/details/{id}(id=${menu_item.id})}">
+                <a th:href="@{/menu/menu-item/{id}(id=${menu_item.id})}">
                     <i class="fas fa-info-circle"></i>
                 </a>
             </td>

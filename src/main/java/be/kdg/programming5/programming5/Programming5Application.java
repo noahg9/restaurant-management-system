@@ -16,8 +16,7 @@ public class Programming5Application {
      * @param args The command line arguments.
      */
     public static void main(String[] args) {
-        // Run the Spring Boot application and retrieve the application context
-        ApplicationContext context = SpringApplication.run(Programming5Application.class, args);
+        SpringApplication.run(Programming5Application.class, args);
     }
 
 }

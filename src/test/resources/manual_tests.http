@@ -1,27 +1,63 @@
+GET https://www.google.com
+
 ### Home page
 
 GET http://localhost:8080
 
-### API: One chef
+### API: retrieve all chefs
+
+GET http://localhost:8080/api/chefs
+Accept: application/json
+
+### API: retrieve one chef (path variable)
 
 GET http://localhost:8080/api/chefs/1
+Accept: application/xml
 
-### API: All menu items of a chef
+### API: retrieve all menu items of one chef
 
 GET http://localhost:8080/api/chefs/1/menuitems
+Accept: application/json
 
-### API: Search chefs
+### API: search chefs
 
 GET http://localhost:8080/api/chefs?search=ramsey
+Accept: application/json
 
-### API: One menu item
+### API: retrieve one menu item
 
 GET http://localhost:8080/api/menuitems/1
+Accept: application/xml
 
-### API: All chefs of a menu item
+### API: retrieve all chefs of a menu item
 
 GET http://localhost:8080/api/menuitems/1/chefs
+Accept: application/json
 
-### API: Search menu items
+### API: search menu items
 
 GET http://localhost:8080/api/menuitems?search=salad
+Accept: application/json
+
+### API: add a chef (201)
+
+POST http://localhost:8080/api/chefs
+Accept: application/json
+Content-Type: application/json
+
+{
+  "firstName": "First name",
+  "lastName": "Last name"
+}
+
+### API: add a chef (400)
+
+POST http://localhost:8080/api/chefs
+Accept: application/json
+Content-Type: application/json
+
+{
+  "firstName": "First name",
+  "lastName": "Last name"
+}
+

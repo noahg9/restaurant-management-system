@@ -43,14 +43,14 @@ public class MenuItemController {
      * @param model   The model to add attributes.
      * @return The view name for the menu item list.
      */
-    @GetMapping("/list")
+    @GetMapping("/menu-items")
     public String showMenuItemList(HttpSession session, Model model) {
         logger.info("Getting menu items");
         String pageTitle = "Menu Item List";
         HistoryUtil.updateHistory(session, pageTitle);
         model.addAttribute("pageTitle", pageTitle);
-        model.addAttribute("list", menuItemService.getMenuItems());
-        return "menu/list";
+        model.addAttribute("list", menuItemService.getAllMenuItems());
+        return "menu-items";
     }
 
     /**
@@ -60,7 +60,7 @@ public class MenuItemController {
      * @param model   The model to add attributes.
      * @return The view name for the add menu item form.
      */
-    @GetMapping("/add")
+    @GetMapping("/add-menu-item")
     public String showAddMenuItemForm(HttpSession session, Model model) {
         logger.debug("Showing menu item form");
         String pageTitle = "Add Menu Item";
@@ -69,7 +69,7 @@ public class MenuItemController {
         model.addAttribute("addMenuItemViewModel", new AddMenuItemViewModel());
         model.addAttribute("courses", Course.values());
         model.addAttribute("restaurants", restaurantService.getRestaurants());
-        return "menu/add";
+        return "add-menu-item";
     }
 
     /**
@@ -78,7 +78,7 @@ public class MenuItemController {
      * @param viewModel The ViewModel containing data for the new menu item.
      * @return The redirect URL after adding the menu item.
      */
-    @PostMapping("/add")
+    @PostMapping("/add-menu-item")
     public String addMenuItem(@ModelAttribute("addMenuItemViewModel") @Valid AddMenuItemViewModel viewModel) {
         try {
             logger.debug("Adding menu item {}", viewModel.getName());
@@ -98,7 +98,7 @@ public class MenuItemController {
             logger.error("Error adding menu item: " + e.getMessage());
             return "/error/error";
         }
-        return "redirect:/menu/list";
+        return "redirect:/menu/menu-items";
     }
 
     /**
@@ -111,8 +111,8 @@ public class MenuItemController {
     public String deleteMenuItem(@RequestParam("id") int menuItemId) {
         try {
             logger.debug("Deleting menu item with ID: " + menuItemId);
-            menuItemService.deleteMenuItem(menuItemId);
-            return "redirect:/menu/list";
+            menuItemService.removeMenuItem(menuItemId);
+            return "redirect:/menu/menu-items";
         } catch (DatabaseException e) {
             logger.error("Database error deleting menu item: " + e.getMessage());
             return "dberror";
@@ -129,11 +129,11 @@ public class MenuItemController {
      * @param model The model to add attributes.
      * @return The view name for the menu item details.
      */
-    @GetMapping("/details/{id}")
+    @GetMapping("/menu-item/{id}")
     public String showMenuItemDetails(@PathVariable int id, Model model) {
         String pageTitle = "Menu Item Details";
         model.addAttribute("pageTitle", pageTitle);
         model.addAttribute("menu_item", menuItemService.getMenuItem(id));
-        return "menu/details";
+        return "menu-item";
     }
 }

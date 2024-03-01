@@ -8,7 +8,8 @@ async function toggleMenuItemsTable() {
     if (menuItemsTable.style.display === "table") {
         hideMenuItemsTable();
     } else {
-        const response = await fetch(`/api/chefs/${chefIdInput.value}/menuitems`);
+        const response = await fetch(`/api/chefs/${chefIdInput.value}/menuitems`,
+            { headers: { Accept: "application/json" } });
         if (response.status === 200) {
             const menuItems = await response.json();
             tableBody.innerHTML = '';

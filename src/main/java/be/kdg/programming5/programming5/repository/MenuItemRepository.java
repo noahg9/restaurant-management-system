@@ -1,10 +1,8 @@
 package be.kdg.programming5.programming5.repository;
 
-import be.kdg.programming5.programming5.domain.Chef;
 import be.kdg.programming5.programming5.domain.MenuItem;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -19,23 +17,23 @@ public interface MenuItemRepository extends JpaRepository<MenuItem, Integer> {
 
     @Query("""
         select menuItem from MenuItem menuItem
-        left join fetch menuItem.chefs menuItemChef
-        left join fetch menuItemChef.chef
-        where menuItem.id = :id
+        left join fetch menuItem.chefs menuItemChefs
+        left join fetch menuItemChefs.chef
+        where menuItem.id = :menuItemId
         """)
-    Optional<MenuItem> findByIdWithChefs(@Param("id") int id);
+    Optional<MenuItem> findByIdWithChefs(int menuItemId);
 
     @Query("""
-        select chef from Chef chef
-        left join fetch chef.menuItems menuItemChef
+        select menuItem from MenuItem menuItem
+        left join fetch menuItem.chefs menuItemChef
         left join fetch menuItemChef.chef
         """)
     List<MenuItem> findAllWithChefs();
 
     @Query("""
            select menuItem from MenuItem menuItem
-           left join menuItem.chefs menuItemChef
-           left join menuItemChef.chef chef
+           left join menuItem.chefs menuItemChefs
+           left join menuItemChefs.chef chef
            where chef.id = :chefId
            """)
     List<MenuItem> findByChefId(int chefId);

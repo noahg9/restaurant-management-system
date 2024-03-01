@@ -18,10 +18,10 @@ import java.util.Random;
 @Table(name = "CHEFS")
 public class Chef extends AbstractEntity<Integer> implements Serializable {
 
-    @Column
+    @Column(nullable = false)
     private String firstName;
 
-    @Column
+    @Column(nullable = false)
     private String lastName;
 
     @Column

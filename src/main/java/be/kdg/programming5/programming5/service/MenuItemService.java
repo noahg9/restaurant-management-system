@@ -1,10 +1,9 @@
 package be.kdg.programming5.programming5.service;
 
-import be.kdg.programming5.programming5.domain.Chef;
 import be.kdg.programming5.programming5.domain.Course;
 import be.kdg.programming5.programming5.domain.MenuItem;
 import be.kdg.programming5.programming5.domain.Restaurant;
-import be.kdg.programming5.programming5.repository.ChefRepository;
+import be.kdg.programming5.programming5.repository.MenuItemChefRepository;
 import be.kdg.programming5.programming5.repository.MenuItemRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -17,17 +16,17 @@ import java.util.List;
 @Service
 public class MenuItemService {
     private final MenuItemRepository menuItemRepository;
-    private final ChefRepository chefRepository;
+    private final MenuItemChefRepository menuItemChefRepository;
 
     /**
      * Constructs a SpringDataMenuItemService with the specified repositories.
      *
-     * @param menuItemRepository The repository for MenuItem entities.
-     * @param chefRepository     The repository for Chef entities.
+     * @param menuItemRepository        The repository for MenuItem entities.
+     * @param menuItemChefRepository    The repository for MenuItemChef entities.
      */
-    public MenuItemService(MenuItemRepository menuItemRepository, ChefRepository chefRepository) {
+    public MenuItemService(MenuItemRepository menuItemRepository, MenuItemChefRepository menuItemChefRepository) {
         this.menuItemRepository = menuItemRepository;
-        this.chefRepository = chefRepository;
+        this.menuItemChefRepository = menuItemChefRepository;
     }
 
     /**
@@ -36,7 +35,7 @@ public class MenuItemService {
      * @return A list of all menu items.
      */
     
-    public List<MenuItem> getMenuItems() {
+    public List<MenuItem> getAllMenuItems() {
         return menuItemRepository.findAll();
     }
 
@@ -53,23 +52,23 @@ public class MenuItemService {
     /**
      * Retrieves a menu item by its identifier.
      *
-     * @param id The identifier of the menu item.
+     * @param menuItemId The identifier of the menu item.
      * @return The menu item with the specified identifier, or null if not found.
      */
     
-    public MenuItem getMenuItem(int id) {
-        return menuItemRepository.findById(id).orElse(null);
+    public MenuItem getMenuItem(int menuItemId) {
+        return menuItemRepository.findById(menuItemId).orElse(null);
     }
 
     /**
      * Retrieves a menu item with its associated chefs.
      *
-     * @param id The identifier of the menu item.
+     * @param menuItemId The identifier of the menu item.
      * @return The menu item with the specified identifier, or null if not found.
      */
     
-    public MenuItem getMenuItemWithChefs(int id) {
-        return menuItemRepository.findByIdWithChefs(id).orElse(null);
+    public MenuItem getMenuItemWithChefs(int menuItemId) {
+        return menuItemRepository.findByIdWithChefs(menuItemId).orElse(null);
     }
 
     public List<MenuItem> getMenuItemsOfChef(int chefId) {
@@ -98,7 +97,7 @@ public class MenuItemService {
     }
 
     public List<MenuItem> searchMenuItemsByNameLike(String searchTerm) {
-        return menuItemRepository.findMenuItemsByNameLike(searchTerm);
+        return menuItemRepository.findMenuItemsByNameLike("%" + searchTerm + "%");
     }
 
     /**
@@ -113,7 +112,6 @@ public class MenuItemService {
      * @return The newly created menu item.
      */
     
-    @Transactional
     public MenuItem addMenuItem(String name, double price, Course course, Boolean vegetarian, int spiceLvl, Restaurant restaurant) {
         return menuItemRepository.save(new MenuItem(name, price, course, vegetarian, spiceLvl, restaurant));
     }
@@ -125,7 +123,6 @@ public class MenuItemService {
      * @return The added menu item.
      */
     
-    @Transactional
     public MenuItem addMenuItem(MenuItem menuItem) {
         return menuItemRepository.save(menuItem);
     }
@@ -136,7 +133,6 @@ public class MenuItemService {
      * @param menuItem The menu item to update.
      */
     
-    @Transactional
     public void updateMenuItem(MenuItem menuItem) {
         // Implementation needed based on the specific requirements.
     }
@@ -144,18 +140,19 @@ public class MenuItemService {
     /**
      * Deletes a menu item by its identifier.
      *
-     * @param id The identifier of the menu item to delete.
+     * @param menuItemId The identifier of the menu item to delete.
      */
     
     @Transactional
-    public void deleteMenuItem(int id) {
-/*        MenuItem menuItem = getMenuItem(id);
-        if (menuItem != null) {
-            menuItem.getChefs().forEach(chef -> {
-                chef.getMenuItems().remove(menuItem);
-                chefRepository.save(chef);
-            });
-            menuItemRepository.deleteById(id);
-        }*/
+    public boolean removeMenuItem(int menuItemId) {
+        var menuItem = menuItemRepository.findByIdWithChefs(menuItemId);
+        if (menuItem.isEmpty()) {
+            return false;
+        }
+
+        menuItemChefRepository.deleteAll(menuItem.get().getChefs());
+
+        menuItemRepository.deleteById(menuItemId);
+        return true;
     }
 }

@@ -1,10 +1,9 @@
 package be.kdg.programming5.programming5.service;
 
 import be.kdg.programming5.programming5.domain.Chef;
-import be.kdg.programming5.programming5.domain.MenuItem;
 import be.kdg.programming5.programming5.domain.Restaurant;
 import be.kdg.programming5.programming5.repository.ChefRepository;
-import be.kdg.programming5.programming5.repository.MenuItemRepository;
+import be.kdg.programming5.programming5.repository.MenuItemChefRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -17,17 +16,17 @@ import java.util.List;
 @Service
 public class ChefService {
     private final ChefRepository chefRepository;
-    private final MenuItemRepository menuItemRepository;
+    private final MenuItemChefRepository menuItemChefRepository;
 
     /**
      * Constructs a SpringDataChefService with the specified repositories.
      *
      * @param chefRepository      The repository for Chef entities.
-     * @param menuItemRepository The repository for MenuItem entities.
+     * @param menuItemChefRepository The repository for MenuItemChef entities.
      */
-    public ChefService(ChefRepository chefRepository, MenuItemRepository menuItemRepository) {
+    public ChefService(ChefRepository chefRepository, MenuItemChefRepository menuItemChefRepository) {
         this.chefRepository = chefRepository;
-        this.menuItemRepository = menuItemRepository;
+        this.menuItemChefRepository = menuItemChefRepository;
     }
 
     /**
@@ -36,7 +35,7 @@ public class ChefService {
      * @return A list of all chefs.
      */
     
-    public List<Chef> getChefs() {
+    public List<Chef> getAllChefs() {
         return chefRepository.findAll();
     }
 
@@ -53,23 +52,23 @@ public class ChefService {
     /**
      * Retrieves a chef by its identifier.
      *
-     * @param id The identifier of the chef.
+     * @param chefId The identifier of the chef.
      * @return The chef with the specified identifier, or null if not found.
      */
     
-    public Chef getChef(int id) {
-        return chefRepository.findById(id).orElse(null);
+    public Chef getChef(int chefId) {
+        return chefRepository.findById(chefId).orElse(null);
     }
 
     /**
      * Retrieves a chef with its associated menu items.
      *
-     * @param id The identifier of the chef.
+     * @param chefId The identifier of the chef.
      * @return The chef with the specified identifier, or null if not found.
      */
     
-    public Chef getChefWithMenuItems(int id) {
-        return chefRepository.findByIdWithMenuItems(id).orElse(null);
+    public Chef getChefWithMenuItems(int chefId) {
+        return chefRepository.findByIdWithMenuItems(chefId).orElse(null);
     }
 
     /**
@@ -88,7 +87,7 @@ public class ChefService {
     }
 
     public List<Chef> searchChefsByFirstNameLikeOrLastNameLike(String searchTerm1, String searchTerm2) {
-        return chefRepository.findChefsByFirstNameLikeOrLastNameLike(searchTerm1, searchTerm2);
+        return chefRepository.findChefsByFirstNameLikeOrLastNameLike("%" + searchTerm1 + "%", "%" + searchTerm2 + "%");
     }
 
     /**
@@ -101,7 +100,6 @@ public class ChefService {
      * @return The newly created chef.
      */
     
-    @Transactional
     public Chef addChef(String firstName, String lastName, LocalDate dateOfBirth, Restaurant restaurant) {
         return chefRepository.save(new Chef(firstName, lastName, dateOfBirth, restaurant));
     }
@@ -113,7 +111,6 @@ public class ChefService {
      * @return The added chef.
      */
     
-    @Transactional
     public Chef addChef(Chef chef) {
         return chefRepository.save(chef);
     }
@@ -124,26 +121,21 @@ public class ChefService {
      * @param chef The chef to update.
      */
     
-    @Transactional
     public void updateChef(Chef chef) {
         // Implementation needed based on the specific requirements.
     }
 
-    /**
-     * Deletes a chef by its identifier.
-     *
-     * @param id The identifier of the chef to delete.
-     */
-    
+
     @Transactional
-    public void deleteChef(int id) {
-/*        Chef chef = getChef(id);
-        if (chef != null) {
-            chef.getMenuItems().forEach(menuItem -> {
-                menuItem.getChefs().remove(chef);
-                menuItemRepository.save(menuItem);
-            });
-            chefRepository.deleteById(id);
-        }*/
+    public boolean removeChef(int chefId) {
+        var chef = chefRepository.findByIdWithMenuItems(chefId);
+        if (chef.isEmpty()) {
+            return false;
+        }
+
+        menuItemChefRepository.deleteAll(chef.get().getMenuItems());
+
+        chefRepository.deleteById(chefId);
+        return true;
     }
 }

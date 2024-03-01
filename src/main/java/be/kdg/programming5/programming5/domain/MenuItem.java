@@ -16,7 +16,7 @@ import java.util.Random;
 @Table(name = "MENU_ITEMS")
 public class MenuItem extends AbstractEntity<Integer> implements Serializable {
 
-    @Column
+    @Column(nullable = false)
     private String name;
 
     @Column

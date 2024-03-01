@@ -2,10 +2,12 @@ package be.kdg.programming5.programming5.controllers.api;
 
 import be.kdg.programming5.programming5.controllers.api.dto.ChefDto;
 import be.kdg.programming5.programming5.controllers.api.dto.MenuItemDto;
+import be.kdg.programming5.programming5.controllers.api.dto.NewChefDto;
 import be.kdg.programming5.programming5.domain.Chef;
-import be.kdg.programming5.programming5.domain.MenuItem;
+import be.kdg.programming5.programming5.domain.MenuItemChef;
 import be.kdg.programming5.programming5.service.ChefService;
-import be.kdg.programming5.programming5.service.MenuItemService;
+import jakarta.validation.Valid;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,32 +18,51 @@ import java.util.List;
 @RequestMapping("/api/chefs")
 public class ChefsController {
     private final ChefService chefService;
-    private final MenuItemService menuItemService;
+    private final ModelMapper modelMapper;
 
-    public ChefsController(ChefService chefService, MenuItemService menuItemService) {
+    public ChefsController(ChefService chefService, ModelMapper modelMapper) {
         this.chefService = chefService;
-        this.menuItemService = menuItemService;
+        this.modelMapper = modelMapper;
     }
 
-    @GetMapping("{id}") // "/api/chefs/{id}"
+    @PostMapping
+    ResponseEntity<ChefDto> addChef(@RequestBody @Valid NewChefDto chefDto) {
+        var createdChef = chefService.addChef(chefDto.getFirstName(), chefDto.getLastName(), chefDto.getDateOfBirth(), chefDto.getRestaurant());
+        return new ResponseEntity<>(
+                modelMapper.map(createdChef, ChefDto.class),
+                HttpStatus.CREATED
+        );
+    }
+
+    // "/api/chefs/{id}"
+    @GetMapping("{id}")
     Chef getOneChef(@PathVariable("id") int chefId) {
         return chefService.getChef(chefId);
     }
 
-    @GetMapping("{id}/menuItems")  // "/api/chefs/1/menuItems"
-    public List<MenuItemDto> getMenuItemsOfChef(@PathVariable("id") int chefId) {
-        return menuItemService
-                .getMenuItemsOfChef(chefId)
+    // "/api/chefs/{id}/menuitems"
+    @GetMapping("{id}/menuitems")
+    ResponseEntity<List<MenuItemDto>> getMenuItemsOfChef(@PathVariable("id") int chefId) {
+        var chef = chefService.getChefWithMenuItems(chefId);
+        if (chef == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        if (chef.getMenuItems().isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return ResponseEntity.ok(chef.getMenuItems()
                 .stream()
-                .map(menuItem -> new MenuItemDto(menuItem.getId(), menuItem.getName(), menuItem.getPrice(), menuItem.getCourse(), menuItem.getVegetarian(), menuItem.getSpiceLvl()))
-                .toList();
+                .map(MenuItemChef::getMenuItem)
+                .map(dev -> modelMapper.map(dev, MenuItemDto.class))
+                .toList());
     }
 
-    @GetMapping // "/api/chefs"
+    // "/api/chefs"
+    @GetMapping
     ResponseEntity<List<Chef>> searchChefs(@RequestParam(required = false) String search) {
         // TODO: return menuItemDto
         if (search == null) {
-            return ResponseEntity.ok(chefService.getChefs());
+            return ResponseEntity.ok(chefService.getAllChefs());
         } else {
             var searchResult = chefService.searchChefsByFirstNameLikeOrLastNameLike(search, search);
             if (searchResult.isEmpty()) {
@@ -52,10 +73,12 @@ public class ChefsController {
         }
     }
 
+    // "/api/chefs/{id}"
     @DeleteMapping("{id}")
     ResponseEntity<Void> deleteChef(@PathVariable("id") int chefId) {
-        // TODO: 204 ... AND(!) ... 404
-        // TODO: chefService.delete(chefId)
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        if (chefService.removeChef(chefId)) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }
