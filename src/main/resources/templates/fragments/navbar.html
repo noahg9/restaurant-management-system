@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:include="fragments/head :: head">
+<head th:insert="~{fragments/head :: head}">
 </head>
 
 <body>
@@ -36,7 +36,10 @@
                     <a th:href="@{/menu/add-menu-item}" class="nav-item nav-link"><i class="fas fa-plus"></i> <span th:text="#{navbar.addMenuItem}">Add Menu Item</span></a>
 
                     <!-- Search Chefs Link -->
-                    <a th:href="@{/chef/search-chef}" class="nav-item nav-link"><i class="fas fa-plus"></i> <span th:text="#{navbar.searchChefs}">Search Chefs</span></a>
+                    <a th:href="@{/chef/search-chefs}" class="nav-item nav-link"><i class="fas fa-search"></i> <span th:text="#{navbar.searchChefs}">Search Chefs</span></a>
+
+                    <!-- Search Menu Items Link -->
+                    <a th:href="@{/menu/search-menu-items}" class="nav-item nav-link"><i class="fas fa-search"></i> <span th:text="#{navbar.searchMenuItems}">Search Menu Items</span></a>
 
                     <!-- History Link -->
                     <a th:href="@{/session/history}" class="nav-item nav-link"><i class="fas fa-history"></i> <span th:text="#{navbar.history}">History</span></a>

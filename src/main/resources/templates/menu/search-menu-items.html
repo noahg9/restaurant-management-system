@@ -1,36 +1,37 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:insert="~{fragments/head :: head}">
-    <title>Search Chefs</title>
+    <title>Search Menu Items</title>
     <thymeleaf th:replace="~{includes :: meta_script_link}"></thymeleaf>
-    <script src="/js/search-chefs.js" defer></script>
+    <script src="/js/search-menu-items.js" defer></script>
 </head>
 
 <body>
 <header th:insert="~{fragments/navbar::copy}"></header>
 
-<h1 class="page-title" th:text="#{chef.searchHeader}">Search Chefs</h1>
+<h1 class="page-title" th:text="#{menu.searchHeader}">Search Chefs</h1>
 
 <main class="container">
-    <h1>Search Chefs</h1>
+    <h1>Search Menu Items</h1>
     <form>
         <div class="mb-3">
             <label for="searchTerm" class="form-label">Name</label>
             <input type="text" class="form-control" id="searchTerm" aria-describedby="searchHelp">
-            <div id="searchHelp" class="form-text">Searches both the first and last name.</div>
+            <div id="searchHelp" class="form-text">Searches the name.</div>
         </div>
         <button type="button" class="btn btn-primary" id="searchButton">Search</button>
     </form>
 
     <section id="searchResultsSection">
-        <h2 class="mt-5">Chefs Found</h2>
+        <h2 class="mt-5">Menu Items Found</h2>
         <table class="table">
             <thead>
             <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Date Of Birth</th>
-                <th></th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Course</th>
+                <th>Vegetarian</th>
+                <th>Spice Level</th>
             </tr>
             </thead>
             <tbody>

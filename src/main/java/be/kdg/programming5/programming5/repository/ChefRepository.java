@@ -43,7 +43,7 @@ public interface ChefRepository extends JpaRepository<Chef, Integer> {
      *
      * @param firstName The first name to search for.
      * @param lastName  The last name to search for.
-     * @return A list of chefs matching the specified first name or last name.
+     * @return A all_chefs of chefs matching the specified first name or last name.
      */
     List<Chef> findByFirstNameIgnoreCaseContainingOrLastNameIgnoreCaseContaining(String firstName, String lastName);
 

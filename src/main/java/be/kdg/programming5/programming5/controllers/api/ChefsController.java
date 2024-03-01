@@ -3,6 +3,7 @@ package be.kdg.programming5.programming5.controllers.api;
 import be.kdg.programming5.programming5.controllers.api.dto.ChefDto;
 import be.kdg.programming5.programming5.controllers.api.dto.MenuItemDto;
 import be.kdg.programming5.programming5.controllers.api.dto.NewChefDto;
+import be.kdg.programming5.programming5.controllers.api.dto.UpdateChefDobDto;
 import be.kdg.programming5.programming5.domain.Chef;
 import be.kdg.programming5.programming5.domain.MenuItemChef;
 import be.kdg.programming5.programming5.service.ChefService;
@@ -36,8 +37,19 @@ public class ChefsController {
 
     // "/api/chefs/{id}"
     @GetMapping("{id}")
-    Chef getOneChef(@PathVariable("id") int chefId) {
-        return chefService.getChef(chefId);
+    ResponseEntity<ChefDto> getOneChef(@PathVariable("id") int chefId) {
+        var chef = chefService.getChef(chefId);
+        if (chef == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(
+                new ChefDto(
+                        chef.getId(),
+                        chef.getFirstName(),
+                        chef.getLastName(),
+                        chef.getDateOfBirth(),
+                        chef.getRestaurant()
+                ));
     }
 
     // "/api/chefs/{id}/menuitems"
@@ -80,5 +92,15 @@ public class ChefsController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @PatchMapping("{id}")
+    ResponseEntity<Void> changeChef(@PathVariable("id") int chefId,
+                                     @RequestBody @Valid UpdateChefDobDto updateChefDobDto) {
+        if (chefService.changeChefDob(chefId, updateChefDobDto.getDateOfBirth())) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }

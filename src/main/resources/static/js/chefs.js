@@ -20,7 +20,7 @@ const firstNameInput = document.getElementById("inputFirstName");
 const lastNameInput = document.getElementById("inputLastName");
 const dateOfBirthInput = document.getElementById("inputDateOfBirth");
 const addButton = document.getElementById("addButton");
-const issueTableBody = document.getElementById("issueTableBody");
+const chefTableBody = document.getElementById("chefsTableBody");
 
 async function addNewChef() {
     const response = await fetch(`/api/chefs`, {
@@ -55,7 +55,7 @@ function addChefToTable(chef) {
         <td><a href="/chef?id=${chef.id}">Details</a></td>
         <td><button type="button" class="btn btn-danger btn-sm">Delete</button></td>
     `
-    issueTableBody.appendChild(tableRow);
+    chefTableBody.appendChild(tableRow);
 
     const newDeleteButton = tableRow.querySelector('button');
     newDeleteButton.addEventListener("click", handleDeleteChef)

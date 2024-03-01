@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:include="fragments/head :: head">
-    <!-- Include the common head elements -->
-</head>
+<head th:insert="~{fragments/head :: head}">
+    <title>Menu Items</title>
+    <thymeleaf th:replace="~{includes :: meta_script_link}"></thymeleaf>
+    <script src="/js/menu-items.js" defer></script></head>
 <body>
 <!-- Include the navbar fragment -->
 <header th:insert="~{fragments/navbar::copy}"></header>
@@ -11,7 +12,7 @@
 <h1 class="page-title" th:text="#{menu.listHeader}">Menu List</h1>
 
 <!-- Container for displaying the menu items -->
-<div class="menu-table-container">
+<main class="menu-table-container">
     <!-- Table for rendering menu item details -->
     <table class="table">
         <thead>
@@ -22,17 +23,16 @@
             <th th:text="#{menu.course}">Course</th>
             <th th:text="#{menu.vegetarian}">Vegetarian</th>
             <th th:text="#{menu.spiceLvl}">Spice Level</th>
-            <th></th>
         </tr>
         </thead>
-        <tbody>
+        <tbody id="menuItemTableBody">
         <!-- Iterate over menu items and display each entry -->
-        <tr th:each="menu_item, menu_itemStat : ${list}" th:class="${menu_itemStat.odd}? 'odd'">
+        <tr th:id="'menu_item_' + ${menu_item.id}" th:each="menu_item, menu_itemStat : ${all_menu_items}" th:class="${menu_itemStat.odd}? 'odd'">
             <!-- Display menu item details -->
             <td>
                 <span th:text="${menu_item.name}"></span>
                 <!-- Link to details page -->
-                <a th:href="@{/menu/menu-item/{id}(id=${menu_item.id})}">
+                <a th:href="@{/menu/menu-item(id=${menu_item.id})}">
                     <i class="fas fa-info-circle"></i>
                 </a>
             </td>
@@ -53,7 +53,7 @@
         </tr>
         </tbody>
     </table>
-</div>
+</main>
 
 <!-- Include the footer fragment -->
 <footer th:insert="~{fragments/footer::copy}"></footer>

@@ -9,12 +9,14 @@ import jakarta.validation.constraints.NotNull;
 /**
  * ViewModel class for adding a menu item, containing necessary information.
  */
-public class AddMenuItemViewModel {
+public class MenuItemViewModel {
+
+    private int id;
 
     @NotBlank(message = "Name cannot be empty")
     private String name;
 
-    @DecimalMin(value = "0.0", inclusive = true, message = "Price must be greater than 0.0")
+    @DecimalMin(value = "0.0", message = "Price must be greater than 0.0")
     private double price;
 
     @NotNull(message = "Course cannot be null")
@@ -26,12 +28,12 @@ public class AddMenuItemViewModel {
     private int spiceLvl;
 
     @NotNull(message = "Restaurant ID cannot be null")
-    private Integer restaurantId;
+    private int restaurantId;
 
     /**
      * Default constructor for AddMenuItemViewModel.
      */
-    public AddMenuItemViewModel() {
+    public MenuItemViewModel() {
     }
 
     /**
@@ -44,13 +46,22 @@ public class AddMenuItemViewModel {
      * @param spiceLvl     The spice level of the menu item.
      * @param restaurantId The ID of the restaurant to which the menu item is associated.
      */
-    public AddMenuItemViewModel(String name, double price, Course course, boolean vegetarian, int spiceLvl, int restaurantId) {
+    public MenuItemViewModel(int id, String name, double price, Course course, boolean vegetarian, int spiceLvl, int restaurantId) {
+        setId(id);
         setName(name);
         setPrice(price);
         setCourse(course);
         setVegetarian(vegetarian);
         setSpiceLvl(spiceLvl);
         setRestaurantId(restaurantId);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     /**
@@ -112,7 +123,7 @@ public class AddMenuItemViewModel {
      *
      * @return True if the menu item is vegetarian, false otherwise.
      */
-    public boolean getVegetarian() {
+    public boolean isVegetarian() {
         return vegetarian;
     }
 
@@ -153,7 +164,7 @@ public class AddMenuItemViewModel {
     }
 
     /**
-     * Sets the ID of the restaurant to which the menu item is associated.
+     * Sets the restaurant to which the menu item is associated.
      *
      * @param restaurantId The new restaurant ID to set.
      */

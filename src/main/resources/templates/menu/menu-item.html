@@ -1,39 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
-<head th:include="fragments/head :: head">
+<head th:insert="~{fragments/head :: head}">
+    <title>Menu Item</title>
+    <thymeleaf th:replace="~{includes :: meta_script_link}"></thymeleaf>
+    <script src="/js/menu-item.js" defer></script>
 </head>
 
-<body th:object="${menu_item}">
+<body>
 <header th:insert="~{fragments/navbar::copy}"></header>
 <h1 class="page-title" th:text="#{menu.detailsHeader}">Add Menu Item</h1>
 
-<div class="detail-table-container">
+<main class="detail-table-container">
+
+    <h1 th:text="${one_menu_item.name}"></h1>
+    <div class="row">
+        <input id="menuItemId" type="hidden" th:value="${one_menu_item.id}">
+        <div class="col-9">
+            <label for="priceInput" class="form-label">Price</label>
+            <input type="number" id="priceInput" name="price" min="0" step="0.01" th:text="${one_menu_item.price}">
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div>
+            <button id="updateButton" type="button" class="btn btn-primary" disabled>Update</button>
+        </div>
+    </div>
+
+
     <table class="table">
         <tbody>
         <tr>
             <th th:text="#{menu.id}">ID</th>
-            <td th:text="*{id}"></td>
+            <td th:text="*{one_menu_item.id}"></td>
         </tr>
         <tr>
             <th th:text="#{menu.name}">Name</th>
-            <td th:text="*{name}"></td>
+            <td th:text="*{one_menu_item.name}"></td>
         </tr>
         <tr>
             <th th:text="#{menu.price}">Price</th>
-            <td th:text="*{price}"></td>
+            <td th:text="*{one_menu_item.price}"></td>
         </tr>
         <tr>
             <th th:text="#{menu.course}">Course</th>
-            <td th:text="*{course}"></td>
+            <td th:text="*{one_menu_item.course}"></td>
         </tr>
         <tr>
             <th th:text="#{menu.spiceLvl}">Spice Level</th>
-            <td th:text="*{spiceLvl}"></td>
+            <td th:text="*{one_menu_item.spiceLvl}"></td>
         </tr>
         <tr>
             <th th:text="#{menu.restaurant}">Restaurant</th>
-            <td th:text="${menu_item.restaurant?.name}"></td>
+            <td th:text="${one_menu_item.restaurantId?.name}"></td>
         </tr>
+        </tbody>
+    </table>
+
+    <div class="mt-5">
+        <div class="dropdown" id="dropdownButtonWrapper">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="toggleChefInformation">
+                Chefs involved
+            </button>
+        </div>
+        <table id="chefInformation">
+            <thead>
+            <tr>
+                <th th:text="#{chef.firstName}">Name</th>
+                <th th:text="#{chef.lastName}">Price</th>
+                <th th:text="#{chef.dateOfBirth}">Course</th>
+            </tr>
+            </thead>
+            <thead>
+            <tbody id="chefInformationBody"></tbody>
+        </table>
+    </div>
+
+    <!--
         <tr>
             <th th:text="#{menu.chefs}">Chefs</th>
             <td>
@@ -49,10 +91,12 @@
         </tr>
         </tbody>
     </table>
+    -->
+
     <div class="center-container">
-        <a th:href="@{/menu/list}"><button type="button"><i class="fas fa-arrow-left"></i> Return</button></a>
+        <a th:href="@{/menu/menu-items}"><button type="button"><i class="fas fa-arrow-left"></i> Return</button></a>
     </div>
-</div>
+</main>
 
 <footer th:insert="~{fragments/footer::copy}"></footer>
 </body>

@@ -30,9 +30,9 @@ public class ChefService {
     }
 
     /**
-     * Retrieves a list of all chefs.
+     * Retrieves a all_chefs of all chefs.
      *
-     * @return A list of all chefs.
+     * @return A all_chefs of all chefs.
      */
     
     public List<Chef> getAllChefs() {
@@ -40,9 +40,9 @@ public class ChefService {
     }
 
     /**
-     * Retrieves a list of all chefs with its associated menu items.
+     * Retrieves a all_chefs of all chefs with its associated menu items.
      *
-     * @return A list of all chefs.
+     * @return A all_chefs of all chefs.
      */
     
     public List<Chef> getChefsWithMenuItems() {
@@ -72,10 +72,10 @@ public class ChefService {
     }
 
     /**
-     * Retrieves a list of chefs by their first or last name, case-insensitive.
+     * Retrieves a all_chefs of chefs by their first or last name, case-insensitive.
      *
      * @param name The name to search for.
-     * @return A list of chefs matching the search criteria.
+     * @return A all_chefs of chefs matching the search criteria.
      */
     
     public List<Chef> getChefsByName(String name) {
@@ -136,6 +136,16 @@ public class ChefService {
         menuItemChefRepository.deleteAll(chef.get().getMenuItems());
 
         chefRepository.deleteById(chefId);
+        return true;
+    }
+
+    public boolean changeChefDob(int chefId, LocalDate newDob) {
+        var chef = chefRepository.findById(chefId).orElse(null);
+        if (chef == null) {
+            return false;
+        }
+        chef.setDateOfBirth(newDob);
+        chefRepository.save(chef);
         return true;
     }
 }

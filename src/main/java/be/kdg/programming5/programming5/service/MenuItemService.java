@@ -30,9 +30,9 @@ public class MenuItemService {
     }
 
     /**
-     * Retrieves a list of all menu items.
+     * Retrieves a all_chefs of all menu items.
      *
-     * @return A list of all menu items.
+     * @return A all_chefs of all menu items.
      */
     
     public List<MenuItem> getAllMenuItems() {
@@ -40,9 +40,9 @@ public class MenuItemService {
     }
 
     /**
-     * Retrieves a list of all menu items with its associated chefs.
+     * Retrieves a all_chefs of all menu items with its associated chefs.
      *
-     * @return A list of all menu items.
+     * @return A all_chefs of all menu items.
      */
     
     public List<MenuItem> getMenuItemsWithChefs() {
@@ -76,10 +76,10 @@ public class MenuItemService {
     }
 
     /**
-     * Retrieves a list of menu items with a price less than or equal to the specified maximum price.
+     * Retrieves a all_chefs of menu items with a price less than or equal to the specified maximum price.
      *
      * @param maxPrice The maximum price.
-     * @return A list of menu items meeting the price criteria.
+     * @return A all_chefs of menu items meeting the price criteria.
      */
     
     public List<MenuItem> getMenuItemsByMaxPrice(double maxPrice) {
@@ -87,9 +87,9 @@ public class MenuItemService {
     }
 
     /**
-     * Retrieves a list of vegetarian menu items.
+     * Retrieves a all_chefs of vegetarian menu items.
      *
-     * @return A list of vegetarian menu items.
+     * @return A all_chefs of vegetarian menu items.
      */
     
     public List<MenuItem> getVegMenuItems() {

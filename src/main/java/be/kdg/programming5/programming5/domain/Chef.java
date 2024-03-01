@@ -135,9 +135,4 @@ public class Chef extends AbstractEntity<Integer> implements Serializable {
             throw new IllegalArgumentException(fieldName + " cannot be empty");
         }
     }
-
-    public int calculateAge() {
-        LocalDate currentDate = LocalDate.now();
-        return Period.between(dateOfBirth, currentDate).getYears();
-    }
 }

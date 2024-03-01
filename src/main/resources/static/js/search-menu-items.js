@@ -4,16 +4,18 @@ const searchTermInput = document.getElementById("searchTerm");
 const tableBody = document.getElementsByTagName("tbody")[0];
 
 searchButton.addEventListener("click", async () => {
-    const response = await fetch(`/api/chefs?search=${searchTermInput.value}`);
+    const response = await fetch(`/api/menuitems?search=${searchTermInput.value}`);
     if (response.status === 200) {
-        const chefs = await response.json();
-        for (const chef of chefs) {
+        const menuItems = await response.json();
+        for (const menuItem of menuItems) {
             tableBody.innerHTML += `
             <tr>
-                <td>${chef.firstName}</td>
-                <td>${chef.lastName}</td>
-                <td>${chef.dateOfBirth}</td>
-                <td><a href="/chef/chef?id=${chef.id}">Details</a></td>
+                <td>${menuItem.name}</td>
+                <td>${menuItem.price}</td>
+                <td>${menuItem.course}</td>
+                <td>${menuItem.vegetarian}</td>
+                <td>${menuItem.spiceLvl}</td>
+                <td><a href="/menu/menu-item?id=${menuItem.id}">Details</a></td>
             </tr>
             `
         }

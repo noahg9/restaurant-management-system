@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:include="fragments/head :: head">
+<head th:insert="~{fragments/head :: head}">
     <!-- Include the head fragment for common head elements -->
 </head>
 
@@ -40,6 +40,18 @@
             <!-- Link to Add Menu Item -->
             <a th:href="@{/menu/add-menu-item}" class="home-link">
                 <span th:text="#{navbar.addMenuItem}">Add Menu Item</span>
+            </a>
+        </div>
+        <div>
+            <!-- Link to Search Chefs -->
+            <a th:href="@{/chef/search-chefs}" class="home-link">
+                <span th:text="#{navbar.searchChefs}">Search Chefs</span>
+            </a>
+        </div>
+        <div>
+            <!-- Link to Search Menu Items -->
+            <a th:href="@{/menu/search-menu-items}" class="home-link">
+                <span th:text="#{navbar.searchMenuItems}">Search Menu Item</span>
             </a>
         </div>
         <div>

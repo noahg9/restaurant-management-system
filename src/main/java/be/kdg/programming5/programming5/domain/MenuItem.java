@@ -98,7 +98,7 @@ public class MenuItem extends AbstractEntity<Integer> implements Serializable {
         this.course = course;
     }
 
-    public boolean getVegetarian() {
+    public boolean isVegetarian() {
         return this.vegetarian;
     }
 

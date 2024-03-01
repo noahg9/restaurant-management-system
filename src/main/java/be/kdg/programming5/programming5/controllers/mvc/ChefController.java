@@ -1,9 +1,8 @@
 package be.kdg.programming5.programming5.controllers.mvc;
 
-import be.kdg.programming5.programming5.domain.Restaurant;
 import be.kdg.programming5.programming5.domain.util.HistoryUtil;
 import be.kdg.programming5.programming5.exceptions.DatabaseException;
-import be.kdg.programming5.programming5.controllers.mvc.viewmodel.AddChefViewModel;
+import be.kdg.programming5.programming5.controllers.mvc.viewmodel.ChefViewModel;
 import be.kdg.programming5.programming5.service.ChefService;
 import be.kdg.programming5.programming5.service.RestaurantService;
 import jakarta.servlet.http.HttpSession;
@@ -13,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Controller class for handling Chef-related operations.
@@ -36,19 +36,60 @@ public class ChefController {
     }
 
     /**
-     * Handles GET request to retrieve the list of chefs.
+     * Handles GET request to retrieve the all_chefs of chefs.
      *
      * @param session Session object to manage session-related information.
      * @param model   Model object to add attributes for the view.
-     * @return View name for displaying the list of chefs.
+     * @return View name for displaying the all_chefs of chefs.
      */
     @GetMapping("/chefs")
-    public String showChefList(HttpSession session, Model model) {
-        String pageTitle = "Chef List";
+    public ModelAndView allChefs(HttpSession session, Model model) {
+        logger.info("Getting chefs");
+        String pageTitle = "Chefs";
         HistoryUtil.updateHistory(session, pageTitle);
         model.addAttribute("pageTitle", pageTitle);
-        model.addAttribute("list", chefService.getAllChefs());
-        return "chefs";
+
+        var mav = new ModelAndView();
+        mav.setViewName("chef/chefs");
+        mav.addObject("all_chefs",
+                chefService.getAllChefs()
+                        .stream()
+                        .map(chef -> new ChefViewModel(
+                                chef.getId(),
+                                chef.getFirstName(),
+                                chef.getLastName(),
+                                chef.getDateOfBirth(),
+                                chef.getRestaurant().getId()))
+                        .toList());
+        return mav;
+    }
+
+    /**
+     * Handles GET request to retrieve details of a specific chef.
+     *
+     * @param chefId ID of the chef.
+     * @param model Model object to add attributes for the view.
+     * @return View name for displaying chef details.
+     */
+    @GetMapping("/chef")
+    public ModelAndView oneChef(@RequestParam("id") int chefId, HttpSession session, Model model) {
+        logger.info("Getting chef");
+        String pageTitle = "Chef";
+        HistoryUtil.updateHistory(session, pageTitle);
+        model.addAttribute("pageTitle", pageTitle);
+
+        var chef = chefService.getChef(chefId);
+        var mav = new ModelAndView();
+        mav.setViewName("chef/chef");
+        mav.addObject("one_chef",
+                new ChefViewModel(
+                        chef.getId(),
+                        chef.getFirstName(),
+                        chef.getLastName(),
+                        chef.getDateOfBirth(),
+                        chef.getRestaurant().getId()
+                ));
+        return mav;
     }
 
     /**
@@ -64,9 +105,9 @@ public class ChefController {
         String pageTitle = "Add Chef";
         HistoryUtil.updateHistory(session, pageTitle);
         model.addAttribute("pageTitle", pageTitle);
-        model.addAttribute("addChefViewModel", new AddChefViewModel());
-        model.addAttribute("restaurants", restaurantService.getRestaurants());
-        return "add-chef";
+        model.addAttribute("chefViewModel", new ChefViewModel());
+        model.addAttribute("restaurants", restaurantService.getAllRestaurants());
+        return "chef/add-chef";
     }
 
     /**
@@ -76,22 +117,21 @@ public class ChefController {
      * @return Redirect URL after adding the chef.
      */
     @PostMapping("/add-chef")
-    public String addChef(@ModelAttribute("addChefViewModel") @Valid AddChefViewModel viewModel) {
+    public String addChef(@ModelAttribute("chefViewModel") @Valid ChefViewModel viewModel) {
         try {
             logger.debug("Adding chef {}", viewModel.getFirstName());
-            Restaurant restaurant = restaurantService.getRestaurant(viewModel.getRestaurantId());
             chefService.addChef(
                     viewModel.getFirstName(),
                     viewModel.getLastName(),
                     viewModel.getDateOfBirth(),
-                    restaurant
+                    restaurantService.getRestaurant(viewModel.getRestaurantId())
             );
         } catch (DatabaseException e) {
             logger.error("Database error adding chef: " + e.getMessage());
-            return "dberror";
+            return "error/dberror";
         } catch (Exception e) {
             logger.error("Error adding chef: " + e.getMessage());
-            return "/error/error";
+            return "error/error";
         }
         return "redirect:/chef/chefs";
     }
@@ -111,34 +151,18 @@ public class ChefController {
             return "redirect:/chef/chefs";
         } catch (DatabaseException e) {
             logger.error("Database error deleting chef: " + e.getMessage());
-            return "dberror";
+            return "error/dberror";
         } catch (Exception e) {
             logger.error("Error deleting chef: " + e.getMessage());
             return "error/error";
         }
     }
 
-    /**
-     * Handles GET request to retrieve details of a specific chef.
-     *
-     * @param id    ID of the chef.
-     * @param model Model object to add attributes for the view.
-     * @return View name for displaying chef details.
-     */
-    @GetMapping("/chef/{id}")
-    public String showChefDetails(@PathVariable int id, HttpSession session, Model model) {
-        String pageTitle = "Chef Details";
-        HistoryUtil.updateHistory(session, pageTitle);
-        model.addAttribute("pageTitle", pageTitle);
-        model.addAttribute("chef", chefService.getChef(id));
-        return "chef";
-    }
-
     @GetMapping("/search-chefs")
-    public String searchIssues(HttpSession session, Model model) {
+    public String searchChefs(HttpSession session, Model model) {
         String pageTitle = "Search Chefs";
         HistoryUtil.updateHistory(session, pageTitle);
         model.addAttribute("pageTitle", pageTitle);
-        return "search-chefs";
+        return "chef/search-chefs";
     }
 }

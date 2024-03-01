@@ -4,11 +4,14 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
+import java.time.Period;
 
 /**
  * ViewModel class for adding a Chef, containing necessary information.
  */
-public class AddChefViewModel {
+public class ChefViewModel {
+
+    private int id;
 
     @NotBlank(message = "First name cannot be empty")
     private String firstName;
@@ -20,12 +23,12 @@ public class AddChefViewModel {
     private LocalDate dateOfBirth;
 
     @NotNull(message = "Restaurant ID cannot be null")
-    private Integer restaurantId;
+    private int restaurantId;
 
     /**
      * Default constructor for AddChefViewModel.
      */
-    public AddChefViewModel() {}
+    public ChefViewModel() {}
 
     /**
      * Parameterized constructor for AddChefViewModel.
@@ -33,13 +36,22 @@ public class AddChefViewModel {
      * @param firstName    The first name of the chef.
      * @param lastName     The last name of the chef.
      * @param dateOfBirth  The date of birth of the chef.
-     * @param restaurantId The ID of the restaurant to which the chef is associated.
+     * @param restaurantId   The restaurant to which the chef is associated.
      */
-    public AddChefViewModel(String firstName, String lastName, LocalDate dateOfBirth, int restaurantId) {
+    public ChefViewModel(int id, String firstName, String lastName, LocalDate dateOfBirth, int restaurantId) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
         this.restaurantId = restaurantId;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     /**
@@ -106,12 +118,17 @@ public class AddChefViewModel {
     }
 
     /**
-     * Sets the ID of the restaurant to which the chef is associated.
+     * Sets the restaurant id to which the chef is associated.
      *
      * @param restaurantId The new restaurant ID to set.
      */
     public void setRestaurantId(int restaurantId) {
         this.restaurantId = restaurantId;
+    }
+
+    public int calculateAge() {
+        LocalDate currentDate = LocalDate.now();
+        return Period.between(dateOfBirth, currentDate).getYears();
     }
 
     /**

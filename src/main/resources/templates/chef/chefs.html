@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head :: head">
-    <!-- Include the head fragment for common head elements -->
+<head th:insert="~{fragments/head :: head}">
+    <title>Chefs</title>
+    <thymeleaf th:replace="~{includes :: meta_script_link}"></thymeleaf>
+    <script src="/js/chefs.js" defer></script>
 </head>
 <body>
 <!-- Include the navbar fragment -->
@@ -10,7 +12,7 @@
 <!-- Page Title with multilingual support -->
 <h1 class="page-title" th:text="#{chef.listHeader}">Chef List</h1>
 
-<div class="chef-table-container">
+<main class="chef-table-container">
     <!-- Table displaying Chef information -->
     <table class="table">
         <thead>
@@ -21,15 +23,15 @@
             <th></th>
         </tr>
         </thead>
-        <tbody>
-        <!-- Iterate over each chef in the list -->
-        <tr th:each="chef : ${list}">
+        <tbody id="chefTableBody">
+        <!-- Iterate over each chef in the all_chefs -->
+        <tr th:id="'chef_' + ${chef.id}" th:each="chef, chefStat : ${all_chefs}" th:class="${chefStat.odd}? 'odd'">
             <td>
                 <!-- Display Chef's full name -->
                 <span th:text="${chef.firstName + ' ' + chef.lastName}"></span>
 
                 <!-- Link to Chef details page -->
-                <a th:href="@{/chef/chef/{id}(id=${chef.id})}">
+                <a th:href="@{/chef/chef(id=${chef.id})}">
                     <i class="fas fa-info-circle"></i>
                 </a>
             </td>
@@ -42,14 +44,14 @@
                 <form method="post" th:action="@{/chef/delete}" th:object="${chef}" th:method="delete">
                     <input type="hidden" th:if="${chef}" th:name="id" th:value="${chef.id}" />
                     <button type="submit">
-                        <i class="btn btn-danger btn-sm"></i>    <!-- fas fa-trash-alt -->
+                        <i class="fas fa-trash-alt"></i>
                     </button>
                 </form>
             </td>
         </tr>
         </tbody>
     </table>
-</div>
+</main>
 
 <!-- Include the footer fragment -->
 <footer th:insert="~{fragments/footer::copy}"></footer>

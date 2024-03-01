@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:include="fragments/head :: head">
+<head th:insert="~{fragments/head :: head}">
 </head>
 
 <body>
@@ -9,7 +9,7 @@
 
 <section class="banner-area relative" id="home">
     <div class="center-container">
-        <form th:action="@{/menu/add-menu-item}" th:object="${addMenuItemViewModel}" method="post" class="form-container">
+        <form th:action="@{/menu/add-menu-item}" th:object="${menuItemViewModel}" method="post" class="form-container">
             <div class="form-group nameInput">
                 <div class="form-group nameInput">
                     <div class="col-md-auto col-12">

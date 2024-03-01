@@ -25,12 +25,12 @@ public class RestaurantService {
     }
 
     /**
-     * Retrieves a list of all restaurants.
+     * Retrieves a all_chefs of all restaurants.
      *
-     * @return A list of all restaurants.
+     * @return A all_chefs of all restaurants.
      */
     
-    public List<Restaurant> getRestaurants() {
+    public List<Restaurant> getAllRestaurants() {
         return restaurantRepository.findAll();
     }
 
@@ -54,7 +54,6 @@ public class RestaurantService {
      * @return The newly created restaurant.
      */
     
-    @Transactional
     public Restaurant addRestaurant(String name, LocalDate dateEstablished, int seatingCapacity) {
         return restaurantRepository.save(new Restaurant(name, dateEstablished, seatingCapacity));
     }
@@ -66,7 +65,6 @@ public class RestaurantService {
      * @return The added restaurant.
      */
     
-    @Transactional
     public Restaurant addRestaurant(Restaurant restaurant) {
         return restaurantRepository.save(restaurant);
     }
@@ -77,7 +75,6 @@ public class RestaurantService {
      * @param restaurant The restaurant to update.
      */
     
-    @Transactional
     public void updateRestaurant(Restaurant restaurant) {
         // Implementation needed based on the specific requirements.
     }
