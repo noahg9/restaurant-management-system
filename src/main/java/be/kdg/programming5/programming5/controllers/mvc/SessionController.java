@@ -16,7 +16,6 @@ import java.util.Map;
  * Controller class for handling session-related operations.
  */
 @Controller
-@RequestMapping("/session")
 public class SessionController {
     private final Logger logger = LoggerFactory.getLogger(SessionController.class);
 

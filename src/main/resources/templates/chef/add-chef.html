@@ -9,7 +9,7 @@
 
 <section class="banner-area relative" id="home">
     <div class="center-container">
-        <form th:action="@{/chef/add-chef}" th:object="${chefViewModel}" method="post" class="form-container">
+        <form th:action="@{/add-chef}" th:object="${chefViewModel}" method="post" class="form-container">
             <div class="form-group nameInput">
                 <div class="col-md-auto col-12">
                     <label th:for="firstName" class="form-label d-md-none" th:text="#{chef.firstName}">First Name</label>

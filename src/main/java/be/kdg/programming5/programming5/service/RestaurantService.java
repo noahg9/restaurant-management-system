@@ -1,5 +1,6 @@
 package be.kdg.programming5.programming5.service;
 
+import be.kdg.programming5.programming5.domain.Chef;
 import be.kdg.programming5.programming5.domain.Restaurant;
 import be.kdg.programming5.programming5.repository.RestaurantRepository;
 import jakarta.transaction.Transactional;
@@ -44,6 +45,30 @@ public class RestaurantService {
     public Restaurant getRestaurant(int id) {
         return restaurantRepository.findById(id).orElse(null);
     }
+
+
+    /**
+     * Retrieves a restaurant with its associated chefs.
+     *
+     * @param restaurantId The identifier of the restaurant.
+     * @return The restaurant with the specified identifier, or null if not found.
+     */
+
+    public Restaurant getRestaurantWithChefs(int restaurantId) {
+        return restaurantRepository.findByIdWithChefs(restaurantId).orElse(null);
+    }
+
+    /**
+     * Retrieves a restaurant with its associated menu items.
+     *
+     * @param restaurantId The identifier of the restaurant.
+     * @return The restaurant with the specified identifier, or null if not found.
+     */
+
+    public Restaurant getRestaurantWithMenuItems(int restaurantId) {
+        return restaurantRepository.findByIdWithMenuItems(restaurantId).orElse(null);
+    }
+
 
     /**
      * Adds a new restaurant with the specified details.

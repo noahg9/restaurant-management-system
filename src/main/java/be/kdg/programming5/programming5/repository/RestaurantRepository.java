@@ -1,8 +1,12 @@
 package be.kdg.programming5.programming5.repository;
 
+import be.kdg.programming5.programming5.domain.Chef;
 import be.kdg.programming5.programming5.domain.Restaurant;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
 
 /**
  * Spring Data repository for accessing Restaurant entities.
@@ -10,4 +14,17 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface RestaurantRepository extends JpaRepository<Restaurant, Integer> {
+    @Query("""
+        select restaurant from Restaurant restaurant
+        left join fetch restaurant.chefs chefs
+        where restaurant.id = :restaurantId
+        """)
+    Optional<Restaurant> findByIdWithChefs(int restaurantId);
+
+    @Query("""
+        select restaurant from Restaurant restaurant
+        left join fetch restaurant.menuItems menuItems
+        where restaurant.id = :restaurantId
+        """)
+    Optional<Restaurant> findByIdWithMenuItems(int restaurantId);
 }

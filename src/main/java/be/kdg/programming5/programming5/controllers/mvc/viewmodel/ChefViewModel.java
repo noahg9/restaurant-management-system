@@ -22,8 +22,9 @@ public class ChefViewModel {
     @NotNull(message = "Date of birth cannot be null")
     private LocalDate dateOfBirth;
 
-    @NotNull(message = "Restaurant ID cannot be null")
     private int restaurantId;
+
+    private String restaurantName;
 
     /**
      * Default constructor for AddChefViewModel.
@@ -38,12 +39,13 @@ public class ChefViewModel {
      * @param dateOfBirth  The date of birth of the chef.
      * @param restaurantId   The restaurant to which the chef is associated.
      */
-    public ChefViewModel(int id, String firstName, String lastName, LocalDate dateOfBirth, int restaurantId) {
+    public ChefViewModel(int id, String firstName, String lastName, LocalDate dateOfBirth, int restaurantId, String restaurantName) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
         this.restaurantId = restaurantId;
+        this.restaurantName = restaurantName;
     }
 
     public int getId() {
@@ -126,6 +128,25 @@ public class ChefViewModel {
         this.restaurantId = restaurantId;
     }
 
+
+    /**
+     * Gets the name of the restaurant to which the chef is associated.
+     *
+     * @return The restaurant name.
+     */
+    public String getRestaurantName() {
+        return restaurantName;
+    }
+
+    /**
+     * Sets the restaurant name to which the chef is associated.
+     *
+     * @param restaurantName The new restaurant name to set.
+     */
+    public void setRestaurantName(String restaurantName) {
+        this.restaurantName = restaurantName;
+    }
+
     public int calculateAge() {
         LocalDate currentDate = LocalDate.now();
         return Period.between(dateOfBirth, currentDate).getYears();
@@ -138,11 +159,13 @@ public class ChefViewModel {
      */
     @Override
     public String toString() {
-        return "AddChefViewModel{" +
-                "firstName='" + firstName + '\'' +
+        return "ChefViewModel{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", dateOfBirth=" + dateOfBirth +
                 ", restaurantId=" + restaurantId +
+                ", restaurantName='" + restaurantName + '\'' +
                 '}';
     }
 }

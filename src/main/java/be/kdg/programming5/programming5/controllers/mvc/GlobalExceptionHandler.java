@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * It provides specific handling for general exceptions and database-related exceptions.
  */
 @ControllerAdvice
-@RequestMapping("/error")
 public class GlobalExceptionHandler {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -25,7 +24,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public String handleException(Exception e) {
         logger.error("An unexpected error occurred: {}", e.getMessage());
-        return "error";
+        return "error/error";
     }
 
     /**
@@ -37,6 +36,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(DatabaseException.class)
     public String handleDatabaseException(DatabaseException e) {
         logger.error("Database error occurred: {}", e.getMessage());
-        return "dberror";
+        return "error/dberror";
     }
 }

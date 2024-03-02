@@ -16,7 +16,7 @@ import java.util.Random;
  * Extends AbstractEntity for common entity properties.
  */
 @Entity
-@Table(name = "RESTAURANTS")
+@Table(name = "restaurants")
 public class Restaurant extends AbstractEntity<Integer> implements Serializable {
 
 

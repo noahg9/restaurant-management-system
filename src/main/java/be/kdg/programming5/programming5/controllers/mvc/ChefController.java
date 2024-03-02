@@ -18,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
  * Controller class for handling Chef-related operations.
  */
 @Controller
-@RequestMapping("/chef")
 public class ChefController {
     private static final Logger logger = LoggerFactory.getLogger(ChefController.class);
     private final ChefService chefService;
@@ -59,7 +58,8 @@ public class ChefController {
                                 chef.getFirstName(),
                                 chef.getLastName(),
                                 chef.getDateOfBirth(),
-                                chef.getRestaurant().getId()))
+                                chef.getRestaurant().getId(),
+                                chef.getRestaurant().getName()))
                         .toList());
         return mav;
     }
@@ -87,7 +87,8 @@ public class ChefController {
                         chef.getFirstName(),
                         chef.getLastName(),
                         chef.getDateOfBirth(),
-                        chef.getRestaurant().getId()
+                        chef.getRestaurant().getId(),
+                        chef.getRestaurant().getName()
                 ));
         return mav;
     }
@@ -124,7 +125,7 @@ public class ChefController {
                     viewModel.getFirstName(),
                     viewModel.getLastName(),
                     viewModel.getDateOfBirth(),
-                    restaurantService.getRestaurant(viewModel.getRestaurantId())
+                    restaurantService.getRestaurantWithChefs(viewModel.getRestaurantId())
             );
         } catch (DatabaseException e) {
             logger.error("Database error adding chef: " + e.getMessage());
@@ -133,7 +134,7 @@ public class ChefController {
             logger.error("Error adding chef: " + e.getMessage());
             return "error/error";
         }
-        return "redirect:/chef/chefs";
+        return "redirect:/chefs";
     }
 
 
@@ -143,12 +144,12 @@ public class ChefController {
      * @param chefId ID of the chef to be deleted.
      * @return Redirect URL after deleting the chef.
      */
-    @PostMapping("/delete")
+    @PostMapping("/delete-chef")
     public String deleteChef(@RequestParam("id") int chefId) {
         try {
             logger.debug("Deleting chef with ID: " + chefId);
             chefService.removeChef(chefId);
-            return "redirect:/chef/chefs";
+            return "redirect:/chefs";
         } catch (DatabaseException e) {
             logger.error("Database error deleting chef: " + e.getMessage());
             return "error/dberror";

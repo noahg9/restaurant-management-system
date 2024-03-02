@@ -19,7 +19,6 @@ import org.springframework.web.servlet.ModelAndView;
  * Controller class for handling menu item-related operations.
  */
 @Controller
-@RequestMapping("/menu")
 public class MenuItemController {
     private final Logger logger = LoggerFactory.getLogger(MenuItemController.class);
     private final MenuItemService menuItemService;
@@ -62,7 +61,8 @@ public class MenuItemController {
                                 menuItem.getCourse(),
                                 menuItem.isVegetarian(),
                                 menuItem.getSpiceLvl(),
-                                menuItem.getRestaurant().getId()))
+                                menuItem.getRestaurant().getId(),
+                                menuItem.getRestaurant().getName()))
                         .toList());
         return mav;
     }
@@ -92,7 +92,8 @@ public class MenuItemController {
                         menuItem.getCourse(),
                         menuItem.isVegetarian(),
                         menuItem.getSpiceLvl(),
-                        menuItem.getRestaurant().getId()
+                        menuItem.getRestaurant().getId(),
+                        menuItem.getRestaurant().getName()
                 ));
         return mav;
     }
@@ -132,7 +133,7 @@ public class MenuItemController {
                     viewModel.getCourse(),
                     viewModel.isVegetarian(),
                     viewModel.getSpiceLvl(),
-                    restaurantService.getRestaurant(viewModel.getRestaurantId())
+                    restaurantService.getRestaurantWithMenuItems(viewModel.getRestaurantId())
             );
         } catch (DatabaseException e) {
             logger.error("Database error adding menu item: " + e.getMessage());
@@ -141,7 +142,7 @@ public class MenuItemController {
             logger.error("Error adding menu item: " + e.getMessage());
             return "error/error";
         }
-        return "redirect:/menu/menu-items";
+        return "redirect:/menu-items";
     }
 
     /**
@@ -150,12 +151,12 @@ public class MenuItemController {
      * @param menuItemId The ID of the menu item to be deleted.
      * @return The redirect URL after deleting the menu item.
      */
-    @PostMapping("/delete")
+    @PostMapping("/delete-menu-item")
     public String deleteMenuItem(@RequestParam("id") int menuItemId) {
         try {
             logger.debug("Deleting menu item with ID: " + menuItemId);
             menuItemService.removeMenuItem(menuItemId);
-            return "redirect:/menu/menu-items";
+            return "redirect:/menu-items";
         } catch (DatabaseException e) {
             logger.error("Database error deleting menu item: " + e.getMessage());
             return "error/dberror";

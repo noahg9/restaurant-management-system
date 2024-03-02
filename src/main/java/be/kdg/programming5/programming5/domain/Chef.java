@@ -15,7 +15,7 @@ import java.util.Random;
  * Extends AbstractEntity for common entity properties.
  */
 @Entity
-@Table(name = "CHEFS")
+@Table(name = "chefs")
 public class Chef extends AbstractEntity<Integer> implements Serializable {
 
     @Column(nullable = false)
@@ -28,7 +28,7 @@ public class Chef extends AbstractEntity<Integer> implements Serializable {
     private LocalDate dateOfBirth;
 
     @ManyToOne
-    @JoinColumn(name = "RESTAURANT_ID")
+    @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
 
     @OneToMany(mappedBy = "chef")

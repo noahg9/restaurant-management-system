@@ -27,8 +27,10 @@ public class MenuItemViewModel {
     @Min(value = 0, message = "Spice level must be at least 1")
     private int spiceLvl;
 
-    @NotNull(message = "Restaurant ID cannot be null")
     private int restaurantId;
+
+    private String restaurantName;
+
 
     /**
      * Default constructor for AddMenuItemViewModel.
@@ -46,7 +48,7 @@ public class MenuItemViewModel {
      * @param spiceLvl     The spice level of the menu item.
      * @param restaurantId The ID of the restaurant to which the menu item is associated.
      */
-    public MenuItemViewModel(int id, String name, double price, Course course, boolean vegetarian, int spiceLvl, int restaurantId) {
+    public MenuItemViewModel(int id, String name, double price, Course course, boolean vegetarian, int spiceLvl, int restaurantId, String restaurantName) {
         setId(id);
         setName(name);
         setPrice(price);
@@ -54,6 +56,7 @@ public class MenuItemViewModel {
         setVegetarian(vegetarian);
         setSpiceLvl(spiceLvl);
         setRestaurantId(restaurantId);
+        setRestaurantName(restaurantName);
     }
 
     public int getId() {
@@ -173,19 +176,39 @@ public class MenuItemViewModel {
     }
 
     /**
+     * Gets the name of the restaurant to which the chef is associated.
+     *
+     * @return The restaurant name.
+     */
+    public String getRestaurantName() {
+        return restaurantName;
+    }
+
+    /**
+     * Sets the restaurant name to which the chef is associated.
+     *
+     * @param restaurantName The new restaurant name to set.
+     */
+    public void setRestaurantName(String restaurantName) {
+        this.restaurantName = restaurantName;
+    }
+
+    /**
      * Overrides the toString method to provide a string representation of the AddMenuItemViewModel object.
      *
      * @return A string representation of the AddMenuItemViewModel object.
      */
     @Override
     public String toString() {
-        return "AddMenuItemViewModel{" +
-                "name='" + name + '\'' +
+        return "MenuItemViewModel{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", price=" + price +
                 ", course=" + course +
                 ", vegetarian=" + vegetarian +
                 ", spiceLvl=" + spiceLvl +
                 ", restaurantId=" + restaurantId +
+                ", restaurantName='" + restaurantName + '\'' +
                 '}';
     }
 }

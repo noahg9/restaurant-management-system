@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 /**
  * Custom error controller to handle application errors.
  */
-@RequestMapping("/error")
 @Controller
 public class CustomErrorController implements ErrorController {
 

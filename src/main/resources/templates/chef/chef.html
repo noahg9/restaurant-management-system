@@ -56,7 +56,7 @@
         </tr>
         <tr>
             <th th:text="#{chef.restaurant}">Restaurant</th>
-            <td th:text="${one_chef.restaurant?.name}"></td>
+            <td th:text="${one_chef.restaurantName}"></td>
         </tr>
         </tbody>
     </table>
@@ -97,7 +97,7 @@
 
     <div class="center-container">
         <!-- Link to return to Chef List -->
-        <a th:href="@{/chef/chefs}"><button type="button"><i class="fas fa-arrow-left"></i> Return</button></a>
+        <a th:href="@{/chefs}"><button type="button"><i class="fas fa-arrow-left"></i> Return</button></a>
     </div>
 </main>
 

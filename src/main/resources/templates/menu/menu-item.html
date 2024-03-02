@@ -51,7 +51,7 @@
         </tr>
         <tr>
             <th th:text="#{menu.restaurant}">Restaurant</th>
-            <td th:text="${one_menu_item.restaurantId?.name}"></td>
+            <td th:text="${one_menu_item.restaurantName}"></td>
         </tr>
         </tbody>
     </table>
@@ -94,7 +94,7 @@
     -->
 
     <div class="center-container">
-        <a th:href="@{/menu/menu-items}"><button type="button"><i class="fas fa-arrow-left"></i> Return</button></a>
+        <a th:href="@{/menu-items}"><button type="button"><i class="fas fa-arrow-left"></i> Return</button></a>
     </div>
 </main>
 

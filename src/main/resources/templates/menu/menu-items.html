@@ -32,7 +32,7 @@
             <td>
                 <span th:text="${menu_item.name}"></span>
                 <!-- Link to details page -->
-                <a th:href="@{/menu/menu-item(id=${menu_item.id})}">
+                <a th:href="@{/menu-item(id=${menu_item.id})}">
                     <i class="fas fa-info-circle"></i>
                 </a>
             </td>
@@ -42,7 +42,7 @@
             <td th:text="${menu_item.spiceLvl}"></td>
             <!-- Form for deleting a menu item -->
             <td>
-                <form method="post" th:action="@{/menu/delete}" th:object="${menu_item}" th:method="delete">
+                <form method="post" th:action="@{/delete-menu-item}" th:object="${menu_item}" th:method="delete">
                     <input type="hidden" th:name="id" th:value="${menu_item.id}" />
                     <!-- Delete button -->
                     <button type="submit">
