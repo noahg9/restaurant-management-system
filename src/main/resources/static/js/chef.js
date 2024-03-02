@@ -8,7 +8,7 @@ async function toggleMenuItemsTable() {
     if (menuItemsTable.style.display === "table") {
         hideMenuItemsTable();
     } else {
-        const response = await fetch(`/api/chefs/${chefIdInput.value}/menuitems`,
+        const response = await fetch(`/api/chefs/${chefIdInput.value}/menu-items`,
             { headers: { Accept: "application/json" } });
         if (response.status === 200) {
             const menuItems = await response.json();
@@ -77,6 +77,7 @@ toggleMenuItemsButton.addEventListener("click", toggleMenuItemsTable);
 
 
 const dateInput = document.getElementById("dateInput");
+
 /**
  * @type {HTMLButtonElement}
  */

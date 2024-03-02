@@ -3,59 +3,110 @@
 <head th:insert="~{fragments/head :: head}">
     <title>Menu Items</title>
     <thymeleaf th:replace="~{includes :: meta_script_link}"></thymeleaf>
-    <script src="/js/menu-items.js" defer></script></head>
+    <script src="/js/menu-items.js" defer></script>
+</head>
 <body>
-<!-- Include the navbar fragment -->
 <header th:insert="~{fragments/navbar::copy}"></header>
+<h1 class="page-title" th:text="#{menu.menuItemsTitle}">Menu Items</h1>
+<main class="container">
+    <div class="row">
+    <!-- List -->
+    <section class="col-md-8">
+        <h2 th:text="#{menu.listHeader}">Menu Item List</h2>
+        <table class="table">
+            <thead>
+            <tr>
+                <th th:text="#{menu.name}">Name</th>
+                <th th:text="#{menu.price}">Price</th>
+                <th th:text="#{menu.course}">Course</th>
+                <th th:text="#{menu.vegetarian}">Vegetarian</th>
+                <th th:text="#{menu.spiceLvl}">Spice Level</th>
+            </tr>
+            </thead>
+            <tbody id="menuItemTableBody">
+            <tr th:id="'menu_item_' + ${menu_item.id}" th:each="menu_item, menu_itemStat : ${all_menu_items}" th:class="${menu_itemStat.odd}? 'odd'">
+                <!-- Details Button -->
+                <td>
+                    <span th:text="${menu_item.name}"></span>
+                    <a th:href="@{/menu-item(id=${menu_item.id})}">
+                        <i class="fas fa-info-circle"></i>
+                    </a>
+                </td>
+                <td th:text="${menu_item.price}"></td>
+                <td th:text="${menu_item.course}"></td>
+                <td th:text="${menu_item.vegetarian}"></td>
+                <td th:text="${menu_item.spiceLvl}"></td>
+                <!-- Delete Button -->
+                <td>
+                    <form method="post" th:action="@{/delete-menu-item}" th:object="${menu_item}" th:method="delete">
+                        <input type="hidden" th:if="${menu_item}" th:name="id" th:value="${menu_item.id}" />
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+    <!-- Add Form -->
+    <section class="col-md-4">
+        <h2 th:text="#{menu.addHeader}">Add Menu Item</h2>
+        <form class="form-container">
+            <div class="form-group">
+                <label for="inputName" th:text="#{menu.name}">Name</label>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" style="width: 50px;">
+                        <i class="fas fa-user"></i>
+                    </span>
+                    <input type="text" class="form-control" id="inputName" th:placeholder="#{menu.name}" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputPrice" th:text="#{menu.price}">Price</label>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" style="width: 50px;">
+                        <i class="fas fa-dollar-sign"></i>
+                    </span>
+                    <input type="number" step="0.01" class="form-control" id="inputPrice" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputCourse" th:text="#{menu.course}">Course</label>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" style="width: 50px;">
+                        <i class="fas fa-book"></i>
+                    </span>
+                    <input type="text" class="form-control" id="inputCourse" th:placeholder="#{menu.course}" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputVegetarian" th:text="#{menu.vegetarian}">Vegetarian</label>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" style="width: 50px;">
+                        <i class="fas fa-leaf"></i>
+                    </span>
+                    <input type="checkbox" class="form-check-input" id="inputVegetarian">
+                </div>
+            </div>
 
-<!-- Page Title with multilingual support -->
-<h1 class="page-title" th:text="#{menu.listHeader}">Menu List</h1>
-
-<!-- Container for displaying the menu items -->
-<main class="menu-table-container">
-    <!-- Table for rendering menu item details -->
-    <table class="table">
-        <thead>
-        <!-- Table header with multilingual column names -->
-        <tr>
-            <th th:text="#{menu.name}">Name</th>
-            <th th:text="#{menu.price}">Price</th>
-            <th th:text="#{menu.course}">Course</th>
-            <th th:text="#{menu.vegetarian}">Vegetarian</th>
-            <th th:text="#{menu.spiceLvl}">Spice Level</th>
-        </tr>
-        </thead>
-        <tbody id="menuItemTableBody">
-        <!-- Iterate over menu items and display each entry -->
-        <tr th:id="'menu_item_' + ${menu_item.id}" th:each="menu_item, menu_itemStat : ${all_menu_items}" th:class="${menu_itemStat.odd}? 'odd'">
-            <!-- Display menu item details -->
-            <td>
-                <span th:text="${menu_item.name}"></span>
-                <!-- Link to details page -->
-                <a th:href="@{/menu-item(id=${menu_item.id})}">
-                    <i class="fas fa-info-circle"></i>
-                </a>
-            </td>
-            <td th:text="${menu_item.price}"></td>
-            <td th:text="${menu_item.course}"></td>
-            <td th:text="${menu_item.vegetarian}"></td>
-            <td th:text="${menu_item.spiceLvl}"></td>
-            <!-- Form for deleting a menu item -->
-            <td>
-                <form method="post" th:action="@{/delete-menu-item}" th:object="${menu_item}" th:method="delete">
-                    <input type="hidden" th:name="id" th:value="${menu_item.id}" />
-                    <!-- Delete button -->
-                    <button type="submit">
-                        <i class="fas fa-trash-alt"></i>
-                    </button>
-                </form>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+            <div class="form-group">
+                <label for="inputSpiceLvl" th:text="#{menu.spiceLvl}">Spice Level</label>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" style="width: 50px;">
+                        <i class="fas fa-fire"></i>
+                    </span>
+                    <input type="number" class="form-control" id="inputSpiceLvl" required>
+                </div>
+            </div>
+            <!-- Add Button -->
+            <div class="btn-container">
+                <button id="addButton" type="button" class="btn btn-primary mb-3" th:text="#{menu.add}">Add</button>
+            </div>
+        </form>
+    </section>
+    </div>
 </main>
-
-<!-- Include the footer fragment -->
 <footer th:insert="~{fragments/footer::copy}"></footer>
 </body>
 </html>

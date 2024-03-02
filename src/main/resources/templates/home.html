@@ -1,88 +1,52 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:insert="~{fragments/head :: head}">
-    <!-- Include the head fragment for common head elements -->
+    <title>Home</title>
+    <thymeleaf th:replace="~{includes :: meta_script_link}"></thymeleaf>
 </head>
-
 <body>
-<!-- Include the navbar fragment -->
 <header th:insert="~{fragments/navbar::copy}"></header>
-
-<main>
-    <!-- Page Title with multilingual support -->
+<main class="container">
     <h1 class="page-title" th:text="#{home.header}">Home</h1>
-
-    <!-- Welcome message with multilingual support -->
-    <p th:text="#{home.welcome}">Welcome to our database of restaurants.</p>
+    <p class="lead" th:text="#{home.welcome}">Welcome to our database of restaurants.</p>
     <br>
-
-    <!-- Nice format for navbar links on the home page -->
-    <div class="home-links">
-        <div style="float: left; width: 33%;">
-            <!-- Links related to Chef -->
-            <h2>Chef</h2>
-            <!-- Link to Chef List -->
-            <div>
-                <a th:href="@{/chefs}" class="home-link">
-                    <span th:text="#{navbar.chefList}">Chef List</span>
-                </a>
-            </div>
-            <!-- Link to Add Chef -->
-            <div>
-                <a th:href="@{/add-chef}" class="home-link">
-                    <span th:text="#{navbar.addChef}">Add Chef</span>
-                </a>
-            </div>
-            <!-- Link to Search Chefs -->
-            <div>
-                <a th:href="@{/search-chefs}" class="home-link">
-                    <span th:text="#{navbar.searchChefs}">Search Chefs</span>
-                </a>
+    <!-- Navigation Cards -->
+    <div class="row">
+        <!-- Chef Links -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="#{home.chefs}">Chefs</h5>
+                    <a href="/chefs" class="btn btn-primary">Chef List</a>
+                    <a href="/search-chefs" class="btn btn-primary">Search Chefs</a>
+                </div>
             </div>
         </div>
-        <div style="float: left; width: 33%;">
-            <!-- Links related to Menu Item -->
-            <h2>Menu Item</h2>
-            <!-- Link to Menu Item List -->
-            <div>
-                <a th:href="@{/menu-items}" class="home-link">
-                    <span th:text="#{navbar.menuItemList}">Menu Item List</span>
-                </a>
-            </div>
-            <!-- Link to Add Menu Item -->
-            <div>
-                <a th:href="@{/add-menu-item}" class="home-link">
-                    <span th:text="#{navbar.addMenuItem}">Add Menu Item</span>
-                </a>
-            </div>
-            <!-- Link to Search Menu Items -->
-            <div>
-                <a th:href="@{/search-menu-items}" class="home-link">
-                    <span th:text="#{navbar.searchMenuItems}">Search Menu Item</span>
-                </a>
+        <!-- Menu Item Links -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="#{home.menuItems}">Menu Items</h5>
+                    <a href="/menu-items" class="btn btn-primary">Menu Item List</a>
+                    <a href="/search-menu-items" class="btn btn-primary">Search Menu Items</a>
+                </div>
             </div>
         </div>
-        <div style="float: left; width: 33%;">
-            <!-- Links related to Session -->
-            <h2>Session</h2>
-            <!-- Link to Session History -->
-            <div>
-                <a th:href="@{/history}" class="home-link">
-                    <span th:text="#{navbar.history}">History</span>
-                </a>
+        <!-- Other Links -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Other</h5>
+                    <a href="/history" class="btn btn-primary">History</a>
+                </div>
             </div>
         </div>
-        <div style="clear:both;"></div>
     </div>
-
-    <div>
-        <img th:src="@{/images/home-image.jpg}" alt="Home Image"/>
+    <!-- Home Page Image -->
+    <div class="mt-4">
+        <img class="img-fluid" th:src="@{/images/home-image.jpg}" alt="Home Image"/>
     </div>
 </main>
-
-<!-- Include the footer fragment -->
 <footer th:insert="~{fragments/footer::copy}"></footer>
 </body>
-
 </html>

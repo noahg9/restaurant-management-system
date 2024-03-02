@@ -7,7 +7,7 @@ for (const deleteButton of deleteButtons) {
 async function handleDeleteMenuItem(event) {
     const rowId = event.target.parentNode.parentNode.id;
     const menuItemId = rowId.substring(rowId.indexOf('_') + 1);
-    const response = fetch(`/api/menuitems/${menuItemId}`, {
+    const response = fetch(`/api/menu-items/${menuItemId}`, {
         method: "DELETE"
     });
     if (response === 204) {
@@ -25,7 +25,7 @@ const addButton = document.getElementById("addButton");
 const menuItemTableBody = document.getElementById("menuItemTableBody");
 
 async function addNewMenuItem() {
-    const response = await fetch(`/api/menuItems`, {
+    const response = await fetch(`/api/menu-items`, {
         method: "POST",
         body: JSON.stringify({
             name: nameInput.value,
@@ -46,7 +46,7 @@ async function addNewMenuItem() {
 }
 
 /**
- * @param {{id: number, firstName: string, lastName: string, dateOfBirth: date}} chef
+ * @param {{id: number, name: string, price: number, course: string, vegetarian: boolean, spiceLvl: number}} menuItem
  */
 function addMenuItemToTable(menuItem) {
     const tableRow = document.createElement("tr");
@@ -58,7 +58,7 @@ function addMenuItemToTable(menuItem) {
         <td>${menuItem.vegetarian}</td>
         <td>${menuItem.spiceLvl}</td>
         <td></td>
-        <td><a href="/menuItem?id=${menuItem.id}">Details</a></td>
+        <td><a href="/menu-item?id=${menuItem.id}">Details</a></td>
         <td><button type="button" class="btn btn-danger btn-sm">Delete</button></td>
     `
     menuItemTableBody.appendChild(tableRow);

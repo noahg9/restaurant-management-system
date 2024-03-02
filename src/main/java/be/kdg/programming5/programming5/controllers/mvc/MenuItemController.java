@@ -99,53 +99,6 @@ public class MenuItemController {
     }
 
     /**
-     * Displays the form to add a new menu item.
-     *
-     * @param session The HttpSession object.
-     * @param model   The model to add attributes.
-     * @return The view name for the add menu item form.
-     */
-    @GetMapping("/add-menu-item")
-    public String showAddMenuItemForm(HttpSession session, Model model) {
-        logger.debug("Showing menu item form");
-        String pageTitle = "Add Menu Item";
-        HistoryUtil.updateHistory(session, "Add Menu Item");
-        model.addAttribute("pageTitle", pageTitle);
-        model.addAttribute("menuItemViewModel", new MenuItemViewModel());
-        model.addAttribute("courses", Course.values());
-        model.addAttribute("restaurants", restaurantService.getAllRestaurants());
-        return "menu/add-menu-item";
-    }
-
-    /**
-     * Handles the addition of a new menu item.
-     *
-     * @param viewModel The ViewModel containing data for the new menu item.
-     * @return The redirect URL after adding the menu item.
-     */
-    @PostMapping("/add-menu-item")
-    public String addMenuItem(@ModelAttribute("menuItemViewModel") @Valid MenuItemViewModel viewModel) {
-        try {
-            logger.debug("Adding menu item {}", viewModel.getName());
-            menuItemService.addMenuItem(
-                    viewModel.getName(),
-                    viewModel.getPrice(),
-                    viewModel.getCourse(),
-                    viewModel.isVegetarian(),
-                    viewModel.getSpiceLvl(),
-                    restaurantService.getRestaurantWithMenuItems(viewModel.getRestaurantId())
-            );
-        } catch (DatabaseException e) {
-            logger.error("Database error adding menu item: " + e.getMessage());
-            return "error/dberror";
-        } catch (Exception e) {
-            logger.error("Error adding menu item: " + e.getMessage());
-            return "error/error";
-        }
-        return "redirect:/menu-items";
-    }
-
-    /**
      * Handles the deletion of a menu item.
      *
      * @param menuItemId The ID of the menu item to be deleted.

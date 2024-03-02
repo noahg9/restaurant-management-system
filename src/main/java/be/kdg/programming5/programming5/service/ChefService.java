@@ -86,8 +86,8 @@ public class ChefService {
         return chefRepository.findByMenuItemId(menuItemId);
     }
 
-    public List<Chef> searchChefsByFirstNameLikeOrLastNameLike(String searchTerm1, String searchTerm2) {
-        return chefRepository.findChefsByFirstNameLikeOrLastNameLike("%" + searchTerm1 + "%", "%" + searchTerm2 + "%");
+    public List<Chef> searchChefsByFirstNameOrLastName(String searchTerm) {
+        return chefRepository.findByFirstNameIgnoreCaseLikeOrLastNameIgnoreCaseLike("%" + searchTerm + "%", "%" + searchTerm + "%");
     }
 
     /**
@@ -102,6 +102,10 @@ public class ChefService {
     
     public Chef addChef(String firstName, String lastName, LocalDate dateOfBirth, Restaurant restaurant) {
         return chefRepository.save(new Chef(firstName, lastName, dateOfBirth, restaurant));
+    }
+
+    public Chef addChef(String firstName, String lastName, LocalDate dateOfBirth) {
+        return chefRepository.save(new Chef(firstName, lastName, dateOfBirth));
     }
 
     /**

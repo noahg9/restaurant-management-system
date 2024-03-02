@@ -14,7 +14,7 @@ Accept: application/xml
 
 ### API: retrieve all menu items of one chef
 
-GET http://localhost:8080/api/chefs/1/menuitems
+GET http://localhost:8080/api/chefs/1/menu-items
 Accept: application/json
 
 ### API: search chefs
@@ -24,17 +24,17 @@ Accept: application/json
 
 ### API: retrieve one menu item
 
-GET http://localhost:8080/api/menuitems/1
+GET http://localhost:8080/api/menu-items/1
 Accept: application/xml
 
 ### API: retrieve all chefs of a menu item
 
-GET http://localhost:8080/api/menuitems/1/chefs
+GET http://localhost:8080/api/menu-items/1/chefs
 Accept: application/json
 
 ### API: search menu items
 
-GET http://localhost:8080/api/menuitems?search=salad
+GET http://localhost:8080/api/menu-items?search=salad
 Accept: application/json
 
 ### API: add a chef (201)

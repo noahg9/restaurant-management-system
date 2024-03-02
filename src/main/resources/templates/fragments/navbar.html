@@ -1,65 +1,60 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:insert="~{fragments/head :: head}">
+    <title>Navigation Bar</title>
+    <thymeleaf th:replace="~{includes :: meta_script_link}"></thymeleaf>
 </head>
 
 <body>
 
 <div th:fragment="copy">
-    <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <!-- Navbar Brand -->
+            <!-- Website Name -->
             <a th:href="@{/}" class="navbar-brand" th:text="#{navbar.title}">Restaurants</a>
-
-            <!-- Navbar Toggler Button for Small Screens -->
+            <!-- Toggler Button -->
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
-            <!-- Navbar Content -->
+            <!-- Links -->
             <div class="collapse navbar-collapse" id="navbarCollapse">
-                <div class="navbar-nav">
-                    <!-- Home Link -->
-                    <a th:href="@{/home}" class="nav-item nav-link"><i class="fas fa-home"></i> <span th:text="#{navbar.home}">Home</span></a>
-
-                    <!-- Dropdown for Chef -->
-                    <div class="nav-item dropdown">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <!-- Home -->
+                    <li class="nav-item">
+                        <a th:href="@{/home}" class="nav-link"><i class="fas fa-home"></i> <span th:text="#{navbar.home}">Home</span></a>
+                    </li>
+                    <!-- Chef Dropdown -->
+                    <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="chefDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-user"></i> <span th:text="#{navbar.chef}">Chef</span>
+                            <i class="fas fa-user"></i> <span th:text="#{navbar.chefs}">Chefs</span>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="chefDropdown">
                             <li><a class="dropdown-item" th:href="@{/chefs}"><i class="fas fa-list"></i> <span th:text="#{navbar.chefList}">Chef List</span></a></li>
-                            <li><a class="dropdown-item" th:href="@{/add-chef}"><i class="fas fa-plus"></i> <span th:text="#{navbar.addChef}">Add Chef</span></a></li>
                             <li><a class="dropdown-item" th:href="@{/search-chefs}"><i class="fas fa-search"></i> <span th:text="#{navbar.searchChefs}">Search Chefs</span></a></li>
                         </ul>
-                    </div>
-
-                    <!-- Dropdown for Menu Item -->
-                    <div class="nav-item dropdown">
+                    </li>
+                    <!-- Menu Item Dropdown -->
+                    <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="menuItemDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-utensils"></i> <span th:text="#{navbar.menuItem}">Menu Item</span>
+                            <i class="fas fa-utensils"></i> <span th:text="#{navbar.menuItems}">Menu Items</span>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="menuItemDropdown">
                             <li><a class="dropdown-item" th:href="@{/menu-items}"><i class="fas fa-list"></i> <span th:text="#{navbar.menuItemList}">Menu Item List</span></a></li>
-                            <li><a class="dropdown-item" th:href="@{/add-menu-item}"><i class="fas fa-plus"></i> <span th:text="#{navbar.addMenuItem}">Add Menu Item</span></a></li>
                             <li><a class="dropdown-item" th:href="@{/search-menu-items}"><i class="fas fa-search"></i> <span th:text="#{navbar.searchMenuItems}">Search Menu Items</span></a></li>
                         </ul>
-                    </div>
-
-                    <!-- History Link -->
-                    <a th:href="@{/history}" class="nav-item nav-link"><i class="fas fa-history"></i> <span th:text="#{navbar.history}">History</span></a>
-                </div>
-
-                <!-- Language Switch Button (Align to the right) -->
-                <div class="navbar-nav ms-auto">
+                    </li>
+                    <!-- History -->
+                    <li class="nav-item">
+                        <a th:href="@{/history}" class="nav-link"><i class="fas fa-history"></i> <span th:text="#{navbar.history}">History</span></a>
+                    </li>
+                </ul>
+                <!-- Language Switch Button -->
+                <div class="navbar-nav">
                     <button class="nav-link btn btn-link" th:text="${#locale.language == 'en' ? 'NL' : 'EN'}" onclick="switchLanguage()" type="button"></button>
                 </div>
             </div>
         </div>
     </nav>
 </div>
-
 </body>
-
 </html>

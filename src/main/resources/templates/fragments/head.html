@@ -1,28 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <!-- Set the character set and viewport for better rendering -->
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <!-- Include custom stylesheets for styling -->
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
-    <link rel="stylesheet" th:href="@{/css/styles.css}" />
-
-    <!-- Include Google Fonts for better typography -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
-
-    <!-- Include Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-
-    <!-- Include language switch script -->
     <script th:src="@{/js/language-switch.js}"></script>
-
-    <!-- Include Bootstrap JS and jQuery for enhanced functionality -->
     <script defer th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI/tZ1XaM1p4zL9+fLXRdXJ5wN/uwIUmvsPQ4u7g=" crossorigin="anonymous"></script>
-
-    <!-- Set the page title with Thymeleaf expression -->
     <title th:text="${pageTitle}">Default Title</title>
 </head>
 <body>

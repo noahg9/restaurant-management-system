@@ -28,7 +28,7 @@ public class ChefsController {
 
     @PostMapping
     ResponseEntity<ChefDto> addChef(@RequestBody @Valid NewChefDto chefDto) {
-        var createdChef = chefService.addChef(chefDto.getFirstName(), chefDto.getLastName(), chefDto.getDateOfBirth(), chefDto.getRestaurant());
+        var createdChef = chefService.addChef(chefDto.getFirstName(), chefDto.getLastName(), chefDto.getDateOfBirth());
         return new ResponseEntity<>(
                 modelMapper.map(createdChef, ChefDto.class),
                 HttpStatus.CREATED
@@ -42,18 +42,11 @@ public class ChefsController {
         if (chef == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return ResponseEntity.ok(
-                new ChefDto(
-                        chef.getId(),
-                        chef.getFirstName(),
-                        chef.getLastName(),
-                        chef.getDateOfBirth(),
-                        chef.getRestaurant()
-                ));
+        return ResponseEntity.ok(modelMapper.map(chef, ChefDto.class));
     }
 
-    // "/api/chefs/{id}/menuitems"
-    @GetMapping("{id}/menuitems")
+    // "/api/chefs/{id}/menu-items"
+    @GetMapping("{id}/menu-items")
     ResponseEntity<List<MenuItemDto>> getMenuItemsOfChef(@PathVariable("id") int chefId) {
         var chef = chefService.getChefWithMenuItems(chefId);
         if (chef == null) {
@@ -71,16 +64,22 @@ public class ChefsController {
 
     // "/api/chefs"
     @GetMapping
-    ResponseEntity<List<Chef>> searchChefs(@RequestParam(required = false) String search) {
-        // TODO: return menuItemDto
+    ResponseEntity<List<ChefDto>> searchChefs(@RequestParam(required = false) String search) {
         if (search == null) {
-            return ResponseEntity.ok(chefService.getAllChefs());
+            return ResponseEntity
+                    .ok(chefService.getAllChefs()
+                            .stream()
+                            .map(chef -> modelMapper.map(chef, ChefDto.class))
+                            .toList());
         } else {
-            var searchResult = chefService.searchChefsByFirstNameLikeOrLastNameLike(search, search);
+            var searchResult = chefService.searchChefsByFirstNameOrLastName(search);
             if (searchResult.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             } else {
-                return ResponseEntity.ok(searchResult);
+                return ResponseEntity.ok(searchResult
+                        .stream()
+                        .map(chef -> modelMapper.map(chef, ChefDto.class))
+                        .toList());
             }
         }
     }

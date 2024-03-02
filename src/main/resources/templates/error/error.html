@@ -1,27 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head th:insert="~{fragments/head :: head}">
-    <!-- Include head fragment for common head elements -->
+    <title>Error</title>
+    <thymeleaf th:replace="~{includes :: meta_script_link}"></thymeleaf>
 </head>
 <body>
 <header th:insert="~{fragments/navbar::copy}"></header>
-
 <div class="container">
-    <!-- Error Content -->
-    <div>
-        <h1>An error has occurred...</h1>
+    <!-- Error Description -->
+    <div class="mt-5">
+        <h1 class="display-4">An error has occurred...</h1>
     </div>
-
-    <div>
-        <img th:src="@{/images/error-icon.png}" alt="Error Icon"/>
+    <!-- Error Image -->
+    <div class="mt-5">
+        <img class="img-fluid" th:src="@{/images/error-icon.png}" alt="Error Icon"/>
     </div>
-
-    <div>
-        <!-- Link to go back to the home page -->
-        <a class="btn" th:href="@{/}">Back to home</a>
+    <!-- Home Link -->
+    <div class="mt-5">
+        <a class="btn btn-primary" th:href="@{/}">Back to home</a>
     </div>
 </div>
-
 <footer th:insert="~{fragments/footer::copy}"></footer>
 </body>
 </html>

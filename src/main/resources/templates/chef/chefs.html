@@ -6,54 +6,83 @@
     <script src="/js/chefs.js" defer></script>
 </head>
 <body>
-<!-- Include the navbar fragment -->
 <header th:insert="~{fragments/navbar::copy}"></header>
-
-<!-- Page Title with multilingual support -->
-<h1 class="page-title" th:text="#{chef.listHeader}">Chef List</h1>
-
-<main class="chef-table-container">
-    <!-- Table displaying Chef information -->
-    <table class="table">
-        <thead>
-        <!-- Table header with multilingual column names -->
-        <tr>
-            <th th:text="#{chef.name}">Name</th>
-            <th th:text="#{chef.dateOfBirth}">Date of Birth</th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody id="chefTableBody">
-        <!-- Iterate over each chef in the all_chefs -->
-        <tr th:id="'chef_' + ${chef.id}" th:each="chef, chefStat : ${all_chefs}" th:class="${chefStat.odd}? 'odd'">
-            <td>
-                <!-- Display Chef's full name -->
-                <span th:text="${chef.firstName + ' ' + chef.lastName}"></span>
-
-                <!-- Link to Chef details page -->
-                <a th:href="@{/chef(id=${chef.id})}">
-                    <i class="fas fa-info-circle"></i>
-                </a>
-            </td>
-            <td>
-                <!-- Format and display Chef's date of birth -->
-                <span th:text="${#temporals.format(chef.dateOfBirth.atStartOfDay(), 'd MMMM yyyy')}"></span>
-            </td>
-            <td>
-                <!-- Form for deleting Chef with hidden input for Chef ID -->
-                <form method="post" th:action="@{/delete-chef}" th:object="${chef}" th:method="delete">
-                    <input type="hidden" th:if="${chef}" th:name="id" th:value="${chef.id}" />
-                    <button type="submit">
-                        <i class="fas fa-trash-alt"></i>
-                    </button>
-                </form>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+<h1 class="page-title" th:text="#{chef.chefsTitle}">Chefs</h1>
+<main class="container">
+    <div class="row">
+        <!-- List -->
+        <section class="col-md-8">
+            <h2 th:text="#{chef.listHeader}">Chef List</h2>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Date of Birth</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody id="chefTableBody">
+                <tr th:id="'chef_' + ${chef.id}" th:each="chef, chefStat : ${all_chefs}" th:class="${chefStat.odd}? 'odd'">
+                    <td>
+                        <span th:text="${chef.firstName + ' ' + chef.lastName}"></span>
+                        <a th:href="@{/chef(id=${chef.id})}">
+                            <i class="fas fa-info-circle"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <span th:text="${#temporals.format(chef.dateOfBirth.atStartOfDay(), 'd MMMM yyyy')}"></span>
+                    </td>
+                    <!-- Delete Button -->
+                    <td>
+                        <form method="post" th:action="@{/delete-chef}" th:object="${chef}" th:method="delete">
+                            <input type="hidden" th:if="${chef}" th:name="id" th:value="${chef.id}" />
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+        <!-- Add Form -->
+        <section class="col-md-4">
+            <h2 th:text="#{chef.addHeader}">Add Chef</h2>
+            <form class="form-container">
+                <div class="form-group">
+                    <label for="inputFirstName">First Name</label>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" style="width: 50px;">
+                            <i class="fas fa-user"></i>
+                        </span>
+                        <input type="text" class="form-control" id="inputFirstName" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputLastName">Last Name</label>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" style="width: 50px;">
+                            <i class="fas fa-user"></i>
+                        </span>
+                        <input type="text" class="form-control" id="inputLastName" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputDateOfBirth">Date of Birth</label>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" style="width: 50px;">
+                            <i class="far fa-calendar-alt"></i>
+                        </span>
+                        <input type="date" class="form-control" id="inputDateOfBirth" required>
+                    </div>
+                </div>
+                <div class="btn-container">
+                    <button id="addButton" type="button" class="btn btn-primary mb-3" th:text="#{chef.add}">Add</button>
+                </div>
+            </form>
+        </section>
+    </div>
 </main>
-
-<!-- Include the footer fragment -->
 <footer th:insert="~{fragments/footer::copy}"></footer>
 </body>
 </html>

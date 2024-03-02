@@ -28,7 +28,7 @@ async function addNewChef() {
         body: JSON.stringify({
             firstName: firstNameInput.value,
             lastName: lastNameInput.value,
-            dateOfBirth: dateOfBirthInput.value
+            dateOfBirth: dateOfBirthInput.value,
         }),
         headers: {
             "Accept": "application/json",

@@ -5,103 +5,77 @@
     <thymeleaf th:replace="~{includes :: meta_script_link}"></thymeleaf>
     <script src="/js/chef.js" defer></script>
 </head>
-
 <body>
 <header th:insert="~{fragments/navbar::copy}"></header>
-<h1 class="page-title" th:text="#{chef.detailsHeader}">Chef Details</h1>
-
-<main class="detail-table-container">
-
-    <h1 th:text="${one_chef.firstName + ' ' + one_chef.lastName}"></h1>
-    <div class="row">
-        <input id="chefId" type="hidden" th:value="${one_chef.id}">
-
-        <div class="col-9">
-            <label for="dateInput" class="form-label">Date Of Birth</label>
-            <input type="date" id="dateInput" name="dob" th:text="${one_chef.dateOfBirth}">
-        </div>
-    </div>
-    <div class="row mt-3">
-        <div>
-            <button id="updateButton" type="button" class="btn btn-primary" disabled>Update</button>
-        </div>
-    </div>
-
-    <!-- Table for displaying Chef details -->
-    <table class="table">
-        <tbody>
-        <!-- Row for Chef ID -->
-        <tr>
-            <th th:text="#{chef.id}">ID</th>
-            <td th:text="*{one_chef.id}"></td>
-        </tr>
-        <!-- Row for First Name -->
-        <tr>
-            <th th:text="#{chef.firstName}">First Name</th>
-            <td th:text="*{one_chef.firstName}"></td>
-        </tr>
-        <!-- Row for Last Name -->
-        <tr>
-            <th th:text="#{chef.lastName}">Last Name</th>
-            <td th:text="*{one_chef.lastName}"></td>
-        </tr>
-        <!-- Row for Date of Birth -->
-        <tr>
-            <th th:text="#{chef.dateOfBirth}">Date Of Birth</th>
-            <td th:text="${#temporals.format(one_chef.dateOfBirth.atStartOfDay(), 'd MMMM yyyy')}"></td>
-        </tr>
-        <tr>
-            <th th:text="#{chef.age}">Age</th>
-            <td th:text="*{one_chef.calculateAge()}"></td>
-        </tr>
-        <tr>
-            <th th:text="#{chef.restaurant}">Restaurant</th>
-            <td th:text="${one_chef.restaurantName}"></td>
-        </tr>
-        </tbody>
-    </table>
-    <div class="mt-5">
+<h1  class="page-title" th:text="${one_chef.firstName + ' ' + one_chef.lastName}"></h1>
+<main class="container">
+    <!-- Details -->
+    <section>
+        <h2>Details</h2>
+        <table class="table">
+            <tbody>
+            <tr>
+                <th>ID</th>
+                <td th:text="*{one_chef.id}"></td>
+            </tr>
+            <tr>
+                <th>First Name</th>
+                <td th:text="*{one_chef.firstName}"></td>
+            </tr>
+            <tr>
+                <th>Last Name</th>
+                <td th:text="*{one_chef.lastName}"></td>
+            </tr>
+            <tr>
+                <th>Date Of Birth</th>
+                <td th:text="${#temporals.format(one_chef.dateOfBirth.atStartOfDay(), 'd MMMM yyyy')}"></td>
+            </tr>
+            <tr>
+                <th>Age</th>
+                <td th:text="*{one_chef.calculateAge()}"></td>
+            </tr>
+            <tr>
+                <th>Restaurant</th>
+                <td th:text="${one_chef.restaurantName}"></td>
+            </tr>
+            </tbody>
+        </table>
         <div class="dropdown" id="dropdownButtonWrapper">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="toggleMenuItemInformation">
                 Menu items involved in
             </button>
         </div>
-        <table id="menuItemInformation">
+        <table id="menuItemInformation" class="table">
             <thead>
             <tr>
-                <th th:text="#{menu.name}">Name</th>
-                <th th:text="#{menu.price}">Price</th>
-                <th th:text="#{menu.course}">Course</th>
-                <th th:text="#{menu.vegetarian}">Vegetarian</th>
-                <th th:text="#{menu.spiceLvl}">Spice Level</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Course</th>
+                <th>Vegetarian</th>
+                <th>Spice Level</th>
             </tr>
             </thead>
-            <thead>
             <tbody id="menuItemInformationBody"></tbody>
-            <!--
-            <th th:text="#{chef.menuItems}">Menu Items</th>
-                <td>
-                    <span th:if="${chef.menuItems != null and not #lists.isEmpty(chef.menuItems)}">
-                        <span th:each="menuItem : ${chef.menuItems}">
-                            <span th:text="${menuItem.name}"></span><br/>
-                        </span>
-                    </span>
-                    <span th:if="${chef.menuItems == null or #lists.isEmpty(chef.menuItems)}" th:text="#{chef.noMenuItems}">
-                        No menu items
-                    </span>
-                </td>
-                -->
-
         </table>
-    </div>
-
-    <div class="center-container">
-        <!-- Link to return to Chef List -->
-        <a th:href="@{/chefs}"><button type="button"><i class="fas fa-arrow-left"></i> Return</button></a>
-    </div>
+    </section>
+    <!-- Update -->
+    <section>
+        <h2>Update</h2>
+        <br>
+        <input type="hidden" id="chefId" th:value="${one_chef.id}">
+        <div class="col-9">
+            <label for="dateInput" class="form-label">Date Of Birth</label>
+            <input type="date" id="dateInput" name="dob" th:text="${one_chef.dateOfBirth}">
+        </div>
+        <div>
+            <button id="updateButton" type="button" class="btn btn-primary" disabled>Update</button>
+        </div>
+    </section>
 </main>
-
-<!-- Include the footer fragment -->
+<!-- Return Button -->
+<div class="center-container">
+    <a th:href="@{/chefs}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Return</a>
+</div>
 <footer th:insert="~{fragments/footer::copy}"></footer>
 </body>
 </html>

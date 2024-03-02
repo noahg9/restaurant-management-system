@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:insert="~{fragments/head :: head}">
+    <title>Footer</title>
+    <thymeleaf th:replace="~{includes :: meta_script_link}"></thymeleaf>
 </head>
-
 <body>
-<div th:fragment="copy">
-    <!-- Copyright Information -->
+<div th:fragment="copy" class="text-center py-sm-0">
     &copy; 2023 KdG
 </div>
 </body>
-
 </html>

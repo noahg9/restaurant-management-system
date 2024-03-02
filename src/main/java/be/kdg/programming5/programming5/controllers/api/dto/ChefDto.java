@@ -9,17 +9,15 @@ public class ChefDto {
     private String firstName;
     private String lastName;
     private LocalDate dateOfBirth;
-    private Restaurant restaurant;
 
     public ChefDto() {
     }
 
-    public ChefDto(int id, String firstName, String lastName, LocalDate dateOfBirth, Restaurant restaurant) {
+    public ChefDto(int id, String firstName, String lastName, LocalDate dateOfBirth) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
-        this.restaurant = restaurant;
     }
 
     public int getId() {
@@ -52,13 +50,5 @@ public class ChefDto {
 
     public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
-    }
-
-    public Restaurant getRestaurant() {
-        return restaurant;
-    }
-
-    public void setRestaurant(Restaurant restaurant) {
-        this.restaurant = restaurant;
     }
 }

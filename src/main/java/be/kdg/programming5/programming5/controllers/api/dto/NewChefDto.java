@@ -12,16 +12,14 @@ public class NewChefDto {
     @NotBlank
     private String lastName;
     private LocalDate dateOfBirth;
-    private Restaurant restaurant;
 
     public NewChefDto() {
     }
 
-    public NewChefDto(String firstName, String lastName, LocalDate dateOfBirth, Restaurant restaurant) {
+    public NewChefDto(String firstName, String lastName, LocalDate dateOfBirth) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
-        this.restaurant = restaurant;
     }
 
 
@@ -49,11 +47,4 @@ public class NewChefDto {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public Restaurant getRestaurant() {
-        return restaurant;
-    }
-
-    public void setRestaurant(Restaurant restaurant) {
-        this.restaurant = restaurant;
-    }
 }

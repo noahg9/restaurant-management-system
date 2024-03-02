@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/menuitems")
+@RequestMapping("/api/menu-items")
 public class MenuItemsController {
     private final MenuItemService menuItemService;
     private final ModelMapper modelMapper;
@@ -34,13 +34,17 @@ public class MenuItemsController {
         );
     }
 
-    // "/api/menuitems/{id}"
+    // "/api/menu-items/{id}"
     @GetMapping("{id}")
-    MenuItem getOneMenuItem(@PathVariable("id") int menuItemId) {
-        return menuItemService.getMenuItem(menuItemId);
+    ResponseEntity<MenuItemDto> getOneMenuItem(@PathVariable("id") int menuItemId) {
+        var menuItem = menuItemService.getMenuItem(menuItemId);
+        if (menuItem == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(modelMapper.map(menuItem, MenuItemDto.class));
     }
 
-    // "/api/menuitems/{id}/chefs"
+    // "/api/menu-items/{id}/chefs"
     @GetMapping("{id}/chefs")
     ResponseEntity<List<ChefDto>> getChefsOfMenuItem(@PathVariable("id") int menuItemId) {
         var menuItem = menuItemService.getMenuItemWithChefs(menuItemId);
@@ -57,23 +61,28 @@ public class MenuItemsController {
                 .toList());
     }
 
-    // "/api/menuitems"
+    // "/api/menu-items"
     @GetMapping
-    ResponseEntity<List<MenuItem>> searchMenuItems(@RequestParam(required = false) String search) {
-        // TODO: return menuItemDto
+    ResponseEntity<List<MenuItemDto>> searchMenuItems(@RequestParam(required = false) String search) {
         if (search == null) {
-            return ResponseEntity.ok(menuItemService.getAllMenuItems());
+            return ResponseEntity
+                    .ok(menuItemService.getAllMenuItems()
+                            .stream()
+                            .map(menuItem -> modelMapper.map(menuItem, MenuItemDto.class))
+                            .toList());
         } else {
             var searchResult = menuItemService.searchMenuItemsByNameLike(search);
             if (searchResult.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             } else {
-                return ResponseEntity.ok(searchResult);
-            }
+                return ResponseEntity.ok(searchResult
+                        .stream()
+                        .map(menuItem -> modelMapper.map(menuItem, MenuItemDto.class))
+                        .toList());            }
         }
     }
 
-    // "/api/menuitems/{id}"
+    // "/api/menu-items/{id}"
     @DeleteMapping("{id}")
     ResponseEntity<Void> deleteMenuItem(@PathVariable("id") int menuItemId) {
         if (menuItemService.removeMenuItem(menuItemId)) {

@@ -5,14 +5,11 @@
     <thymeleaf th:replace="~{includes :: meta_script_link}"></thymeleaf>
     <script src="/js/search-chefs.js" defer></script>
 </head>
-
 <body>
 <header th:insert="~{fragments/navbar::copy}"></header>
-
 <h1 class="page-title" th:text="#{chef.searchHeader}">Search Chefs</h1>
-
 <main class="container">
-    <h1>Search Chefs</h1>
+    <!-- Search Bar -->
     <form>
         <div class="mb-3">
             <label for="searchTerm" class="form-label">Name</label>
@@ -21,7 +18,7 @@
         </div>
         <button type="button" class="btn btn-primary" id="searchButton">Search</button>
     </form>
-
+    <!-- Search Results -->
     <section id="searchResultsSection">
         <h2 class="mt-5">Chefs Found</h2>
         <table class="table">
@@ -38,7 +35,6 @@
         </table>
     </section>
 </main>
-
 <footer th:insert="~{fragments/footer::copy}"></footer>
 </body>
 </html>

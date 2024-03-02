@@ -94,51 +94,6 @@ public class ChefController {
     }
 
     /**
-     * Handles GET request to display the form for adding a new chef.
-     *
-     * @param session Session object to manage session-related information.
-     * @param model   Model object to add attributes for the view.
-     * @return View name for the add chef form.
-     */
-    @GetMapping("/add-chef")
-    public String showAddChefForm(HttpSession session, Model model) {
-        logger.debug("Showing chef form");
-        String pageTitle = "Add Chef";
-        HistoryUtil.updateHistory(session, pageTitle);
-        model.addAttribute("pageTitle", pageTitle);
-        model.addAttribute("chefViewModel", new ChefViewModel());
-        model.addAttribute("restaurants", restaurantService.getAllRestaurants());
-        return "chef/add-chef";
-    }
-
-    /**
-     * Handles POST request to add a new chef.
-     *
-     * @param viewModel Form data for adding a new chef.
-     * @return Redirect URL after adding the chef.
-     */
-    @PostMapping("/add-chef")
-    public String addChef(@ModelAttribute("chefViewModel") @Valid ChefViewModel viewModel) {
-        try {
-            logger.debug("Adding chef {}", viewModel.getFirstName());
-            chefService.addChef(
-                    viewModel.getFirstName(),
-                    viewModel.getLastName(),
-                    viewModel.getDateOfBirth(),
-                    restaurantService.getRestaurantWithChefs(viewModel.getRestaurantId())
-            );
-        } catch (DatabaseException e) {
-            logger.error("Database error adding chef: " + e.getMessage());
-            return "error/dberror";
-        } catch (Exception e) {
-            logger.error("Error adding chef: " + e.getMessage());
-            return "error/error";
-        }
-        return "redirect:/chefs";
-    }
-
-
-    /**
      * Handles POST request to delete a chef.
      *
      * @param chefId ID of the chef to be deleted.
