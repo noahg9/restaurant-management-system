@@ -23,23 +23,29 @@
                     <!-- Home Link -->
                     <a th:href="@{/home}" class="nav-item nav-link"><i class="fas fa-home"></i> <span th:text="#{navbar.home}">Home</span></a>
 
-                    <!-- Chef List Link -->
-                    <a th:href="@{/chef/chefs}" class="nav-item nav-link"><i class="fas fa-list"></i> <span th:text="#{navbar.chefList}">Chef List</span></a>
+                    <!-- Dropdown for Chef -->
+                    <div class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="chefDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user"></i> <span th:text="#{navbar.chef}">Chef</span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="chefDropdown">
+                            <li><a class="dropdown-item" th:href="@{/chef/chefs}"><i class="fas fa-list"></i> <span th:text="#{navbar.chefList}">Chef List</span></a></li>
+                            <li><a class="dropdown-item" th:href="@{/chef/add-chef}"><i class="fas fa-plus"></i> <span th:text="#{navbar.addChef}">Add Chef</span></a></li>
+                            <li><a class="dropdown-item" th:href="@{/chef/search-chefs}"><i class="fas fa-search"></i> <span th:text="#{navbar.searchChefs}">Search Chefs</span></a></li>
+                        </ul>
+                    </div>
 
-                    <!-- Menu Item List Link -->
-                    <a th:href="@{/menu/menu-items}" class="nav-item nav-link"><i class="fas fa-list"></i> <span th:text="#{navbar.menuItemList}">Menu Item List</span></a>
-
-                    <!-- Add Chef Link -->
-                    <a th:href="@{/chef/add-chef}" class="nav-item nav-link"><i class="fas fa-plus"></i> <span th:text="#{navbar.addChef}">Add Chef</span></a>
-
-                    <!-- Add Menu Item Link -->
-                    <a th:href="@{/menu/add-menu-item}" class="nav-item nav-link"><i class="fas fa-plus"></i> <span th:text="#{navbar.addMenuItem}">Add Menu Item</span></a>
-
-                    <!-- Search Chefs Link -->
-                    <a th:href="@{/chef/search-chefs}" class="nav-item nav-link"><i class="fas fa-search"></i> <span th:text="#{navbar.searchChefs}">Search Chefs</span></a>
-
-                    <!-- Search Menu Items Link -->
-                    <a th:href="@{/menu/search-menu-items}" class="nav-item nav-link"><i class="fas fa-search"></i> <span th:text="#{navbar.searchMenuItems}">Search Menu Items</span></a>
+                    <!-- Dropdown for Menu Item -->
+                    <div class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="menuItemDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-utensils"></i> <span th:text="#{navbar.menuItem}">Menu Item</span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="menuItemDropdown">
+                            <li><a class="dropdown-item" th:href="@{/menu/menu-items}"><i class="fas fa-list"></i> <span th:text="#{navbar.menuItemList}">Menu Item List</span></a></li>
+                            <li><a class="dropdown-item" th:href="@{/menu/add-menu-item}"><i class="fas fa-plus"></i> <span th:text="#{navbar.addMenuItem}">Add Menu Item</span></a></li>
+                            <li><a class="dropdown-item" th:href="@{/menu/search-menu-items}"><i class="fas fa-search"></i> <span th:text="#{navbar.searchMenuItems}">Search Menu Items</span></a></li>
+                        </ul>
+                    </div>
 
                     <!-- History Link -->
                     <a th:href="@{/session/history}" class="nav-item nav-link"><i class="fas fa-history"></i> <span th:text="#{navbar.history}">History</span></a>
