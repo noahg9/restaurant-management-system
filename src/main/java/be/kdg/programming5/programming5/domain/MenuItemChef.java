@@ -21,8 +21,8 @@ public class MenuItemChef extends AbstractEntity<Long> implements Serializable {
 
     public MenuItemChef(long id, MenuItem menuItem, Chef chef) {
         super(id);
-        this.menuItem = menuItem;
-        this.chef = chef;
+        setMenuItem(menuItem);
+        setChef(chef);
     }
 
     public MenuItem getMenuItem() {

@@ -1,6 +1,5 @@
 package be.kdg.programming5.programming5.service;
 
-import be.kdg.programming5.programming5.domain.Chef;
 import be.kdg.programming5.programming5.domain.Restaurant;
 import be.kdg.programming5.programming5.repository.RestaurantRepository;
 import jakarta.transaction.Transactional;
@@ -45,6 +44,11 @@ public class RestaurantService {
     public Restaurant getRestaurant(long id) {
         return restaurantRepository.findById(id).orElse(null);
     }
+
+    public Restaurant getRestaurantByName(String name) {
+        return restaurantRepository.findByName(name);
+    }
+
 
 
     /**
@@ -111,7 +115,7 @@ public class RestaurantService {
      */
     
     @Transactional
-    public void deleteRestaurant(long id) {
+    public void removeRestaurant(long id) {
         restaurantRepository.deleteById(id);
     }
 }

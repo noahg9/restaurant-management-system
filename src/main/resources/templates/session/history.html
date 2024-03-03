@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:include="fragments/head :: head">
+<head>
     <title>History</title>
-    <thymeleaf th:replace="~{includes :: meta_script_link}"></thymeleaf>
+    <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
 <body>
-<header th:insert="~{fragments/navbar::copy}"></header>
+<header th:replace="~{fragments/includes::header}"></header>
 <h1 class="page-title" th:text="#{history.header}">History</h1>
 <div class="container">
     <table class="table">

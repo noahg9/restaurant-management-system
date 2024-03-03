@@ -14,17 +14,20 @@ import java.util.Optional;
  */
 @Repository
 public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
+    Restaurant findByName(String name);
+
+
     @Query("""
-        select restaurant from Restaurant restaurant
-        left join fetch restaurant.chefs chefs
-        where restaurant.id = :restaurantId
+        select distinct r from Restaurant r
+        join Chef c on c.restaurant.id = r.id
+        where c.restaurant.id = :restaurantId
         """)
     Optional<Restaurant> findByIdWithChefs(long restaurantId);
 
     @Query("""
-        select restaurant from Restaurant restaurant
-        left join fetch restaurant.menuItems menuItems
-        where restaurant.id = :restaurantId
+        select r from Restaurant r
+        join MenuItem m on m.restaurant.id = r.id
+        where r.id = :restaurantId
         """)
     Optional<Restaurant> findByIdWithMenuItems(long restaurantId);
 }

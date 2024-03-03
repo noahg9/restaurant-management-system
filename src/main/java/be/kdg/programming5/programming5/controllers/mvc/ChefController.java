@@ -1,12 +1,10 @@
 package be.kdg.programming5.programming5.controllers.mvc;
 
+import be.kdg.programming5.programming5.controllers.mvc.viewmodel.MenuItemViewModel;
 import be.kdg.programming5.programming5.domain.util.HistoryUtil;
-import be.kdg.programming5.programming5.exceptions.DatabaseException;
 import be.kdg.programming5.programming5.controllers.mvc.viewmodel.ChefViewModel;
 import be.kdg.programming5.programming5.service.ChefService;
-import be.kdg.programming5.programming5.service.RestaurantService;
 import jakarta.servlet.http.HttpSession;
-import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -75,7 +73,7 @@ public class ChefController {
         HistoryUtil.updateHistory(session, pageTitle);
         model.addAttribute("pageTitle", pageTitle);
 
-        var chef = chefService.getChef(chefId);
+        var chef = chefService.getChefWithMenuItems(chefId);
         var mav = new ModelAndView();
         mav.setViewName("chef/chef");
         mav.addObject("one_chef",
@@ -85,7 +83,21 @@ public class ChefController {
                         chef.getLastName(),
                         chef.getDateOfBirth(),
                         chef.getRestaurant().getId(),
-                        chef.getRestaurant().getName()
+                        chef.getRestaurant().getName(),
+                        chef.getMenuItems()
+                                .stream().map(
+                                        menuItemChef ->
+                                                new MenuItemViewModel(
+                                                        menuItemChef.getMenuItem().getId(),
+                                                        menuItemChef.getMenuItem().getName(),
+                                                        menuItemChef.getMenuItem().getPrice(),
+                                                        menuItemChef.getMenuItem().getCourse(),
+                                                        menuItemChef.getMenuItem().isVegetarian(),
+                                                        menuItemChef.getMenuItem().getSpiceLvl(),
+                                                        menuItemChef.getMenuItem().getRestaurant().getId(),
+                                                        menuItemChef.getMenuItem().getRestaurant().getName()
+                                                )
+                                ).toList()
                 ));
         return mav;
     }

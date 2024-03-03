@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:insert="~{fragments/head :: head}">
+<head>
     <title>Home</title>
-    <thymeleaf th:replace="~{includes :: meta_script_link}"></thymeleaf>
+    <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
 </head>
 <body>
-<header th:insert="~{fragments/navbar::copy}"></header>
+<header th:replace="~{fragments/includes::header}"></header>
 <main class="container">
     <h1 class="page-title" th:text="#{home.header}">Home</h1>
     <p class="lead" th:text="#{home.welcome}">Welcome to our database of restaurants.</p>

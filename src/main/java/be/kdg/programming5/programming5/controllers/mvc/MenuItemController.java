@@ -1,13 +1,10 @@
 package be.kdg.programming5.programming5.controllers.mvc;
 
-import be.kdg.programming5.programming5.domain.Course;
+import be.kdg.programming5.programming5.controllers.mvc.viewmodel.ChefViewModel;
 import be.kdg.programming5.programming5.domain.util.HistoryUtil;
-import be.kdg.programming5.programming5.exceptions.DatabaseException;
 import be.kdg.programming5.programming5.controllers.mvc.viewmodel.MenuItemViewModel;
 import be.kdg.programming5.programming5.service.MenuItemService;
-import be.kdg.programming5.programming5.service.RestaurantService;
 import jakarta.servlet.http.HttpSession;
-import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -42,7 +39,7 @@ public class MenuItemController {
     @GetMapping("/menu-items")
     public ModelAndView allMenuItems(HttpSession session, Model model) {
         logger.info("Getting menu items");
-        String pageTitle = "Menu Item List";
+        String pageTitle = "Menu Item";
         HistoryUtil.updateHistory(session, pageTitle);
         model.addAttribute("pageTitle", pageTitle);
 
@@ -74,11 +71,11 @@ public class MenuItemController {
     @GetMapping("/menu-item")
     public ModelAndView oneMenuItem(@RequestParam("id") long menuItemId, HttpSession session, Model model) {
         logger.info("Getting menu item");
-        String pageTitle = "Menu Item Details";
+        String pageTitle = "Menu Item";
         HistoryUtil.updateHistory(session, pageTitle);
         model.addAttribute("pageTitle", pageTitle);
 
-        var menuItem = menuItemService.getMenuItem(menuItemId);
+        var menuItem = menuItemService.getMenuItemWithChefs(menuItemId);
         var mav = new ModelAndView();
         mav.setViewName("menu/menu-item");
         mav.addObject("one_menu_item",
@@ -90,7 +87,19 @@ public class MenuItemController {
                         menuItem.isVegetarian(),
                         menuItem.getSpiceLvl(),
                         menuItem.getRestaurant().getId(),
-                        menuItem.getRestaurant().getName()
+                        menuItem.getRestaurant().getName(),
+                        menuItem.getChefs()
+                                .stream().map(
+                                        menuItemChef ->
+                                                new ChefViewModel(
+                                                        menuItemChef.getChef().getId(),
+                                                        menuItemChef.getChef().getFirstName(),
+                                                        menuItemChef.getChef().getLastName(),
+                                                        menuItemChef.getChef().getDateOfBirth(),
+                                                        menuItemChef.getChef().getRestaurant().getId(),
+                                                        menuItemChef.getChef().getRestaurant().getName()
+                                                )
+                                ).toList()
                 ));
         return mav;
     }

@@ -3,7 +3,6 @@ package be.kdg.programming5.programming5.controllers.api;
 import be.kdg.programming5.programming5.controllers.api.dto.ChefDto;
 import be.kdg.programming5.programming5.controllers.api.dto.MenuItemDto;
 import be.kdg.programming5.programming5.controllers.api.dto.NewMenuItemDto;
-import be.kdg.programming5.programming5.domain.MenuItem;
 import be.kdg.programming5.programming5.domain.MenuItemChef;
 import be.kdg.programming5.programming5.service.MenuItemService;
 import jakarta.validation.Valid;
@@ -26,8 +25,9 @@ public class MenuItemsController {
     }
 
     @PostMapping
-    ResponseEntity<MenuItemDto> addIssue(@RequestBody @Valid NewMenuItemDto menuItemDto) {
-        var createdMenuItem = menuItemService.addMenuItem(menuItemDto.getName(), menuItemDto.getPrice(), menuItemDto.getCourse(), menuItemDto.isVegetarian(), menuItemDto.getSpiceLvl(), menuItemDto.getRestaurant());
+    ResponseEntity<MenuItemDto> addMenuItem(@RequestBody @Valid NewMenuItemDto menuItemDto) {
+        var createdMenuItem = menuItemService.addMenuItem(
+                menuItemDto.getName(), menuItemDto.getPrice());
         return new ResponseEntity<>(
                 modelMapper.map(createdMenuItem, MenuItemDto.class),
                 HttpStatus.CREATED

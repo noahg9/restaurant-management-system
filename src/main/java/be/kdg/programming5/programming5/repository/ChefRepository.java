@@ -16,24 +16,24 @@ import java.util.Optional;
 public interface ChefRepository extends JpaRepository<Chef, Long> {
 
     @Query("""
-        select chef from Chef chef
-        left join fetch chef.menuItems menuItems
+        select c from Chef c
+        left join fetch c.menuItems menuItems
         left join fetch menuItems.menuItem
-        where chef.id = :chefId
+        where c.id = :chefId
         """)
     Optional<Chef> findByIdWithMenuItems(long chefId);
 
     @Query("""
-        select chef from Chef chef
-        left join fetch chef.menuItems menuItemChef
-        left join fetch menuItemChef.menuItem
+        select c from Chef c
+        left join fetch c.menuItems menuItems
+        left join fetch menuItems.menuItem
         """)
     List<Chef> findAllWithMenuItems();
 
     @Query("""
-           select chef from Chef chef
-           left join chef.menuItems menuItemChefs
-           left join menuItemChefs.menuItem menuItem
+           select c from Chef c
+           left join c.menuItems menuItems
+           left join menuItems.menuItem menuItem
            where menuItem.id = :menuItemId
            """)
     List<Chef> findByMenuItemId(long menuItemId);

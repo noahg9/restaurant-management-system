@@ -17,6 +17,10 @@ async function toggleMenuItemsTable() {
                 tableBody.innerHTML += `
                     <tr>
                         <td>${menuItem.name}</td>
+                        <td>${menuItem.price}</td>
+                        <td>${menuItem.course}</td>
+                        <td>${menuItem.vegetarian}</td>
+                        <td>${menuItem.spiceLvl}</td>
                     </tr>
                 `;
             }
@@ -77,8 +81,10 @@ async function changeChef() {
     if (response.status === 204) {
         updateButton.disabled = true;
     } else {
-        alert('Something went wrong!'); // Don't use alerts in a "real" application.
-    }}
+        const errorMessage = await response.text();
+        alert(`Error ${response.status}: ${errorMessage}`);
+    }
+}
 
 updateButton.addEventListener("click", changeChef);
 firstNameInput.addEventListener("input", () => updateButton.disabled = false);

@@ -8,19 +8,23 @@ async function handleDeleteMenuItem(event) {
     const rowId = event.target.parentNode.parentNode.id;
     const menuItemId = parseInt(rowId.substring(rowId.indexOf('_') + 1));
     const response = await fetch(`/api/menu-items/${menuItemId}`, {
-        method: "DELETE"
+        method: "DELETE",
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        }
     });
     if (response.status === 204) {
         const row = document.getElementById(`menu_item_${menuItemId}`);
         row.parentNode.removeChild(row);
+    } else {
+        const errorMessage = await response.text();
+        alert(`Error ${response.status}: ${errorMessage}`);
     }
 }
 
-const nameInput = document.getElementById("inputName");
-const priceInput = document.getElementById("inputPrice");
-const courseInput = document.getElementById("inputCourse");
-const vegetarianInput = document.getElementById("inputVegetarian");
-const spiceLvlInput = document.getElementById("inputSpiceLvl");
+const nameInput = document.getElementById("nameInput");
+const priceInput = document.getElementById("priceInput");
 const addButton = document.getElementById("addButton");
 const menuItemTableBody = document.getElementById("menuItemTableBody");
 
@@ -33,35 +37,34 @@ async function addNewMenuItem() {
         },
         body: JSON.stringify({
             name: nameInput.value,
-            price: priceInput.value,
-            course: courseInput.value,
-            vegetarian: vegetarianInput.value,
-            spiceLvl: spiceLvlInput.value
+            price: priceInput.value
         })
     })
     if (response.status === 201) {
         /**
-         * @type {{id: number, name: string, price: number, course: string, vegetarian: boolean, spiceLvl: number}}
+         * @type {{id: number, name: string, price: number, course: string, vegetarian: boolean, spiceLvl: number, restaurant: string}}
          */
         const menuItem = await response.json()
         addMenuItemToTable(menuItem);
     } else {
-        alert("Something went wrong!");
-    }}
+        const errorMessage = await response.text();
+        alert(`Error ${response.status}: ${errorMessage}`);
+    }
+}
 
 /**
- * @param {{id: number, name: string, price: number, course: string, vegetarian: boolean, spiceLvl: number}} menuItem
+ * @param {{id: number, name: string, price: number, course: string, vegetarian: boolean, spiceLvl: number, restaurant: string}} menuItem
  */
 function addMenuItemToTable(menuItem) {
     const tableRow = document.createElement("tr");
-    tableRow.id = `issue_${menuItem.id}`;
+    tableRow.id = `menu_item_${menuItem.id}`;
     tableRow.innerHTML = `
         <td>${menuItem.name}</td>
         <td>${menuItem.price}</td>
         <td>${menuItem.course}</td>
         <td>${menuItem.vegetarian}</td>
         <td>${menuItem.spiceLvl}</td>
-        <td></td>
+        <td>${menuItem.restaurant ? menuItem.restaurant.name : 'N/A'}</td>
         <td><a href="/menu-item?id=${menuItem.id}">Details</a></td>
         <td><button type="button" class="btn btn-danger btn-sm">Delete</button></td>
     `

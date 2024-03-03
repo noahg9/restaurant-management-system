@@ -16,10 +16,7 @@ import java.util.Random;
  * Extends AbstractEntity for common entity properties.
  */
 @Entity
-@Table(name = "restaurants")
 public class Restaurant extends AbstractEntity<Long> implements Serializable {
-
-
     @Column
     private String name;
 
@@ -29,25 +26,19 @@ public class Restaurant extends AbstractEntity<Long> implements Serializable {
     @Column
     private int seatingCapacity;
 
-    @OneToMany(mappedBy = "restaurant")
-    private List<MenuItem> menuItems = new ArrayList<>();
-
-    @OneToMany(mappedBy = "restaurant")
-    private List<Chef> chefs = new ArrayList<>();
-
     protected Restaurant() {}
 
     public Restaurant(String name, LocalDate dateEstablished, int seatingCapacity) {
-        this.name = validateString(name, "Name");
-        this.dateEstablished = dateEstablished;
-        this.seatingCapacity = seatingCapacity;
+        setName(name);
+        setDateEstablished(dateEstablished);
+        setSeatingCapacity(seatingCapacity);
     }
 
     public Restaurant(long id, String name, LocalDate dateEstablished, int seatingCapacity) {
         super(id);
-        this.name = validateString(name, "Name");
-        this.dateEstablished = dateEstablished;
-        this.seatingCapacity = seatingCapacity;
+        setName(name);
+        setDateEstablished(dateEstablished);
+        setSeatingCapacity(seatingCapacity);
     }
 
     public String getName() {
@@ -55,7 +46,10 @@ public class Restaurant extends AbstractEntity<Long> implements Serializable {
     }
 
     public void setName(String name) {
-        this.name = validateString(name, "Name");
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("Name cannot be null or empty");
+        }
+        this.name = name.trim();
     }
 
     public LocalDate getDateEstablished() {
@@ -80,109 +74,17 @@ public class Restaurant extends AbstractEntity<Long> implements Serializable {
         this.seatingCapacity = seatingCapacity;
     }
 
-    public List<MenuItem> getMenuItems() {
-        return menuItems;
-    }
-
-    public void setMenuItems(List<MenuItem> menuItems) {
-        this.menuItems = menuItems;
-    }
-
-    public void addMenuItem(MenuItem menuItem) {
-        menuItems.add(Objects.requireNonNull(menuItem, "MenuItem cannot be null"));
-    }
-
-    public List<Chef> getChefs() {
-        return chefs;
-    }
-
-    public void setChefs(List<Chef> chefs) {
-        this.chefs = chefs;
-    }
-
-    public void addChef(Chef chef) {
-        chefs.add(Objects.requireNonNull(chef, "Chef cannot be null"));
-    }
-
-    /**
-     * Generates a random restaurant.
-     *
-     * @return A randomly generated restaurant.
-     */
-    public static Restaurant randomRestaurant() {
-        Random random = new Random();
-        return new Restaurant(
-                "restaurant" + random.nextInt(1000),
-                LocalDate.of(1920 + random.nextInt(100), random.nextInt(12) + 1, random.nextInt(27) + 1),
-                random.nextInt(200)
-        );
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, dateEstablished, seatingCapacity);
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Restaurant {")
-                .append("id=").append(id)
-                .append(", name='").append(name).append('\'')
-                .append(", dateEstablished=").append(dateEstablished)
-                .append(", seatingCapacity=").append(seatingCapacity)
-                .append(", menuItems=").append(getItemsString(menuItems))
-                .append(", chefs=").append(getItemsString(chefs))
-                .append("}");
-        return sb.toString();
-    }
-
-    private String getItemsString(List<?> items) {
-        StringBuilder sb = new StringBuilder("[");
-        if (items != null && !items.isEmpty()) {
-            for (Object item : items) {
-                sb.append(item.toString()).append(", ");
-            }
-            sb.setLength(sb.length() - 2); // Remove the last comma and space
-        }
-        sb.append("]");
-        return sb.toString();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Restaurant that = (Restaurant) o;
-        return id == that.id &&
-                seatingCapacity == that.seatingCapacity &&
-                Objects.equals(name, that.name) &&
-                Objects.equals(dateEstablished, that.dateEstablished) &&
-                Objects.equals(menuItems, that.menuItems);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, dateEstablished, seatingCapacity, menuItems);
-    }
-
-    @NotNull
-    static String getString(StringBuilder sb, List<?> items) {
-        if (items != null && !items.isEmpty()) {
-            for (Object item : items) {
-                sb.append(item.toString()).append(", ");
-            }
-            sb.setLength(sb.length() - 2); // Remove the last comma and space
-        }
-        return sb.toString();
-    }
-
-    private String validateString(String value, String fieldName) {
-        if (value == null || value.trim().isEmpty()) {
-            throw new IllegalArgumentException(fieldName + " cannot be null or empty");
-        }
-        return value.trim();
-    }
-
-    private int validateNonNegative(int value, String fieldName) {
-        if (value < 0) {
-            throw new IllegalArgumentException(fieldName + " cannot be negative");
-        }
-        return value;
+        return "Restaurant{" +
+                "name='" + name + '\'' +
+                ", dateEstablished=" + dateEstablished +
+                ", seatingCapacity=" + seatingCapacity +
+                '}';
     }
 }

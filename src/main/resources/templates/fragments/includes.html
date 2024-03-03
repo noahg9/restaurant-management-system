@@ -1,15 +1,30 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:insert="~{fragments/head :: head}">
-    <title>Navigation Bar</title>
-    <thymeleaf th:replace="~{includes :: meta_script_link}"></thymeleaf>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <thymeleaf th:fragment="meta_script_link" th:remove="tag">
+        <!-- Meta -->
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <!-- Links -->
+        <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+        <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+        <!-- Scripts -->
+        <script th:src="@{/js/language-switch.js}"></script>
+        <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI/tZ1XaM1p4zL9+fLXRdXJ5wN/uwIUmvsPQ4u7g=" crossorigin="anonymous"></script>
+        <!-- Title -->
+        <title th:text="${pageTitle}">Default Title</title>
+    </thymeleaf>
+    <title></title>
 </head>
+
 <body>
-<header th:fragment="copy" class="pb-3">
+<header th:fragment="header" class="pb-3">
     <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
         <div class="container">
             <!-- Website Name -->
-            <a th:href="@{/}" class="navbar-brand" th:text="#{navbar.title}">Restaurants</a>
+            <a th:href="@{/}" class="navbar-brand" th:text="#{navbar.title}">Restaurant Management</a>
             <!-- Toggler Button -->
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>

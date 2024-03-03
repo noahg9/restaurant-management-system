@@ -11,22 +11,14 @@ public class MenuItemDto {
     private long id;
     private String name;
     private double price;
-    private Course course;
-    private boolean vegetarian;
-    private int spiceLvl;
-    private Restaurant restaurant;
 
     public MenuItemDto() {
     }
 
-    public MenuItemDto(long id, String name, double price, Course course, boolean vegetarian, int spiceLvl, Restaurant restaurant) {
+    public MenuItemDto(long id, String name, double price) {
         this.id = id;
         this.name = name;
         this.price = price;
-        this.course = course;
-        this.vegetarian = vegetarian;
-        this.spiceLvl = spiceLvl;
-        this.restaurant = restaurant;
     }
 
     public long getId() {
@@ -51,37 +43,5 @@ public class MenuItemDto {
 
     public void setPrice(double price) {
         this.price = price;
-    }
-
-    public Course getCourse() {
-        return course;
-    }
-
-    public void setCourse(Course course) {
-        this.course = course;
-    }
-
-    public boolean isVegetarian() {
-        return vegetarian;
-    }
-
-    public void setVegetarian(boolean vegetarian) {
-        this.vegetarian = vegetarian;
-    }
-
-    public int getSpiceLvl() {
-        return spiceLvl;
-    }
-
-    public void setSpiceLvl(int spiceLvl) {
-        this.spiceLvl = spiceLvl;
-    }
-
-    public Restaurant getRestaurant() {
-        return restaurant;
-    }
-
-    public void setRestaurant(Restaurant restaurant) {
-        this.restaurant = restaurant;
     }
 }

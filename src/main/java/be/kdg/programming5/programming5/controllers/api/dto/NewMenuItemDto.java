@@ -11,18 +11,16 @@ public class NewMenuItemDto {
     private Course course;
     private boolean vegetarian;
     private int spiceLvl;
-    private Restaurant restaurant;
 
     public NewMenuItemDto() {
     }
 
-    public NewMenuItemDto(String name, double price, Course course, boolean vegetarian, int spiceLvl, Restaurant restaurant) {
+    public NewMenuItemDto(String name, double price, Course course, boolean vegetarian, int spiceLvl) {
         this.name = name;
         this.price = price;
         this.course = course;
         this.vegetarian = vegetarian;
         this.spiceLvl = spiceLvl;
-        this.restaurant = restaurant;
     }
 
     public String getName() {
@@ -63,13 +61,5 @@ public class NewMenuItemDto {
 
     public void setSpiceLvl(int spiceLvl) {
         this.spiceLvl = spiceLvl;
-    }
-
-    public Restaurant getRestaurant() {
-        return restaurant;
-    }
-
-    public void setRestaurant(Restaurant restaurant) {
-        this.restaurant = restaurant;
     }
 }

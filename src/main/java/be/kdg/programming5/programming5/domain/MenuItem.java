@@ -13,7 +13,6 @@ import java.util.Random;
  * Extends AbstractEntity for common entity properties.
  */
 @Entity
-@Table(name = "menu_items")
 public class MenuItem extends AbstractEntity<Long> implements Serializable {
 
     @Column(nullable = false)
@@ -42,18 +41,18 @@ public class MenuItem extends AbstractEntity<Long> implements Serializable {
     protected MenuItem() {}
 
     public MenuItem(String name, double price, Course course, boolean vegetarian, int spiceLvl) {
-        this.name = validateString(name, "Name");
-        this.price = validateNonNegative(price, "Price");
-        this.course = Objects.requireNonNull(course, "Course cannot be null");
+        setName(name);
+        setPrice(price);
+        setCourse(course);
         setVegetarian(vegetarian);
         setSpiceLvl(spiceLvl);
     }
 
     public MenuItem(long id, String name, double price, Course course, boolean vegetarian, int spiceLvl) {
         super(id);
-        this.name = validateString(name, "Name");
-        this.price = validateNonNegative(price, "Price");
-        this.course = Objects.requireNonNull(course, "Course cannot be null");
+        setName(name);
+        setPrice(price);
+        setCourse(course);
         setVegetarian(vegetarian);
         setSpiceLvl(spiceLvl);
     }
@@ -73,7 +72,10 @@ public class MenuItem extends AbstractEntity<Long> implements Serializable {
     }
 
     public void setName(String name) {
-        this.name = validateString(name, "Name");
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("Name cannot be null or empty");
+        }
+        this.name = name.trim();
     }
 
     public double getPrice() {
@@ -103,7 +105,6 @@ public class MenuItem extends AbstractEntity<Long> implements Serializable {
     }
 
     public void setVegetarian(boolean vegetarian) {
-        // No validation logic added, can be added if needed
         this.vegetarian = vegetarian;
     }
 
@@ -124,7 +125,6 @@ public class MenuItem extends AbstractEntity<Long> implements Serializable {
             throw new IllegalArgumentException("Restaurant cannot be null");
         }
         this.restaurant = restaurant;
-        restaurant.addMenuItem(this);
     }
 
     public List<MenuItemChef> getChefs() {
@@ -133,22 +133,6 @@ public class MenuItem extends AbstractEntity<Long> implements Serializable {
 
     public void setChefs(List<MenuItemChef> chefs) {
         this.chefs = chefs;
-    }
-
-    /**
-     * Generates a random menu item.
-     *
-     * @return A randomly generated menu item.
-     */
-    public static MenuItem randomMenuItem() {
-        Random random = new Random();
-        return new MenuItem(
-                "menu item" + random.nextInt(1000),
-                random.nextInt(100),
-                Course.values()[random.nextInt(Course.values().length)],
-                random.nextBoolean(),
-                random.nextInt(3)
-        );
     }
 
     @Override
@@ -171,17 +155,16 @@ public class MenuItem extends AbstractEntity<Long> implements Serializable {
         return Objects.hash(id, name, price, course, vegetarian, spiceLvl, restaurant, chefs);
     }
 
-    private String validateString(String value, String fieldName) {
-        if (value == null || value.trim().isEmpty()) {
-            throw new IllegalArgumentException(fieldName + " cannot be null or empty");
-        }
-        return value.trim();
-    }
-
-    private double validateNonNegative(double value, String fieldName) {
-        if (value < 0) {
-            throw new IllegalArgumentException(fieldName + " cannot be negative");
-        }
-        return value;
+    @Override
+    public String toString() {
+        return "MenuItem{" +
+                "name='" + name + '\'' +
+                ", price=" + price +
+                ", course=" + course +
+                ", vegetarian=" + vegetarian +
+                ", spiceLvl=" + spiceLvl +
+                ", restaurant=" + restaurant +
+                ", chefs=" + chefs +
+                '}';
     }
 }

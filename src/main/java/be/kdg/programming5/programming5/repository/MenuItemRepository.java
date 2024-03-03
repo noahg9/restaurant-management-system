@@ -16,23 +16,23 @@ import java.util.Optional;
 public interface MenuItemRepository extends JpaRepository<MenuItem, Long> {
 
     @Query("""
-        select menuItem from MenuItem menuItem
-        left join fetch menuItem.chefs menuItemChefs
-        left join fetch menuItemChefs.chef
-        where menuItem.id = :menuItemId
+        select m from MenuItem m
+        left join fetch m.chefs chefs
+        left join fetch chefs.chef
+        where m.id = :menuItemId
         """)
     Optional<MenuItem> findByIdWithChefs(long menuItemId);
 
     @Query("""
-        select menuItem from MenuItem menuItem
-        left join fetch menuItem.chefs menuItemChef
-        left join fetch menuItemChef.chef
+        select m from MenuItem m
+        left join fetch m.chefs chefs
+        left join fetch chefs.chef
         """)
     List<MenuItem> findAllWithChefs();
 
     @Query("""
-           select menuItem from MenuItem menuItem
-           left join menuItem.chefs menuItemChefs
+           select m from MenuItem m
+           left join m.chefs menuItemChefs
            left join menuItemChefs.chef chef
            where chef.id = :chefId
            """)

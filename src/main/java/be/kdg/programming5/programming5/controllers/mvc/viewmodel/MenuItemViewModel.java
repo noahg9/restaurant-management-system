@@ -6,6 +6,8 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.List;
+
 /**
  * ViewModel class for adding a menu item, containing necessary information.
  */
@@ -30,6 +32,8 @@ public class MenuItemViewModel {
     private long restaurantId;
 
     private String restaurantName;
+
+    private List<ChefViewModel> chefs;
 
 
     /**
@@ -57,6 +61,18 @@ public class MenuItemViewModel {
         setSpiceLvl(spiceLvl);
         setRestaurantId(restaurantId);
         setRestaurantName(restaurantName);
+    }
+
+    public MenuItemViewModel(long id, String name, double price, Course course, boolean vegetarian, int spiceLvl, long restaurantId, String restaurantName, List<ChefViewModel> chefs) {
+        setId(id);
+        setName(name);
+        setPrice(price);
+        setCourse(course);
+        setVegetarian(vegetarian);
+        setSpiceLvl(spiceLvl);
+        setRestaurantId(restaurantId);
+        setRestaurantName(restaurantName);
+        setChefs(chefs);
     }
 
     public long getId() {
@@ -193,22 +209,11 @@ public class MenuItemViewModel {
         this.restaurantName = restaurantName;
     }
 
-    /**
-     * Overrides the toString method to provide a string representation of the AddMenuItemViewModel object.
-     *
-     * @return A string representation of the AddMenuItemViewModel object.
-     */
-    @Override
-    public String toString() {
-        return "MenuItemViewModel{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", price=" + price +
-                ", course=" + course +
-                ", vegetarian=" + vegetarian +
-                ", spiceLvl=" + spiceLvl +
-                ", restaurantId=" + restaurantId +
-                ", restaurantName='" + restaurantName + '\'' +
-                '}';
+    public List<ChefViewModel> getChefs() {
+        return chefs;
+    }
+
+    public void setChefs(List<ChefViewModel> chefs) {
+        this.chefs = chefs;
     }
 }

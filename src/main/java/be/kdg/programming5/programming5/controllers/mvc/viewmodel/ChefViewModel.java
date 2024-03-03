@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.List;
 
 /**
  * ViewModel class for adding a Chef, containing necessary information.
@@ -26,6 +27,8 @@ public class ChefViewModel {
 
     private String restaurantName;
 
+    private List<MenuItemViewModel> menuItems;
+
     /**
      * Default constructor for AddChefViewModel.
      */
@@ -46,6 +49,16 @@ public class ChefViewModel {
         this.dateOfBirth = dateOfBirth;
         this.restaurantId = restaurantId;
         this.restaurantName = restaurantName;
+    }
+
+    public ChefViewModel(long id, String firstName, String lastName, LocalDate dateOfBirth, long restaurantId, String restaurantName, List<MenuItemViewModel> menuItems) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
+        this.restaurantId = restaurantId;
+        this.restaurantName = restaurantName;
+        this.menuItems = menuItems;
     }
 
     public long getId() {
@@ -152,20 +165,11 @@ public class ChefViewModel {
         return Period.between(dateOfBirth, currentDate).getYears();
     }
 
-    /**
-     * Overrides the toString method to provide a string representation of the AddChefViewModel object.
-     *
-     * @return A string representation of the AddChefViewModel object.
-     */
-    @Override
-    public String toString() {
-        return "ChefViewModel{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", dateOfBirth=" + dateOfBirth +
-                ", restaurantId=" + restaurantId +
-                ", restaurantName='" + restaurantName + '\'' +
-                '}';
+    public List<MenuItemViewModel> getMenuItems() {
+        return menuItems;
+    }
+
+    public void setMenuItems(List<MenuItemViewModel> menuItems) {
+        this.menuItems = menuItems;
     }
 }

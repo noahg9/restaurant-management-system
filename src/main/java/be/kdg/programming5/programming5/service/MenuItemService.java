@@ -3,7 +3,6 @@ package be.kdg.programming5.programming5.service;
 import be.kdg.programming5.programming5.domain.Course;
 import be.kdg.programming5.programming5.domain.MenuItem;
 import be.kdg.programming5.programming5.domain.Restaurant;
-import be.kdg.programming5.programming5.repository.MenuItemChefRepository;
 import be.kdg.programming5.programming5.repository.MenuItemRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -16,17 +15,20 @@ import java.util.List;
 @Service
 public class MenuItemService {
     private final MenuItemRepository menuItemRepository;
-    private final MenuItemChefRepository menuItemChefRepository;
+    private final MenuItemChefService menuItemChefService;
+    private final RestaurantService restaurantService;
 
     /**
      * Constructs a SpringDataMenuItemService with the specified repositories.
      *
      * @param menuItemRepository        The repository for MenuItem entities.
-     * @param menuItemChefRepository    The repository for MenuItemChef entities.
+     * @param menuItemChefService    The service for MenuItemChef entities.
+     * @param restaurantService The service for Restaurant entities.
      */
-    public MenuItemService(MenuItemRepository menuItemRepository, MenuItemChefRepository menuItemChefRepository) {
+    public MenuItemService(MenuItemRepository menuItemRepository, MenuItemChefService menuItemChefService, RestaurantService restaurantService) {
         this.menuItemRepository = menuItemRepository;
-        this.menuItemChefRepository = menuItemChefRepository;
+        this.menuItemChefService = menuItemChefService;
+        this.restaurantService = restaurantService;
     }
 
     /**
@@ -116,6 +118,10 @@ public class MenuItemService {
         return menuItemRepository.save(new MenuItem(name, price, course, vegetarian, spiceLvl, restaurant));
     }
 
+    public MenuItem addMenuItem(String name, double price) {
+        return menuItemRepository.save(new MenuItem(name, price, Course.Main, false, 0, restaurantService.getRestaurant(1)));
+    }
+
     /**
      * Adds a menu item to the system.
      *
@@ -150,7 +156,7 @@ public class MenuItemService {
             return false;
         }
 
-        menuItemChefRepository.deleteAll(menuItem.get().getChefs());
+        menuItemChefService.removeAllMenuItems(menuItem.get());
 
         menuItemRepository.deleteById(menuItemId);
         return true;

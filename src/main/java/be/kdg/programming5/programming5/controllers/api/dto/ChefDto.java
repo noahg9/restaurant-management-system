@@ -8,16 +8,8 @@ public class ChefDto {
     private long id;
     private String firstName;
     private String lastName;
-    private LocalDate dateOfBirth;
 
     public ChefDto() {
-    }
-
-    public ChefDto(long id, String firstName, String lastName, LocalDate dateOfBirth) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.dateOfBirth = dateOfBirth;
     }
 
     public ChefDto(long id, String firstName, String lastName) {
@@ -48,13 +40,5 @@ public class ChefDto {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public LocalDate getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(LocalDate dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
     }
 }

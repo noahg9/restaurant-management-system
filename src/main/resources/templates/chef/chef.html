@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:insert="~{fragments/head :: head}">
+<head>
     <title>Chef</title>
-    <thymeleaf th:replace="~{includes :: meta_script_link}"></thymeleaf>
+    <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
     <script src="/js/chef.js" defer></script>
 </head>
 <body>
-<header th:insert="~{fragments/navbar::copy}"></header>
-<h1  class="page-title" th:text="${one_chef.firstName + ' ' + one_chef.lastName}"></h1>
+<header th:replace="~{fragments/includes::header}"></header>
+<h1 class="page-title" th:text="${one_chef.firstName + ' ' + one_chef.lastName}"></h1>
 <main class="container">
     <h2>Update</h2>
     <br>
@@ -37,7 +37,11 @@
             <!-- Column Headers -->
             <thead>
             <tr>
-                <th>Name</th>
+                <th th:text="#{menu.name}">Name</th>
+                <th th:text="#{menu.price}">Price</th>
+                <th th:text="#{menu.course}">Course</th>
+                <th th:text="#{menu.vegetarian}">Vegetarian</th>
+                <th th:text="#{menu.spiceLvl}">Spice Level</th>
             </tr>
             </thead>
             <!-- Rows -->

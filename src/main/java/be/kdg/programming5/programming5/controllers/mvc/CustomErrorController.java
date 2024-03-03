@@ -24,7 +24,7 @@ public class CustomErrorController implements ErrorController {
      * @param model The model to add attributes for the error page.
      * @return The view name for the custom error page.
      */
-    @RequestMapping("")
+    @RequestMapping("/error")
     public String handleError(Model model) {
         String pageTitle = "Error";
         model.addAttribute("pageTitle", pageTitle);

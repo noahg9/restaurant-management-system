@@ -16,17 +16,20 @@ import java.util.List;
 @Service
 public class ChefService {
     private final ChefRepository chefRepository;
-    private final MenuItemChefRepository menuItemChefRepository;
+    private final MenuItemChefService menuItemChefService;
+    private final RestaurantService restaurantService;
 
     /**
      * Constructs a SpringDataChefService with the specified repositories.
      *
      * @param chefRepository      The repository for Chef entities.
-     * @param menuItemChefRepository The repository for MenuItemChef entities.
+     * @param menuItemChefService The service for MenuItemChef entities.
+     * @param restaurantService The service for Restaurant entities.
      */
-    public ChefService(ChefRepository chefRepository, MenuItemChefRepository menuItemChefRepository) {
+    public ChefService(ChefRepository chefRepository, MenuItemChefService menuItemChefService, RestaurantService restaurantService) {
         this.chefRepository = chefRepository;
-        this.menuItemChefRepository = menuItemChefRepository;
+        this.menuItemChefService = menuItemChefService;
+        this.restaurantService = restaurantService;
     }
 
     /**
@@ -109,7 +112,7 @@ public class ChefService {
     }
 
     public Chef addChef(String firstName, String lastName) {
-        return chefRepository.save(new Chef(firstName, lastName, LocalDate.now()));
+        return chefRepository.save(new Chef(firstName, lastName, LocalDate.now(), restaurantService.getRestaurant(1)));
     }
 
     /**
@@ -141,7 +144,7 @@ public class ChefService {
             return false;
         }
 
-        menuItemChefRepository.deleteAll(chef.get().getMenuItems());
+        menuItemChefService.removeAllChefs(chef.get());
 
         chefRepository.deleteById(chefId);
         return true;

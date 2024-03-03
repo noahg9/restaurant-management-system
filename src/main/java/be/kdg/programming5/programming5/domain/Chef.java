@@ -5,7 +5,6 @@ import jakarta.persistence.Entity;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.Period;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
@@ -15,9 +14,7 @@ import java.util.Random;
  * Extends AbstractEntity for common entity properties.
  */
 @Entity
-@Table(name = "chefs")
 public class Chef extends AbstractEntity<Long> implements Serializable {
-
     @Column(nullable = false)
     private String firstName;
 
@@ -64,7 +61,9 @@ public class Chef extends AbstractEntity<Long> implements Serializable {
     }
 
     public void setFirstName(String firstName) {
-        validateName(firstName, "First name");
+        if (firstName == null || firstName.trim().isEmpty()) {
+            throw new IllegalArgumentException("First name cannot be null or empty");
+        }
         this.firstName = firstName.trim();
     }
 
@@ -73,7 +72,9 @@ public class Chef extends AbstractEntity<Long> implements Serializable {
     }
 
     public void setLastName(String lastName) {
-        validateName(lastName, "Last name");
+        if (lastName == null || lastName.trim().isEmpty()) {
+            throw new IllegalArgumentException("Last name cannot be null or empty");
+        }
         this.lastName = lastName.trim();
     }
 
@@ -93,7 +94,6 @@ public class Chef extends AbstractEntity<Long> implements Serializable {
     public void setRestaurant(Restaurant restaurant) {
         Objects.requireNonNull(restaurant, "Restaurant cannot be null");
         this.restaurant = restaurant;
-        restaurant.addChef(this);
     }
 
     public List<MenuItemChef> getMenuItems() {
@@ -127,12 +127,5 @@ public class Chef extends AbstractEntity<Long> implements Serializable {
                 "#" + random.nextInt(1000),
                 LocalDate.of(1940 + random.nextInt(60), random.nextInt(12) + 1, random.nextInt(27) + 1)
         );
-    }
-
-    private void validateName(String name, String fieldName) {
-        Objects.requireNonNull(name, fieldName + " cannot be null");
-        if (name.trim().isEmpty()) {
-            throw new IllegalArgumentException(fieldName + " cannot be empty");
-        }
     }
 }
