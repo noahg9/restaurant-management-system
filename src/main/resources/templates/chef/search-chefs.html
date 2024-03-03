@@ -12,24 +12,26 @@
     <!-- Search Bar -->
     <form>
         <div class="mb-3">
-            <label for="searchTerm" class="form-label">Name</label>
+            <label for="searchTerm" class="form-label">Search term</label>
             <input type="text" class="form-control" id="searchTerm" aria-describedby="searchHelp">
             <div id="searchHelp" class="form-text">Searches both the first and last name.</div>
         </div>
+        <!-- Search Button -->
         <button type="button" class="btn btn-primary" id="searchButton">Search</button>
     </form>
     <!-- Search Results -->
     <section id="searchResultsSection">
         <h2 class="mt-5">Chefs Found</h2>
         <table class="table">
+            <!-- Column Headers -->
             <thead>
             <tr>
                 <th>First Name</th>
                 <th>Last Name</th>
-                <th>Date Of Birth</th>
                 <th></th>
             </tr>
             </thead>
+            <!-- Rows -->
             <tbody>
             </tbody>
         </table>

@@ -42,7 +42,7 @@ public class RestaurantService {
      * @return The restaurant with the specified identifier, or null if not found.
      */
     
-    public Restaurant getRestaurant(int id) {
+    public Restaurant getRestaurant(long id) {
         return restaurantRepository.findById(id).orElse(null);
     }
 
@@ -54,7 +54,7 @@ public class RestaurantService {
      * @return The restaurant with the specified identifier, or null if not found.
      */
 
-    public Restaurant getRestaurantWithChefs(int restaurantId) {
+    public Restaurant getRestaurantWithChefs(long restaurantId) {
         return restaurantRepository.findByIdWithChefs(restaurantId).orElse(null);
     }
 
@@ -65,7 +65,7 @@ public class RestaurantService {
      * @return The restaurant with the specified identifier, or null if not found.
      */
 
-    public Restaurant getRestaurantWithMenuItems(int restaurantId) {
+    public Restaurant getRestaurantWithMenuItems(long restaurantId) {
         return restaurantRepository.findByIdWithMenuItems(restaurantId).orElse(null);
     }
 
@@ -111,7 +111,7 @@ public class RestaurantService {
      */
     
     @Transactional
-    public void deleteRestaurant(int id) {
+    public void deleteRestaurant(long id) {
         restaurantRepository.deleteById(id);
     }
 }

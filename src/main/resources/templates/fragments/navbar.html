@@ -4,12 +4,10 @@
     <title>Navigation Bar</title>
     <thymeleaf th:replace="~{includes :: meta_script_link}"></thymeleaf>
 </head>
-
 <body>
-
-<div th:fragment="copy">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
+<header th:fragment="copy" class="pb-3">
+    <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+        <div class="container">
             <!-- Website Name -->
             <a th:href="@{/}" class="navbar-brand" th:text="#{navbar.title}">Restaurants</a>
             <!-- Toggler Button -->
@@ -55,6 +53,6 @@
             </div>
         </div>
     </nav>
-</div>
+</header>
 </body>
 </html>

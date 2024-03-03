@@ -16,7 +16,7 @@ import java.util.Random;
  */
 @Entity
 @Table(name = "chefs")
-public class Chef extends AbstractEntity<Integer> implements Serializable {
+public class Chef extends AbstractEntity<Long> implements Serializable {
 
     @Column(nullable = false)
     private String firstName;
@@ -42,7 +42,7 @@ public class Chef extends AbstractEntity<Integer> implements Serializable {
         setDateOfBirth(dateOfBirth);
     }
 
-    public Chef(int id, String firstName, String lastName, LocalDate dateOfBirth) {
+    public Chef(long id, String firstName, String lastName, LocalDate dateOfBirth) {
         super(id);
         setFirstName(firstName);
         setLastName(lastName);
@@ -54,7 +54,7 @@ public class Chef extends AbstractEntity<Integer> implements Serializable {
         setRestaurant(restaurant);
     }
 
-    public Chef(int id, String firstName, String lastName, LocalDate dateOfBirth, Restaurant restaurant) {
+    public Chef(long id, String firstName, String lastName, LocalDate dateOfBirth, Restaurant restaurant) {
         this(id, firstName, lastName, dateOfBirth);
         setRestaurant(restaurant);
     }
@@ -109,7 +109,7 @@ public class Chef extends AbstractEntity<Integer> implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Chef chef = (Chef) o;
-        return id == chef.id &&
+        return Objects.equals(id, chef.id) &&
                 Objects.equals(firstName, chef.firstName) &&
                 Objects.equals(lastName, chef.lastName) &&
                 Objects.equals(dateOfBirth, chef.dateOfBirth);

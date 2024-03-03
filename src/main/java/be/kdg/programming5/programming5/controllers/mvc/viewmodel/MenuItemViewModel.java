@@ -11,7 +11,7 @@ import jakarta.validation.constraints.NotNull;
  */
 public class MenuItemViewModel {
 
-    private int id;
+    private long id;
 
     @NotBlank(message = "Name cannot be empty")
     private String name;
@@ -27,7 +27,7 @@ public class MenuItemViewModel {
     @Min(value = 0, message = "Spice level must be at least 1")
     private int spiceLvl;
 
-    private int restaurantId;
+    private long restaurantId;
 
     private String restaurantName;
 
@@ -48,7 +48,7 @@ public class MenuItemViewModel {
      * @param spiceLvl     The spice level of the menu item.
      * @param restaurantId The ID of the restaurant to which the menu item is associated.
      */
-    public MenuItemViewModel(int id, String name, double price, Course course, boolean vegetarian, int spiceLvl, int restaurantId, String restaurantName) {
+    public MenuItemViewModel(long id, String name, double price, Course course, boolean vegetarian, int spiceLvl, long restaurantId, String restaurantName) {
         setId(id);
         setName(name);
         setPrice(price);
@@ -59,11 +59,11 @@ public class MenuItemViewModel {
         setRestaurantName(restaurantName);
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -162,7 +162,7 @@ public class MenuItemViewModel {
      *
      * @return The restaurant ID.
      */
-    public int getRestaurantId() {
+    public long getRestaurantId() {
         return restaurantId;
     }
 
@@ -171,7 +171,7 @@ public class MenuItemViewModel {
      *
      * @param restaurantId The new restaurant ID to set.
      */
-    public void setRestaurantId(int restaurantId) {
+    public void setRestaurantId(long restaurantId) {
         this.restaurantId = restaurantId;
     }
 

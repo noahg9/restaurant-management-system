@@ -14,7 +14,7 @@ import java.util.Random;
  */
 @Entity
 @Table(name = "menu_items")
-public class MenuItem extends AbstractEntity<Integer> implements Serializable {
+public class MenuItem extends AbstractEntity<Long> implements Serializable {
 
     @Column(nullable = false)
     private String name;
@@ -49,7 +49,7 @@ public class MenuItem extends AbstractEntity<Integer> implements Serializable {
         setSpiceLvl(spiceLvl);
     }
 
-    public MenuItem(int id, String name, double price, Course course, boolean vegetarian, int spiceLvl) {
+    public MenuItem(long id, String name, double price, Course course, boolean vegetarian, int spiceLvl) {
         super(id);
         this.name = validateString(name, "Name");
         this.price = validateNonNegative(price, "Price");
@@ -63,7 +63,7 @@ public class MenuItem extends AbstractEntity<Integer> implements Serializable {
         setRestaurant(restaurant);
     }
 
-    public MenuItem(int id, String name, double price, Course course, boolean vegetarian, int spiceLvl, Restaurant restaurant) {
+    public MenuItem(long id, String name, double price, Course course, boolean vegetarian, int spiceLvl, Restaurant restaurant) {
         this(id, name, price, course, vegetarian, spiceLvl);
         setRestaurant(restaurant);
     }

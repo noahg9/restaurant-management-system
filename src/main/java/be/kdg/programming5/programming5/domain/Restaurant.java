@@ -17,7 +17,7 @@ import java.util.Random;
  */
 @Entity
 @Table(name = "restaurants")
-public class Restaurant extends AbstractEntity<Integer> implements Serializable {
+public class Restaurant extends AbstractEntity<Long> implements Serializable {
 
 
     @Column
@@ -43,7 +43,7 @@ public class Restaurant extends AbstractEntity<Integer> implements Serializable 
         this.seatingCapacity = seatingCapacity;
     }
 
-    public Restaurant(int id, String name, LocalDate dateEstablished, int seatingCapacity) {
+    public Restaurant(long id, String name, LocalDate dateEstablished, int seatingCapacity) {
         super(id);
         this.name = validateString(name, "Name");
         this.dateEstablished = dateEstablished;

@@ -1,45 +1,48 @@
-### Home page
+### Home page (200)
 
-GET http://localhost:8080
+GET http://localhost:9242
 
-### API: retrieve all chefs
+### API: retrieve one chef (200)
 
-GET http://localhost:8080/api/chefs
-Accept: application/json
-
-### API: retrieve one chef (path variable)
-
-GET http://localhost:8080/api/chefs/1
+GET http://localhost:9242/api/chefs/1
 Accept: application/xml
+
+### API: retrieve one chef (404)
+
+GET http://localhost:9242/api/chefs/99
+Accept: application/xml
+
+### API: retrieve all chefs (200)
+
+GET http://localhost:9242/api/chefs
+Accept: application/json
 
 ### API: retrieve all menu items of one chef
 
-GET http://localhost:8080/api/chefs/1/menu-items
+GET http://localhost:9242/api/chefs/1/menu-items
 Accept: application/json
 
-### API: search chefs
+### API: search chefs (204)
 
-GET http://localhost:8080/api/chefs?search=ramsey
+GET http://localhost:9242/api/chefs?search=ramsey
 Accept: application/json
 
-### API: retrieve one menu item
+### API: search chefs (204)
 
-GET http://localhost:8080/api/menu-items/1
-Accept: application/xml
-
-### API: retrieve all chefs of a menu item
-
-GET http://localhost:8080/api/menu-items/1/chefs
+GET http://localhost:9242/api/chefs?search=mcdonald
 Accept: application/json
 
-### API: search menu items
+### API: delete a chef (204)
 
-GET http://localhost:8080/api/menu-items?search=salad
-Accept: application/json
+DELETE http://localhost:9242/api/chefs/1
+
+### API: delete a chef (404)
+
+DELETE http://localhost:9242/api/chefs/99
 
 ### API: add a chef (201)
 
-POST http://localhost:8080/api/chefs
+POST http://localhost:9242/api/chefs
 Accept: application/json
 Content-Type: application/json
 
@@ -48,14 +51,14 @@ Content-Type: application/json
   "lastName": "Last name"
 }
 
-### API: add a chef (400)
+### API: add a chef (500)
 
-POST http://localhost:8080/api/chefs
+POST http://localhost:9242/api/chefs
 Accept: application/json
 Content-Type: application/json
 
 {
-  "firstName": "First name",
-  "lastName": "Last name"
+  "firstName": "",
+  "lastName": ""
 }
 

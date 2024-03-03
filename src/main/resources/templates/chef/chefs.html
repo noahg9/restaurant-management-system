@@ -9,79 +9,47 @@
 <header th:insert="~{fragments/navbar::copy}"></header>
 <h1 class="page-title" th:text="#{chef.chefsTitle}">Chefs</h1>
 <main class="container">
-    <div class="row">
-        <!-- List -->
-        <section class="col-md-8">
-            <h2 th:text="#{chef.listHeader}">Chef List</h2>
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Date of Birth</th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody id="chefTableBody">
-                <tr th:id="'chef_' + ${chef.id}" th:each="chef, chefStat : ${all_chefs}" th:class="${chefStat.odd}? 'odd'">
-                    <td>
-                        <span th:text="${chef.firstName + ' ' + chef.lastName}"></span>
-                        <a th:href="@{/chef(id=${chef.id})}">
-                            <i class="fas fa-info-circle"></i>
-                        </a>
-                    </td>
-                    <td>
-                        <span th:text="${#temporals.format(chef.dateOfBirth.atStartOfDay(), 'd MMMM yyyy')}"></span>
-                    </td>
-                    <!-- Delete Button -->
-                    <td>
-                        <form method="post" th:action="@{/delete-chef}" th:object="${chef}" th:method="delete">
-                            <input type="hidden" th:if="${chef}" th:name="id" th:value="${chef.id}" />
-                            <button type="submit" class="btn btn-danger">
-                                <i class="fas fa-trash-alt"></i>
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </section>
-        <!-- Add Form -->
-        <section class="col-md-4">
-            <h2 th:text="#{chef.addHeader}">Add Chef</h2>
-            <form class="form-container">
-                <div class="form-group">
-                    <label for="inputFirstName">First Name</label>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" style="width: 50px;">
-                            <i class="fas fa-user"></i>
-                        </span>
-                        <input type="text" class="form-control" id="inputFirstName" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputLastName">Last Name</label>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" style="width: 50px;">
-                            <i class="fas fa-user"></i>
-                        </span>
-                        <input type="text" class="form-control" id="inputLastName" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputDateOfBirth">Date of Birth</label>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" style="width: 50px;">
-                            <i class="far fa-calendar-alt"></i>
-                        </span>
-                        <input type="date" class="form-control" id="inputDateOfBirth" required>
-                    </div>
-                </div>
-                <div class="btn-container">
-                    <button id="addButton" type="button" class="btn btn-primary mb-3" th:text="#{chef.add}">Add</button>
-                </div>
-            </form>
-        </section>
-    </div>
+    <h2 th:text="#{chef.addHeader}">Add Chef</h2>
+    <!-- Form -->
+    <form>
+        <!-- First Name -->
+        <div class="mb-3">
+            <label for="firstNameInput" class="form-label">First Name</label>
+            <input type="text" class="form-control" id="firstNameInput" required>
+        </div>
+        <!-- Last Name -->
+        <div class="mb-3">
+            <label for="lastNameInput" class="form-label">Last Name</label>
+            <input type="text" class="form-control" id="lastNameInput" required>
+        </div>
+        <!-- Add Button -->
+        <button id="addButton" type="button" class="btn btn-primary mb-3" th:text="#{chef.add}">Add</button>
+    </form>
+    <h2 th:text="#{chef.listHeader}">Chef List</h2>
+    <!-- Table -->
+    <table class="table">
+        <!-- Column Headers -->
+        <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody id="chefTableBody">
+        <tr th:id="'chef_' + ${chef.id}" th:each="chef : ${all_chefs}">
+            <!-- First Name -->
+            <td th:text="${chef.firstName}"></td>
+            <!-- Lat Name -->
+            <td th:text="${chef.lastName}"></td>
+            <!-- Details Button -->
+            <td><a th:href="@{/chef(id=${chef.id})}">Details</a></td>
+            <!-- Delete Button -->
+            <td><button type="button" class="btn btn-danger btn-sm">Delete</button></td>
+        </tr>
+        </tbody>
+    </table>
 </main>
 <footer th:insert="~{fragments/footer::copy}"></footer>
 </body>

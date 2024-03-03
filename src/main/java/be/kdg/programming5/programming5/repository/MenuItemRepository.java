@@ -13,7 +13,7 @@ import java.util.Optional;
  * Provides methods to interact with MenuItem data stored in a database.
  */
 @Repository
-public interface MenuItemRepository extends JpaRepository<MenuItem, Integer> {
+public interface MenuItemRepository extends JpaRepository<MenuItem, Long> {
 
     @Query("""
         select menuItem from MenuItem menuItem
@@ -21,7 +21,7 @@ public interface MenuItemRepository extends JpaRepository<MenuItem, Integer> {
         left join fetch menuItemChefs.chef
         where menuItem.id = :menuItemId
         """)
-    Optional<MenuItem> findByIdWithChefs(int menuItemId);
+    Optional<MenuItem> findByIdWithChefs(long menuItemId);
 
     @Query("""
         select menuItem from MenuItem menuItem
@@ -36,7 +36,7 @@ public interface MenuItemRepository extends JpaRepository<MenuItem, Integer> {
            left join menuItemChefs.chef chef
            where chef.id = :chefId
            """)
-    List<MenuItem> findByChefId(int chefId);
+    List<MenuItem> findByChefId(long chefId);
 
     /**
      * Finds menu items with a price less than or equal to the specified maximum price.

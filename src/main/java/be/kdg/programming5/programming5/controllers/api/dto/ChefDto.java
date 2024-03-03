@@ -5,7 +5,7 @@ import be.kdg.programming5.programming5.domain.Restaurant;
 import java.time.LocalDate;
 
 public class ChefDto {
-    private int id;
+    private long id;
     private String firstName;
     private String lastName;
     private LocalDate dateOfBirth;
@@ -13,18 +13,24 @@ public class ChefDto {
     public ChefDto() {
     }
 
-    public ChefDto(int id, String firstName, String lastName, LocalDate dateOfBirth) {
+    public ChefDto(long id, String firstName, String lastName, LocalDate dateOfBirth) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
     }
 
-    public int getId() {
+    public ChefDto(long id, String firstName, String lastName) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

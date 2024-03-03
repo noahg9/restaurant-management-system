@@ -1,37 +1,87 @@
-Course: Programming 5
-Name: Noah Guerin
-Email: noah.guerin@student.kdg.be
-Student ID: 0152794-19
-Group: ACS202
+<h1>Introduction</h1>
+
+<b>Course:</b> Programming 5
+
+<b>Name:</b> Noah Guerin
+
+<b>Email:</b> noah.guerin@student.kdg.be
+
+<b>Student ID:</b> 0152794-19
+
+<b>Group:</b> ACS202
+
 Domain entities: chef, menu item, restaurant
 
 <h1>Week 2</h1>
 
+<h2>Fetching one chef - OK</h2>
 
+```
+GET http://localhost:9242/api/chefs/1
+Accept: application/xml
+```
+```
+HTTP/1.1 200 
+Content-Type: application/xml;charset=UTF-8
+Transfer-Encoding: chunked
+Date: Sun, 03 Mar 2024 16:04:38 GMT
+Keep-Alive: timeout=60
+Connection: keep-alive
+```
 
+<h2>Fetching one chef - Not Found</h2>
 
-Response code: 200 (OK); Time: 28ms (28 ms); Content length: 139 bytes (139 B)
+```
+GET http://localhost:9242/api/chefs/99
+Accept: application/xml
+```
 
+```
+HTTP/1.1 404
+Content-Length: 0
+Date: Sun, 03 Mar 2024 15:52:02 GMT
+Keep-Alive: timeout=60
+Connection: keep-alive
+```
 
-Response code: 404 (Not Found); Time: 13ms (13 ms); Content length: 196 bytes (196 B)
+<h2>Fetching All chefs - OK</h2>
 
+```
+GET http://localhost:9242/api/chefs
+Accept: application/json
+```
 
+```
+HTTP/1.1 200
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Sun, 03 Mar 2024 15:51:17 GMT
+Keep-Alive: timeout=60
+Connection: keep-alive
+```
 
-Response code: 404 (Not Found); Time: 11ms (11 ms); Content length: 196 bytes (196 B)
+<h2>Deleting one chef - OK</h2>
 
+```
+DELETE http://localhost:9242/api/chefs/1
+```
+```
+HTTP/1.1 204
+Date: Sun, 03 Mar 2024 15:57:17 GMT
+Keep-Alive: timeout=60
+Connection: keep-alive
+```
 
-Response code: 404 (Not Found); Time: 10ms (10 ms); Content length: 196 bytes (196 B)
+<h2>Deleting one chef - Not Found</h2>
 
+```
+DELETE http://localhost:9242/api/chefs/99
+```
 
-
-Response code: 404 (Not Found); Time: 11ms (11 ms); Content length: 196 bytes (196 B)
-
-
-Response code: 404 (Not Found); Time: 7ms (7 ms); Content length: 196 bytes (196 B)
-
-
-Response code: 404 (Not Found); Time: 8ms (8 ms); Content length: 196 bytes (196 B)
-
-
-Response code: 404 (Not Found); Time: 9ms (9 ms); Content length: 196 bytes (196 B)
-
+```
+HTTP/1.1 404
+Content-Length: 0
+Date: Sun, 03 Mar 2024 15:54:25 GMT
+Keep-Alive: timeout=60
+Connection: keep-alive
+```

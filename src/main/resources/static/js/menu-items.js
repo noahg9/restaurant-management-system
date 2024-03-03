@@ -6,12 +6,12 @@ for (const deleteButton of deleteButtons) {
 
 async function handleDeleteMenuItem(event) {
     const rowId = event.target.parentNode.parentNode.id;
-    const menuItemId = rowId.substring(rowId.indexOf('_') + 1);
-    const response = fetch(`/api/menu-items/${menuItemId}`, {
+    const menuItemId = parseInt(rowId.substring(rowId.indexOf('_') + 1));
+    const response = await fetch(`/api/menu-items/${menuItemId}`, {
         method: "DELETE"
     });
-    if (response === 204) {
-        const row = document.getElementById(menuItemId);
+    if (response.status === 204) {
+        const row = document.getElementById(`menu_item_${menuItemId}`);
         row.parentNode.removeChild(row);
     }
 }
@@ -27,23 +27,27 @@ const menuItemTableBody = document.getElementById("menuItemTableBody");
 async function addNewMenuItem() {
     const response = await fetch(`/api/menu-items`, {
         method: "POST",
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        },
         body: JSON.stringify({
             name: nameInput.value,
             price: priceInput.value,
             course: courseInput.value,
             vegetarian: vegetarianInput.value,
             spiceLvl: spiceLvlInput.value
-        }),
-        headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
-        }
+        })
     })
     if (response.status === 201) {
+        /**
+         * @type {{id: number, name: string, price: number, course: string, vegetarian: boolean, spiceLvl: number}}
+         */
         const menuItem = await response.json()
         addMenuItemToTable(menuItem);
-    }
-}
+    } else {
+        alert("Something went wrong!");
+    }}
 
 /**
  * @param {{id: number, name: string, price: number, course: string, vegetarian: boolean, spiceLvl: number}} menuItem
@@ -68,4 +72,3 @@ function addMenuItemToTable(menuItem) {
 }
 
 addButton.addEventListener("click", addNewMenuItem);
-

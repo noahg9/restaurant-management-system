@@ -9,7 +9,7 @@ async function toggleChefsTable() {
         hideChefsTable();
     } else {
         const response = await fetch(`/api/menu-items/${menuItemIdInput.value}/chefs`,
-            { headers: { Accept: "application/json" } });
+            { headers: { "Accept": "application/json" } });
         if (response.status === 200) {
             const chefs = await response.json();
             tableBody.innerHTML = '';
@@ -24,6 +24,20 @@ async function toggleChefsTable() {
             }
             showChefsTable();
         }
+        /*
+        fetch(`/api/menu-items/${menuItemIdInput.value}/chefs`)
+                        { headers: { "Accept": "application/json" } })
+            .then((response) => {
+                if (response.status === 200) {
+                    return response.json(); // Parse the body please!
+                }
+            })
+            .then((chefs) => {
+                for (const chef of chefs) {
+                    console.log(chef)
+                }
+            })
+         */
     }
 }
 

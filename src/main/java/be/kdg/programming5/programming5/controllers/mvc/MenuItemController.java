@@ -22,17 +22,14 @@ import org.springframework.web.servlet.ModelAndView;
 public class MenuItemController {
     private final Logger logger = LoggerFactory.getLogger(MenuItemController.class);
     private final MenuItemService menuItemService;
-    private final RestaurantService restaurantService;
 
     /**
      * Constructor to inject dependencies.
      *
      * @param menuItemService   The service for menu item operations.
-     * @param restaurantService The service for restaurant operations.
      */
-    public MenuItemController(MenuItemService menuItemService, RestaurantService restaurantService) {
+    public MenuItemController(MenuItemService menuItemService) {
         this.menuItemService = menuItemService;
-        this.restaurantService = restaurantService;
     }
 
     /**
@@ -75,7 +72,7 @@ public class MenuItemController {
      * @return The view name for the menu item details.
      */
     @GetMapping("/menu-item")
-    public ModelAndView oneMenuItem(@RequestParam("id") int menuItemId, HttpSession session, Model model) {
+    public ModelAndView oneMenuItem(@RequestParam("id") long menuItemId, HttpSession session, Model model) {
         logger.info("Getting menu item");
         String pageTitle = "Menu Item Details";
         HistoryUtil.updateHistory(session, pageTitle);
@@ -96,27 +93,6 @@ public class MenuItemController {
                         menuItem.getRestaurant().getName()
                 ));
         return mav;
-    }
-
-    /**
-     * Handles the deletion of a menu item.
-     *
-     * @param menuItemId The ID of the menu item to be deleted.
-     * @return The redirect URL after deleting the menu item.
-     */
-    @PostMapping("/delete-menu-item")
-    public String deleteMenuItem(@RequestParam("id") int menuItemId) {
-        try {
-            logger.debug("Deleting menu item with ID: " + menuItemId);
-            menuItemService.removeMenuItem(menuItemId);
-            return "redirect:/menu-items";
-        } catch (DatabaseException e) {
-            logger.error("Database error deleting menu item: " + e.getMessage());
-            return "error/dberror";
-        } catch (Exception e) {
-            logger.error("Error deleting menu item: " + e.getMessage());
-            return "error/error";
-        }
     }
 
     @GetMapping("/search-menu-items")

@@ -21,17 +21,14 @@ import org.springframework.web.servlet.ModelAndView;
 public class ChefController {
     private static final Logger logger = LoggerFactory.getLogger(ChefController.class);
     private final ChefService chefService;
-    private final RestaurantService restaurantService;
 
     /**
      * Constructor to inject dependencies.
      *
      * @param chefService       Service for Chef-related operations.
-     * @param restaurantService Service for Restaurant-related operations.
      */
-    public ChefController(ChefService chefService, RestaurantService restaurantService) {
+    public ChefController(ChefService chefService) {
         this.chefService = chefService;
-        this.restaurantService = restaurantService;
     }
 
     /**
@@ -72,7 +69,7 @@ public class ChefController {
      * @return View name for displaying chef details.
      */
     @GetMapping("/chef")
-    public ModelAndView oneChef(@RequestParam("id") int chefId, HttpSession session, Model model) {
+    public ModelAndView oneChef(@RequestParam("id") long chefId, HttpSession session, Model model) {
         logger.info("Getting chef");
         String pageTitle = "Chef";
         HistoryUtil.updateHistory(session, pageTitle);
@@ -91,27 +88,6 @@ public class ChefController {
                         chef.getRestaurant().getName()
                 ));
         return mav;
-    }
-
-    /**
-     * Handles POST request to delete a chef.
-     *
-     * @param chefId ID of the chef to be deleted.
-     * @return Redirect URL after deleting the chef.
-     */
-    @PostMapping("/delete-chef")
-    public String deleteChef(@RequestParam("id") int chefId) {
-        try {
-            logger.debug("Deleting chef with ID: " + chefId);
-            chefService.removeChef(chefId);
-            return "redirect:/chefs";
-        } catch (DatabaseException e) {
-            logger.error("Database error deleting chef: " + e.getMessage());
-            return "error/dberror";
-        } catch (Exception e) {
-            logger.error("Error deleting chef: " + e.getMessage());
-            return "error/error";
-        }
     }
 
     @GetMapping("/search-chefs")

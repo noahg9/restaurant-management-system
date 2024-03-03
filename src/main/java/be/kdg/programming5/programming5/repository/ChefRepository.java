@@ -13,7 +13,7 @@ import java.util.Optional;
  * Provides methods to interact with Chef data stored in a database.
  */
 @Repository
-public interface ChefRepository extends JpaRepository<Chef, Integer> {
+public interface ChefRepository extends JpaRepository<Chef, Long> {
 
     @Query("""
         select chef from Chef chef
@@ -21,7 +21,7 @@ public interface ChefRepository extends JpaRepository<Chef, Integer> {
         left join fetch menuItems.menuItem
         where chef.id = :chefId
         """)
-    Optional<Chef> findByIdWithMenuItems(int chefId);
+    Optional<Chef> findByIdWithMenuItems(long chefId);
 
     @Query("""
         select chef from Chef chef
@@ -36,7 +36,7 @@ public interface ChefRepository extends JpaRepository<Chef, Integer> {
            left join menuItemChefs.menuItem menuItem
            where menuItem.id = :menuItemId
            """)
-    List<Chef> findByMenuItemId(int menuItemId);
+    List<Chef> findByMenuItemId(long menuItemId);
 
     /**
      * Finds chefs by either first name or last name, ignoring case.
@@ -47,5 +47,5 @@ public interface ChefRepository extends JpaRepository<Chef, Integer> {
      */
     List<Chef> findByFirstNameIgnoreCaseContainingOrLastNameIgnoreCaseContaining(String firstName, String lastName);
 
-    List<Chef> findByFirstNameIgnoreCaseLikeOrLastNameIgnoreCaseLike(String searchTerm1, String searchTerm2);
+    List<Chef> getChefsByFirstNameLikeOrLastName(String searchTerm1, String searchTerm2);
 }

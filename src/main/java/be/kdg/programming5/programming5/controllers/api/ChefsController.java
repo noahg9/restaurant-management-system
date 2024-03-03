@@ -3,8 +3,7 @@ package be.kdg.programming5.programming5.controllers.api;
 import be.kdg.programming5.programming5.controllers.api.dto.ChefDto;
 import be.kdg.programming5.programming5.controllers.api.dto.MenuItemDto;
 import be.kdg.programming5.programming5.controllers.api.dto.NewChefDto;
-import be.kdg.programming5.programming5.controllers.api.dto.UpdateChefDobDto;
-import be.kdg.programming5.programming5.domain.Chef;
+import be.kdg.programming5.programming5.controllers.api.dto.UpdateChefFirstNameDto;
 import be.kdg.programming5.programming5.domain.MenuItemChef;
 import be.kdg.programming5.programming5.service.ChefService;
 import jakarta.validation.Valid;
@@ -26,9 +25,11 @@ public class ChefsController {
         this.modelMapper = modelMapper;
     }
 
+    // "/api/chefs"
     @PostMapping
     ResponseEntity<ChefDto> addChef(@RequestBody @Valid NewChefDto chefDto) {
-        var createdChef = chefService.addChef(chefDto.getFirstName(), chefDto.getLastName(), chefDto.getDateOfBirth());
+        var createdChef = chefService.addChef(
+                chefDto.getFirstName(), chefDto.getLastName());
         return new ResponseEntity<>(
                 modelMapper.map(createdChef, ChefDto.class),
                 HttpStatus.CREATED
@@ -37,7 +38,7 @@ public class ChefsController {
 
     // "/api/chefs/{id}"
     @GetMapping("{id}")
-    ResponseEntity<ChefDto> getOneChef(@PathVariable("id") int chefId) {
+    ResponseEntity<ChefDto> getOneChef(@PathVariable("id") long chefId) {
         var chef = chefService.getChef(chefId);
         if (chef == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -47,7 +48,7 @@ public class ChefsController {
 
     // "/api/chefs/{id}/menu-items"
     @GetMapping("{id}/menu-items")
-    ResponseEntity<List<MenuItemDto>> getMenuItemsOfChef(@PathVariable("id") int chefId) {
+    ResponseEntity<List<MenuItemDto>> getMenuItemsOfChef(@PathVariable("id") long chefId) {
         var chef = chefService.getChefWithMenuItems(chefId);
         if (chef == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -86,7 +87,7 @@ public class ChefsController {
 
     // "/api/chefs/{id}"
     @DeleteMapping("{id}")
-    ResponseEntity<Void> deleteChef(@PathVariable("id") int chefId) {
+    ResponseEntity<Void> deleteChef(@PathVariable("id") long chefId) {
         if (chefService.removeChef(chefId)) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -94,9 +95,9 @@ public class ChefsController {
     }
 
     @PatchMapping("{id}")
-    ResponseEntity<Void> changeChef(@PathVariable("id") int chefId,
-                                     @RequestBody @Valid UpdateChefDobDto updateChefDobDto) {
-        if (chefService.changeChefDob(chefId, updateChefDobDto.getDateOfBirth())) {
+    ResponseEntity<Void> changeChef(@PathVariable("id") long chefId,
+                                     @RequestBody @Valid UpdateChefFirstNameDto updateChefFirstNameDto) {
+        if (chefService.changeChefFirstName(chefId, updateChefFirstNameDto.getFirstName())) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

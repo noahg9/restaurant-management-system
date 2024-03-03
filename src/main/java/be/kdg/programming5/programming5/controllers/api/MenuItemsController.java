@@ -36,7 +36,7 @@ public class MenuItemsController {
 
     // "/api/menu-items/{id}"
     @GetMapping("{id}")
-    ResponseEntity<MenuItemDto> getOneMenuItem(@PathVariable("id") int menuItemId) {
+    ResponseEntity<MenuItemDto> getOneMenuItem(@PathVariable("id") long menuItemId) {
         var menuItem = menuItemService.getMenuItem(menuItemId);
         if (menuItem == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -46,7 +46,7 @@ public class MenuItemsController {
 
     // "/api/menu-items/{id}/chefs"
     @GetMapping("{id}/chefs")
-    ResponseEntity<List<ChefDto>> getChefsOfMenuItem(@PathVariable("id") int menuItemId) {
+    ResponseEntity<List<ChefDto>> getChefsOfMenuItem(@PathVariable("id") long menuItemId) {
         var menuItem = menuItemService.getMenuItemWithChefs(menuItemId);
         if (menuItem == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -84,7 +84,7 @@ public class MenuItemsController {
 
     // "/api/menu-items/{id}"
     @DeleteMapping("{id}")
-    ResponseEntity<Void> deleteMenuItem(@PathVariable("id") int menuItemId) {
+    ResponseEntity<Void> deleteMenuItem(@PathVariable("id") long menuItemId) {
         if (menuItemService.removeMenuItem(menuItemId)) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }

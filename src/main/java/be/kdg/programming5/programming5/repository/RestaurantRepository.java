@@ -13,18 +13,18 @@ import java.util.Optional;
  * Provides methods to interact with Restaurant data stored in a database.
  */
 @Repository
-public interface RestaurantRepository extends JpaRepository<Restaurant, Integer> {
+public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
     @Query("""
         select restaurant from Restaurant restaurant
         left join fetch restaurant.chefs chefs
         where restaurant.id = :restaurantId
         """)
-    Optional<Restaurant> findByIdWithChefs(int restaurantId);
+    Optional<Restaurant> findByIdWithChefs(long restaurantId);
 
     @Query("""
         select restaurant from Restaurant restaurant
         left join fetch restaurant.menuItems menuItems
         where restaurant.id = :restaurantId
         """)
-    Optional<Restaurant> findByIdWithMenuItems(int restaurantId);
+    Optional<Restaurant> findByIdWithMenuItems(long restaurantId);
 }

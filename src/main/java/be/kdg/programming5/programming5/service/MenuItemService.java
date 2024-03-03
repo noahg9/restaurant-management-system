@@ -56,7 +56,7 @@ public class MenuItemService {
      * @return The menu item with the specified identifier, or null if not found.
      */
     
-    public MenuItem getMenuItem(int menuItemId) {
+    public MenuItem getMenuItem(long menuItemId) {
         return menuItemRepository.findById(menuItemId).orElse(null);
     }
 
@@ -67,11 +67,11 @@ public class MenuItemService {
      * @return The menu item with the specified identifier, or null if not found.
      */
     
-    public MenuItem getMenuItemWithChefs(int menuItemId) {
+    public MenuItem getMenuItemWithChefs(long menuItemId) {
         return menuItemRepository.findByIdWithChefs(menuItemId).orElse(null);
     }
 
-    public List<MenuItem> getMenuItemsOfChef(int chefId) {
+    public List<MenuItem> getMenuItemsOfChef(long chefId) {
         return menuItemRepository.findByChefId(chefId);
     }
 
@@ -144,7 +144,7 @@ public class MenuItemService {
      */
     
     @Transactional
-    public boolean removeMenuItem(int menuItemId) {
+    public boolean removeMenuItem(long menuItemId) {
         var menuItem = menuItemRepository.findByIdWithChefs(menuItemId);
         if (menuItem.isEmpty()) {
             return false;

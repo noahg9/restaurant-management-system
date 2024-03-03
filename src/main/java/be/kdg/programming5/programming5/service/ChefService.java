@@ -56,7 +56,7 @@ public class ChefService {
      * @return The chef with the specified identifier, or null if not found.
      */
     
-    public Chef getChef(int chefId) {
+    public Chef getChef(long chefId) {
         return chefRepository.findById(chefId).orElse(null);
     }
 
@@ -67,7 +67,7 @@ public class ChefService {
      * @return The chef with the specified identifier, or null if not found.
      */
     
-    public Chef getChefWithMenuItems(int chefId) {
+    public Chef getChefWithMenuItems(long chefId) {
         return chefRepository.findByIdWithMenuItems(chefId).orElse(null);
     }
 
@@ -87,7 +87,7 @@ public class ChefService {
     }
 
     public List<Chef> searchChefsByFirstNameOrLastName(String searchTerm) {
-        return chefRepository.findByFirstNameIgnoreCaseLikeOrLastNameIgnoreCaseLike("%" + searchTerm + "%", "%" + searchTerm + "%");
+        return chefRepository.getChefsByFirstNameLikeOrLastName("%" + searchTerm + "%", "%" + searchTerm + "%");
     }
 
     /**
@@ -106,6 +106,10 @@ public class ChefService {
 
     public Chef addChef(String firstName, String lastName, LocalDate dateOfBirth) {
         return chefRepository.save(new Chef(firstName, lastName, dateOfBirth));
+    }
+
+    public Chef addChef(String firstName, String lastName) {
+        return chefRepository.save(new Chef(firstName, lastName, LocalDate.now()));
     }
 
     /**
@@ -131,7 +135,7 @@ public class ChefService {
 
 
     @Transactional
-    public boolean removeChef(int chefId) {
+    public boolean removeChef(long chefId) {
         var chef = chefRepository.findByIdWithMenuItems(chefId);
         if (chef.isEmpty()) {
             return false;
@@ -143,12 +147,12 @@ public class ChefService {
         return true;
     }
 
-    public boolean changeChefDob(int chefId, LocalDate newDob) {
+    public boolean changeChefFirstName(long chefId, String firstName) {
         var chef = chefRepository.findById(chefId).orElse(null);
         if (chef == null) {
             return false;
         }
-        chef.setDateOfBirth(newDob);
+        chef.setFirstName(firstName);
         chefRepository.save(chef);
         return true;
     }

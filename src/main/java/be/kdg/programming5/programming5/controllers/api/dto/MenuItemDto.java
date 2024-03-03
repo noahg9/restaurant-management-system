@@ -8,7 +8,7 @@ import jakarta.persistence.Enumerated;
 import java.time.LocalDate;
 
 public class MenuItemDto {
-    private int id;
+    private long id;
     private String name;
     private double price;
     private Course course;
@@ -19,7 +19,7 @@ public class MenuItemDto {
     public MenuItemDto() {
     }
 
-    public MenuItemDto(int id, String name, double price, Course course, boolean vegetarian, int spiceLvl, Restaurant restaurant) {
+    public MenuItemDto(long id, String name, double price, Course course, boolean vegetarian, int spiceLvl, Restaurant restaurant) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -29,11 +29,11 @@ public class MenuItemDto {
         this.restaurant = restaurant;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

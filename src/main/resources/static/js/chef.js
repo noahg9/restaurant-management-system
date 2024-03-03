@@ -9,7 +9,7 @@ async function toggleMenuItemsTable() {
         hideMenuItemsTable();
     } else {
         const response = await fetch(`/api/chefs/${chefIdInput.value}/menu-items`,
-            { headers: { Accept: "application/json" } });
+            { headers: { "Accept": "application/json" } });
         if (response.status === 200) {
             const menuItems = await response.json();
             tableBody.innerHTML = '';
@@ -17,17 +17,14 @@ async function toggleMenuItemsTable() {
                 tableBody.innerHTML += `
                     <tr>
                         <td>${menuItem.name}</td>
-                        <td>${menuItem.price}</td>
-                        <td>${menuItem.course}</td>
-                        <td>${menuItem.vegetarian}</td>
-                        <td>${menuItem.spiceLvl}</td>
                     </tr>
                 `;
             }
             showMenuItemsTable();
         }
         /*
-        fetch(`/api/chefs/${chefIdInput.value}/menuitems`)
+        fetch(`/api/chefs/${chefIdInput.value}/menu-items`)
+                        { headers: { "Accept": "application/json" } })
             .then((response) => {
                 if (response.status === 200) {
                     return response.json(); // Parse the body please!
@@ -41,20 +38,6 @@ async function toggleMenuItemsTable() {
          */
     }
 }
-
-/*
-function addMenuItemToTable(menuItems) {
-    tableBody.innerHTML = '';
-    for (const menuItem of menuItems) {
-        tableBody.innerHTML += `<tr>
-                                    <td>${menuItem.name}</td>
-                                    <td>${menuItem.price}</td>
-                                </tr>`
-    }
-
-    showMenuItemsTable();
-}
- */
 
 function hideMenuItemsTable() {
     menuItemsTable.style.display = "none";
@@ -74,9 +57,7 @@ function showMenuItemsTable() {
 
 toggleMenuItemsButton.addEventListener("click", toggleMenuItemsTable);
 
-
-
-const dateInput = document.getElementById("dateInput");
+const firstNameInput = document.getElementById("firstNameInput");
 
 /**
  * @type {HTMLButtonElement}
@@ -90,7 +71,7 @@ async function changeChef() {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            description: dateInput.value
+            firstName: firstNameInput.value
         })
     })
     if (response.status === 204) {
@@ -100,4 +81,4 @@ async function changeChef() {
     }}
 
 updateButton.addEventListener("click", changeChef);
-dateInput.addEventListener("input", () => updateButton.disabled = false);
+firstNameInput.addEventListener("input", () => updateButton.disabled = false);

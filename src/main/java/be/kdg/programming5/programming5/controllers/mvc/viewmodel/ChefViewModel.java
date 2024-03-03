@@ -11,7 +11,7 @@ import java.time.Period;
  */
 public class ChefViewModel {
 
-    private int id;
+    private long id;
 
     @NotBlank(message = "First name cannot be empty")
     private String firstName;
@@ -22,7 +22,7 @@ public class ChefViewModel {
     @NotNull(message = "Date of birth cannot be null")
     private LocalDate dateOfBirth;
 
-    private int restaurantId;
+    private long restaurantId;
 
     private String restaurantName;
 
@@ -39,7 +39,7 @@ public class ChefViewModel {
      * @param dateOfBirth  The date of birth of the chef.
      * @param restaurantId   The restaurant to which the chef is associated.
      */
-    public ChefViewModel(int id, String firstName, String lastName, LocalDate dateOfBirth, int restaurantId, String restaurantName) {
+    public ChefViewModel(long id, String firstName, String lastName, LocalDate dateOfBirth, long restaurantId, String restaurantName) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -48,11 +48,11 @@ public class ChefViewModel {
         this.restaurantName = restaurantName;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -115,7 +115,7 @@ public class ChefViewModel {
      *
      * @return The restaurant ID.
      */
-    public int getRestaurantId() {
+    public long getRestaurantId() {
         return restaurantId;
     }
 
@@ -124,7 +124,7 @@ public class ChefViewModel {
      *
      * @param restaurantId The new restaurant ID to set.
      */
-    public void setRestaurantId(int restaurantId) {
+    public void setRestaurantId(long restaurantId) {
         this.restaurantId = restaurantId;
     }
 
