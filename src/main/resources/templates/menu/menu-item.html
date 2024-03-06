@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Menu Item</title>
+    <title th:text="${one_menu_item.name}">Menu Item</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
     <script src="/js/menu-item.js" defer></script>
 </head>
@@ -9,33 +9,33 @@
 <header th:replace="~{fragments/includes::header}"></header>
 <h1 class="page-title" th:text="${one_menu_item.name}"></h1>
 <main class="container">
-    <h2>Update</h2>
+    <h2 th:text="#{header.update}">Update</h2>
     <br>
     <!-- Name -->
     <div class="row">
         <input type="hidden" id="menuItemId" th:value="${one_menu_item.id}">
         <div class="col-9">
-            <label for="nameTextArea" class="form-label">Name</label>
-            <textarea class="form-control" id="nameTextArea" rows="3" th:text="${one_menu_item.name}"></textarea>
+            <label for="nameTextArea" class="form-label" th:text="#{attribute.name}">Name</label>
+            <textarea class="form-control" id="nameTextArea" rows="1" th:text="${one_menu_item.name}"></textarea>
         </div>
     </div>
     <!-- Update Button -->
     <div class="row mt-3">
         <div>
-            <button id="updateButton" type="button" class="btn btn-primary">Update</button>
+            <button id="updateButton" type="button" class="btn btn-primary" th:text="#{button.update}">Update</button>
         </div>
     </div>
-    <h2>Details</h2>
+    <h2 th:text="#{header.details}">Details</h2>
     <table class="table">
         <tbody>
         <!-- ID -->
         <tr>
-            <th>ID</th>
+            <th th:text="#{attribute.id}">ID</th>
             <td th:text="*{one_menu_item.id}"></td>
         </tr>
         <!-- Name -->
         <tr>
-            <th>Name</th>
+            <th th:text="#{attribute.name}">Name</th>
             <td th:text="*{one_menu_item.name}"></td>
         </tr>
         </tbody>
@@ -44,7 +44,7 @@
     <div class="mt-5">
         <!-- Dropdown -->
         <div class="dropdown" id="dropdownButtonWrapper">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="toggleChefInformation">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="toggleChefInformation" th:text="#{message.chefsDropdown}">
                 Chefs involved
             </button>
         </div>
@@ -53,8 +53,7 @@
             <!-- Column Headers-->
             <thead>
             <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
+                <th th:text="#{attribute.name}">Name</th>
             </tr>
             </thead>
             <!-- Rows -->
@@ -65,7 +64,7 @@
 </main>
 <!-- Return Button -->
 <div class="center-container mt-3">
-    <a th:href="@{/menu-items}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Return</a>
+    <a th:href="@{/menu-items}" class="btn btn-secondary" th:text="#{button.return}"><i class="fas fa-arrow-left"></i> Return</a>
 </div>
 <footer th:insert="~{fragments/footer::copy}"></footer>
 </body>

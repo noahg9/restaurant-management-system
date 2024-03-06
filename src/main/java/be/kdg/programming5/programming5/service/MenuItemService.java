@@ -32,9 +32,9 @@ public class MenuItemService {
     }
 
     /**
-     * Retrieves a all_chefs of all menu items.
+     * Retrieves all chefs of all menu items.
      *
-     * @return A all_chefs of all menu items.
+     * @return All chefs of all menu items.
      */
     
     public List<MenuItem> getAllMenuItems() {
@@ -42,9 +42,9 @@ public class MenuItemService {
     }
 
     /**
-     * Retrieves a all_chefs of all menu items with its associated chefs.
+     * Retrieves all chefs of all menu items with its associated chefs.
      *
-     * @return A all_chefs of all menu items.
+     * @return All chefs of all menu items.
      */
     
     public List<MenuItem> getMenuItemsWithChefs() {
@@ -78,10 +78,10 @@ public class MenuItemService {
     }
 
     /**
-     * Retrieves a all_chefs of menu items with a price less than or equal to the specified maximum price.
+     * Retrieves all chefs of menu items with a price less than or equal to the specified maximum price.
      *
      * @param maxPrice The maximum price.
-     * @return A all_chefs of menu items meeting the price criteria.
+     * @return All chefs of menu items meeting the price criteria.
      */
     
     public List<MenuItem> getMenuItemsByMaxPrice(double maxPrice) {
@@ -89,9 +89,9 @@ public class MenuItemService {
     }
 
     /**
-     * Retrieves a all_chefs of vegetarian menu items.
+     * Retrieves all chefs of vegetarian menu items.
      *
-     * @return A all_chefs of vegetarian menu items.
+     * @return All chefs of vegetarian menu items.
      */
     
     public List<MenuItem> getVegMenuItems() {
@@ -131,16 +131,6 @@ public class MenuItemService {
     
     public MenuItem addMenuItem(MenuItem menuItem) {
         return menuItemRepository.save(menuItem);
-    }
-
-    /**
-     * Updates a menu item's information.
-     *
-     * @param menuItem The menu item to update.
-     */
-    
-    public void updateMenuItem(MenuItem menuItem) {
-        // Implementation needed based on the specific requirements.
     }
 
     /**

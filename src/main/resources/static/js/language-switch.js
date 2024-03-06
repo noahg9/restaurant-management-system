@@ -1,5 +1,5 @@
 function switchLanguage() {
-    var xhr = new XMLHttpRequest();
+    const xhr = new XMLHttpRequest();
     xhr.open('POST', '/switch-language', true); // Change the URL based on your endpoint
     xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
     xhr.onload = function () {

@@ -111,27 +111,6 @@ Keep-Alive: timeout=60
 Connection: keep-alive
 ```
 
-### Adding a chef - Internal Server Error
-
-```
-POST http://localhost:9242/api/chefs
-Accept: application/json
-Content-Type: application/json
-
-{
-"firstName": "",
-"lastName": ""
-}
-```
-
-```
-HTTP/1.1 500
-Content-Type: application/json
-Transfer-Encoding: chunked
-Date: Wed, 06 Mar 2024 16:24:14 GMT
-Connection: close
-```
-
 ### Change a chef name - OK
 
 ```
@@ -152,22 +131,3 @@ Keep-Alive: timeout=60
 Connection: keep-alive
 ```
 
-### Change a chef name - Internal Server Error
-
-```
-PATCH http://localhost:9242/api/chefs/99
-Accept: application/json
-Content-Type: application/json
-
-{
-"firstName": "",
-"lastName": ""
-}
-```
-
-```
-HTTP/1.1 204
-Date: Wed, 06 Mar 2024 17:00:44 GMT
-Keep-Alive: timeout=60
-Connection: keep-alive
-```

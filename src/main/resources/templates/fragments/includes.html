@@ -9,22 +9,20 @@
         <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
         <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+        <link rel="icon" href="/images/logo.png" type="image/png">
         <!-- Scripts -->
         <script th:src="@{/js/language-switch.js}"></script>
         <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
         <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI/tZ1XaM1p4zL9+fLXRdXJ5wN/uwIUmvsPQ4u7g=" crossorigin="anonymous"></script>
-        <!-- Title -->
-        <title th:text="${pageTitle}">Default Title</title>
     </thymeleaf>
     <title></title>
 </head>
-
 <body>
 <header th:fragment="header" class="pb-3">
     <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
         <div class="container">
             <!-- Website Name -->
-            <a th:href="@{/}" class="navbar-brand" th:text="#{navbar.title}">Restaurant Management</a>
+            <a th:href="@{/}" class="navbar-brand" th:text="#{title.website}">Restaurant Management</a>
             <!-- Toggler Button -->
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
@@ -34,36 +32,64 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <!-- Home -->
                     <li class="nav-item">
-                        <a th:href="@{/home}" class="nav-link"><i class="fas fa-home"></i> <span th:text="#{navbar.home}">Home</span></a>
+                        <a th:href="@{/home}" class="nav-link">
+                            <i class="fas fa-home"></i>
+                            <span th:text="#{title.home}">Home</span>
+                        </a>
                     </li>
                     <!-- Menu Item Dropdown -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="menuItemDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-utensils"></i> <span th:text="#{navbar.menuItems}">Menu Items</span>
+                            <i class="fas fa-utensils"></i>
+                            <span th:text="#{title.menuItems}">Menu Items</span>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="menuItemDropdown">
-                            <li><a class="dropdown-item" th:href="@{/menu-items}"><i class="fas fa-list"></i> <span th:text="#{navbar.menuItemList}">Menu Item List</span></a></li>
-                            <li><a class="dropdown-item" th:href="@{/search-menu-items}"><i class="fas fa-search"></i> <span th:text="#{navbar.searchMenuItems}">Search Menu Items</span></a></li>
+                            <li>
+                                <a class="dropdown-item" th:href="@{/menu-items}">
+                                    <i class="fas fa-list"></i>
+                                    <span th:text="#{header.menuItemList}">Menu Item List</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" th:href="@{/search-menu-items}">
+                                    <i class="fas fa-search"></i>
+                                    <span th:text="#{title.home}">Search Menu Items</span>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                     <!-- Chef Dropdown -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="chefDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-user"></i> <span th:text="#{navbar.chefs}">Chefs</span>
+                            <i class="fas fa-user"></i>
+                            <span th:text="#{title.chefs}">Chefs</span>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="chefDropdown">
-                            <li><a class="dropdown-item" th:href="@{/chefs}"><i class="fas fa-list"></i> <span th:text="#{navbar.chefList}">Chef List</span></a></li>
-                            <li><a class="dropdown-item" th:href="@{/search-chefs}"><i class="fas fa-search"></i> <span th:text="#{navbar.searchChefs}">Search Chefs</span></a></li>
+                            <li>
+                                <a class="dropdown-item" th:href="@{/chefs}">
+                                    <i class="fas fa-list"></i>
+                                    <span th:text="#{header.chefList}">Chef List</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" th:href="@{/search-chefs}">
+                                    <i class="fas fa-search"></i>
+                                    <span th:text="#{title.searchChefs}">Search Chefs</span>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                     <!-- History -->
                     <li class="nav-item">
-                        <a th:href="@{/history}" class="nav-link"><i class="fas fa-history"></i> <span th:text="#{navbar.history}">History</span></a>
+                        <a th:href="@{/history}" class="nav-link">
+                            <i class="fas fa-history"></i>
+                            <span th:text="#{title.history}">History</span>
+                        </a>
                     </li>
                 </ul>
                 <!-- Language Switch Button -->
                 <div class="navbar-nav">
-                    <button class="nav-link btn btn-link" th:text="${#locale.language == 'en' ? 'NL' : 'EN'}" onclick="switchLanguage()" type="button"></button>
+                    <button class="nav-link btn btn-link" th:text="#{button.language}" onclick="switchLanguage()" type="button"></button>
                 </div>
             </div>
         </div>

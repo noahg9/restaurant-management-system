@@ -11,5 +11,4 @@ public class Programming5Application {
     public static void main(String[] args) {
         SpringApplication.run(Programming5Application.class, args);
     }
-
 }

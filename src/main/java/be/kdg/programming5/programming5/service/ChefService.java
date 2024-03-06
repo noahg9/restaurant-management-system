@@ -3,7 +3,6 @@ package be.kdg.programming5.programming5.service;
 import be.kdg.programming5.programming5.domain.Chef;
 import be.kdg.programming5.programming5.domain.Restaurant;
 import be.kdg.programming5.programming5.repository.ChefRepository;
-import be.kdg.programming5.programming5.repository.MenuItemChefRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -33,9 +32,9 @@ public class ChefService {
     }
 
     /**
-     * Retrieves a all_chefs of all chefs.
+     * Retrieves all chefs of all chefs.
      *
-     * @return A all_chefs of all chefs.
+     * @return All chefs of all chefs.
      */
     
     public List<Chef> getAllChefs() {
@@ -43,9 +42,9 @@ public class ChefService {
     }
 
     /**
-     * Retrieves a all_chefs of all chefs with its associated menu items.
+     * Retrieves all chefs of all chefs with its associated menu items.
      *
-     * @return A all_chefs of all chefs.
+     * @return All chefs of all chefs.
      */
     
     public List<Chef> getChefsWithMenuItems() {
@@ -75,10 +74,10 @@ public class ChefService {
     }
 
     /**
-     * Retrieves a all_chefs of chefs by their first or last name, case-insensitive.
+     * Retrieves all chefs of chefs by their first or last name, case-insensitive.
      *
      * @param name The name to search for.
-     * @return A all_chefs of chefs matching the search criteria.
+     * @return All chefs of chefs matching the search criteria.
      */
     
     public List<Chef> getChefsByName(String name) {
@@ -126,26 +125,13 @@ public class ChefService {
         return chefRepository.save(chef);
     }
 
-    /**
-     * Updates a chef's information.
-     *
-     * @param chef The chef to update.
-     */
-    
-    public void updateChef(Chef chef) {
-        // Implementation needed based on the specific requirements.
-    }
-
-
     @Transactional
     public boolean removeChef(long chefId) {
         var chef = chefRepository.findByIdWithMenuItems(chefId);
         if (chef.isEmpty()) {
             return false;
         }
-
         menuItemChefService.removeAllChefs(chef.get());
-
         chefRepository.deleteById(chefId);
         return true;
     }

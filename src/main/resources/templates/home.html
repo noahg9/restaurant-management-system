@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Home</title>
+    <title th:text="#{title.home}">Home</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
 </head>
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
 <main class="container">
-    <h1 class="page-title" th:text="#{home.header}">Home</h1>
-    <p class="lead" th:text="#{home.welcome}">Welcome to our database of restaurants.</p>
+    <h1 class="page-title" th:text="#{title.home}">Home</h1>
+    <p class="lead" th:text="#{message.home}">Welcome to our database of restaurants.</p>
     <br>
     <!-- Navigation Cards -->
     <div class="row">
@@ -16,9 +16,9 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title" th:text="#{home.menuItems}">Menu Items</h5>
-                    <a href="/menu-items" class="btn btn-primary">Menu Item List</a>
-                    <a href="/search-menu-items" class="btn btn-primary">Search Menu Items</a>
+                    <h5 class="card-title" th:text="#{title.menuItems}">Menu Items</h5>
+                    <a href="/menu-items" class="btn btn-primary" th:text="#{header.menuItemList}">Menu Item List</a>
+                    <a href="/search-menu-items" class="btn btn-primary" th:text="#{title.searchMenuItems}">Search Menu Items</a>
                 </div>
             </div>
         </div>
@@ -26,9 +26,9 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title" th:text="#{home.chefs}">Chefs</h5>
-                    <a href="/chefs" class="btn btn-primary">Chef List</a>
-                    <a href="/search-chefs" class="btn btn-primary">Search Chefs</a>
+                    <h5 class="card-title" th:text="#{title.chefs}">Chefs</h5>
+                    <a href="/chefs" class="btn btn-primary" th:text="#{header.chefList}">Chef List</a>
+                    <a href="/search-chefs" class="btn btn-primary" th:text="#{title.searchChefs}">Search Chefs</a>
                 </div>
             </div>
         </div>
@@ -36,8 +36,8 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Other</h5>
-                    <a href="/history" class="btn btn-primary">History</a>
+                    <h5 class="card-title" th:text="#{title.other}">Other</h5>
+                    <a href="/history" class="btn btn-primary" th:text="#{title.history}">History</a>
                 </div>
             </div>
         </div>

@@ -1,58 +1,52 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Chefs</title>
+    <title th:text="#{title.chefs}">Chefs</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
     <script src="/js/chefs.js" defer></script>
 </head>
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
-<h1 class="page-title" th:text="#{chef.chefsTitle}">Chefs</h1>
+<h1 class="page-title" th:text="#{title.chefs}">Chefs</h1>
 <main class="container">
-    <h2 th:text="#{chef.addHeader}">Add Chef</h2>
+    <h2 th:text="#{header.addChef}">Add Chef</h2>
     <!-- Form -->
     <form>
         <!-- First Name -->
         <div class="mb-3">
-            <label for="firstNameInput" class="form-label">First Name</label>
+            <label for="firstNameInput" class="form-label" th:text="#{attribute.firstName}">First Name</label>
             <input type="text" class="form-control" id="firstNameInput" required>
         </div>
         <!-- Last Name -->
         <div class="mb-3">
-            <label for="lastNameInput" class="form-label">Last Name</label>
+            <label for="lastNameInput" class="form-label" th:text="#{attribute.lastName}">Last Name</label>
             <input type="text" class="form-control" id="lastNameInput" required>
         </div>
         <!-- Add Button -->
-        <button id="addButton" type="button" class="btn btn-primary mb-3" th:text="#{chef.add}">Add</button>
+        <button id="addButton" type="button" class="btn btn-primary mb-3" th:text="#{button.add}">Add</button>
     </form>
-    <h2 th:text="#{chef.listHeader}">Chef List</h2>
+    <h2 th:text="#{header.chefList}">Chef List</h2>
     <!-- Table -->
     <table class="table">
         <!-- Column Headers -->
         <thead>
         <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Date of Birth</th>
-            <th>Restaurant</th>
-            <th></th>
+            <th th:text="#{attribute.name}">Name</th>
+            <th th:text="#{attribute.dateOfBirth}">Date of Birth</th>
+            <th th:text="#{attribute.restaurant}">Restaurant</th>
             <th></th>
         </tr>
         </thead>
         <tbody id="chefTableBody">
         <tr th:id="'chef_' + ${chef.id}" th:each="chef : ${all_chefs}">
-            <!-- First Name -->
-            <td th:text="${chef.firstName}"></td>
-            <!-- Last Name -->
-            <td th:text="${chef.lastName}"></td>
+            <!-- Name -->
+            <td><a th:href="@{/chef(id=${chef.id})}" th:text="${chef.firstName + ' ' + chef.lastName}" ></a></td>
             <!-- Date of Birth -->
             <td th:text="${chef.dateOfBirth}"></td>
             <!-- Date of Birth -->
             <td th:text="${chef.restaurantName}"></td>
-            <!-- Details Button -->
-            <td><a th:href="@{/chef(id=${chef.id})}">Details</a></td>
             <!-- Delete Button -->
-            <td><button type="button" class="btn btn-danger btn-sm">Delete</button></td>
+            <td><button type="button" class="btn btn-danger btn-sm" th:text="#{button.delete}">Delete</button></td>
         </tr>
         </tbody>
     </table>

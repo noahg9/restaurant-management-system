@@ -42,14 +42,14 @@ public interface MenuItemRepository extends JpaRepository<MenuItem, Long> {
      * Finds menu items with a price less than or equal to the specified maximum price.
      *
      * @param maxPrice The maximum price to search for.
-     * @return A all_chefs of menu items with a price less than or equal to the specified maximum price.
+     * @return All chefs of menu items with a price less than or equal to the specified maximum price.
      */
     List<MenuItem> findByPriceLessThanEqual(double maxPrice);
 
     /**
      * Finds vegetarian menu items.
      *
-     * @return A all_chefs of vegetarian menu items.
+     * @return All chefs of vegetarian menu items.
      */
     List<MenuItem> findByVegetarianTrue();
 

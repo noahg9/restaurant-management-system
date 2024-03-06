@@ -25,9 +25,9 @@ public class RestaurantService {
     }
 
     /**
-     * Retrieves a all_chefs of all restaurants.
+     * Retrieves all chefs of all restaurants.
      *
-     * @return A all_chefs of all restaurants.
+     * @return All chefs of all restaurants.
      */
     
     public List<Restaurant> getAllRestaurants() {
@@ -96,16 +96,6 @@ public class RestaurantService {
     
     public Restaurant addRestaurant(Restaurant restaurant) {
         return restaurantRepository.save(restaurant);
-    }
-
-    /**
-     * Updates a restaurant's information.
-     *
-     * @param restaurant The restaurant to update.
-     */
-    
-    public void updateRestaurant(Restaurant restaurant) {
-        // Implementation needed based on the specific requirements.
     }
 
     /**

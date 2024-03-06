@@ -51,7 +51,7 @@ Content-Type: application/json
   "lastName": "Last name"
 }
 
-### API: add a chef (500)
+### API: add a chef
 
 POST http://localhost:9242/api/chefs
 Accept: application/json
@@ -73,7 +73,7 @@ Content-Type: application/json
   "lastName": "Marley"
 }
 
-### API: change a chef name (500)
+### API: change a chef name
 
 PATCH http://localhost:9242/api/chefs/99
 Accept: application/json

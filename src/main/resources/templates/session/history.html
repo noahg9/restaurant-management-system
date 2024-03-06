@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>History</title>
+    <title th:text="#{title.history}">History</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
-<h1 class="page-title" th:text="#{history.header}">History</h1>
+<h1 class="page-title" th:text="#{title.history}">History</h1>
 <div class="container">
     <table class="table">
         <!-- Column Headers -->
         <thead>
         <tr>
-            <th>Page</th>
-            <th>Time</th>
+            <th th:text="#{attribute.page}">Page</th>
+            <th th:text="#{attribute.time}">Time</th>
         </tr>
         </thead>
         <!-- Rows -->

@@ -16,9 +16,7 @@ async function toggleChefsTable() {
             for (const chef of chefs) {
                 tableBody.innerHTML += `
                     <tr>
-                        <td>${chef.firstName}</td>
-                        <td>${chef.lastName}</td>
-                        <td>${chef.dateOfBirth}</td>
+                        <td>${chef.firstName + ' ' + chef.lastName}</td>
                     </tr>
                 `;
             }
@@ -61,7 +59,7 @@ toggleChefsButton.addEventListener("click", toggleChefsTable);
 
 
 
-const priceInput = document.getElementById("priceInput");
+const nameInput = document.getElementById("nameInput");
 
 /**
  * @type {HTMLButtonElement}

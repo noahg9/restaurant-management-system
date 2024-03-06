@@ -59,13 +59,12 @@ function addMenuItemToTable(menuItem) {
     const tableRow = document.createElement("tr");
     tableRow.id = `menu_item_${menuItem.id}`;
     tableRow.innerHTML = `
-        <td>${menuItem.name}</td>
+        <td><a href="/menu-item?id=${menuItem.id}">${menuItem.name}</a></td>
         <td>${menuItem.price}</td>
         <td>${menuItem.course}</td>
         <td>${menuItem.vegetarian}</td>
         <td>${menuItem.spiceLvl}</td>
         <td>${menuItem.restaurant ? menuItem.restaurant.name : 'N/A'}</td>
-        <td><a href="/menu-item?id=${menuItem.id}">Details</a></td>
         <td><button type="button" class="btn btn-danger btn-sm">Delete</button></td>
     `
     menuItemTableBody.appendChild(tableRow);

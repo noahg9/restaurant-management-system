@@ -59,11 +59,9 @@ function addChefToTable(chef) {
     const tableRow = document.createElement("tr");
     tableRow.id = `chef_${chef.id}`;
     tableRow.innerHTML = `
-        <td>${chef.firstName}</td>
-        <td>${chef.lastName}</td>
+        <td><a href="/chef?id=${chef.id}">${chef.firstName + ' ' + chef.lastName}</a></td>
         <td>${chef.dateOfBirth}</td>
         <td>${chef.restaurant ? chef.restaurant.name : 'N/A'}</td>
-        <td><a href="/chef/chef?id=${chef.id}">Details</a></td>
         <td><button type="button" class="btn btn-danger btn-sm">Delete</i></button></td>
     `
     chefTableBody.appendChild(tableRow);

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Chef</title>
+    <title th:text="${one_chef.firstName + ' ' + one_chef.lastName}">Chef</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
     <script src="/js/chef.js" defer></script>
 </head>
@@ -9,28 +9,42 @@
 <header th:replace="~{fragments/includes::header}"></header>
 <h1 class="page-title" th:text="${one_chef.firstName + ' ' + one_chef.lastName}"></h1>
 <main class="container">
-    <h2>Update</h2>
+    <h2 th:text="#{header.update}">Update</h2>
     <br>
     <!-- First Name -->
     <div class="row">
         <input id="chefId" type="hidden" th:value="${one_chef.id}">
         <div class="col-9">
-            <label for="firstNameTextArea" class="form-label">First Name</label>
+            <label for="firstNameTextArea" class="form-label" th:text="#{attribute.firstName}">First Name</label>
             <textarea class="form-control" id="firstNameTextArea" rows="1" th:text="${one_chef.firstName}"></textarea>
-            <label for="lastNameTextArea" class="form-label">Last Name</label>
+            <label for="lastNameTextArea" class="form-label" th:text="#{attribute.lastName}">Last Name</label>
             <textarea class="form-control" id="lastNameTextArea" rows="1" th:text="${one_chef.lastName}"></textarea>
         </div>
     </div>
     <!-- Update Button -->
     <div class="row mt-3">
-        <button id="updateButton" type="button" class="btn btn-primary">Update</button>
+        <button id="updateButton" type="button" class="btn btn-primary" th:text="#{button.update}">Update</button>
     </div>
-    <h2>Details</h2>
+    <h2 th:text="#{header.details}">Details</h2>
+    <table class="table">
+        <tbody>
+        <!-- ID -->
+        <tr>
+            <th th:text="#{attribute.id}">ID</th>
+            <td th:text="*{one_chef.id}"></td>
+        </tr>
+        <!-- Name -->
+        <tr>
+            <th th:text="#{attribute.name}">Name</th>
+            <td th:text="*{one_chef.firstName + ' ' + one_chef.lastName}"></td>
+        </tr>
+        </tbody>
+    </table>
     <!-- Menu Items -->
     <div class="mt-5">
         <!-- Dropdown -->
         <div class="dropdown" id="dropdownButtonWrapper">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="toggleMenuItemInformation">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="toggleMenuItemInformation" th:text="#{message.menuItemsDropdown}">
                 Menu items involved in
             </button>
         </div>
@@ -39,11 +53,11 @@
             <!-- Column Headers -->
             <thead>
             <tr>
-                <th th:text="#{menu.name}">Name</th>
-                <th th:text="#{menu.price}">Price</th>
-                <th th:text="#{menu.course}">Course</th>
-                <th th:text="#{menu.vegetarian}">Vegetarian</th>
-                <th th:text="#{menu.spiceLvl}">Spice Level</th>
+                <th th:text="#{attribute.name}">Name</th>
+                <th th:text="#{attribute.price}">Price</th>
+                <th th:text="#{attribute.course}">Course</th>
+                <th th:text="#{attribute.vegetarian}">Vegetarian</th>
+                <th th:text="#{attribute.spiceLvl}">Spice Level</th>
             </tr>
             </thead>
             <!-- Rows -->
@@ -54,7 +68,7 @@
 </main>
 <!-- Return Button -->
 <div class="center-container">
-    <a th:href="@{/chefs}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Return</a>
+    <a th:href="@{/chefs}" class="btn btn-secondary" th:text="#{button.return}"><i class="fas fa-arrow-left"></i> Return</a>
 </div>
 <footer th:insert="~{fragments/footer::copy}"></footer>
 </body>

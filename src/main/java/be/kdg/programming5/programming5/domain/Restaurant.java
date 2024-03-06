@@ -15,13 +15,13 @@ import java.util.Objects;
 @Entity
 @Table(name = "restaurant")
 public class Restaurant extends AbstractEntity<Long> implements Serializable {
-    @Column
+    @Column(nullable = false)
     private String name;
 
-    @Column
+    @Column(nullable = false)
     private LocalDate dateEstablished;
 
-    @Column
+    @Column(nullable = false)
     private int seatingCapacity;
 
     @OneToMany(mappedBy = "restaurant")
