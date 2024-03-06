@@ -6,29 +6,28 @@ import jakarta.persistence.Entity;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
-import java.util.Random;
 
 /**
  * Represents a menu item in a restaurant, including details, associated restaurant, and chefs.
  * Extends AbstractEntity for common entity properties.
  */
 @Entity
+@Table(name = "menu_item")
 public class MenuItem extends AbstractEntity<Long> implements Serializable {
-
     @Column(nullable = false)
     private String name;
 
-    @Column
+    @Column(nullable = false)
     private double price;
 
-    @Column
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Course course;
 
-    @Column
+    @Column(nullable = false)
     private boolean vegetarian;
 
-    @Column
+    @Column(nullable = false)
     private int spiceLvl;
 
     @ManyToOne

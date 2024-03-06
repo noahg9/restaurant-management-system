@@ -1,8 +1,6 @@
 package be.kdg.programming5.programming5.controllers.api;
 
-import be.kdg.programming5.programming5.controllers.api.dto.ChefDto;
-import be.kdg.programming5.programming5.controllers.api.dto.MenuItemDto;
-import be.kdg.programming5.programming5.controllers.api.dto.NewMenuItemDto;
+import be.kdg.programming5.programming5.controllers.api.dto.*;
 import be.kdg.programming5.programming5.domain.MenuItemChef;
 import be.kdg.programming5.programming5.service.MenuItemService;
 import jakarta.validation.Valid;
@@ -89,5 +87,15 @@ public class MenuItemsController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @PatchMapping("{id}")
+    ResponseEntity<Void> changeMenuItem(@PathVariable("id") long menuItemId,
+                                    @RequestBody @Valid UpdateMenuItemNameDto updateMenuItemNameDto) {
+        if (menuItemService.changeMenuItemName(menuItemId, updateMenuItemNameDto.getName())) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }

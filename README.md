@@ -1,20 +1,21 @@
-<h1>Introduction</h1>
+# Programming 5
 
-<b>Course:</b> Programming 5
+**Noah Guerin**  
+*noah.guerin@student.kdg.be*  
+*0152794-19*  
+*ACS202*  
 
-<b>Name:</b> Noah Guerin
+## Domain Entities
 
-<b>Email:</b> noah.guerin@student.kdg.be
+| Entity     | Relationships                                               |
+|------------|-------------------------------------------------------------|
+| MenuItem   | Belongs to one Restaurant, Owns and owned by many Chefs     |
+| Chef       | Belongs to one Restaurant, Owns and owned by many MenuItems |
+| Restaurant | Owns many Chefs and many MenuItems                          |
 
-<b>Student ID:</b> 0152794-19
+## Week 2
 
-<b>Group:</b> ACS202
-
-Domain entities: chef, menu item, restaurant
-
-<h1>Week 2</h1>
-
-<h2>Fetching one chef - OK</h2>
+### Fetching one chef - OK
 
 ```
 GET http://localhost:9242/api/chefs/1
@@ -29,7 +30,7 @@ Keep-Alive: timeout=60
 Connection: keep-alive
 ```
 
-<h2>Fetching one chef - Not Found</h2>
+### Fetching one chef - Not Found
 
 ```
 GET http://localhost:9242/api/chefs/99
@@ -44,7 +45,7 @@ Keep-Alive: timeout=60
 Connection: keep-alive
 ```
 
-<h2>Fetching All chefs - OK</h2>
+### Fetching All chefs - OK
 
 ```
 GET http://localhost:9242/api/chefs
@@ -60,7 +61,7 @@ Keep-Alive: timeout=60
 Connection: keep-alive
 ```
 
-<h2>Deleting one chef - OK</h2>
+### Deleting one chef - OK
 
 ```
 DELETE http://localhost:9242/api/chefs/1
@@ -72,16 +73,101 @@ Keep-Alive: timeout=60
 Connection: keep-alive
 ```
 
-<h2>Deleting one chef - Not Found</h2>
+### Deleting one chef - Not Found
 
 ```
 DELETE http://localhost:9242/api/chefs/99
 ```
 
+## Week 3
+
 ```
 HTTP/1.1 404
 Content-Length: 0
 Date: Sun, 03 Mar 2024 15:54:25 GMT
+Keep-Alive: timeout=60
+Connection: keep-alive
+```
+
+### Adding a chef - OK
+
+```
+POST http://localhost:9242/api/chefs
+Accept: application/json
+Content-Type: application/json
+
+{
+"firstName": "First name",
+"lastName": "Last name"
+}
+```
+
+```
+HTTP/1.1 201
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Wed, 06 Mar 2024 16:24:11 GMT
+Keep-Alive: timeout=60
+Connection: keep-alive
+```
+
+### Adding a chef - Internal Server Error
+
+```
+POST http://localhost:9242/api/chefs
+Accept: application/json
+Content-Type: application/json
+
+{
+"firstName": "",
+"lastName": ""
+}
+```
+
+```
+HTTP/1.1 500
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Wed, 06 Mar 2024 16:24:14 GMT
+Connection: close
+```
+
+### Change a chef name - OK
+
+```
+PATCH http://localhost:9242/api/chefs/1
+Accept: application/json
+Content-Type: application/json
+
+{
+"firstName": "Bob",
+"lastName": "Marley"
+}
+```
+
+```
+HTTP/1.1 204
+Date: Wed, 06 Mar 2024 17:00:31 GMT
+Keep-Alive: timeout=60
+Connection: keep-alive
+```
+
+### Change a chef name - Internal Server Error
+
+```
+PATCH http://localhost:9242/api/chefs/99
+Accept: application/json
+Content-Type: application/json
+
+{
+"firstName": "",
+"lastName": ""
+}
+```
+
+```
+HTTP/1.1 204
+Date: Wed, 06 Mar 2024 17:00:44 GMT
 Keep-Alive: timeout=60
 Connection: keep-alive
 ```

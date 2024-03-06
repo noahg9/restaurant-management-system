@@ -2,20 +2,18 @@ package be.kdg.programming5.programming5.domain;
 
 import jakarta.persistence.*;
 import jakarta.persistence.Entity;
-import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Random;
 
 /**
  * Represents a restaurant with details, menu items, and chefs.
  * Extends AbstractEntity for common entity properties.
  */
 @Entity
+@Table(name = "restaurant")
 public class Restaurant extends AbstractEntity<Long> implements Serializable {
     @Column
     private String name;
@@ -25,6 +23,12 @@ public class Restaurant extends AbstractEntity<Long> implements Serializable {
 
     @Column
     private int seatingCapacity;
+
+    @OneToMany(mappedBy = "restaurant")
+    private List<MenuItem> menuItems;
+
+    @OneToMany(mappedBy = "restaurant")
+    private List<Chef> chefs;
 
     protected Restaurant() {}
 
@@ -72,6 +76,22 @@ public class Restaurant extends AbstractEntity<Long> implements Serializable {
             throw new IllegalArgumentException("Seating capacity cannot be negative");
         }
         this.seatingCapacity = seatingCapacity;
+    }
+
+    public List<MenuItem> getMenuItems() {
+        return menuItems;
+    }
+
+    public void setMenuItems(List<MenuItem> menuItems) {
+        this.menuItems = menuItems;
+    }
+
+    public List<Chef> getChefs() {
+        return chefs;
+    }
+
+    public void setChefs(List<Chef> chefs) {
+        this.chefs = chefs;
     }
 
     @Override

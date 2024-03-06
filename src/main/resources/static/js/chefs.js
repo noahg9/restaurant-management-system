@@ -28,8 +28,7 @@ const lastNameInput = document.getElementById("lastNameInput");
 const addButton = document.getElementById("addButton");
 const chefTableBody = document.getElementById("chefTableBody");
 
-async function addNewChef()
-{
+async function addNewChef() {
     const response = await fetch(`/api/chefs`, {
         method: "POST",
         headers: {

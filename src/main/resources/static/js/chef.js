@@ -62,6 +62,7 @@ function showMenuItemsTable() {
 toggleMenuItemsButton.addEventListener("click", toggleMenuItemsTable);
 
 const firstNameInput = document.getElementById("firstNameInput");
+const lastNameInput = document.getElementById("lastNameInput");
 
 /**
  * @type {HTMLButtonElement}
@@ -72,10 +73,12 @@ async function changeChef() {
     const response = await fetch(`/api/chefs/${chefIdInput.value}`, {
         method: "PATCH",
         headers: {
+            "Accept": "application/json",
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            firstName: firstNameInput.value
+            firstName: firstNameInput.value,
+            lastName: lastNameInput.value
         })
     })
     if (response.status === 204) {
@@ -88,3 +91,4 @@ async function changeChef() {
 
 updateButton.addEventListener("click", changeChef);
 firstNameInput.addEventListener("input", () => updateButton.disabled = false);
+lastNameInput.addEventListener("input", () => updateButton.disabled = false);

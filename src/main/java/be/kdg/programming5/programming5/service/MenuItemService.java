@@ -161,4 +161,14 @@ public class MenuItemService {
         menuItemRepository.deleteById(menuItemId);
         return true;
     }
+
+    public boolean changeMenuItemName(long menuItemId, String name) {
+        var menuItem = menuItemRepository.findById(menuItemId).orElse(null);
+        if (menuItem == null) {
+            return false;
+        }
+        menuItem.setName(name);
+        menuItemRepository.save(menuItem);
+        return true;
+    }
 }

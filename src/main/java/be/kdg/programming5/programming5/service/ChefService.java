@@ -150,12 +150,13 @@ public class ChefService {
         return true;
     }
 
-    public boolean changeChefFirstName(long chefId, String firstName) {
+    public boolean changeChefName(long chefId, String firstName, String lastName) {
         var chef = chefRepository.findById(chefId).orElse(null);
         if (chef == null) {
             return false;
         }
         chef.setFirstName(firstName);
+        chef.setLastName(lastName);
         chefRepository.save(chef);
         return true;
     }

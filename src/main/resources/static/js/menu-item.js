@@ -69,8 +69,22 @@ const priceInput = document.getElementById("priceInput");
 const updateButton = document.getElementById("updateButton");
 
 async function changeMenuItem() {
-    updateButton.disabled = true;
+    const response = await fetch(`/api/menu-items/${menuItemIdInput.value}`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            name: nameInput.value
+        })
+    })
+    if (response.status === 204) {
+        updateButton.disabled = true;
+    } else {
+        const errorMessage = await response.text();
+        alert(`Error ${response.status}: ${errorMessage}`);
+    }
 }
 
 updateButton.addEventListener("click", changeMenuItem);
-priceInput.addEventListener("input", () => updateButton.disabled = false);
+nameInput.addEventListener("input", () => updateButton.disabled = false);

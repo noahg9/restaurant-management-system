@@ -6,7 +6,7 @@ import jakarta.persistence.Entity;
 import java.io.Serializable;
 
 @Entity
-@Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "menu_item_id", "chef_id" }) })
+@Table(name = "menu_item_chef", uniqueConstraints = { @UniqueConstraint(columnNames = { "menu_item_id", "chef_id" }) })
 public class MenuItemChef extends AbstractEntity<Long> implements Serializable {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "menu_item_id")

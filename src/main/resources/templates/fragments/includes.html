@@ -36,16 +36,6 @@
                     <li class="nav-item">
                         <a th:href="@{/home}" class="nav-link"><i class="fas fa-home"></i> <span th:text="#{navbar.home}">Home</span></a>
                     </li>
-                    <!-- Chef Dropdown -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="chefDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-user"></i> <span th:text="#{navbar.chefs}">Chefs</span>
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="chefDropdown">
-                            <li><a class="dropdown-item" th:href="@{/chefs}"><i class="fas fa-list"></i> <span th:text="#{navbar.chefList}">Chef List</span></a></li>
-                            <li><a class="dropdown-item" th:href="@{/search-chefs}"><i class="fas fa-search"></i> <span th:text="#{navbar.searchChefs}">Search Chefs</span></a></li>
-                        </ul>
-                    </li>
                     <!-- Menu Item Dropdown -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="menuItemDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -54,6 +44,16 @@
                         <ul class="dropdown-menu" aria-labelledby="menuItemDropdown">
                             <li><a class="dropdown-item" th:href="@{/menu-items}"><i class="fas fa-list"></i> <span th:text="#{navbar.menuItemList}">Menu Item List</span></a></li>
                             <li><a class="dropdown-item" th:href="@{/search-menu-items}"><i class="fas fa-search"></i> <span th:text="#{navbar.searchMenuItems}">Search Menu Items</span></a></li>
+                        </ul>
+                    </li>
+                    <!-- Chef Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="chefDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user"></i> <span th:text="#{navbar.chefs}">Chefs</span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="chefDropdown">
+                            <li><a class="dropdown-item" th:href="@{/chefs}"><i class="fas fa-list"></i> <span th:text="#{navbar.chefList}">Chef List</span></a></li>
+                            <li><a class="dropdown-item" th:href="@{/search-chefs}"><i class="fas fa-search"></i> <span th:text="#{navbar.searchChefs}">Search Chefs</span></a></li>
                         </ul>
                     </li>
                     <!-- History -->

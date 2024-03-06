@@ -7,13 +7,13 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
-import java.util.Random;
 
 /**
  * Represents a Chef in a restaurant, including personal information and associated menu items.
  * Extends AbstractEntity for common entity properties.
  */
 @Entity
+@Table(name = "chef")
 public class Chef extends AbstractEntity<Long> implements Serializable {
     @Column(nullable = false)
     private String firstName;
@@ -21,7 +21,7 @@ public class Chef extends AbstractEntity<Long> implements Serializable {
     @Column(nullable = false)
     private String lastName;
 
-    @Column
+    @Column(nullable = false)
     private LocalDate dateOfBirth;
 
     @ManyToOne
@@ -118,14 +118,5 @@ public class Chef extends AbstractEntity<Long> implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(id, firstName, lastName, dateOfBirth);
-    }
-
-    public static Chef randomChef() {
-        Random random = new Random();
-        return new Chef(
-                "chef",
-                "#" + random.nextInt(1000),
-                LocalDate.of(1940 + random.nextInt(60), random.nextInt(12) + 1, random.nextInt(27) + 1)
-        );
     }
 }

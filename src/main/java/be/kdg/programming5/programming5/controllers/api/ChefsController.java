@@ -3,7 +3,7 @@ package be.kdg.programming5.programming5.controllers.api;
 import be.kdg.programming5.programming5.controllers.api.dto.ChefDto;
 import be.kdg.programming5.programming5.controllers.api.dto.MenuItemDto;
 import be.kdg.programming5.programming5.controllers.api.dto.NewChefDto;
-import be.kdg.programming5.programming5.controllers.api.dto.UpdateChefFirstNameDto;
+import be.kdg.programming5.programming5.controllers.api.dto.UpdateChefNameDto;
 import be.kdg.programming5.programming5.domain.MenuItemChef;
 import be.kdg.programming5.programming5.service.ChefService;
 import jakarta.validation.Valid;
@@ -96,8 +96,8 @@ public class ChefsController {
 
     @PatchMapping("{id}")
     ResponseEntity<Void> changeChef(@PathVariable("id") long chefId,
-                                     @RequestBody @Valid UpdateChefFirstNameDto updateChefFirstNameDto) {
-        if (chefService.changeChefFirstName(chefId, updateChefFirstNameDto.getFirstName())) {
+                                     @RequestBody @Valid UpdateChefNameDto updateChefNameDto) {
+        if (chefService.changeChefName(chefId, updateChefNameDto.getFirstName(), updateChefNameDto.getLastName())) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

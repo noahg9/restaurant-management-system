@@ -9,65 +9,59 @@
 <header th:replace="~{fragments/includes::header}"></header>
 <h1 class="page-title" th:text="${one_menu_item.name}"></h1>
 <main class="container">
-    <!-- Details Section -->
-    <section>
-        <h2>Details</h2>
-        <table class="table">
-            <tbody>
-            <!-- ID -->
+    <h2>Update</h2>
+    <br>
+    <!-- Name -->
+    <div class="row">
+        <input type="hidden" id="menuItemId" th:value="${one_menu_item.id}">
+        <div class="col-9">
+            <label for="nameTextArea" class="form-label">Name</label>
+            <textarea class="form-control" id="nameTextArea" rows="3" th:text="${one_menu_item.name}"></textarea>
+        </div>
+    </div>
+    <!-- Update Button -->
+    <div class="row mt-3">
+        <div>
+            <button id="updateButton" type="button" class="btn btn-primary">Update</button>
+        </div>
+    </div>
+    <h2>Details</h2>
+    <table class="table">
+        <tbody>
+        <!-- ID -->
+        <tr>
+            <th>ID</th>
+            <td th:text="*{one_menu_item.id}"></td>
+        </tr>
+        <!-- Name -->
+        <tr>
+            <th>Name</th>
+            <td th:text="*{one_menu_item.name}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <!-- Chefs -->
+    <div class="mt-5">
+        <!-- Dropdown -->
+        <div class="dropdown" id="dropdownButtonWrapper">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="toggleChefInformation">
+                Chefs involved
+            </button>
+        </div>
+        <!-- Table -->
+        <table id="chefInformation" class="table">
+            <!-- Column Headers-->
+            <thead>
             <tr>
-                <th>ID</th>
-                <td th:text="*{one_menu_item.id}"></td>
+                <th>First Name</th>
+                <th>Last Name</th>
             </tr>
-            <!-- Name -->
-            <tr>
-                <th>Name</th>
-                <td th:text="*{one_menu_item.name}"></td>
-            </tr>
+            </thead>
+            <!-- Rows -->
+            <tbody id="chefInformationBody">
             </tbody>
         </table>
-        <!-- Chefs -->
-        <div class="mt-5">
-            <!-- Dropdown -->
-            <div class="dropdown" id="dropdownButtonWrapper">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="toggleChefInformation">
-                    Chefs involved
-                </button>
-            </div>
-            <!-- Table -->
-            <table id="chefInformation" class="table">
-                <!-- Column Headers-->
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Last Name</th>
-                </tr>
-                </thead>
-                <!-- Rows -->
-                <tbody id="chefInformationBody">
-                </tbody>
-            </table>
-        </div>
-    </section>
-    <!-- Update Section-->
-    <section>
-        <h2>Update</h2>
-        <br>
-        <!-- Name -->
-        <div class="row">
-            <input type="hidden" id="menuItemId" th:value="${one_menu_item.id}">
-            <div class="col-9">
-                <label for="nameTextArea" class="form-label">Name</label>
-                <textarea class="form-control" id="nameTextArea" rows="3" th:text="${one_menu_item.name}"></textarea>
-            </div>
-        </div>
-        <!-- Update Button -->
-        <div class="row mt-3">
-            <div>
-                <button id="updateButton" type="button" class="btn btn-primary" disabled>Update</button>
-            </div>
-        </div>
-    </section>
+    </div>
 </main>
 <!-- Return Button -->
 <div class="center-container mt-3">

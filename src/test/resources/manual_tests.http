@@ -22,12 +22,12 @@ Accept: application/json
 GET http://localhost:9242/api/chefs/1/menu-items
 Accept: application/json
 
-### API: search chefs (204)
+### API: search chefs
 
 GET http://localhost:9242/api/chefs?search=ramsey
 Accept: application/json
 
-### API: search chefs (204)
+### API: search chefs
 
 GET http://localhost:9242/api/chefs?search=mcdonald
 Accept: application/json
@@ -62,3 +62,24 @@ Content-Type: application/json
   "lastName": ""
 }
 
+### API: change a chef name (204)
+
+PATCH http://localhost:9242/api/chefs/1
+Accept: application/json
+Content-Type: application/json
+
+{
+  "firstName": "Bob",
+  "lastName": "Marley"
+}
+
+### API: change a chef name (500)
+
+PATCH http://localhost:9242/api/chefs/99
+Accept: application/json
+Content-Type: application/json
+
+{
+  "firstName": "",
+  "lastName": ""
+}
