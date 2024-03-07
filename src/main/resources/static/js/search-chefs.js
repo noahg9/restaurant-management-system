@@ -11,9 +11,7 @@ searchButton.addEventListener("click", async () => {
         for (const chef of chefs) {
             tableBody.innerHTML += `
             <tr>
-                <td>${chef.firstName}</td>
-                <td>${chef.lastName}</td>
-                <td><a href="/chef?id=${chef.id}">Details</a></td>
+                <td><a href="/chef?id=${chef.id}">${chef.firstName + ' ' + chef.lastName}</a></td>
             </tr>
             `;
         }

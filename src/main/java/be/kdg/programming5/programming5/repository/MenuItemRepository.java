@@ -32,8 +32,8 @@ public interface MenuItemRepository extends JpaRepository<MenuItem, Long> {
 
     @Query("""
            select m from MenuItem m
-           left join m.chefs menuItemChefs
-           left join menuItemChefs.chef chef
+           left join m.chefs chefs
+           left join chefs.chef chef
            where chef.id = :chefId
            """)
     List<MenuItem> findByChefId(long chefId);
@@ -53,6 +53,6 @@ public interface MenuItemRepository extends JpaRepository<MenuItem, Long> {
      */
     List<MenuItem> findByVegetarianTrue();
 
-    List<MenuItem> findMenuItemsByNameLike(String searchTerm);
+    List<MenuItem> findMenuItemsByNameLikeIgnoreCase(String searchTerm);
 
 }

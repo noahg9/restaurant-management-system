@@ -15,119 +15,192 @@
 
 ## Week 2
 
-### Fetching one chef - OK
+### Fetching one menu itemd - OK
 
 ```
-GET http://localhost:9242/api/chefs/1
-Accept: application/xml
+GET http://localhost:9242/api/menu-items/1
+Accept: application/json
 ```
 ```
 HTTP/1.1 200 
-Content-Type: application/xml;charset=UTF-8
+Content-Type: application/json
 Transfer-Encoding: chunked
-Date: Sun, 03 Mar 2024 16:04:38 GMT
+Date: Thu, 07 Mar 2024 15:47:42 GMT
+Keep-Alive: timeout=60
+Connection: keep-alive
+
+{
+  "id": 1,
+  "name": "Ceasar Salad",
+  "price": 3.5
+}
+```
+
+### Fetching one menu item - Not Found
+
+```
+GET http://localhost:9242/api/menu-items/99
+Accept: application/json
+```
+
+```
+HTTP/1.1 404 
+Content-Length: 0
+Date: Thu, 07 Mar 2024 15:48:10 GMT
+Keep-Alive: timeout=60
+Connection: keep-alive
+
+<Response body is empty>Response code: 404; Time: 20ms (20 ms); Content length: 0 bytes (0 B)
+```
+
+### Fetching all menu items - OK
+
+```
+GET http://localhost:9242/api/menu-items
+Accept: application/json
+```
+
+```
+HTTP/1.1 200 
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Thu, 07 Mar 2024 15:28:28 GMT
 Keep-Alive: timeout=60
 Connection: keep-alive
 ```
 
-### Fetching one chef - Not Found
+### Deleting one menu item - OK
 
 ```
-GET http://localhost:9242/api/chefs/99
-Accept: application/xml
+DELETE http://localhost:9242/api/menu-items/1
+```
+```
+HTTP/1.1 204 
+Date: Thu, 07 Mar 2024 15:28:29 GMT
+Keep-Alive: timeout=60
+Connection: keep-alive
+
+<Response body is empty>Response code: 204; Time: 124ms (124 ms); Content length: 0 bytes (0 B)
+```
+
+### Deleting one menu item - Not Found
+
+```
+DELETE http://localhost:9242/api/menu-items/99
 ```
 
 ```
 HTTP/1.1 404
 Content-Length: 0
-Date: Sun, 03 Mar 2024 15:52:02 GMT
+Date: Thu, 07 Mar 2024 15:28:29 GMT
 Keep-Alive: timeout=60
 Connection: keep-alive
-```
 
-### Fetching All chefs - OK
-
-```
-GET http://localhost:9242/api/chefs
-Accept: application/json
-```
-
-```
-HTTP/1.1 200
-Content-Type: application/json
-Transfer-Encoding: chunked
-Date: Sun, 03 Mar 2024 15:51:17 GMT
-Keep-Alive: timeout=60
-Connection: keep-alive
-```
-
-### Deleting one chef - OK
-
-```
-DELETE http://localhost:9242/api/chefs/1
-```
-```
-HTTP/1.1 204
-Date: Sun, 03 Mar 2024 15:57:17 GMT
-Keep-Alive: timeout=60
-Connection: keep-alive
-```
-
-### Deleting one chef - Not Found
-
-```
-DELETE http://localhost:9242/api/chefs/99
+<Response body is empty>Response code: 404; Time: 27ms (27 ms); Content length: 0 bytes (0 B)
 ```
 
 ## Week 3
 
+### Adding a menu item - OK
+
+```
+POST http://localhost:9242/api/menu-items
+Accept: application/json
+Content-Type: application/json
+
+{
+"name": "Name"
+}
+```
+
+```
+HTTP/1.1 201 
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Thu, 07 Mar 2024 15:28:29 GMT
+Keep-Alive: timeout=60
+Connection: keep-alive
+```
+
+### Changing a menu item name - OK
+
+```
+PATCH http://localhost:9242/api/menu-items/1
+Accept: application/json
+Content-Type: application/json
+
+{
+"name": "Pizza"
+}
+```
+
+```
+HTTP/1.1 204 
+Date: Thu, 07 Mar 2024 15:40:35 GMT
+Keep-Alive: timeout=60
+Connection: keep-alive
+
+<Response body is empty>Response code: 204; Time: 468ms (468 ms); Content length: 0 bytes (0 B)
+```
+
+
+### Changing a menu item name - Not Found
+
+```
+PATCH http://localhost:9242/api/menu-items/99
+Accept: application/json
+Content-Type: application/json
+
+{
+"name": "Name"
+}
+```
+
 ```
 HTTP/1.1 404
 Content-Length: 0
-Date: Sun, 03 Mar 2024 15:54:25 GMT
+Date: Thu, 07 Mar 2024 15:56:07 GMT
 Keep-Alive: timeout=60
 Connection: keep-alive
+
+<Response body is empty>Response code: 404; Time: 26ms (26 ms); Content length: 0 bytes (0 B)
 ```
 
-### Adding a chef - OK
+### Fetching one menu item in XML format - OK
 
 ```
-POST http://localhost:9242/api/chefs
-Accept: application/json
-Content-Type: application/json
-
-{
-"firstName": "First name",
-"lastName": "Last name"
-}
+GET http://localhost:9242/api/menu-items/1
+Accept: application/xml
 ```
 
 ```
-HTTP/1.1 201
-Content-Type: application/json
+HTTP/1.1 200
+Content-Type: application/xml;charset=UTF-8
 Transfer-Encoding: chunked
-Date: Wed, 06 Mar 2024 16:24:11 GMT
+Date: Thu, 07 Mar 2024 15:46:34 GMT
 Keep-Alive: timeout=60
 Connection: keep-alive
+
+<MenuItemDto>
+    <id>1</id>
+    <name>Ceasar Salad</name>
+    <price>3.5</price>
+</MenuItemDto>
 ```
 
-### Change a chef name - OK
+### Fetching one menu item in XML format - Not Found
 
 ```
-PATCH http://localhost:9242/api/chefs/1
-Accept: application/json
-Content-Type: application/json
-
-{
-"firstName": "Bob",
-"lastName": "Marley"
-}
+GET http://localhost:9242/api/menu-items/99
+Accept: application/xml
 ```
 
 ```
-HTTP/1.1 204
-Date: Wed, 06 Mar 2024 17:00:31 GMT
+HTTP/1.1 404
+Content-Length: 0
+Date: Thu, 07 Mar 2024 15:47:10 GMT
 Keep-Alive: timeout=60
 Connection: keep-alive
-```
 
+<Response body is empty>Response code: 404; Time: 22ms (22 ms); Content length: 0 bytes (0 B)
+```

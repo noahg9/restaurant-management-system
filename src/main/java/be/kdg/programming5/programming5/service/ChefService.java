@@ -89,7 +89,7 @@ public class ChefService {
     }
 
     public List<Chef> searchChefsByFirstNameOrLastName(String searchTerm) {
-        return chefRepository.getChefsByFirstNameLikeOrLastName("%" + searchTerm + "%", "%" + searchTerm + "%");
+        return chefRepository.getChefsByFirstNameLikeIgnoreCaseOrLastNameIgnoreCase("%" + searchTerm + "%", "%" + searchTerm + "%");
     }
 
     /**

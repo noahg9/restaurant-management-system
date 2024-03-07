@@ -1,9 +1,5 @@
 package be.kdg.programming5.programming5.controllers.api.dto;
 
-import be.kdg.programming5.programming5.domain.Restaurant;
-
-import java.time.LocalDate;
-
 public class ChefDto {
     private long id;
     private String firstName;

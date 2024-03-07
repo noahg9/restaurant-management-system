@@ -22,6 +22,7 @@ public class MenuItemsController {
         this.modelMapper = modelMapper;
     }
 
+    // "/api/menu-items"
     @PostMapping
     ResponseEntity<MenuItemDto> addMenuItem(@RequestBody @Valid NewMenuItemDto menuItemDto) {
         var createdMenuItem = menuItemService.addMenuItem(

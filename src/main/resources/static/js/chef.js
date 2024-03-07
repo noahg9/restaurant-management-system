@@ -79,7 +79,8 @@ async function changeChef() {
         body: JSON.stringify({
             firstName: firstNameInput.value,
             lastName: lastNameInput.value
-        })
+        }),
+        redirect: "manual"
     })
     if (response.status === 204) {
         updateButton.disabled = true;

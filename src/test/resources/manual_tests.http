@@ -2,84 +2,95 @@
 
 GET http://localhost:9242
 
-### API: retrieve one chef (200)
+### API: retrieve one menu item in JSON format (200)
 
-GET http://localhost:9242/api/chefs/1
+GET http://localhost:9242/api/menu-items/1
+Accept: application/json
+
+### API: retrieve one menu item in JSON format (404)
+
+GET http://localhost:9242/api/menu-items/99
+Accept: application/json
+
+### API: retrieve one menu item in XML format (200)
+
+GET http://localhost:9242/api/menu-items/1
 Accept: application/xml
 
-### API: retrieve one chef (404)
+### API: retrieve one menu item in XML format (404)
 
-GET http://localhost:9242/api/chefs/99
+GET http://localhost:9242/api/menu-items/99
 Accept: application/xml
 
-### API: retrieve all chefs (200)
+### API: retrieve all menu items (200)
 
-GET http://localhost:9242/api/chefs
+GET http://localhost:9242/api/menu-items
 Accept: application/json
 
-### API: retrieve all menu items of one chef
+### API: retrieve all chefs of one menu item
 
-GET http://localhost:9242/api/chefs/1/menu-items
+GET http://localhost:9242/api/menu-items/1/chef
 Accept: application/json
 
-### API: search chefs
+### API: search menu items (204)
 
-GET http://localhost:9242/api/chefs?search=ramsey
+GET http://localhost:9242/api/menu-items?search=salad
 Accept: application/json
 
-### API: search chefs
+### API: delete a menu items (204)
 
-GET http://localhost:9242/api/chefs?search=mcdonald
-Accept: application/json
+DELETE http://localhost:9242/api/menu-items/1
 
-### API: delete a chef (204)
+### API: delete a menu item (404)
 
-DELETE http://localhost:9242/api/chefs/1
+DELETE http://localhost:9242/api/menu-items/99
 
-### API: delete a chef (404)
+### API: add a menu item (201)
 
-DELETE http://localhost:9242/api/chefs/99
-
-### API: add a chef (201)
-
-POST http://localhost:9242/api/chefs
+POST http://localhost:9242/api/menu-items
 Accept: application/json
 Content-Type: application/json
 
 {
-  "firstName": "First name",
-  "lastName": "Last name"
+  "name": "Name"
 }
 
-### API: add a chef
+### API: add a menu item
 
-POST http://localhost:9242/api/chefs
+POST http://localhost:9242/api/menu-items
 Accept: application/json
 Content-Type: application/json
 
 {
-  "firstName": "",
-  "lastName": ""
+  "name": ""
 }
 
-### API: change a chef name (204)
+### API: change a menu item name (204)
 
-PATCH http://localhost:9242/api/chefs/1
+PATCH http://localhost:9242/api/menu-items/1
 Accept: application/json
 Content-Type: application/json
 
 {
-  "firstName": "Bob",
-  "lastName": "Marley"
+  "name": "Pizza"
 }
 
-### API: change a chef name
+### API: change a menu item name
 
-PATCH http://localhost:9242/api/chefs/99
+PATCH http://localhost:9242/api/menu-items/99
 Accept: application/json
 Content-Type: application/json
 
 {
-  "firstName": "",
-  "lastName": ""
+  "name": "Name"
+}
+
+### API: change a menu item name
+
+PATCH http://localhost:9242/api/menu-items/1
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": ""
 }

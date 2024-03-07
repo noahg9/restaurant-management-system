@@ -13,7 +13,7 @@
     <br>
     <!-- Name -->
     <div class="row">
-        <input type="hidden" id="menuItemId" th:value="${one_menu_item.id}">
+        <input id="menuItemId" type="hidden" th:value="${one_menu_item.id}">
         <div class="col-9">
             <label for="nameTextArea" class="form-label" th:text="#{attribute.name}">Name</label>
             <textarea class="form-control" id="nameTextArea" rows="1" th:text="${one_menu_item.name}"></textarea>
@@ -21,9 +21,7 @@
     </div>
     <!-- Update Button -->
     <div class="row mt-3">
-        <div>
-            <button id="updateButton" type="button" class="btn btn-primary" th:text="#{button.update}">Update</button>
-        </div>
+        <button id="updateButton" type="button" class="btn btn-primary" th:text="#{button.update}">Update</button>
     </div>
     <h2 th:text="#{header.details}">Details</h2>
     <table class="table">

@@ -42,7 +42,7 @@
         </thead>
         <!-- Rows-->
         <tbody id="menuItemTableBody">
-        <tr th:id="'menu_item_' + ${menu_item.id}" th:each="menu_item : ${all_menu_items}">
+        <tr th:id="'menu-item_' + ${menu_item.id}" th:each="menu_item : ${all_menu_items}">
             <!-- Name -->
             <td><a th:href="@{/menu-item(id=${menu_item.id})}" th:text="${menu_item.name}"></a></td>
             <!-- Price -->

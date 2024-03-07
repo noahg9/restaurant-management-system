@@ -15,7 +15,7 @@ async function handleDeleteMenuItem(event) {
         }
     });
     if (response.status === 204) {
-        const row = document.getElementById(`menu_item_${menuItemId}`);
+        const row = document.getElementById(`menu-item_${menuItemId}`);
         row.parentNode.removeChild(row);
     } else {
         const errorMessage = await response.text();

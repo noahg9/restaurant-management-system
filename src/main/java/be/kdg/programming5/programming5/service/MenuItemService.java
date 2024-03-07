@@ -99,7 +99,7 @@ public class MenuItemService {
     }
 
     public List<MenuItem> searchMenuItemsByNameLike(String searchTerm) {
-        return menuItemRepository.findMenuItemsByNameLike("%" + searchTerm + "%");
+        return menuItemRepository.findMenuItemsByNameLikeIgnoreCase("%" + searchTerm + "%");
     }
 
     /**
@@ -145,9 +145,7 @@ public class MenuItemService {
         if (menuItem.isEmpty()) {
             return false;
         }
-
         menuItemChefService.removeAllMenuItems(menuItem.get());
-
         menuItemRepository.deleteById(menuItemId);
         return true;
     }

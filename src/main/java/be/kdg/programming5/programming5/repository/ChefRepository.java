@@ -47,5 +47,5 @@ public interface ChefRepository extends JpaRepository<Chef, Long> {
      */
     List<Chef> findByFirstNameIgnoreCaseContainingOrLastNameIgnoreCaseContaining(String firstName, String lastName);
 
-    List<Chef> getChefsByFirstNameLikeOrLastName(String searchTerm1, String searchTerm2);
+    List<Chef> getChefsByFirstNameLikeIgnoreCaseOrLastNameIgnoreCase(String searchTerm1, String searchTerm2);
 }

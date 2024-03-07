@@ -1,12 +1,5 @@
 package be.kdg.programming5.programming5.controllers.api.dto;
 
-import be.kdg.programming5.programming5.domain.Course;
-import be.kdg.programming5.programming5.domain.Restaurant;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-
-import java.time.LocalDate;
-
 public class MenuItemDto {
     private long id;
     private String name;

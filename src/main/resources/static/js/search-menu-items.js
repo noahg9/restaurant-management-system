@@ -12,12 +12,11 @@ searchButton.addEventListener("click", async () => {
         for (const menuItem of menuItems) {
             tableBody.innerHTML += `
             <tr>
-                <td>${menuItem.name}</td>
+                <td><a href="/menu-item?id=${menuItem.id}">${menuItem.name}</a></td>
                 <td>${menuItem.price}</td>
                 <td>${menuItem.course}</td>
                 <td>${menuItem.vegetarian}</td>
                 <td>${menuItem.spiceLvl}</td>
-                <td><a href="/menu-item?id=${menuItem.id}">Details</a></td>
             </tr>
             `;
         }

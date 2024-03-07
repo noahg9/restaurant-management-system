@@ -70,11 +70,13 @@ async function changeMenuItem() {
     const response = await fetch(`/api/menu-items/${menuItemIdInput.value}`, {
         method: "PATCH",
         headers: {
+            "Accept": "application/json",
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
             name: nameInput.value
-        })
+        }),
+        redirect: "manual"
     })
     if (response.status === 204) {
         updateButton.disabled = true;
