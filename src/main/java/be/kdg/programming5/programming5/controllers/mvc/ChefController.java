@@ -1,15 +1,16 @@
 package be.kdg.programming5.programming5.controllers.mvc;
 
+import be.kdg.programming5.programming5.controllers.mvc.viewmodel.ChefViewModel;
 import be.kdg.programming5.programming5.controllers.mvc.viewmodel.MenuItemViewModel;
 import be.kdg.programming5.programming5.domain.util.HistoryUtil;
-import be.kdg.programming5.programming5.controllers.mvc.viewmodel.ChefViewModel;
 import be.kdg.programming5.programming5.service.ChefService;
 import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -23,7 +24,7 @@ public class ChefController {
     /**
      * Constructor to inject dependencies.
      *
-     * @param chefService       Service for Chef-related operations.
+     * @param chefService Service for Chef-related operations.
      */
     public ChefController(ChefService chefService) {
         this.chefService = chefService;
@@ -62,8 +63,9 @@ public class ChefController {
     /**
      * Handles GET request to retrieve details of a specific chef.
      *
-     * @param chefId ID of the chef.
-     * @param model Model object to add attributes for the view.
+     * @param chefId  ID of the chef.
+     * @param session the session
+     * @param model   Model object to add attributes for the view.
      * @return View name for displaying chef details.
      */
     @GetMapping("/chef")
@@ -102,6 +104,13 @@ public class ChefController {
         return mav;
     }
 
+    /**
+     * Search chefs string.
+     *
+     * @param session the session
+     * @param model   the model
+     * @return the string
+     */
     @GetMapping("/search-chefs")
     public String searchChefs(HttpSession session, Model model) {
         String pageTitle = "Search Chefs";

@@ -37,10 +37,12 @@ public class ChefViewModel {
     /**
      * Parameterized constructor for AddChefViewModel.
      *
-     * @param firstName    The first name of the chef.
-     * @param lastName     The last name of the chef.
-     * @param dateOfBirth  The date of birth of the chef.
+     * @param id             the id
+     * @param firstName      The first name of the chef.
+     * @param lastName       The last name of the chef.
+     * @param dateOfBirth    The date of birth of the chef.
      * @param restaurantId   The restaurant to which the chef is associated.
+     * @param restaurantName the restaurant name
      */
     public ChefViewModel(long id, String firstName, String lastName, LocalDate dateOfBirth, long restaurantId, String restaurantName) {
         this.id = id;
@@ -51,6 +53,17 @@ public class ChefViewModel {
         this.restaurantName = restaurantName;
     }
 
+    /**
+     * Instantiates a new Chef view model.
+     *
+     * @param id             the id
+     * @param firstName      the first name
+     * @param lastName       the last name
+     * @param dateOfBirth    the date of birth
+     * @param restaurantId   the restaurant id
+     * @param restaurantName the restaurant name
+     * @param menuItems      the menu items
+     */
     public ChefViewModel(long id, String firstName, String lastName, LocalDate dateOfBirth, long restaurantId, String restaurantName, List<MenuItemViewModel> menuItems) {
         this.id = id;
         this.firstName = firstName;
@@ -61,10 +74,20 @@ public class ChefViewModel {
         this.menuItems = menuItems;
     }
 
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
     public long getId() {
         return id;
     }
 
+    /**
+     * Sets id.
+     *
+     * @param id the id
+     */
     public void setId(long id) {
         this.id = id;
     }
@@ -160,15 +183,30 @@ public class ChefViewModel {
         this.restaurantName = restaurantName;
     }
 
+    /**
+     * Calculate age int.
+     *
+     * @return the int
+     */
     public int calculateAge() {
         LocalDate currentDate = LocalDate.now();
         return Period.between(dateOfBirth, currentDate).getYears();
     }
 
+    /**
+     * Gets menu items.
+     *
+     * @return the menu items
+     */
     public List<MenuItemViewModel> getMenuItems() {
         return menuItems;
     }
 
+    /**
+     * Sets menu items.
+     *
+     * @param menuItems the menu items
+     */
     public void setMenuItems(List<MenuItemViewModel> menuItems) {
         this.menuItems = menuItems;
     }

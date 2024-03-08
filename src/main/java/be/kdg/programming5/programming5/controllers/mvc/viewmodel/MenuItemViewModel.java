@@ -45,12 +45,14 @@ public class MenuItemViewModel {
     /**
      * Parameterized constructor for AddMenuItemViewModel.
      *
-     * @param name         The name of the menu item.
-     * @param price        The price of the menu item.
-     * @param course       The course type of the menu item.
-     * @param vegetarian   A boolean indicating whether the menu item is vegetarian.
-     * @param spiceLvl     The spice level of the menu item.
-     * @param restaurantId The ID of the restaurant to which the menu item is associated.
+     * @param id             the id
+     * @param name           The name of the menu item.
+     * @param price          The price of the menu item.
+     * @param course         The course type of the menu item.
+     * @param vegetarian     A boolean indicating whether the menu item is vegetarian.
+     * @param spiceLvl       The spice level of the menu item.
+     * @param restaurantId   The ID of the restaurant to which the menu item is associated.
+     * @param restaurantName the restaurant name
      */
     public MenuItemViewModel(long id, String name, double price, Course course, boolean vegetarian, int spiceLvl, long restaurantId, String restaurantName) {
         setId(id);
@@ -63,6 +65,19 @@ public class MenuItemViewModel {
         setRestaurantName(restaurantName);
     }
 
+    /**
+     * Instantiates a new Menu item view model.
+     *
+     * @param id             the id
+     * @param name           the name
+     * @param price          the price
+     * @param course         the course
+     * @param vegetarian     the vegetarian
+     * @param spiceLvl       the spice lvl
+     * @param restaurantId   the restaurant id
+     * @param restaurantName the restaurant name
+     * @param chefs          the chefs
+     */
     public MenuItemViewModel(long id, String name, double price, Course course, boolean vegetarian, int spiceLvl, long restaurantId, String restaurantName, List<ChefViewModel> chefs) {
         setId(id);
         setName(name);
@@ -75,10 +90,20 @@ public class MenuItemViewModel {
         setChefs(chefs);
     }
 
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
     public long getId() {
         return id;
     }
 
+    /**
+     * Sets id.
+     *
+     * @param id the id
+     */
     public void setId(long id) {
         this.id = id;
     }
@@ -209,10 +234,20 @@ public class MenuItemViewModel {
         this.restaurantName = restaurantName;
     }
 
+    /**
+     * Gets chefs.
+     *
+     * @return the chefs
+     */
     public List<ChefViewModel> getChefs() {
         return chefs;
     }
 
+    /**
+     * Sets chefs.
+     *
+     * @param chefs the chefs
+     */
     public void setChefs(List<ChefViewModel> chefs) {
         this.chefs = chefs;
     }

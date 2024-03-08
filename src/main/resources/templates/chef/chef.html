@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <title th:text="${one_chef.firstName + ' ' + one_chef.lastName}">Chef</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
@@ -41,7 +41,7 @@
         </tbody>
     </table>
     <!-- Menu Items -->
-    <div class="mt-5">
+    <div class="mt-5" sec:authorize="isAuthenticated()">
         <!-- Dropdown -->
         <div class="dropdown" id="dropdownButtonWrapper">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="toggleMenuItemInformation" th:text="#{message.menuItemsDropdown}">

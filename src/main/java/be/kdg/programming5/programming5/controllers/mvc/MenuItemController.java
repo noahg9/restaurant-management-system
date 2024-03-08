@@ -1,15 +1,16 @@
 package be.kdg.programming5.programming5.controllers.mvc;
 
 import be.kdg.programming5.programming5.controllers.mvc.viewmodel.ChefViewModel;
-import be.kdg.programming5.programming5.domain.util.HistoryUtil;
 import be.kdg.programming5.programming5.controllers.mvc.viewmodel.MenuItemViewModel;
+import be.kdg.programming5.programming5.domain.util.HistoryUtil;
 import be.kdg.programming5.programming5.service.MenuItemService;
 import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -23,7 +24,7 @@ public class MenuItemController {
     /**
      * Constructor to inject dependencies.
      *
-     * @param menuItemService   The service for menu item operations.
+     * @param menuItemService The service for menu item operations.
      */
     public MenuItemController(MenuItemService menuItemService) {
         this.menuItemService = menuItemService;
@@ -65,7 +66,8 @@ public class MenuItemController {
      * Displays details of a specific menu item.
      *
      * @param menuItemId The ID of the menu item.
-     * @param model The model to add attributes.
+     * @param session    the session
+     * @param model      The model to add attributes.
      * @return The view name for the menu item details.
      */
     @GetMapping("/menu-item")
@@ -104,6 +106,13 @@ public class MenuItemController {
         return mav;
     }
 
+    /**
+     * Search menu items string.
+     *
+     * @param session the session
+     * @param model   the model
+     * @return the string
+     */
     @GetMapping("/search-menu-items")
     public String searchMenuItems(HttpSession session, Model model) {
         String pageTitle = "Search Menu Items";

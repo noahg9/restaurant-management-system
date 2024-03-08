@@ -2,7 +2,20 @@ package be.kdg.programming5.programming5.domain.util;
 
 import java.util.Calendar;
 
+/**
+ * The type Calendar util.
+ */
 public class CalendarUtil {
+    /**
+     * Calendar for calendar.
+     *
+     * @param year   the year
+     * @param month  the month
+     * @param day    the day
+     * @param hour   the hour
+     * @param minute the minute
+     * @return the calendar
+     */
     public static Calendar calendarFor(final int year, final int month, final int day, final int hour, final int minute) {
         final Calendar cal = Calendar.getInstance();
         cal.set(Calendar.YEAR, year);

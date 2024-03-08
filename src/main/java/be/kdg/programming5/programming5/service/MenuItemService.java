@@ -21,9 +21,9 @@ public class MenuItemService {
     /**
      * Constructs a SpringDataMenuItemService with the specified repositories.
      *
-     * @param menuItemRepository        The repository for MenuItem entities.
-     * @param menuItemChefService    The service for MenuItemChef entities.
-     * @param restaurantService The service for Restaurant entities.
+     * @param menuItemRepository  The repository for MenuItem entities.
+     * @param menuItemChefService The service for MenuItemChef entities.
+     * @param restaurantService   The service for Restaurant entities.
      */
     public MenuItemService(MenuItemRepository menuItemRepository, MenuItemChefService menuItemChefService, RestaurantService restaurantService) {
         this.menuItemRepository = menuItemRepository;
@@ -36,7 +36,6 @@ public class MenuItemService {
      *
      * @return All chefs of all menu items.
      */
-    
     public List<MenuItem> getAllMenuItems() {
         return menuItemRepository.findAll();
     }
@@ -46,7 +45,6 @@ public class MenuItemService {
      *
      * @return All chefs of all menu items.
      */
-    
     public List<MenuItem> getMenuItemsWithChefs() {
         return menuItemRepository.findAllWithChefs();
     }
@@ -57,7 +55,6 @@ public class MenuItemService {
      * @param menuItemId The identifier of the menu item.
      * @return The menu item with the specified identifier, or null if not found.
      */
-    
     public MenuItem getMenuItem(long menuItemId) {
         return menuItemRepository.findById(menuItemId).orElse(null);
     }
@@ -68,11 +65,16 @@ public class MenuItemService {
      * @param menuItemId The identifier of the menu item.
      * @return The menu item with the specified identifier, or null if not found.
      */
-    
     public MenuItem getMenuItemWithChefs(long menuItemId) {
         return menuItemRepository.findByIdWithChefs(menuItemId).orElse(null);
     }
 
+    /**
+     * Gets menu items of chef.
+     *
+     * @param chefId the chef id
+     * @return the menu items of chef
+     */
     public List<MenuItem> getMenuItemsOfChef(long chefId) {
         return menuItemRepository.findByChefId(chefId);
     }
@@ -83,7 +85,6 @@ public class MenuItemService {
      * @param maxPrice The maximum price.
      * @return All chefs of menu items meeting the price criteria.
      */
-    
     public List<MenuItem> getMenuItemsByMaxPrice(double maxPrice) {
         return menuItemRepository.findByPriceLessThanEqual(maxPrice);
     }
@@ -93,11 +94,16 @@ public class MenuItemService {
      *
      * @return All chefs of vegetarian menu items.
      */
-    
     public List<MenuItem> getVegMenuItems() {
         return menuItemRepository.findByVegetarianTrue();
     }
 
+    /**
+     * Search menu items by name like list.
+     *
+     * @param searchTerm the search term
+     * @return the list
+     */
     public List<MenuItem> searchMenuItemsByNameLike(String searchTerm) {
         return menuItemRepository.findMenuItemsByNameLikeIgnoreCase("%" + searchTerm + "%");
     }
@@ -113,11 +119,17 @@ public class MenuItemService {
      * @param restaurant The restaurant offering the menu item.
      * @return The newly created menu item.
      */
-    
     public MenuItem addMenuItem(String name, double price, Course course, Boolean vegetarian, int spiceLvl, Restaurant restaurant) {
         return menuItemRepository.save(new MenuItem(name, price, course, vegetarian, spiceLvl, restaurant));
     }
 
+    /**
+     * Add menu item menu item.
+     *
+     * @param name  the name
+     * @param price the price
+     * @return the menu item
+     */
     public MenuItem addMenuItem(String name, double price) {
         return menuItemRepository.save(new MenuItem(name, price, Course.Main, false, 0, restaurantService.getRestaurant(1)));
     }
@@ -128,7 +140,6 @@ public class MenuItemService {
      * @param menuItem The menu item to add.
      * @return The added menu item.
      */
-    
     public MenuItem addMenuItem(MenuItem menuItem) {
         return menuItemRepository.save(menuItem);
     }
@@ -137,8 +148,8 @@ public class MenuItemService {
      * Deletes a menu item by its identifier.
      *
      * @param menuItemId The identifier of the menu item to delete.
+     * @return the boolean
      */
-    
     @Transactional
     public boolean removeMenuItem(long menuItemId) {
         var menuItem = menuItemRepository.findByIdWithChefs(menuItemId);
@@ -150,6 +161,13 @@ public class MenuItemService {
         return true;
     }
 
+    /**
+     * Change menu item name boolean.
+     *
+     * @param menuItemId the menu item id
+     * @param name       the name
+     * @return the boolean
+     */
     public boolean changeMenuItemName(long menuItemId, String name) {
         var menuItem = menuItemRepository.findById(menuItemId).orElse(null);
         if (menuItem == null) {

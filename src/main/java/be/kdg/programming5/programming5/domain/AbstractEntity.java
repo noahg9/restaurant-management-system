@@ -15,6 +15,9 @@ import java.io.Serializable;
 @MappedSuperclass
 public class AbstractEntity<T extends Serializable> implements Entity<T> {
 
+    /**
+     * The Id.
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected T id;

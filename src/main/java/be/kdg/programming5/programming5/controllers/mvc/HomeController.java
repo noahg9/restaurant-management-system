@@ -26,6 +26,7 @@ public class HomeController {
      * Retrieves and displays the home page.
      *
      * @param session The HttpSession object.
+     * @param model   the model
      * @return The view name for the home page.
      */
     @GetMapping({"", "/", "/home"})
@@ -33,7 +34,7 @@ public class HomeController {
         String pageTitle = "Home";
         HistoryUtil.updateHistory(session, pageTitle);
         model.addAttribute("pageTitle", pageTitle);
-        return "home";
+        return "index";
     }
 
     /**

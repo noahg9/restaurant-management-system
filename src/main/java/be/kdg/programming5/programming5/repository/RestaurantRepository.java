@@ -13,9 +13,21 @@ import java.util.Optional;
  */
 @Repository
 public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
+    /**
+     * Find by name restaurant.
+     *
+     * @param name the name
+     * @return the restaurant
+     */
     Restaurant findByName(String name);
 
 
+    /**
+     * Find by id with chefs optional.
+     *
+     * @param restaurantId the restaurant id
+     * @return the optional
+     */
     @Query("""
         select distinct r from Restaurant r
         join Chef c on c.restaurant.id = r.id
@@ -23,6 +35,12 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
         """)
     Optional<Restaurant> findByIdWithChefs(long restaurantId);
 
+    /**
+     * Find by id with menu items optional.
+     *
+     * @param restaurantId the restaurant id
+     * @return the optional
+     */
     @Query("""
         select r from Restaurant r
         join MenuItem m on m.restaurant.id = r.id

@@ -1,6 +1,9 @@
 package be.kdg.programming5.programming5.controllers.api;
 
-import be.kdg.programming5.programming5.controllers.api.dto.*;
+import be.kdg.programming5.programming5.controllers.api.dto.ChefDto;
+import be.kdg.programming5.programming5.controllers.api.dto.MenuItemDto;
+import be.kdg.programming5.programming5.controllers.api.dto.NewMenuItemDto;
+import be.kdg.programming5.programming5.controllers.api.dto.UpdateMenuItemNameDto;
 import be.kdg.programming5.programming5.domain.MenuItemChef;
 import be.kdg.programming5.programming5.service.MenuItemService;
 import jakarta.validation.Valid;
@@ -11,18 +14,33 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * The type Menu items controller.
+ */
 @RestController
 @RequestMapping("/api/menu-items")
 public class MenuItemsController {
     private final MenuItemService menuItemService;
     private final ModelMapper modelMapper;
 
+    /**
+     * Instantiates a new Menu items controller.
+     *
+     * @param menuItemService the menu item service
+     * @param modelMapper     the model mapper
+     */
     public MenuItemsController(MenuItemService menuItemService, ModelMapper modelMapper) {
         this.menuItemService = menuItemService;
         this.modelMapper = modelMapper;
     }
 
-    // "/api/menu-items"
+    /**
+     * Add menu item response entity.
+     *
+     * @param menuItemDto the menu item dto
+     * @return the response entity
+     */
+// "/api/menu-items"
     @PostMapping
     ResponseEntity<MenuItemDto> addMenuItem(@RequestBody @Valid NewMenuItemDto menuItemDto) {
         var createdMenuItem = menuItemService.addMenuItem(
@@ -33,7 +51,13 @@ public class MenuItemsController {
         );
     }
 
-    // "/api/menu-items/{id}"
+    /**
+     * Gets one menu item.
+     *
+     * @param menuItemId the menu item id
+     * @return the one menu item
+     */
+// "/api/menu-items/{id}"
     @GetMapping("{id}")
     ResponseEntity<MenuItemDto> getOneMenuItem(@PathVariable("id") long menuItemId) {
         var menuItem = menuItemService.getMenuItem(menuItemId);
@@ -43,7 +67,13 @@ public class MenuItemsController {
         return ResponseEntity.ok(modelMapper.map(menuItem, MenuItemDto.class));
     }
 
-    // "/api/menu-items/{id}/chefs"
+    /**
+     * Gets chefs of menu item.
+     *
+     * @param menuItemId the menu item id
+     * @return the chefs of menu item
+     */
+// "/api/menu-items/{id}/chefs"
     @GetMapping("{id}/chefs")
     ResponseEntity<List<ChefDto>> getChefsOfMenuItem(@PathVariable("id") long menuItemId) {
         var menuItem = menuItemService.getMenuItemWithChefs(menuItemId);
@@ -60,7 +90,13 @@ public class MenuItemsController {
                 .toList());
     }
 
-    // "/api/menu-items"
+    /**
+     * Search menu items response entity.
+     *
+     * @param search the search
+     * @return the response entity
+     */
+// "/api/menu-items"
     @GetMapping
     ResponseEntity<List<MenuItemDto>> searchMenuItems(@RequestParam(required = false) String search) {
         if (search == null) {
@@ -81,7 +117,13 @@ public class MenuItemsController {
         }
     }
 
-    // "/api/menu-items/{id}"
+    /**
+     * Delete menu item response entity.
+     *
+     * @param menuItemId the menu item id
+     * @return the response entity
+     */
+// "/api/menu-items/{id}"
     @DeleteMapping("{id}")
     ResponseEntity<Void> deleteMenuItem(@PathVariable("id") long menuItemId) {
         if (menuItemService.removeMenuItem(menuItemId)) {
@@ -90,6 +132,13 @@ public class MenuItemsController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    /**
+     * Change menu item response entity.
+     *
+     * @param menuItemId            the menu item id
+     * @param updateMenuItemNameDto the update menu item name dto
+     * @return the response entity
+     */
     @PatchMapping("{id}")
     ResponseEntity<Void> changeMenuItem(@PathVariable("id") long menuItemId,
                                     @RequestBody @Valid UpdateMenuItemNameDto updateMenuItemNameDto) {

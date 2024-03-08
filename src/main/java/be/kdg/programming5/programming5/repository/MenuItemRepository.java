@@ -15,6 +15,12 @@ import java.util.Optional;
 @Repository
 public interface MenuItemRepository extends JpaRepository<MenuItem, Long> {
 
+    /**
+     * Find by id with chefs optional.
+     *
+     * @param menuItemId the menu item id
+     * @return the optional
+     */
     @Query("""
         select m from MenuItem m
         left join fetch m.chefs chefs
@@ -23,6 +29,11 @@ public interface MenuItemRepository extends JpaRepository<MenuItem, Long> {
         """)
     Optional<MenuItem> findByIdWithChefs(long menuItemId);
 
+    /**
+     * Find all with chefs list.
+     *
+     * @return the list
+     */
     @Query("""
         select m from MenuItem m
         left join fetch m.chefs chefs
@@ -30,6 +41,12 @@ public interface MenuItemRepository extends JpaRepository<MenuItem, Long> {
         """)
     List<MenuItem> findAllWithChefs();
 
+    /**
+     * Find by chef id list.
+     *
+     * @param chefId the chef id
+     * @return the list
+     */
     @Query("""
            select m from MenuItem m
            left join m.chefs chefs
@@ -53,6 +70,12 @@ public interface MenuItemRepository extends JpaRepository<MenuItem, Long> {
      */
     List<MenuItem> findByVegetarianTrue();
 
+    /**
+     * Find menu items by name like ignore case list.
+     *
+     * @param searchTerm the search term
+     * @return the list
+     */
     List<MenuItem> findMenuItemsByNameLikeIgnoreCase(String searchTerm);
 
 }

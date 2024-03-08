@@ -14,6 +14,11 @@ public class CustomErrorController implements ErrorController {
 
     private final ErrorAttributes errorAttributes;
 
+    /**
+     * Instantiates a new Custom error controller.
+     *
+     * @param errorAttributes the error attributes
+     */
     public CustomErrorController(ErrorAttributes errorAttributes) {
         this.errorAttributes = errorAttributes;
     }

@@ -29,7 +29,6 @@ public class RestaurantService {
      *
      * @return All chefs of all restaurants.
      */
-    
     public List<Restaurant> getAllRestaurants() {
         return restaurantRepository.findAll();
     }
@@ -40,15 +39,19 @@ public class RestaurantService {
      * @param id The identifier of the restaurant.
      * @return The restaurant with the specified identifier, or null if not found.
      */
-    
     public Restaurant getRestaurant(long id) {
         return restaurantRepository.findById(id).orElse(null);
     }
 
+    /**
+     * Gets restaurant by name.
+     *
+     * @param name the name
+     * @return the restaurant by name
+     */
     public Restaurant getRestaurantByName(String name) {
         return restaurantRepository.findByName(name);
     }
-
 
 
     /**
@@ -57,7 +60,6 @@ public class RestaurantService {
      * @param restaurantId The identifier of the restaurant.
      * @return The restaurant with the specified identifier, or null if not found.
      */
-
     public Restaurant getRestaurantWithChefs(long restaurantId) {
         return restaurantRepository.findByIdWithChefs(restaurantId).orElse(null);
     }
@@ -68,7 +70,6 @@ public class RestaurantService {
      * @param restaurantId The identifier of the restaurant.
      * @return The restaurant with the specified identifier, or null if not found.
      */
-
     public Restaurant getRestaurantWithMenuItems(long restaurantId) {
         return restaurantRepository.findByIdWithMenuItems(restaurantId).orElse(null);
     }
@@ -82,7 +83,6 @@ public class RestaurantService {
      * @param seatingCapacity The seating capacity of the restaurant.
      * @return The newly created restaurant.
      */
-    
     public Restaurant addRestaurant(String name, LocalDate dateEstablished, int seatingCapacity) {
         return restaurantRepository.save(new Restaurant(name, dateEstablished, seatingCapacity));
     }
@@ -93,7 +93,6 @@ public class RestaurantService {
      * @param restaurant The restaurant to add.
      * @return The added restaurant.
      */
-    
     public Restaurant addRestaurant(Restaurant restaurant) {
         return restaurantRepository.save(restaurant);
     }
@@ -103,7 +102,6 @@ public class RestaurantService {
      *
      * @param id The identifier of the restaurant to delete.
      */
-    
     @Transactional
     public void removeRestaurant(long id) {
         restaurantRepository.deleteById(id);

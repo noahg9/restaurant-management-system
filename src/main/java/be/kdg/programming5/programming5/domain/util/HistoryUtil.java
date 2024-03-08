@@ -8,22 +8,33 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The type History util.
+ */
 public class HistoryUtil {
+    /**
+     * Gets history.
+     *
+     * @param session the session
+     * @return the history
+     */
     public static List<Map<String, Object>> getHistory(HttpSession session) {
-        // Retrieve session history
         @SuppressWarnings("unchecked")
         List<Map<String, Object>> sessionHistory =
                 (List<Map<String, Object>>) session.getAttribute("sessionHistory");
-
-        // If session history doesn't exist, create a new one
         if (sessionHistory == null) {
             sessionHistory = new ArrayList<>();
             session.setAttribute("sessionHistory", sessionHistory);
         }
-
         return sessionHistory;
     }
 
+    /**
+     * Update history.
+     *
+     * @param session the session
+     * @param page    the page
+     */
     public static void updateHistory(HttpSession session, String page) {
         @SuppressWarnings("unchecked")
         List<Map<String, Object>> sessionHistory =

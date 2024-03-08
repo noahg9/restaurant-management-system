@@ -1,7 +1,9 @@
 package be.kdg.programming5.programming5.domain;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -30,14 +32,32 @@ public class Restaurant extends AbstractEntity<Long> implements Serializable {
     @OneToMany(mappedBy = "restaurant")
     private List<Chef> chefs;
 
+    /**
+     * Instantiates a new Restaurant.
+     */
     protected Restaurant() {}
 
+    /**
+     * Instantiates a new Restaurant.
+     *
+     * @param name            the name
+     * @param dateEstablished the date established
+     * @param seatingCapacity the seating capacity
+     */
     public Restaurant(String name, LocalDate dateEstablished, int seatingCapacity) {
         setName(name);
         setDateEstablished(dateEstablished);
         setSeatingCapacity(seatingCapacity);
     }
 
+    /**
+     * Instantiates a new Restaurant.
+     *
+     * @param id              the id
+     * @param name            the name
+     * @param dateEstablished the date established
+     * @param seatingCapacity the seating capacity
+     */
     public Restaurant(long id, String name, LocalDate dateEstablished, int seatingCapacity) {
         super(id);
         setName(name);
@@ -45,10 +65,20 @@ public class Restaurant extends AbstractEntity<Long> implements Serializable {
         setSeatingCapacity(seatingCapacity);
     }
 
+    /**
+     * Gets name.
+     *
+     * @return the name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Sets name.
+     *
+     * @param name the name
+     */
     public void setName(String name) {
         if (name == null || name.trim().isEmpty()) {
             throw new IllegalArgumentException("Name cannot be null or empty");
@@ -56,10 +86,20 @@ public class Restaurant extends AbstractEntity<Long> implements Serializable {
         this.name = name.trim();
     }
 
+    /**
+     * Gets date established.
+     *
+     * @return the date established
+     */
     public LocalDate getDateEstablished() {
         return dateEstablished;
     }
 
+    /**
+     * Sets date established.
+     *
+     * @param dateEstablished the date established
+     */
     public void setDateEstablished(LocalDate dateEstablished) {
         if (dateEstablished == null) {
             throw new IllegalArgumentException("Date established cannot be null");
@@ -67,10 +107,20 @@ public class Restaurant extends AbstractEntity<Long> implements Serializable {
         this.dateEstablished = dateEstablished;
     }
 
+    /**
+     * Gets seating capacity.
+     *
+     * @return the seating capacity
+     */
     public int getSeatingCapacity() {
         return seatingCapacity;
     }
 
+    /**
+     * Sets seating capacity.
+     *
+     * @param seatingCapacity the seating capacity
+     */
     public void setSeatingCapacity(int seatingCapacity) {
         if (seatingCapacity < 0) {
             throw new IllegalArgumentException("Seating capacity cannot be negative");
@@ -78,18 +128,38 @@ public class Restaurant extends AbstractEntity<Long> implements Serializable {
         this.seatingCapacity = seatingCapacity;
     }
 
+    /**
+     * Gets menu items.
+     *
+     * @return the menu items
+     */
     public List<MenuItem> getMenuItems() {
         return menuItems;
     }
 
+    /**
+     * Sets menu items.
+     *
+     * @param menuItems the menu items
+     */
     public void setMenuItems(List<MenuItem> menuItems) {
         this.menuItems = menuItems;
     }
 
+    /**
+     * Gets chefs.
+     *
+     * @return the chefs
+     */
     public List<Chef> getChefs() {
         return chefs;
     }
 
+    /**
+     * Sets chefs.
+     *
+     * @param chefs the chefs
+     */
     public void setChefs(List<Chef> chefs) {
         this.chefs = chefs;
     }
