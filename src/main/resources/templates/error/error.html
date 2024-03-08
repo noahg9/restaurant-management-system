@@ -1,25 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Error</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
 </head>
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
-<div class="container">
-    <!-- Error Description -->
-    <div class="mt-5">
-        <h1 class="display-4">An error has occurred...</h1>
+<main class="container">
+    <div class="row justify-content-center">
+        <!-- Error Description -->
+        <div class="mt-5">
+            <h1 class="display-4">An error has occurred...</h1>
+        </div>
+        <!-- Error Image -->
+        <div class="mt-5">
+            <img alt="Error Icon" class="img-fluid" th:src="@{/images/error-icon.png}"/>
+        </div>
+        <!-- Home Link -->
+        <div class="mt-5">
+            <a class="btn btn-primary" th:href="@{/}">Back to home</a>
+        </div>
     </div>
-    <!-- Error Image -->
-    <div class="mt-5">
-        <img class="img-fluid" th:src="@{/images/error-icon.png}" alt="Error Icon"/>
-    </div>
-    <!-- Home Link -->
-    <div class="mt-5">
-        <a class="btn btn-primary" th:href="@{/}">Back to home</a>
-    </div>
-</div>
+</main>
 <footer th:insert="~{fragments/footer::copy}"></footer>
 </body>
 </html>

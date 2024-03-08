@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * The type Menu items controller.
@@ -67,6 +68,19 @@ public class MenuItemsController {
         return ResponseEntity.ok(modelMapper.map(menuItem, MenuItemDto.class));
     }
 
+    @GetMapping("all")
+    public ResponseEntity<List<MenuItemDto>> getAllMenuItems() {
+        var allMenuItems = menuItemService.getAllMenuItems();
+        if (allMenuItems.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            List<MenuItemDto> menuItemDtos = allMenuItems.stream()
+                    .map(menuItem -> modelMapper.map(menuItem, MenuItemDto.class))
+                    .collect(Collectors.toList());
+            return ResponseEntity.ok(menuItemDtos);
+        }
+    }
+
     /**
      * Gets chefs of menu item.
      *
@@ -99,12 +113,8 @@ public class MenuItemsController {
 // "/api/menu-items"
     @GetMapping
     ResponseEntity<List<MenuItemDto>> searchMenuItems(@RequestParam(required = false) String search) {
-        if (search == null) {
-            return ResponseEntity
-                    .ok(menuItemService.getAllMenuItems()
-                            .stream()
-                            .map(menuItem -> modelMapper.map(menuItem, MenuItemDto.class))
-                            .toList());
+        if (search == null || search.trim().isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             var searchResult = menuItemService.searchMenuItemsByNameLike(search);
             if (searchResult.isEmpty()) {
@@ -113,7 +123,8 @@ public class MenuItemsController {
                 return ResponseEntity.ok(searchResult
                         .stream()
                         .map(menuItem -> modelMapper.map(menuItem, MenuItemDto.class))
-                        .toList());            }
+                        .toList());
+            }
         }
     }
 

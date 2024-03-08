@@ -1,7 +1,7 @@
 -- Insert data into application_user table
 INSERT INTO application_user(username, password)
-VALUES ('noah', '$2a$10$T6EOKnTQGa9I7/wMSQPNX.rnk2BzWELnR9SRIvaeJ0XBRMVbNjdlK');
-
+VALUES ('noah', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6');
+-- password: noah
 
 -- Insert data into restaurant table
 INSERT INTO restaurant (name, date_established, seating_capacity)

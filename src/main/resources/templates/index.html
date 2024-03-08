@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <title th:text="#{title.home}">Home</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
@@ -7,44 +9,49 @@
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
 <main class="container">
-    <h1 class="page-title" th:text="#{title.home}">Home</h1>
-    <p class="lead" th:text="#{message.home}">Welcome to our database of restaurants.</p>
-    <br>
-    <!-- Navigation Cards -->
-    <div class="row">
-        <!-- Menu Item Links -->
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title" th:text="#{title.menuItems}">Menu Items</h5>
-                    <a href="/menu-items" class="btn btn-primary" th:text="#{header.menuItemList}">Menu Item List</a>
-                    <a href="/search-menu-items" class="btn btn-primary" th:text="#{title.searchMenuItems}">Search Menu Items</a>
+    <div class="row justify-content-center">
+        <h1 class="page-title" th:text="#{title.home}">Home</h1>
+        <p class="lead" th:text="#{message.home}">Welcome to our database of restaurants.</p>
+        <br>
+        <!-- Navigation Cards -->
+        <div class="row">
+            <!-- Menu Item Links -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="#{title.menuItems}">Menu Items</h5>
+                        <a class="btn btn-primary" href="/menu-items" th:text="#{header.menuItemList}">Menu Item
+                            List</a>
+                        <a class="btn btn-primary" href="/search-menu-items" th:text="#{title.searchMenuItems}">Search
+                            Menu
+                            Items</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Chef Links -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="#{title.chefs}">Chefs</h5>
+                        <a class="btn btn-primary" href="/chefs" th:text="#{header.chefList}">Chef List</a>
+                        <a class="btn btn-primary" href="/search-chefs" th:text="#{title.searchChefs}">Search Chefs</a>
+                    </div>
+                </div>
+            </div>
+            <!-- More Links -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="#{title.more}">More</h5>
+                        <a class="btn btn-primary" href="/history" th:text="#{title.history}">History</a>
+                    </div>
                 </div>
             </div>
         </div>
-        <!-- Chef Links -->
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title" th:text="#{title.chefs}">Chefs</h5>
-                    <a href="/chefs" class="btn btn-primary" th:text="#{header.chefList}">Chef List</a>
-                    <a href="/search-chefs" class="btn btn-primary" th:text="#{title.searchChefs}">Search Chefs</a>
-                </div>
-            </div>
+        <!-- Home Page Image -->
+        <div class="mt-4">
+            <img alt="Home Image" class="img-fluid" th:src="@{/images/home-image.jpg}"/>
         </div>
-        <!-- Other Links -->
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title" th:text="#{title.other}">Other</h5>
-                    <a href="/history" class="btn btn-primary" th:text="#{title.history}">History</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Home Page Image -->
-    <div class="mt-4">
-        <img class="img-fluid" th:src="@{/images/home-image.jpg}" alt="Home Image"/>
     </div>
 </main>
 <footer th:insert="~{fragments/footer::copy}"></footer>

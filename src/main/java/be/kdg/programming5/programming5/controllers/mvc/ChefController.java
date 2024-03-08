@@ -46,17 +46,7 @@ public class ChefController {
 
         var mav = new ModelAndView();
         mav.setViewName("chef/chefs");
-        mav.addObject("all_chefs",
-                chefService.getAllChefs()
-                        .stream()
-                        .map(chef -> new ChefViewModel(
-                                chef.getId(),
-                                chef.getFirstName(),
-                                chef.getLastName(),
-                                chef.getDateOfBirth(),
-                                chef.getRestaurant().getId(),
-                                chef.getRestaurant().getName()))
-                        .toList());
+        mav.addObject("all_chefs", chefService.getAllChefs().stream().map(chef -> new ChefViewModel(chef.getId(), chef.getFirstName(), chef.getLastName(), chef.getDateOfBirth(), chef.getRestaurant().getId(), chef.getRestaurant().getName())).toList());
         return mav;
     }
 
@@ -78,29 +68,7 @@ public class ChefController {
         var chef = chefService.getChefWithMenuItems(chefId);
         var mav = new ModelAndView();
         mav.setViewName("chef/chef");
-        mav.addObject("one_chef",
-                new ChefViewModel(
-                        chef.getId(),
-                        chef.getFirstName(),
-                        chef.getLastName(),
-                        chef.getDateOfBirth(),
-                        chef.getRestaurant().getId(),
-                        chef.getRestaurant().getName(),
-                        chef.getMenuItems()
-                                .stream().map(
-                                        menuItemChef ->
-                                                new MenuItemViewModel(
-                                                        menuItemChef.getMenuItem().getId(),
-                                                        menuItemChef.getMenuItem().getName(),
-                                                        menuItemChef.getMenuItem().getPrice(),
-                                                        menuItemChef.getMenuItem().getCourse(),
-                                                        menuItemChef.getMenuItem().isVegetarian(),
-                                                        menuItemChef.getMenuItem().getSpiceLvl(),
-                                                        menuItemChef.getMenuItem().getRestaurant().getId(),
-                                                        menuItemChef.getMenuItem().getRestaurant().getName()
-                                                )
-                                ).toList()
-                ));
+        mav.addObject("one_chef", new ChefViewModel(chef.getId(), chef.getFirstName(), chef.getLastName(), chef.getDateOfBirth(), chef.getRestaurant().getId(), chef.getRestaurant().getName(), chef.getMenuItems().stream().map(menuItemChef -> new MenuItemViewModel(menuItemChef.getMenuItem().getId(), menuItemChef.getMenuItem().getName(), menuItemChef.getMenuItem().getPrice(), menuItemChef.getMenuItem().getCourse(), menuItemChef.getMenuItem().isVegetarian(), menuItemChef.getMenuItem().getSpiceLvl(), menuItemChef.getMenuItem().getRestaurant().getId(), menuItemChef.getMenuItem().getRestaurant().getName())).toList()));
         return mav;
     }
 

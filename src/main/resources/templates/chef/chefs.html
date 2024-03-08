@@ -1,56 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <title th:text="#{title.chefs}">Chefs</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
-    <script src="/js/chefs.js" defer></script>
+    <script defer src="/js/chefs.js"></script>
 </head>
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
-<h1 class="page-title" th:text="#{title.chefs}">Chefs</h1>
 <main class="container">
-    <h2 th:text="#{header.addChef}">Add Chef</h2>
-    <!-- Form -->
-    <form>
-        <!-- First Name -->
-        <div class="mb-3">
-            <label for="firstNameInput" class="form-label" th:text="#{attribute.firstName}">First Name</label>
-            <input type="text" class="form-control" id="firstNameInput" required>
+    <div class="row justify-content-center">
+        <h1 class="page-title" th:text="#{title.chefs}">Chefs</h1>
+        <div class="row">
+            <!-- List Section -->
+            <div class="col-md-6">
+                <section class="mt-5">
+                    <h2 th:text="#{header.chefList}">Chef List</h2><br>
+                    <!-- Chefs -->
+                    <div id="chefBody">
+                        <!-- Chefs will be dynamically added here -->
+                    </div>
+                </section>
+            </div>
+            <!-- Add Section -->
+            <div class="col-md-6">
+                <section class="mt-5" sec:authorize="isAuthenticated()">
+                    <h2 th:text="#{header.addChef}">Add Chef</h2><br>
+                    <!-- Form -->
+                    <form>
+                        <!-- First Name -->
+                        <div class="row mb-3">
+                            <div class="col-sm-4">
+                                <label class="form-label" for="firstNameInput" th:text="#{attribute.firstName}">First
+                                    Name</label>
+                                <input class="form-control" id="firstNameInput" required
+                                       th:placeholder="#{attribute.firstName}"
+                                       type="text">
+                            </div>
+                        </div>
+                        <!-- Last Name -->
+                        <div class="row mb-3">
+                            <div class="col-sm-4">
+                                <label class="form-label" for="lastNameInput" th:text="#{attribute.lastName}">Last
+                                    Name</label>
+                                <input class="form-control" id="lastNameInput" required
+                                       th:placeholder="#{attribute.lastName}"
+                                       type="text">
+                            </div>
+                        </div>
+                        <!-- Add Button -->
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <button class="btn btn-primary mb-3" id="addButton" th:text="#{button.add}"
+                                        type="button">Add
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+            </div>
         </div>
-        <!-- Last Name -->
-        <div class="mb-3">
-            <label for="lastNameInput" class="form-label" th:text="#{attribute.lastName}">Last Name</label>
-            <input type="text" class="form-control" id="lastNameInput" required>
-        </div>
-        <!-- Add Button -->
-        <button id="addButton" type="button" class="btn btn-primary mb-3" th:text="#{button.add}">Add</button>
-    </form>
-    <h2 th:text="#{header.chefList}">Chef List</h2>
-    <!-- Table -->
-    <table class="table">
-        <!-- Column Headers -->
-        <thead>
-        <tr>
-            <th th:text="#{attribute.name}">Name</th>
-            <th th:text="#{attribute.dateOfBirth}">Date of Birth</th>
-            <th th:text="#{attribute.restaurant}">Restaurant</th>
-            <th></th>
-        </tr>
-        </thead>
-        <!-- Rows -->
-        <tbody id="chefTableBody">
-        <tr th:id="'chef_' + ${chef.id}" th:each="chef : ${all_chefs}">
-            <!-- Name -->
-            <td><a th:href="@{/chef(id=${chef.id})}" th:text="${chef.firstName + ' ' + chef.lastName}" ></a></td>
-            <!-- Date of Birth -->
-            <td th:text="${chef.dateOfBirth}"></td>
-            <!-- Date of Birth -->
-            <td th:text="${chef.restaurantName}"></td>
-            <!-- Delete Button -->
-            <td><button type="button" class="btn btn-danger btn-sm" th:text="#{button.delete}">Delete</button></td>
-        </tr>
-        </tbody>
-    </table>
+    </div>
 </main>
 <footer th:insert="~{fragments/footer::copy}"></footer>
 </body>

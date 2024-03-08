@@ -23,5 +23,5 @@ public enum Course {
     /**
      * Undefined course.
      */
-    Undefined
+    Other
 }

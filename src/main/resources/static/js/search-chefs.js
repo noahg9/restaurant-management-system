@@ -1,22 +1,28 @@
-const searchButton = document.getElementById("searchButton");
-const searchResultsSection = document.getElementById("searchResultsSection");
 const searchTermInput = document.getElementById("searchTerm");
-const tableBody = document.getElementsByTagName("tbody")[0];
+searchTermInput.addEventListener('keyup', showResults);
 
-searchButton.addEventListener("click", async () => {
-    const response = await fetch(`/api/chefs?search=${searchTermInput.value}`);
+async function showResults(e) {
+    const searchResults = document.getElementById("searchResultsSection");
+    const searchTerm = e.target.value.trim();
+    if (!searchTerm) {
+        searchResults.innerHTML = '';
+        return;
+    }
+    const response = await fetch(`/api/chefs?search=${searchTerm}`, {
+        headers: {
+            "Accept": "application/json"
+        }
+    });
     if (response.status === 200) {
         const chefs = await response.json();
-        tableBody.innerHTML = '';
-        for (const chef of chefs) {
-            tableBody.innerHTML += `
-            <tr>
-                <td><a href="/chef?id=${chef.id}">${chef.firstName + ' ' + chef.lastName}</a></td>
-            </tr>
-            `;
-        }
-        searchResultsSection.style.display = "block";
+        let html = `<p>Found ${chefs.length} results</p>`;
+        html += '<ul>';
+        chefs.forEach(chef => {
+            html += `<li><a href="/chef?id=${chef.id}">${chef.firstName + ' ' + chef.lastName}</a></li>`;
+        });
+        html += '</ul>';
+        searchResults.innerHTML = html;
     } else {
-        searchResultsSection.style.display = "none";
+        searchResults.innerHTML = `<p>Found no results</p>`;
     }
-})
+}

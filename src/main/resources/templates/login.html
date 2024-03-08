@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <title th:text="#{title.home}">Login</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
@@ -7,18 +9,28 @@
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
 <main class="container">
-    <h1>Log in</h1>
-    <form method="POST" th:action="@{/login}">
-        <div class="pb-3">
-            <label class="form-label" for="username">Username</label>
-            <input class="form-control" id="username" name="username" type="text">
-        </div>
-        <div class="pb-3">
-            <label class="form-label" for="password">Password</label>
-            <input class="form-control" id="password" name="password" type="password">
-        </div>
-        <button class="btn btn-primary" type="submit">Log in</button>
-    </form>
+    <div class="row justify-content-center">
+        <h1 class="page-title" th:text="#{title.login}">Log in</h1>
+        <form method="POST" th:action="@{/login}">
+            <div class="row pb-3">
+                <div class="col-sm-4">
+                    <label class="form-label" for="username" th:text="#{attribute.username}">Username</label>
+                    <input class="form-control" id="username" name="username" type="text">
+                </div>
+            </div>
+            <div class="row pb-3">
+                <div class="col-sm-4">
+                    <label class="form-label" for="password" th:text="#{attribute.password}">Password</label>
+                    <input class="form-control" id="password" name="password" type="password">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <button class="btn btn-primary" th:text="#{button.login}" type="submit">Log in</button>
+                </div>
+            </div>
+        </form>
+    </div>
 </main>
 </body>
 </html>

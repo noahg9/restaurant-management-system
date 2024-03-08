@@ -1,33 +1,37 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <thymeleaf th:fragment="meta_script_link" th:remove="tag">
         <!-- Meta -->
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
         <!-- Links -->
         <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
         <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-        <link rel="icon" href="/images/logo.png" type="image/png">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+        <link href="/images/logo.png" rel="icon" type="image/png">
         <!-- Scripts -->
         <script th:src="@{/js/language-switch.js}"></script>
         <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
-        <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI/tZ1XaM1p4zL9+fLXRdXJ5wN/uwIUmvsPQ4u7g=" crossorigin="anonymous"></script>
+        <script crossorigin="anonymous"
+                integrity="sha256-oP6HI/tZ1XaM1p4zL9+fLXRdXJ5wN/uwIUmvsPQ4u7g="
+                src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     </thymeleaf>
     <title></title>
 </head>
 <body>
-<header th:fragment="header" class="pb-3">
+<header class="pb-3" th:fragment="header">
     <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
         <div class="container">
             <!-- Website Name -->
-            <a th:href="@{/}" class="navbar-brand" th:text="#{title.website}">Restaurant Management</a>
+            <a class="navbar-brand" th:href="@{/}" th:text="#{title.website}">Restaurant Management</a>
             <!-- Toggler Button -->
-            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <button aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"
+                    class="navbar-toggler"
+                    data-bs-target="#navbarNav" data-bs-toggle="collapse" type="button">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <!-- Links -->
@@ -42,11 +46,12 @@
                     </li>
                     <!-- Menu Item Dropdown -->
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="menuItemDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
+                           id="menuItemDropdown" role="button">
                             <i class="fas fa-utensils"></i>
                             <span th:text="#{title.menuItems}">Menu Items</span>
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="menuItemDropdown">
+                        <ul aria-labelledby="menuItemDropdown" class="dropdown-menu">
                             <li>
                                 <a class="dropdown-item" th:href="@{/menu-items}">
                                     <i class="fas fa-list"></i>
@@ -63,11 +68,12 @@
                     </li>
                     <!-- Chef Dropdown -->
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="chefDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
+                           id="chefDropdown" role="button">
                             <i class="fas fa-user"></i>
                             <span th:text="#{title.chefs}">Chefs</span>
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="chefDropdown">
+                        <ul aria-labelledby="chefDropdown" class="dropdown-menu">
                             <li>
                                 <a class="dropdown-item" th:href="@{/chefs}">
                                     <i class="fas fa-list"></i>
@@ -84,7 +90,7 @@
                     </li>
                     <!-- History -->
                     <li class="nav-item">
-                        <a th:href="@{/history}" class="nav-link">
+                        <a class="nav-link" th:href="@{/history}">
                             <i class="fas fa-history"></i>
                             <span th:text="#{title.history}">History</span>
                         </a>
@@ -93,20 +99,21 @@
                 <!-- Authentication -->
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item me-2 pt-2" sec:authorize="isAuthenticated()">
-                        <span class="navbar-text">Welcome, <span sec:authentication="name"></span>!</span>
+                        <span class="navbar-text">Welcome, <span th:text="${#strings.capitalize(#authentication.name)}">user</span>!</span>
                     </li>
                     <li sec:authorize="isAuthenticated()">
                         <form class="d-flex" th:action="@{/logout}" th:method="POST">
-                            <button type="submit" class="btn btn-secondary">Log out</button>
+                            <button class="btn btn-secondary" th:text="#{button.logout}" type="submit">Log out</button>
                         </form>
                     </li>
                     <li class="nav-item" sec:authorize="!isAuthenticated()">
-                        <a class="nav-link" th:href="@{/login}" th:classappend="${page == 'login'} ? 'active' : ''">Log in</a>
+                        <a class="nav-link" th:href="@{/login}" th:text="#{button.login}">Log in</a>
                     </li>
                 </ul>
-                <!-- Language Switch Button -->
+                <!-- Language Toggle -->
                 <div class="navbar-nav">
-                    <button class="nav-link btn btn-link" th:text="#{button.language}" onclick="switchLanguage()" type="button"></button>
+                    <button class="nav-link btn btn-link" onclick="switchLanguage()" th:text="#{button.language}"
+                            type="button"></button>
                 </div>
             </div>
         </div>

@@ -1,74 +1,88 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <title th:text="${one_chef.firstName + ' ' + one_chef.lastName}">Chef</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
-    <script src="/js/chef.js" defer></script>
+    <script defer src="/js/chef.js"></script>
 </head>
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
-<h1 class="page-title" th:text="${one_chef.firstName + ' ' + one_chef.lastName}"></h1>
 <main class="container">
-    <h2 th:text="#{header.update}">Update</h2>
-    <br>
-    <!-- First Name -->
-    <div class="row">
-        <input id="chefId" type="hidden" th:value="${one_chef.id}">
-        <div class="col-9">
-            <label for="firstNameTextArea" class="form-label" th:text="#{attribute.firstName}">First Name</label>
-            <textarea class="form-control" id="firstNameTextArea" rows="1" th:text="${one_chef.firstName}"></textarea>
-            <label for="lastNameTextArea" class="form-label" th:text="#{attribute.lastName}">Last Name</label>
-            <textarea class="form-control" id="lastNameTextArea" rows="1" th:text="${one_chef.lastName}"></textarea>
-        </div>
-    </div>
-    <!-- Update Button -->
-    <div class="row mt-3">
-        <button id="updateButton" type="button" class="btn btn-primary" th:text="#{button.update}">Update</button>
-    </div>
-    <h2 th:text="#{header.details}">Details</h2>
-    <table class="table">
-        <tbody>
-        <!-- ID -->
-        <tr>
-            <th th:text="#{attribute.id}">ID</th>
-            <td th:text="*{one_chef.id}"></td>
-        </tr>
-        <!-- Name -->
-        <tr>
-            <th th:text="#{attribute.name}">Name</th>
-            <td th:text="*{one_chef.firstName + ' ' + one_chef.lastName}"></td>
-        </tr>
-        </tbody>
-    </table>
-    <!-- Menu Items -->
-    <div class="mt-5" sec:authorize="isAuthenticated()">
-        <!-- Dropdown -->
-        <div class="dropdown" id="dropdownButtonWrapper">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="toggleMenuItemInformation" th:text="#{message.menuItemsDropdown}">
-                Menu items involved in
-            </button>
-        </div>
-        <!-- Table -->
-        <table class="table table-sm mt-1" id="menuItemInformation">
-            <!-- Column Headers -->
-            <thead>
-            <tr>
-                <th th:text="#{attribute.name}">Name</th>
-                <th th:text="#{attribute.price}">Price</th>
-                <th th:text="#{attribute.course}">Course</th>
-                <th th:text="#{attribute.vegetarian}">Vegetarian</th>
-                <th th:text="#{attribute.spiceLvl}">Spice Level</th>
-            </tr>
-            </thead>
-            <!-- Rows -->
-            <tbody id="menuItemInformationBody">
-            </tbody>
-        </table>
+    <div class="row justify-content-center">
+        <h1 class="page-title" th:text="${one_chef.firstName + ' ' + one_chef.lastName}"></h1>
+        <!-- Update Section -->
+        <section class="mt-5" sec:authorize="isAuthenticated()">
+            <h2 th:text="#{header.update}">Update</h2>
+            <br>
+            <!-- First Name -->
+            <div class="row">
+                <input id="chefId" th:value="${one_chef.id}" type="hidden">
+                <div class="col-sm-4">
+                    <label class="form-label" for="firstNameTextArea" th:text="#{attribute.firstName}">First
+                        Name</label>
+                    <textarea class="form-control" id="firstNameTextArea" rows="1"
+                              th:text="${one_chef.firstName}"></textarea>
+                    <label class="form-label" for="lastNameTextArea" th:text="#{attribute.lastName}">Last Name</label>
+                    <textarea class="form-control" id="lastNameTextArea" rows="1"
+                              th:text="${one_chef.lastName}"></textarea>
+                </div>
+            </div>
+            <!-- Update Button -->
+            <div class="row mt-3">
+                <div class="col-sm-4">
+                    <button class="btn btn-primary" id="updateButton" th:text="#{button.update}" type="button">Update
+                    </button>
+                </div>
+            </div>
+        </section>
+        <!-- Details Sections -->
+        <section class="mt-5">
+            <h2 th:text="#{header.details}">Details</h2>
+            <div class="col-md-4">
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                    <!-- ID -->
+                    <tr>
+                        <th class="col-sm-4" th:text="#{attribute.id}">ID</th> <!-- Adjusted column width -->
+                        <td class="col-sm-8" th:text="*{one_chef.id}"></td> <!-- Adjusted column width -->
+                    </tr>
+                    <!-- Name -->
+                    <tr>
+                        <th class="col-sm-4" th:text="#{attribute.name}">Name</th> <!-- Adjusted column width -->
+                        <td class="col-sm-8" th:text="*{one_chef.firstName + ' ' + one_chef.lastName}"></td>
+                        <!-- Adjusted column width -->
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <!-- Associated Menu Items Section -->
+        <section class="mt-5">
+            <div class="mt-5">
+                <!-- Dropdown -->
+                <div class="dropdown" id="dropdownButtonWrapper">
+                    <button class="btn btn-secondary dropdown-toggle" id="toggleMenuItemInformation"
+                            th:text="#{message.menuItemsDropdown}"
+                            type="button">
+                        Menu items involved in
+                    </button>
+                </div>
+                <!-- Menu Items -->
+                <div class="list-group col-sm-4" id="associatedMenuItems">
+                    <!-- Menu items will be dynamically added here -->
+                </div>
+            </div>
+        </section>
     </div>
 </main>
 <!-- Return Button -->
 <div class="center-container">
-    <a th:href="@{/chefs}" class="btn btn-secondary" th:text="#{button.return}"><i class="fas fa-arrow-left"></i> Return</a>
+    <a class="btn btn-secondary" th:href="@{/chefs}" th:text="#{button.return}">
+        <i class="fas fa-arrow-left"></i> Return
+    </a>
 </div>
 <footer th:insert="~{fragments/footer::copy}"></footer>
 </body>

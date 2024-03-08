@@ -1,65 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <title th:text="#{title.menuItems}">Menu Items</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
-    <script src="/js/menu-items.js" defer></script>
+    <script defer src="/js/menu-items.js"></script>
 </head>
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
-<h1 class="page-title" th:text="#{title.menuItems}">Menu Items</h1>
 <main class="container">
-    <h2 th:text="#{header.addMenuItem}">Add Menu Item</h2>
-    <!-- Form -->
-    <form>
-        <!-- Name -->
-        <div class="mb-3">
-            <label for="nameInput" class="form-label" th:text="#{attribute.name}">Name</label>
-            <input type="text" class="form-control" id="nameInput" th:placeholder="#{attribute.name}" required>
+    <div class="row justify-content-center">
+        <h1 class="page-title" th:text="#{title.menuItems}">Menu Items</h1>
+        <div class="row">
+            <!-- List Section -->
+            <div class="col-md-6">
+                <section class="mt-5">
+                    <h2 th:text="#{header.menuItemList}">Menu Item List</h2><br>
+                    <!-- Menu Items -->
+                    <div id="menuItemBody">
+                        <!-- Menu items will be dynamically added here -->
+                    </div>
+                </section>
+            </div>
+            <!-- Add Section -->
+            <div class="col-md-6">
+                <section class="mt-5" sec:authorize="isAuthenticated()">
+                    <h2 th:text="#{header.addMenuItem}">Add Menu Item</h2><br>
+                    <!-- Form -->
+                    <form>
+                        <!-- Name -->
+                        <div class="row mb-3">
+                            <div class="col-sm-4">
+                                <label class="form-label" for="nameInput" th:text="#{attribute.name}">Name</label>
+                                <input class="form-control" id="nameInput" required th:placeholder="#{attribute.name}"
+                                       type="text">
+                            </div>
+                        </div>
+                        <!-- Price -->
+                        <div class="row mb-3">
+                            <div class="col-sm-4">
+                                <label class="form-label" for="priceInput" th:text="#{attribute.price}">Price</label>
+                                <input class="form-control" id="priceInput" required step="0.01" type="number">
+                            </div>
+                        </div>
+                        <!-- Add Button -->
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <button class="btn btn-primary mb-3" id="addButton" th:text="#{button.add}"
+                                        type="button">Add
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+            </div>
         </div>
-        <!-- Price -->
-        <div class="mb-3">
-            <label for="priceInput" class="form-label" th:text="#{attribute.price}">Price</label>
-            <input type="number" step="0.01" class="form-control" id="priceInput" required>
-        </div>
-        <!-- Add Button -->
-        <button id="addButton" type="button" class="btn btn-primary mb-3" th:text="#{button.add}">Add</button>
-    </form>
-    <h2 th:text="#{header.menuItemList}">Menu Item List</h2>
-    <!-- Table -->
-    <table class="table">
-        <!-- Column Headers -->
-        <thead>
-        <tr>
-            <th th:text="#{attribute.name}">Name</th>
-            <th th:text="#{attribute.price}">Price</th>
-            <th th:text="#{attribute.course}">Course</th>
-            <th th:text="#{attribute.vegetarian}">Vegetarian</th>
-            <th th:text="#{attribute.spiceLvl}">Spice Level</th>
-            <th th:text="#{attribute.restaurant}">Restaurant</th>
-            <th></th>
-        </tr>
-        </thead>
-        <!-- Rows-->
-        <tbody id="menuItemTableBody">
-        <tr th:id="'menu-item_' + ${menu_item.id}" th:each="menu_item : ${all_menu_items}">
-            <!-- Name -->
-            <td><a th:href="@{/menu-item(id=${menu_item.id})}" th:text="${menu_item.name}"></a></td>
-            <!-- Price -->
-            <td th:text="${menu_item.price}"></td>
-            <!-- Course-->
-            <td th:text="${menu_item.course}"></td>
-            <!-- Vegetarian -->
-            <td th:text="${menu_item.vegetarian}"></td>
-            <!-- Spice Level -->
-            <td th:text="${menu_item.spiceLvl}"></td>
-            <!-- Restaurant Name -->
-            <td th:text="${menu_item.restaurantName}"></td>
-            <!-- Delete Button -->
-            <td><button type="button" class="btn btn-danger btn-sm" th:text="#{button.delete}">Delete</button></td>
-        </tr>
-        </tbody>
-    </table>
+    </div>
 </main>
 <footer th:insert="~{fragments/footer::copy}"></footer>
 </body>

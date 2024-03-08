@@ -1,43 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <title th:text="#{title.searchMenuItems}">Search Menu Items</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
-    <script src="/js/search-menu-items.js" defer></script>
+    <script defer src="/js/search-menu-items.js"></script>
 </head>
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
-<h1 class="page-title" th:text="#{title.searchMenuItems}">Search Chefs</h1>
 <main class="container">
-    <!-- Search Bar -->
-    <form>
-        <div class="mb-3">
-            <label for="searchTerm" class="form-label" th:text="#{message.searchTerm}">Name</label>
-            <input type="text" class="form-control" id="searchTerm" aria-describedby="searchHelp">
-            <div id="searchHelp" class="form-text" th:text="#{message.menuItemsSearch}">Searches the name.</div>
+    <div class="row justify-content-center">
+        <h1 class="page-title" th:text="#{title.searchMenuItems}">Search Chefs</h1>
+        <!-- Search Bar -->
+        <form>
+            <div class="row mb-3">
+                <div class="col">
+                    <label class="form-label" for="searchTerm" th:text="#{message.searchTerm}">Name</label>
+                    <input aria-describedby="searchHelp" class="form-control" id="searchTerm"
+                           th:placeholder="#{message.menuItemsSearch}" type="text">
+                </div>
+            </div>
+        </form>
+        <!-- Search Results -->
+        <div id="searchResultsSection">
         </div>
-        <!-- Search Button -->
-        <button type="button" class="btn btn-primary" id="searchButton" th:text="#{button.search}">Search</button>
-    </form>
-    <!-- Search Results -->
-    <section id="searchResultsSection">
-        <h2 class="mt-5" th:text="#{message.menuItemsFound}">Menu Items Found</h2>
-        <table class="table">
-            <!-- Column Headers -->
-            <thead>
-            <tr>
-                <th th:text="#{attribute.name}">Name</th>
-                <th th:text="#{attribute.price}">Price</th>
-                <th th:text="#{attribute.course}">Course</th>
-                <th th:text="#{attribute.vegetarian}">Vegetarian</th>
-                <th th:text="#{attribute.spiceLvl}">Spice Level</th>
-            </tr>
-            </thead>
-            <!-- Rows -->
-            <tbody>
-            </tbody>
-        </table>
-    </section>
+    </div>
 </main>
 <footer th:insert="~{fragments/footer::copy}"></footer>
 </body>

@@ -1,27 +1,28 @@
-const searchButton = document.getElementById("searchButton");
-const searchResultsSection = document.getElementById("searchResultsSection");
 const searchTermInput = document.getElementById("searchTerm");
-const tableBody = document.getElementsByTagName("tbody")[0];
+searchTermInput.addEventListener('keyup', showResults);
 
-searchButton.addEventListener("click", async () => {
-    const response = await fetch(`/api/menu-items?search=${searchTermInput.value}`,
-        { headers: { Accept: "application/json" } });
+async function showResults(e) {
+    const searchResults = document.getElementById("searchResultsSection");
+    const searchTerm = e.target.value.trim();
+    if (!searchTerm) {
+        searchResults.innerHTML = '';
+        return;
+    }
+    const response = await fetch(`/api/menu-items?search=${searchTerm}`, {
+        headers: {
+            "Accept": "application/json"
+        }
+    });
     if (response.status === 200) {
         const menuItems = await response.json();
-        tableBody.innerHTML = '';
-        for (const menuItem of menuItems) {
-            tableBody.innerHTML += `
-            <tr>
-                <td><a href="/menu-item?id=${menuItem.id}">${menuItem.name}</a></td>
-                <td>${menuItem.price}</td>
-                <td>${menuItem.course}</td>
-                <td>${menuItem.vegetarian}</td>
-                <td>${menuItem.spiceLvl}</td>
-            </tr>
-            `;
-        }
-        searchResultsSection.style.display = "block";
+        let html = `<p>Found ${menuItems.length} results</p>`;
+        html += '<ul>';
+        menuItems.forEach(menuItem => {
+            html += `<li><a href="/menu-item?id=${menuItem.id}">${menuItem.name}</a></li>`;
+        });
+        html += '</ul>';
+        searchResults.innerHTML = html;
     } else {
-        searchResultsSection.style.display = "none";
+        searchResults.innerHTML = `<p>Found no results</p>`;
     }
-})
+}

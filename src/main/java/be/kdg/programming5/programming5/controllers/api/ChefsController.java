@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * The type Chefs controller.
@@ -67,6 +68,19 @@ public class ChefsController {
         return ResponseEntity.ok(modelMapper.map(chef, ChefDto.class));
     }
 
+    @GetMapping("all")
+    public ResponseEntity<List<ChefDto>> getAllChefs() {
+        var allChefs = chefService.getAllChefs();
+        if (allChefs.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            List<ChefDto> chefDtos = allChefs.stream()
+                    .map(chef -> modelMapper.map(chef, ChefDto.class))
+                    .collect(Collectors.toList());
+            return ResponseEntity.ok(chefDtos);
+        }
+    }
+
     /**
      * Gets menu items of chef.
      *
@@ -99,12 +113,8 @@ public class ChefsController {
 // "/api/chefs"
     @GetMapping
     ResponseEntity<List<ChefDto>> searchChefs(@RequestParam(required = false) String search) {
-        if (search == null) {
-            return ResponseEntity
-                    .ok(chefService.getAllChefs()
-                            .stream()
-                            .map(chef -> modelMapper.map(chef, ChefDto.class))
-                            .toList());
+        if (search == null || search.trim().isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             var searchResult = chefService.searchChefsByFirstNameOrLastName(search);
             if (searchResult.isEmpty()) {

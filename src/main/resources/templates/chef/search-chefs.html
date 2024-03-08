@@ -1,39 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <title th:text="#{title.searchChefs}">Search Chefs</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
-    <script src="/js/search-chefs.js" defer></script>
+    <script defer src="/js/search-chefs.js"></script>
 </head>
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
-<h1 class="page-title" th:text="#{title.searchChefs}">Search Chefs</h1>
 <main class="container">
-    <!-- Search Bar -->
-    <form>
-        <div class="mb-3">
-            <label for="searchTerm" class="form-label" th:text="#{message.searchTerm}">Search term</label>
-            <input type="text" class="form-control" id="searchTerm" aria-describedby="searchHelp">
-            <div id="searchHelp" class="form-text" th:text="#{message.chefsSearch}">Searches both the first and last name.</div>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1 class="page-title" th:text="#{title.searchMenuItems}">Search Chefs</h1>
+            <!-- Search Bar -->
+            <form>
+                <div class="row mb-3">
+                    <div class="col">
+                        <label class="form-label" for="searchTerm" th:text="#{message.searchTerm}">Search term</label>
+                        <input aria-describedby="searchHelp" class="form-control" id="searchTerm"
+                               th:placeholder="#{message.chefsSearch}" type="text">
+                    </div>
+                </div>
+            </form>
+            <!-- Search Results -->
+            <div id="searchResultsSection">
+            </div>
         </div>
-        <!-- Search Button -->
-        <button type="button" class="btn btn-primary" id="searchButton" th:text="#{button.search}">Search</button>
-    </form>
-    <!-- Search Results -->
-    <section id="searchResultsSection">
-        <h2 class="mt-5" th:text="#{message.chefsFound}">Chefs Found</h2>
-        <table class="table">
-            <!-- Column Headers -->
-            <thead>
-            <tr>
-                <th th:text="#{attribute.firstName}">First Name</th>
-            </tr>
-            </thead>
-            <!-- Rows -->
-            <tbody>
-            </tbody>
-        </table>
-    </section>
+    </div>
 </main>
 <footer th:insert="~{fragments/footer::copy}"></footer>
 </body>

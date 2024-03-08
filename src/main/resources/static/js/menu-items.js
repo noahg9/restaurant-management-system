@@ -1,3 +1,19 @@
+async function fillMenuItemsTable() {
+    const response = await fetch('/api/menu-items/all', {
+        headers: {
+            "Accept": "application/json"
+        }});
+    if (response.status === 200) {
+        const menuItems = await response.json();
+        menuItems.forEach(menuItem => {
+            addMenuItemToTable(menuItem)
+        })
+    } else {
+        const errorMessage = await response.text();
+        alert(`Error ${response.status}: ${errorMessage}`);
+    }
+}
+
 const deleteButtons = document.querySelectorAll("button.btn-danger");
 
 for (const deleteButton of deleteButtons) {
@@ -5,8 +21,8 @@ for (const deleteButton of deleteButtons) {
 }
 
 async function handleDeleteMenuItem(event) {
-    const rowId = event.target.parentNode.parentNode.id;
-    const menuItemId = parseInt(rowId.substring(rowId.indexOf('_') + 1));
+    const row = event.target.closest('.card');
+    const menuItemId = row.dataset.menuItemId;
     const response = await fetch(`/api/menu-items/${menuItemId}`, {
         method: "DELETE",
         headers: {
@@ -15,8 +31,7 @@ async function handleDeleteMenuItem(event) {
         }
     });
     if (response.status === 204) {
-        const row = document.getElementById(`menu-item_${menuItemId}`);
-        row.parentNode.removeChild(row);
+        row.remove()
     } else {
         const errorMessage = await response.text();
         alert(`Error ${response.status}: ${errorMessage}`);
@@ -26,7 +41,7 @@ async function handleDeleteMenuItem(event) {
 const nameInput = document.getElementById("nameInput");
 const priceInput = document.getElementById("priceInput");
 const addButton = document.getElementById("addButton");
-const menuItemTableBody = document.getElementById("menuItemTableBody");
+const menuItemBody = document.getElementById("menuItemBody");
 
 async function addNewMenuItem() {
     const response = await fetch(`/api/menu-items`, {
@@ -56,21 +71,31 @@ async function addNewMenuItem() {
  * @param {{id: number, name: string, price: number, course: string, vegetarian: boolean, spiceLvl: number, restaurant: string}} menuItem
  */
 function addMenuItemToTable(menuItem) {
-    const tableRow = document.createElement("tr");
-    tableRow.id = `menu_item_${menuItem.id}`;
-    tableRow.innerHTML = `
-        <td><a href="/menu-item?id=${menuItem.id}">${menuItem.name}</a></td>
-        <td>${menuItem.price}</td>
-        <td>${menuItem.course}</td>
-        <td>${menuItem.vegetarian}</td>
-        <td>${menuItem.spiceLvl}</td>
-        <td>${menuItem.restaurant ? menuItem.restaurant.name : 'N/A'}</td>
-        <td><button type="button" class="btn btn-danger btn-sm">Delete</button></td>
-    `
-    menuItemTableBody.appendChild(tableRow);
-
-    const newDeleteButton = tableRow.querySelector('button');
-    newDeleteButton.addEventListener("click", handleDeleteMenuItem)
+    const card = document.createElement("div");
+    card.classList.add("card", "mb-3", "col-md-8"); // Adjusted width for two cards per row
+    const vegetarianIndicator = menuItem.vegetarian ? "(V)" : ""; // "(V)" for vegetarian, empty string for non-vegetarian
+    card.innerHTML = `
+        <div class="card-body">
+            <h5 class="card-title">${menuItem.name} ${vegetarianIndicator}</h5>
+            <p class="card-text">€${menuItem.price}</p>
+            <button type="button" class="btn btn-danger btn-sm delete-button"><i class="fas fa-trash-alt"></i></button>
+        </div>
+    `;
+    card.dataset.menuItemId = menuItem.id;
+    menuItemBody.appendChild(card);
+    const newDeleteButton = card.querySelector('button');
+    newDeleteButton.addEventListener("click", (event) => {
+        event.stopPropagation(); // Prevent propagation to parent elements
+        handleDeleteMenuItem(event);
+    });
+    card.addEventListener("click", () => {
+        window.location.href = `/menu-item?id=${menuItem.id}`;
+    });
 }
 
+fillMenuItemsTable().catch(error => {
+    console.error('Error fetching menu items:', error);
+});
+
 addButton.addEventListener("click", addNewMenuItem);
+
