@@ -9,8 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Spring Data repository for accessing Chef entities.
- * Provides methods to interact with Chef data stored in a database.
+ * The interface Chef repository.
  */
 @Repository
 public interface ChefRepository extends JpaRepository<Chef, Long> {
@@ -56,11 +55,11 @@ public interface ChefRepository extends JpaRepository<Chef, Long> {
     List<Chef> findByMenuItemId(long menuItemId);
 
     /**
-     * Finds chefs by either first name or last name, ignoring case.
+     * Find by first name ignore case containing or last name ignore case containing list.
      *
-     * @param firstName The first name to search for.
-     * @param lastName  The last name to search for.
-     * @return All chefs of chefs matching the specified first name or last name.
+     * @param firstName the first name
+     * @param lastName  the last name
+     * @return the list
      */
     List<Chef> findByFirstNameIgnoreCaseContainingOrLastNameIgnoreCaseContaining(String firstName, String lastName);
 

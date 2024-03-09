@@ -7,17 +7,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 /**
- * Controller class for handling home-related operations.
+ * The type Home controller.
  */
 @Controller
 public class HomeController {
 
     /**
-     * Retrieves and displays the home page.
+     * Gets home.
      *
-     * @param session The HttpSession object.
+     * @param session the session
      * @param model   the model
-     * @return The view name for the home page.
+     * @return the home
      */
     @GetMapping({"", "/", "/home"})
     public String getHome(HttpSession session, Model model) {

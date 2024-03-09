@@ -72,6 +72,11 @@ public class MenuItemsController {
                 .toList());
     }
 
+    /**
+     * Gets all menu items.
+     *
+     * @return the all menu items
+     */
     @GetMapping
     public ResponseEntity<List<MenuItemDto>> getAllMenuItems() {
         var allMenuItems = menuItemService.getAllMenuItems();
@@ -141,8 +146,8 @@ public class MenuItemsController {
     /**
      * Change menu item response entity.
      *
-     * @param menuItemId            the menu item id
-     * @param updateMenuItemDto the update menu item name dto
+     * @param menuItemId        the menu item id
+     * @param updateMenuItemDto the update menu item dto
      * @return the response entity
      */
     @PatchMapping("{id}")

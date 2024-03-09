@@ -8,8 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 /**
- * Spring Data repository for accessing Restaurant entities.
- * Provides methods to interact with Restaurant data stored in a database.
+ * The interface Restaurant repository.
  */
 @Repository
 public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {

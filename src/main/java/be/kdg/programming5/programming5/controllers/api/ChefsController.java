@@ -50,6 +50,11 @@ public class ChefsController {
         return ResponseEntity.ok(modelMapper.map(chef, ChefDto.class));
     }
 
+    /**
+     * Gets all chefs.
+     *
+     * @return the all chefs
+     */
     @GetMapping
     public ResponseEntity<List<ChefDto>> getAllChefs() {
         var allChefs = chefService.getAllChefs();
@@ -141,8 +146,8 @@ public class ChefsController {
     /**
      * Change chef response entity.
      *
-     * @param chefId            the chef id
-     * @param updateChefDto the update chef name dto
+     * @param chefId        the chef id
+     * @param updateChefDto the update chef dto
      * @return the response entity
      */
     @PatchMapping("{id}")

@@ -3,22 +3,22 @@ package be.kdg.programming5.programming5.domain;
 import java.io.Serializable;
 
 /**
- * An interface representing an entity in the system with a generic identifier.
+ * The interface Entity.
  *
- * @param <T> The type of identifier for the entity.
+ * @param <T> the type parameter
  */
 public interface Entity<T extends Serializable> {
     /**
-     * Gets the identifier of the entity.
+     * Gets id.
      *
-     * @return The identifier of the entity.
+     * @return the id
      */
     T getId();
 
     /**
-     * Sets the identifier of the entity.
+     * Sets id.
      *
-     * @param id The new identifier for the entity.
+     * @param id the id
      */
     void setId(T id);
 }

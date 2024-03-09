@@ -3,7 +3,7 @@ package be.kdg.programming5.programming5.controllers.api.dto;
 import jakarta.validation.constraints.NotBlank;
 
 /**
- * The type Update chef name dto.
+ * The type Update chef dto.
  */
 public class UpdateChefDto {
     @NotBlank
@@ -13,7 +13,7 @@ public class UpdateChefDto {
     private String lastName;
 
     /**
-     * Instantiates a new Update chef name dto.
+     * Instantiates a new Update chef dto.
      */
     public UpdateChefDto() {
     }

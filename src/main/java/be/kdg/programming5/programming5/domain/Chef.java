@@ -9,8 +9,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Represents a Chef in a restaurant, including personal information and associated menu items.
- * Extends AbstractEntity for common entity properties.
+ * The type Chef.
  */
 @Entity
 @Table(name = "chef")

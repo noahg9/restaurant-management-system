@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- * Controller class for handling Chef-related operations.
+ * The type Chef controller.
  */
 @Controller
 public class ChefController {
@@ -22,20 +22,20 @@ public class ChefController {
     private final ChefService chefService;
 
     /**
-     * Constructor to inject dependencies.
+     * Instantiates a new Chef controller.
      *
-     * @param chefService Service for Chef-related operations.
+     * @param chefService the chef service
      */
     public ChefController(ChefService chefService) {
         this.chefService = chefService;
     }
 
     /**
-     * Handles GET request to retrieve the all_chefs of chefs.
+     * All chefs model and view.
      *
-     * @param session Session object to manage session-related information.
-     * @param model   Model object to add attributes for the view.
-     * @return View name for displaying the all_chefs of chefs.
+     * @param session the session
+     * @param model   the model
+     * @return the model and view
      */
     @GetMapping("/chefs")
     public ModelAndView allChefs(HttpSession session, Model model) {
@@ -51,12 +51,12 @@ public class ChefController {
     }
 
     /**
-     * Handles GET request to retrieve details of a specific chef.
+     * One chef model and view.
      *
-     * @param chefId  ID of the chef.
+     * @param chefId  the chef id
      * @param session the session
-     * @param model   Model object to add attributes for the view.
-     * @return View name for displaying chef details.
+     * @param model   the model
+     * @return the model and view
      */
     @GetMapping("/chef")
     public ModelAndView oneChef(@RequestParam("id") long chefId, HttpSession session, Model model) {

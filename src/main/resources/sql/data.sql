@@ -1,6 +1,7 @@
 INSERT INTO application_user(username, password)
-VALUES ('noah', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6');
--- password: noah
+VALUES ('noah', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6'),
+       ('lars', '$2a$10$N3TGXdcRDhTBQbPxD1BFjO2c0/eV7mAZKl5bpgakNn4tRET53Kgbi'),
+       ('admin', '$2a$10$2n9H5HUuGpJLL9H0dauGNeb7Al4qsJD3iA2Ua7P81M9xsbP9s/BBW');
 
 INSERT INTO restaurant (name, date_established, seating_capacity)
 VALUES ('San Remo', '1989-01-14', 20),

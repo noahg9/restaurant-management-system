@@ -13,18 +13,18 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Controller class for handling session-related operations.
+ * The type Session controller.
  */
 @Controller
 public class SessionController {
     private final Logger logger = LoggerFactory.getLogger(SessionController.class);
 
     /**
-     * Retrieves and displays the session history.
+     * Gets history.
      *
-     * @param session The HttpSession object.
-     * @param model   The model to add attributes.
-     * @return The view name for the session history.
+     * @param session the session
+     * @param model   the model
+     * @return the history
      */
     @GetMapping("/history")
     public String getHistory(HttpSession session, Model model) {

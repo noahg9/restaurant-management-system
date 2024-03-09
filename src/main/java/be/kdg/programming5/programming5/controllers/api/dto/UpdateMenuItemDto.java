@@ -3,14 +3,14 @@ package be.kdg.programming5.programming5.controllers.api.dto;
 import jakarta.validation.constraints.NotBlank;
 
 /**
- * The type Update menu item name dto.
+ * The type Update menu item dto.
  */
 public class UpdateMenuItemDto {
     @NotBlank
     private String name;
 
     /**
-     * Instantiates a new Update menu item name dto.
+     * Instantiates a new Update menu item dto.
      */
     public UpdateMenuItemDto() {
     }

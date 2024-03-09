@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
- * Service implementation using Spring Data JPA for Chef-related operations.
+ * The type Chef service.
  */
 @Service
 public class ChefService {
@@ -19,11 +19,11 @@ public class ChefService {
     private final RestaurantService restaurantService;
 
     /**
-     * Constructs a SpringDataChefService with the specified repositories.
+     * Instantiates a new Chef service.
      *
-     * @param chefRepository      The repository for Chef entities.
-     * @param menuItemChefService The service for MenuItemChef entities.
-     * @param restaurantService   The service for Restaurant entities.
+     * @param chefRepository      the chef repository
+     * @param menuItemChefService the menu item chef service
+     * @param restaurantService   the restaurant service
      */
     public ChefService(ChefRepository chefRepository, MenuItemChefService menuItemChefService, RestaurantService restaurantService) {
         this.chefRepository = chefRepository;
@@ -32,48 +32,48 @@ public class ChefService {
     }
 
     /**
-     * Retrieves all chefs of all chefs.
+     * Gets all chefs.
      *
-     * @return All chefs of all chefs.
+     * @return the all chefs
      */
     public List<Chef> getAllChefs() {
         return chefRepository.findAll();
     }
 
     /**
-     * Retrieves all chefs of all chefs with its associated menu items.
+     * Gets chefs with menu items.
      *
-     * @return All chefs of all chefs.
+     * @return the chefs with menu items
      */
     public List<Chef> getChefsWithMenuItems() {
         return chefRepository.findAllWithMenuItems();
     }
 
     /**
-     * Retrieves a chef by its identifier.
+     * Gets chef.
      *
-     * @param chefId The identifier of the chef.
-     * @return The chef with the specified identifier, or null if not found.
+     * @param chefId the chef id
+     * @return the chef
      */
     public Chef getChef(long chefId) {
         return chefRepository.findById(chefId).orElse(null);
     }
 
     /**
-     * Retrieves a chef with its associated menu items.
+     * Gets chef with menu items.
      *
-     * @param chefId The identifier of the chef.
-     * @return The chef with the specified identifier, or null if not found.
+     * @param chefId the chef id
+     * @return the chef with menu items
      */
     public Chef getChefWithMenuItems(long chefId) {
         return chefRepository.findByIdWithMenuItems(chefId).orElse(null);
     }
 
     /**
-     * Retrieves all chefs of chefs by their first or last name, case-insensitive.
+     * Gets chefs by name.
      *
-     * @param name The name to search for.
-     * @return All chefs of chefs matching the search criteria.
+     * @param name the name
+     * @return the chefs by name
      */
     public List<Chef> getChefsByName(String name) {
         return chefRepository.findByFirstNameIgnoreCaseContainingOrLastNameIgnoreCaseContaining(name, name);
@@ -100,13 +100,13 @@ public class ChefService {
     }
 
     /**
-     * Adds a new chef with the specified details.
+     * Add chef chef.
      *
-     * @param firstName   The first name of the chef.
-     * @param lastName    The last name of the chef.
-     * @param dateOfBirth The date of birth of the chef.
-     * @param restaurant  The restaurant where the chef works.
-     * @return The newly created chef.
+     * @param firstName   the first name
+     * @param lastName    the last name
+     * @param dateOfBirth the date of birth
+     * @param restaurant  the restaurant
+     * @return the chef
      */
     public Chef addChef(String firstName, String lastName, LocalDate dateOfBirth, Restaurant restaurant) {
         return chefRepository.save(new Chef(firstName, lastName, dateOfBirth, restaurant));
@@ -136,10 +136,10 @@ public class ChefService {
     }
 
     /**
-     * Adds a chef to the system.
+     * Add chef chef.
      *
-     * @param chef The chef to add.
-     * @return The added chef.
+     * @param chef the chef
+     * @return the chef
      */
     public Chef addChef(Chef chef) {
         return chefRepository.save(chef);

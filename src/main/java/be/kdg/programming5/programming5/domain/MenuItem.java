@@ -8,8 +8,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Represents a menu item in a restaurant, including details, associated restaurant, and chefs.
- * Extends AbstractEntity for common entity properties.
+ * The type Menu item.
  */
 @Entity
 @Table(name = "menu_item")

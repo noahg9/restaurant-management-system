@@ -9,8 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Spring Data repository for accessing MenuItem entities.
- * Provides methods to interact with MenuItem data stored in a database.
+ * The interface Menu item repository.
  */
 @Repository
 public interface MenuItemRepository extends JpaRepository<MenuItem, Long> {
@@ -56,17 +55,17 @@ public interface MenuItemRepository extends JpaRepository<MenuItem, Long> {
     List<MenuItem> findByChefId(long chefId);
 
     /**
-     * Finds menu items with a price less than or equal to the specified maximum price.
+     * Find by price less than equal list.
      *
-     * @param maxPrice The maximum price to search for.
-     * @return All chefs of menu items with a price less than or equal to the specified maximum price.
+     * @param maxPrice the max price
+     * @return the list
      */
     List<MenuItem> findByPriceLessThanEqual(double maxPrice);
 
     /**
-     * Finds vegetarian menu items.
+     * Find by vegetarian true list.
      *
-     * @return All chefs of vegetarian menu items.
+     * @return the list
      */
     List<MenuItem> findByVegetarianTrue();
 

@@ -15,18 +15,18 @@ import org.springframework.web.servlet.ModelAndView;
 import org.webjars.NotFoundException;
 
 /**
- * GlobalExceptionHandler handles exceptions thrown in controllers.
- * It provides specific handling for general exceptions and database-related exceptions.
+ * The type Global exception handler.
  */
 @ControllerAdvice
 public class GlobalExceptionHandler {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     /**
-     * Handles general exceptions by logging the error and returning the error view.
+     * Handle exception string.
      *
-     * @param e The caught exception.
-     * @return The error view name.
+     * @param e     the e
+     * @param model the model
+     * @return the string
      */
     @ExceptionHandler(Exception.class)
     public String handleException(Exception e, Model model) {

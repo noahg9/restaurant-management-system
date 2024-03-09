@@ -9,35 +9,35 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
- * Service implementation using Spring Data JPA for Restaurant-related operations.
+ * The type Restaurant service.
  */
 @Service
 public class RestaurantService {
     private final RestaurantRepository restaurantRepository;
 
     /**
-     * Constructs a SpringDataRestaurantService with the specified repository.
+     * Instantiates a new Restaurant service.
      *
-     * @param restaurantRepository The repository for Restaurant entities.
+     * @param restaurantRepository the restaurant repository
      */
     public RestaurantService(RestaurantRepository restaurantRepository) {
         this.restaurantRepository = restaurantRepository;
     }
 
     /**
-     * Retrieves all chefs of all restaurants.
+     * Gets all restaurants.
      *
-     * @return All chefs of all restaurants.
+     * @return the all restaurants
      */
     public List<Restaurant> getAllRestaurants() {
         return restaurantRepository.findAll();
     }
 
     /**
-     * Retrieves a restaurant by its identifier.
+     * Gets restaurant.
      *
-     * @param id The identifier of the restaurant.
-     * @return The restaurant with the specified identifier, or null if not found.
+     * @param id the id
+     * @return the restaurant
      */
     public Restaurant getRestaurant(long id) {
         return restaurantRepository.findById(id).orElse(null);
@@ -55,20 +55,20 @@ public class RestaurantService {
 
 
     /**
-     * Retrieves a restaurant with its associated chefs.
+     * Gets restaurant with chefs.
      *
-     * @param restaurantId The identifier of the restaurant.
-     * @return The restaurant with the specified identifier, or null if not found.
+     * @param restaurantId the restaurant id
+     * @return the restaurant with chefs
      */
     public Restaurant getRestaurantWithChefs(long restaurantId) {
         return restaurantRepository.findByIdWithChefs(restaurantId).orElse(null);
     }
 
     /**
-     * Retrieves a restaurant with its associated menu items.
+     * Gets restaurant with menu items.
      *
-     * @param restaurantId The identifier of the restaurant.
-     * @return The restaurant with the specified identifier, or null if not found.
+     * @param restaurantId the restaurant id
+     * @return the restaurant with menu items
      */
     public Restaurant getRestaurantWithMenuItems(long restaurantId) {
         return restaurantRepository.findByIdWithMenuItems(restaurantId).orElse(null);
@@ -76,31 +76,31 @@ public class RestaurantService {
 
 
     /**
-     * Adds a new restaurant with the specified details.
+     * Add restaurant restaurant.
      *
-     * @param name            The name of the restaurant.
-     * @param dateEstablished The date the restaurant was established.
-     * @param seatingCapacity The seating capacity of the restaurant.
-     * @return The newly created restaurant.
+     * @param name            the name
+     * @param dateEstablished the date established
+     * @param seatingCapacity the seating capacity
+     * @return the restaurant
      */
     public Restaurant addRestaurant(String name, LocalDate dateEstablished, int seatingCapacity) {
         return restaurantRepository.save(new Restaurant(name, dateEstablished, seatingCapacity));
     }
 
     /**
-     * Adds a restaurant to the system.
+     * Add restaurant restaurant.
      *
-     * @param restaurant The restaurant to add.
-     * @return The added restaurant.
+     * @param restaurant the restaurant
+     * @return the restaurant
      */
     public Restaurant addRestaurant(Restaurant restaurant) {
         return restaurantRepository.save(restaurant);
     }
 
     /**
-     * Deletes a restaurant by its identifier.
+     * Remove restaurant.
      *
-     * @param id The identifier of the restaurant to delete.
+     * @param id the id
      */
     @Transactional
     public void removeRestaurant(long id) {

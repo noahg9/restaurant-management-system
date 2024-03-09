@@ -34,7 +34,7 @@ Accept: application/json
 
 ### API: search menu items (204)
 
-GET http://localhost:9242/api/menu-items?search=salad
+GET http://localhost:9242/api/menu-items/search?search=salad
 Accept: application/json
 
 ### API: delete a menu items (204)

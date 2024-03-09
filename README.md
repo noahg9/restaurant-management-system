@@ -1,16 +1,9 @@
 # Programming 5
 
-## About
-
 **Noah Guerin**  
 *noah.guerin@student.kdg.be*  
 *0152794-19*  
-*ACS202*  
-
-## Authentication
-
-**Username:** noah  
-**Password:** noah  
+*ACS202*
 
 ## Domain Entities
 
@@ -19,6 +12,15 @@
 | MenuItem   | Belongs to one Restaurant, Owns and owned by many Chefs     |
 | Chef       | Belongs to one Restaurant, Owns and owned by many MenuItems |
 | Restaurant | Owns many Chefs and many MenuItems                          |
+
+
+## User Accounts
+
+| Username | Password |
+|----------|----------|
+| noah     | noah     |
+| lars     | lars     |
+| admin    | admin    |
 
 ## Week 2
 

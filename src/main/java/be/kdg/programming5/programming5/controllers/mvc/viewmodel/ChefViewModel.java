@@ -8,7 +8,7 @@ import java.time.Period;
 import java.util.List;
 
 /**
- * ViewModel class for adding a Chef, containing necessary information.
+ * The type Chef view model.
  */
 public class ChefViewModel {
 
@@ -30,18 +30,18 @@ public class ChefViewModel {
     private List<MenuItemViewModel> menuItems;
 
     /**
-     * Default constructor for AddChefViewModel.
+     * Instantiates a new Chef view model.
      */
     public ChefViewModel() {}
 
     /**
-     * Parameterized constructor for AddChefViewModel.
+     * Instantiates a new Chef view model.
      *
      * @param id             the id
-     * @param firstName      The first name of the chef.
-     * @param lastName       The last name of the chef.
-     * @param dateOfBirth    The date of birth of the chef.
-     * @param restaurantId   The restaurant to which the chef is associated.
+     * @param firstName      the first name
+     * @param lastName       the last name
+     * @param dateOfBirth    the date of birth
+     * @param restaurantId   the restaurant id
      * @param restaurantName the restaurant name
      */
     public ChefViewModel(long id, String firstName, String lastName, LocalDate dateOfBirth, long restaurantId, String restaurantName) {
@@ -93,72 +93,72 @@ public class ChefViewModel {
     }
 
     /**
-     * Gets the first name of the chef.
+     * Gets first name.
      *
-     * @return The first name of the chef.
+     * @return the first name
      */
     public String getFirstName() {
         return firstName;
     }
 
     /**
-     * Sets the first name of the chef.
+     * Sets first name.
      *
-     * @param firstName The new first name to set.
+     * @param firstName the first name
      */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
     /**
-     * Gets the last name of the chef.
+     * Gets last name.
      *
-     * @return The last name of the chef.
+     * @return the last name
      */
     public String getLastName() {
         return lastName;
     }
 
     /**
-     * Sets the last name of the chef.
+     * Sets last name.
      *
-     * @param lastName The new last name to set.
+     * @param lastName the last name
      */
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
     /**
-     * Gets the date of birth of the chef.
+     * Gets date of birth.
      *
-     * @return The date of birth of the chef.
+     * @return the date of birth
      */
     public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
     /**
-     * Sets the date of birth of the chef.
+     * Sets date of birth.
      *
-     * @param dateOfBirth The new date of birth to set.
+     * @param dateOfBirth the date of birth
      */
     public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
     /**
-     * Gets the ID of the restaurant to which the chef is associated.
+     * Gets restaurant id.
      *
-     * @return The restaurant ID.
+     * @return the restaurant id
      */
     public long getRestaurantId() {
         return restaurantId;
     }
 
     /**
-     * Sets the restaurant id to which the chef is associated.
+     * Sets restaurant id.
      *
-     * @param restaurantId The new restaurant ID to set.
+     * @param restaurantId the restaurant id
      */
     public void setRestaurantId(long restaurantId) {
         this.restaurantId = restaurantId;
@@ -166,18 +166,18 @@ public class ChefViewModel {
 
 
     /**
-     * Gets the name of the restaurant to which the chef is associated.
+     * Gets restaurant name.
      *
-     * @return The restaurant name.
+     * @return the restaurant name
      */
     public String getRestaurantName() {
         return restaurantName;
     }
 
     /**
-     * Sets the restaurant name to which the chef is associated.
+     * Sets restaurant name.
      *
-     * @param restaurantName The new restaurant name to set.
+     * @param restaurantName the restaurant name
      */
     public void setRestaurantName(String restaurantName) {
         this.restaurantName = restaurantName;

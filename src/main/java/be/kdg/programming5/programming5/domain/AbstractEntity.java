@@ -8,9 +8,9 @@ import jakarta.persistence.MappedSuperclass;
 import java.io.Serializable;
 
 /**
- * An abstract base class for entities in the system.
+ * The type Abstract entity.
  *
- * @param <T> The type of identifier for the entity.
+ * @param <T> the type parameter
  */
 @MappedSuperclass
 public class AbstractEntity<T extends Serializable> implements Entity<T> {
@@ -23,35 +23,25 @@ public class AbstractEntity<T extends Serializable> implements Entity<T> {
     protected T id;
 
     /**
-     * Default constructor for AbstractEntity.
+     * Instantiates a new Abstract entity.
      */
     public AbstractEntity() {
     }
 
     /**
-     * Constructs an AbstractEntity with a specified identifier.
+     * Instantiates a new Abstract entity.
      *
-     * @param id The identifier for the entity.
+     * @param id the id
      */
     public AbstractEntity(T id) {
         this.id = id;
     }
 
-    /**
-     * Gets the identifier of the entity.
-     *
-     * @return The identifier of the entity.
-     */
     @Override
     public T getId() {
         return id;
     }
 
-    /**
-     * Sets the identifier of the entity.
-     *
-     * @param id The new identifier for the entity.
-     */
     @Override
     public void setId(T id) {
         this.id = id;

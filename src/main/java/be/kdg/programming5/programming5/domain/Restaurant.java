@@ -11,8 +11,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Represents a restaurant with details, menu items, and chefs.
- * Extends AbstractEntity for common entity properties.
+ * The type Restaurant.
  */
 @Entity
 @Table(name = "restaurant")

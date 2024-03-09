@@ -8,21 +8,29 @@ import org.springframework.web.servlet.LocaleResolver;
 
 import java.util.Locale;
 
+/**
+ * The type Language controller.
+ */
 @Controller
 public class LanguageController {
 
     private final LocaleResolver localeResolver;
 
+    /**
+     * Instantiates a new Language controller.
+     *
+     * @param localeResolver the locale resolver
+     */
     public LanguageController(LocaleResolver localeResolver) {
         this.localeResolver = localeResolver;
     }
 
 
     /**
-     * Handles the language switch functionality.
+     * Switch language response entity.
      *
-     * @param request The HttpServletRequest object.
-     * @return ResponseEntity indicating the success of the language switch.
+     * @param request the request
+     * @return the response entity
      */
     @PostMapping("/switch-language")
     public ResponseEntity<Void> switchLanguage(HttpServletRequest request) {

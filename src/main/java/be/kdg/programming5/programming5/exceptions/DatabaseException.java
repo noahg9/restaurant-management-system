@@ -1,15 +1,14 @@
 package be.kdg.programming5.programming5.exceptions;
 
 /**
- * Custom exception class to represent database-related errors.
- * Extends RuntimeException for unchecked exception handling.
+ * The type Database exception.
  */
 public class DatabaseException extends RuntimeException {
 
     /**
-     * Constructs a new DatabaseException with the specified detail message.
+     * Instantiates a new Database exception.
      *
-     * @param message the detail message (which is saved for later retrieval by the getMessage() method)
+     * @param message the message
      */
     public DatabaseException(String message) {
         super(message);

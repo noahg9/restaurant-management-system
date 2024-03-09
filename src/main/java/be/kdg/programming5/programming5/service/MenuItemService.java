@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * Service implementation using Spring Data JPA for MenuItem-related operations.
+ * The type Menu item service.
  */
 @Service
 public class MenuItemService {
@@ -19,11 +19,11 @@ public class MenuItemService {
     private final RestaurantService restaurantService;
 
     /**
-     * Constructs a SpringDataMenuItemService with the specified repositories.
+     * Instantiates a new Menu item service.
      *
-     * @param menuItemRepository  The repository for MenuItem entities.
-     * @param menuItemChefService The service for MenuItemChef entities.
-     * @param restaurantService   The service for Restaurant entities.
+     * @param menuItemRepository  the menu item repository
+     * @param menuItemChefService the menu item chef service
+     * @param restaurantService   the restaurant service
      */
     public MenuItemService(MenuItemRepository menuItemRepository, MenuItemChefService menuItemChefService, RestaurantService restaurantService) {
         this.menuItemRepository = menuItemRepository;
@@ -32,38 +32,38 @@ public class MenuItemService {
     }
 
     /**
-     * Retrieves all chefs of all menu items.
+     * Gets all menu items.
      *
-     * @return All chefs of all menu items.
+     * @return the all menu items
      */
     public List<MenuItem> getAllMenuItems() {
         return menuItemRepository.findAll();
     }
 
     /**
-     * Retrieves all chefs of all menu items with its associated chefs.
+     * Gets menu items with chefs.
      *
-     * @return All chefs of all menu items.
+     * @return the menu items with chefs
      */
     public List<MenuItem> getMenuItemsWithChefs() {
         return menuItemRepository.findAllWithChefs();
     }
 
     /**
-     * Retrieves a menu item by its identifier.
+     * Gets menu item.
      *
-     * @param menuItemId The identifier of the menu item.
-     * @return The menu item with the specified identifier, or null if not found.
+     * @param menuItemId the menu item id
+     * @return the menu item
      */
     public MenuItem getMenuItem(long menuItemId) {
         return menuItemRepository.findById(menuItemId).orElse(null);
     }
 
     /**
-     * Retrieves a menu item with its associated chefs.
+     * Gets menu item with chefs.
      *
-     * @param menuItemId The identifier of the menu item.
-     * @return The menu item with the specified identifier, or null if not found.
+     * @param menuItemId the menu item id
+     * @return the menu item with chefs
      */
     public MenuItem getMenuItemWithChefs(long menuItemId) {
         return menuItemRepository.findByIdWithChefs(menuItemId).orElse(null);
@@ -80,19 +80,19 @@ public class MenuItemService {
     }
 
     /**
-     * Retrieves all chefs of menu items with a price less than or equal to the specified maximum price.
+     * Gets menu items by max price.
      *
-     * @param maxPrice The maximum price.
-     * @return All chefs of menu items meeting the price criteria.
+     * @param maxPrice the max price
+     * @return the menu items by max price
      */
     public List<MenuItem> getMenuItemsByMaxPrice(double maxPrice) {
         return menuItemRepository.findByPriceLessThanEqual(maxPrice);
     }
 
     /**
-     * Retrieves all chefs of vegetarian menu items.
+     * Gets veg menu items.
      *
-     * @return All chefs of vegetarian menu items.
+     * @return the veg menu items
      */
     public List<MenuItem> getVegMenuItems() {
         return menuItemRepository.findByVegetarianTrue();
@@ -109,15 +109,15 @@ public class MenuItemService {
     }
 
     /**
-     * Adds a new menu item with the specified details.
+     * Add menu item menu item.
      *
-     * @param name       The name of the menu item.
-     * @param price      The price of the menu item.
-     * @param course     The course of the menu item.
-     * @param vegetarian Whether the menu item is vegetarian.
-     * @param spiceLvl   The spice level of the menu item.
-     * @param restaurant The restaurant offering the menu item.
-     * @return The newly created menu item.
+     * @param name       the name
+     * @param price      the price
+     * @param course     the course
+     * @param vegetarian the vegetarian
+     * @param spiceLvl   the spice lvl
+     * @param restaurant the restaurant
+     * @return the menu item
      */
     public MenuItem addMenuItem(String name, double price, Course course, Boolean vegetarian, int spiceLvl, Restaurant restaurant) {
         return menuItemRepository.save(new MenuItem(name, price, course, vegetarian, spiceLvl, restaurant));
@@ -135,19 +135,19 @@ public class MenuItemService {
     }
 
     /**
-     * Adds a menu item to the system.
+     * Add menu item menu item.
      *
-     * @param menuItem The menu item to add.
-     * @return The added menu item.
+     * @param menuItem the menu item
+     * @return the menu item
      */
     public MenuItem addMenuItem(MenuItem menuItem) {
         return menuItemRepository.save(menuItem);
     }
 
     /**
-     * Deletes a menu item by its identifier.
+     * Remove menu item boolean.
      *
-     * @param menuItemId The identifier of the menu item to delete.
+     * @param menuItemId the menu item id
      * @return the boolean
      */
     @Transactional

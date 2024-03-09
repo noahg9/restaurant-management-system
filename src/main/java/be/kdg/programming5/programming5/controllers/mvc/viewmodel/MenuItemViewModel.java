@@ -9,7 +9,7 @@ import jakarta.validation.constraints.NotNull;
 import java.util.List;
 
 /**
- * ViewModel class for adding a menu item, containing necessary information.
+ * The type Menu item view model.
  */
 public class MenuItemViewModel {
 
@@ -37,21 +37,21 @@ public class MenuItemViewModel {
 
 
     /**
-     * Default constructor for AddMenuItemViewModel.
+     * Instantiates a new Menu item view model.
      */
     public MenuItemViewModel() {
     }
 
     /**
-     * Parameterized constructor for AddMenuItemViewModel.
+     * Instantiates a new Menu item view model.
      *
      * @param id             the id
-     * @param name           The name of the menu item.
-     * @param price          The price of the menu item.
-     * @param course         The course type of the menu item.
-     * @param vegetarian     A boolean indicating whether the menu item is vegetarian.
-     * @param spiceLvl       The spice level of the menu item.
-     * @param restaurantId   The ID of the restaurant to which the menu item is associated.
+     * @param name           the name
+     * @param price          the price
+     * @param course         the course
+     * @param vegetarian     the vegetarian
+     * @param spiceLvl       the spice lvl
+     * @param restaurantId   the restaurant id
      * @param restaurantName the restaurant name
      */
     public MenuItemViewModel(long id, String name, double price, Course course, boolean vegetarian, int spiceLvl, long restaurantId, String restaurantName) {
@@ -109,126 +109,126 @@ public class MenuItemViewModel {
     }
 
     /**
-     * Gets the name of the menu item.
+     * Gets name.
      *
-     * @return The name of the menu item.
+     * @return the name
      */
     public String getName() {
         return name;
     }
 
     /**
-     * Sets the name of the menu item.
+     * Sets name.
      *
-     * @param name The new name to set.
+     * @param name the name
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     * Gets the price of the menu item.
+     * Gets price.
      *
-     * @return The price of the menu item.
+     * @return the price
      */
     public double getPrice() {
         return price;
     }
 
     /**
-     * Sets the price of the menu item.
+     * Sets price.
      *
-     * @param price The new price to set.
+     * @param price the price
      */
     public void setPrice(double price) {
         this.price = price;
     }
 
     /**
-     * Gets the course type of the menu item.
+     * Gets course.
      *
-     * @return The course type of the menu item.
+     * @return the course
      */
     public Course getCourse() {
         return course;
     }
 
     /**
-     * Sets the course type of the menu item.
+     * Sets course.
      *
-     * @param course The new course type to set.
+     * @param course the course
      */
     public void setCourse(Course course) {
         this.course = course;
     }
 
     /**
-     * Gets a boolean indicating whether the menu item is vegetarian.
+     * Is vegetarian boolean.
      *
-     * @return True if the menu item is vegetarian, false otherwise.
+     * @return the boolean
      */
     public boolean isVegetarian() {
         return vegetarian;
     }
 
     /**
-     * Sets whether the menu item is vegetarian.
+     * Sets vegetarian.
      *
-     * @param vegetarian The new value indicating whether the menu item is vegetarian.
+     * @param vegetarian the vegetarian
      */
     public void setVegetarian(boolean vegetarian) {
         this.vegetarian = vegetarian;
     }
 
     /**
-     * Gets the spice level of the menu item.
+     * Gets spice lvl.
      *
-     * @return The spice level of the menu item.
+     * @return the spice lvl
      */
     public int getSpiceLvl() {
         return spiceLvl;
     }
 
     /**
-     * Sets the spice level of the menu item.
+     * Sets spice lvl.
      *
-     * @param spiceLvl The new spice level to set.
+     * @param spiceLvl the spice lvl
      */
     public void setSpiceLvl(int spiceLvl) {
         this.spiceLvl = spiceLvl;
     }
 
     /**
-     * Gets the ID of the restaurant to which the menu item is associated.
+     * Gets restaurant id.
      *
-     * @return The restaurant ID.
+     * @return the restaurant id
      */
     public long getRestaurantId() {
         return restaurantId;
     }
 
     /**
-     * Sets the restaurant to which the menu item is associated.
+     * Sets restaurant id.
      *
-     * @param restaurantId The new restaurant ID to set.
+     * @param restaurantId the restaurant id
      */
     public void setRestaurantId(long restaurantId) {
         this.restaurantId = restaurantId;
     }
 
     /**
-     * Gets the name of the restaurant to which the chef is associated.
+     * Gets restaurant name.
      *
-     * @return The restaurant name.
+     * @return the restaurant name
      */
     public String getRestaurantName() {
         return restaurantName;
     }
 
     /**
-     * Sets the restaurant name to which the chef is associated.
+     * Sets restaurant name.
      *
-     * @param restaurantName The new restaurant name to set.
+     * @param restaurantName the restaurant name
      */
     public void setRestaurantName(String restaurantName) {
         this.restaurantName = restaurantName;

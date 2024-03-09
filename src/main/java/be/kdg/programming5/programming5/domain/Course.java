@@ -1,7 +1,7 @@
 package be.kdg.programming5.programming5.domain;
 
 /**
- * Enum representing different courses in a restaurant menu.
+ * The enum Course.
  */
 public enum Course {
     /**
@@ -21,7 +21,7 @@ public enum Course {
      */
     Beverage,
     /**
-     * Undefined course.
+     * Other course.
      */
     Other
 }

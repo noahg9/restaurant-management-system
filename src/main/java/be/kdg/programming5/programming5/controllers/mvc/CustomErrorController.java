@@ -11,7 +11,7 @@ import org.springframework.web.context.request.WebRequest;
 import java.util.Map;
 
 /**
- * Custom error controller to handle application errors.
+ * The type Custom error controller.
  */
 @Controller
 public class CustomErrorController implements ErrorController {
@@ -28,10 +28,11 @@ public class CustomErrorController implements ErrorController {
     }
 
     /**
-     * Handles errors and displays a custom error page.
+     * Handle error string.
      *
-     * @param model The model to add attributes for the error page.
-     * @return The view name for the custom error page.
+     * @param model   the model
+     * @param request the request
+     * @return the string
      */
     @RequestMapping("/error")
     public String handleError(Model model, WebRequest request) {

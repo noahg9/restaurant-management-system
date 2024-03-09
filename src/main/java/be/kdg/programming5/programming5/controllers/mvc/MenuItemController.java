@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- * Controller class for handling menu item-related operations.
+ * The type Menu item controller.
  */
 @Controller
 public class MenuItemController {
@@ -22,20 +22,20 @@ public class MenuItemController {
     private final MenuItemService menuItemService;
 
     /**
-     * Constructor to inject dependencies.
+     * Instantiates a new Menu item controller.
      *
-     * @param menuItemService The service for menu item operations.
+     * @param menuItemService the menu item service
      */
     public MenuItemController(MenuItemService menuItemService) {
         this.menuItemService = menuItemService;
     }
 
     /**
-     * Displays the all_chefs of menu items.
+     * All menu items model and view.
      *
-     * @param session The HttpSession object.
-     * @param model   The model to add attributes.
-     * @return The view name for the menu item all_chefs.
+     * @param session the session
+     * @param model   the model
+     * @return the model and view
      */
     @GetMapping("/menu-items")
     public ModelAndView allMenuItems(HttpSession session, Model model) {
@@ -63,12 +63,12 @@ public class MenuItemController {
     }
 
     /**
-     * Displays details of a specific menu item.
+     * One menu item model and view.
      *
-     * @param menuItemId The ID of the menu item.
+     * @param menuItemId the menu item id
      * @param session    the session
-     * @param model      The model to add attributes.
-     * @return The view name for the menu item details.
+     * @param model      the model
+     * @return the model and view
      */
     @GetMapping("/menu-item")
     public ModelAndView oneMenuItem(@RequestParam("id") long menuItemId, HttpSession session, Model model) {
