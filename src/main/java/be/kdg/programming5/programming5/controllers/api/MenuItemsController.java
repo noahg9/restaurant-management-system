@@ -3,7 +3,7 @@ package be.kdg.programming5.programming5.controllers.api;
 import be.kdg.programming5.programming5.controllers.api.dto.ChefDto;
 import be.kdg.programming5.programming5.controllers.api.dto.MenuItemDto;
 import be.kdg.programming5.programming5.controllers.api.dto.NewMenuItemDto;
-import be.kdg.programming5.programming5.controllers.api.dto.UpdateMenuItemNameDto;
+import be.kdg.programming5.programming5.controllers.api.dto.UpdateMenuItemDto;
 import be.kdg.programming5.programming5.domain.MenuItemChef;
 import be.kdg.programming5.programming5.service.MenuItemService;
 import jakarta.validation.Valid;
@@ -36,29 +36,11 @@ public class MenuItemsController {
     }
 
     /**
-     * Add menu item response entity.
-     *
-     * @param menuItemDto the menu item dto
-     * @return the response entity
-     */
-// "/api/menu-items"
-    @PostMapping
-    ResponseEntity<MenuItemDto> addMenuItem(@RequestBody @Valid NewMenuItemDto menuItemDto) {
-        var createdMenuItem = menuItemService.addMenuItem(
-                menuItemDto.getName(), menuItemDto.getPrice());
-        return new ResponseEntity<>(
-                modelMapper.map(createdMenuItem, MenuItemDto.class),
-                HttpStatus.CREATED
-        );
-    }
-
-    /**
      * Gets one menu item.
      *
      * @param menuItemId the menu item id
      * @return the one menu item
      */
-// "/api/menu-items/{id}"
     @GetMapping("{id}")
     ResponseEntity<MenuItemDto> getOneMenuItem(@PathVariable("id") long menuItemId) {
         var menuItem = menuItemService.getMenuItem(menuItemId);
@@ -68,26 +50,12 @@ public class MenuItemsController {
         return ResponseEntity.ok(modelMapper.map(menuItem, MenuItemDto.class));
     }
 
-    @GetMapping("all")
-    public ResponseEntity<List<MenuItemDto>> getAllMenuItems() {
-        var allMenuItems = menuItemService.getAllMenuItems();
-        if (allMenuItems.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } else {
-            List<MenuItemDto> menuItemDtos = allMenuItems.stream()
-                    .map(menuItem -> modelMapper.map(menuItem, MenuItemDto.class))
-                    .collect(Collectors.toList());
-            return ResponseEntity.ok(menuItemDtos);
-        }
-    }
-
     /**
      * Gets chefs of menu item.
      *
      * @param menuItemId the menu item id
      * @return the chefs of menu item
      */
-// "/api/menu-items/{id}/chefs"
     @GetMapping("{id}/chefs")
     ResponseEntity<List<ChefDto>> getChefsOfMenuItem(@PathVariable("id") long menuItemId) {
         var menuItem = menuItemService.getMenuItemWithChefs(menuItemId);
@@ -104,14 +72,26 @@ public class MenuItemsController {
                 .toList());
     }
 
+    @GetMapping
+    public ResponseEntity<List<MenuItemDto>> getAllMenuItems() {
+        var allMenuItems = menuItemService.getAllMenuItems();
+        if (allMenuItems.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            List<MenuItemDto> menuItemDtos = allMenuItems.stream()
+                    .map(menuItem -> modelMapper.map(menuItem, MenuItemDto.class))
+                    .collect(Collectors.toList());
+            return ResponseEntity.ok(menuItemDtos);
+        }
+    }
+
     /**
      * Search menu items response entity.
      *
      * @param search the search
      * @return the response entity
      */
-// "/api/menu-items"
-    @GetMapping
+    @GetMapping("search")
     ResponseEntity<List<MenuItemDto>> searchMenuItems(@RequestParam(required = false) String search) {
         if (search == null || search.trim().isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -129,12 +109,27 @@ public class MenuItemsController {
     }
 
     /**
+     * Add menu item response entity.
+     *
+     * @param menuItemDto the menu item dto
+     * @return the response entity
+     */
+    @PostMapping
+    ResponseEntity<MenuItemDto> addMenuItem(@RequestBody @Valid NewMenuItemDto menuItemDto) {
+        var createdMenuItem = menuItemService.addMenuItem(
+                menuItemDto.getName(), menuItemDto.getPrice());
+        return new ResponseEntity<>(
+                modelMapper.map(createdMenuItem, MenuItemDto.class),
+                HttpStatus.CREATED
+        );
+    }
+
+    /**
      * Delete menu item response entity.
      *
      * @param menuItemId the menu item id
      * @return the response entity
      */
-// "/api/menu-items/{id}"
     @DeleteMapping("{id}")
     ResponseEntity<Void> deleteMenuItem(@PathVariable("id") long menuItemId) {
         if (menuItemService.removeMenuItem(menuItemId)) {
@@ -147,13 +142,13 @@ public class MenuItemsController {
      * Change menu item response entity.
      *
      * @param menuItemId            the menu item id
-     * @param updateMenuItemNameDto the update menu item name dto
+     * @param updateMenuItemDto the update menu item name dto
      * @return the response entity
      */
     @PatchMapping("{id}")
     ResponseEntity<Void> changeMenuItem(@PathVariable("id") long menuItemId,
-                                    @RequestBody @Valid UpdateMenuItemNameDto updateMenuItemNameDto) {
-        if (menuItemService.changeMenuItemName(menuItemId, updateMenuItemNameDto.getName())) {
+                                    @RequestBody @Valid UpdateMenuItemDto updateMenuItemDto) {
+        if (menuItemService.changeMenuItemName(menuItemId, updateMenuItemDto.getName())) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

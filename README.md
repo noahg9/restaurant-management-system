@@ -1,9 +1,16 @@
 # Programming 5
 
+## About
+
 **Noah Guerin**  
 *noah.guerin@student.kdg.be*  
 *0152794-19*  
 *ACS202*  
+
+## Authentication
+
+**Username:** noah  
+**Password:** noah  
 
 ## Domain Entities
 

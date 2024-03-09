@@ -5,14 +5,14 @@ import jakarta.validation.constraints.NotBlank;
 /**
  * The type Update menu item name dto.
  */
-public class UpdateMenuItemNameDto {
+public class UpdateMenuItemDto {
     @NotBlank
     private String name;
 
     /**
      * Instantiates a new Update menu item name dto.
      */
-    public UpdateMenuItemNameDto() {
+    public UpdateMenuItemDto() {
     }
 
     /**

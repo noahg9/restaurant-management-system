@@ -9,17 +9,18 @@
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
 <main class="container">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center error-container">
         <!-- Error Description -->
         <div class="mt-5">
-            <h1 class="display-4">An error has occurred...</h1>
+            <h1 class="display-4 error-message">Oops! Something went wrong...</h1>
+            <p class="error-message">We apologize for the inconvenience. Please try again later.</p>
         </div>
         <!-- Error Image -->
         <div class="mt-5">
-            <img alt="Error Icon" class="img-fluid" th:src="@{/images/error-icon.png}"/>
+            <img alt="Error Icon" class="img-fluid error-image" th:src="@{/images/error-icon.png}"/>
         </div>
         <!-- Home Link -->
-        <div class="mt-5">
+        <div class="mt-5 back-home-link">
             <a class="btn btn-primary" th:href="@{/}">Back to home</a>
         </div>
     </div>

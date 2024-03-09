@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 /**
  * The type Update chef name dto.
  */
-public class UpdateChefNameDto {
+public class UpdateChefDto {
     @NotBlank
     private String firstName;
 
@@ -15,7 +15,7 @@ public class UpdateChefNameDto {
     /**
      * Instantiates a new Update chef name dto.
      */
-    public UpdateChefNameDto() {
+    public UpdateChefDto() {
     }
 
     /**

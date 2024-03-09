@@ -1,5 +1,5 @@
 async function fillMenuItemsTable() {
-    const response = await fetch('/api/menu-items/all', {
+    const response = await fetch('/api/menu-items', {
         headers: {
             "Accept": "application/json"
         }});
@@ -98,4 +98,3 @@ fillMenuItemsTable().catch(error => {
 });
 
 addButton.addEventListener("click", addNewMenuItem);
-

@@ -26,26 +26,29 @@ async function toggleMenuItems() {
 
 toggleMenuItemsButton.addEventListener("click", toggleMenuItems);
 
-const firstNameInput = document.getElementById("firstNameInput");
-const lastNameInput = document.getElementById("lastNameInput");
-const updateButton = document.getElementById("updateButton");
+const firstNameInput = document.getElementById("firstNameInputField");
+const lastNameInput = document.getElementById("lastNameInputField");
+const saveButton = document.getElementById("saveButton");
 
-async function changeChef() {
+async function saveChef() {
     const response = await fetch(`/api/chefs/${chefIdInput.value}`, {
-        method: "PATCH", headers: {
-            "Accept": "application/json", "Content-Type": "application/json"
+        method: "PATCH",
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
         }, body: JSON.stringify({
-            firstName: firstNameInput.value, lastName: lastNameInput.value
+            firstName: firstNameInput.value,
+            lastName: lastNameInput.value
         }), redirect: "manual"
     })
     if (response.status === 204) {
-        updateButton.disabled = true;
+        saveButton.disabled = true;
     } else {
         const errorMessage = await response.text();
         alert(`Error ${response.status}: ${errorMessage}`);
     }
 }
 
-updateButton.addEventListener("click", changeChef);
-firstNameInput.addEventListener("input", () => updateButton.disabled = false);
-lastNameInput.addEventListener("input", () => updateButton.disabled = false);
+saveButton.addEventListener("click", saveChef);
+firstNameInput.addEventListener("input", () => saveButton.disabled = false);
+lastNameInput.addEventListener("input", () => saveButton.disabled = false);

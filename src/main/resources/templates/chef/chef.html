@@ -13,69 +13,71 @@
 <main class="container">
     <div class="row justify-content-center">
         <h1 class="page-title" th:text="${one_chef.firstName + ' ' + one_chef.lastName}"></h1>
-        <!-- Update Section -->
-        <section class="mt-5" sec:authorize="isAuthenticated()">
-            <h2 th:text="#{header.update}">Update</h2>
-            <br>
-            <!-- First Name -->
-            <div class="row">
-                <input id="chefId" th:value="${one_chef.id}" type="hidden">
-                <div class="col-sm-4">
-                    <label class="form-label" for="firstNameTextArea" th:text="#{attribute.firstName}">First
-                        Name</label>
-                    <textarea class="form-control" id="firstNameTextArea" rows="1"
-                              th:text="${one_chef.firstName}"></textarea>
-                    <label class="form-label" for="lastNameTextArea" th:text="#{attribute.lastName}">Last Name</label>
-                    <textarea class="form-control" id="lastNameTextArea" rows="1"
-                              th:text="${one_chef.lastName}"></textarea>
-                </div>
+        <div class="row">
+            <!-- Details Sections -->
+            <div class="col-md-6">
+                <section class="mt-5">
+                    <h2 th:text="#{header.details}">Details</h2>
+                    <div class="col-md-8">
+                        <input id="chefId" th:value="${one_chef.id}" type="hidden">
+                        <table class="table table-bordered table-striped">
+                            <tbody>
+                            <!-- ID -->
+                            <tr>
+                                <th class="col-sm-4" th:text="#{attribute.id}">ID</th> <!-- Adjusted column width -->
+                                <td class="col-sm-8" th:text="*{one_chef.id}"></td> <!-- Adjusted column width -->
+                            </tr>
+                            <!-- First Name -->
+                            <tr>
+                                <th class="col-sm-4">
+                                    <label for="firstNameInputField" class="form-label" th:text="#{attribute.firstName}">First Name:</label>
+                                </th>
+                                <td class="col-sm-8">
+                                    <input class="form-control" id="firstNameInputField" type="text" th:value="${one_chef.firstName}">
+                                </td>
+                            </tr>
+                            <!-- Last Name -->
+                            <tr>
+                                <th class="col-sm-4">
+                                    <label for="lastNameInputField" class="form-label" th:text="#{attribute.lastName}">Last Name:</label>
+                                </th>
+                                <td class="col-sm-8">
+                                    <input class="form-control" id="lastNameInputField" type="text" th:value="${one_chef.lastName}">
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <!-- Save Button -->
+                        <div class="row mt-3">
+                            <div class="col-sm-4">
+                                <button class="btn btn-primary" id="saveButton" th:text="#{button.save}" type="button">
+                                    Save
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
-            <!-- Update Button -->
-            <div class="row mt-3">
-                <div class="col-sm-4">
-                    <button class="btn btn-primary" id="updateButton" th:text="#{button.update}" type="button">Update
-                    </button>
-                </div>
+            <!-- Associated Menu Items Section -->
+            <div class="col-md-6">
+                <section class="mt-5">
+                    <div class="mt-5">
+                        <!-- Dropdown -->
+                        <div class="dropdown" id="dropdownButtonWrapper">
+                            <button class="btn btn-secondary dropdown-toggle" id="toggleMenuItemInformation"
+                                    th:text="#{message.menuItemsDropdown}"
+                                    type="button">
+                                Menu items involved in
+                            </button>
+                        </div>
+                        <!-- Menu Items -->
+                        <div class="list-group col-sm-4" id="associatedMenuItems">
+                            <!-- Menu items will be dynamically added here -->
+                        </div>
+                    </div>
+                </section>
             </div>
-        </section>
-        <!-- Details Sections -->
-        <section class="mt-5">
-            <h2 th:text="#{header.details}">Details</h2>
-            <div class="col-md-4">
-                <table class="table table-bordered table-striped">
-                    <tbody>
-                    <!-- ID -->
-                    <tr>
-                        <th class="col-sm-4" th:text="#{attribute.id}">ID</th> <!-- Adjusted column width -->
-                        <td class="col-sm-8" th:text="*{one_chef.id}"></td> <!-- Adjusted column width -->
-                    </tr>
-                    <!-- Name -->
-                    <tr>
-                        <th class="col-sm-4" th:text="#{attribute.name}">Name</th> <!-- Adjusted column width -->
-                        <td class="col-sm-8" th:text="*{one_chef.firstName + ' ' + one_chef.lastName}"></td>
-                        <!-- Adjusted column width -->
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-        <!-- Associated Menu Items Section -->
-        <section class="mt-5">
-            <div class="mt-5">
-                <!-- Dropdown -->
-                <div class="dropdown" id="dropdownButtonWrapper">
-                    <button class="btn btn-secondary dropdown-toggle" id="toggleMenuItemInformation"
-                            th:text="#{message.menuItemsDropdown}"
-                            type="button">
-                        Menu items involved in
-                    </button>
-                </div>
-                <!-- Menu Items -->
-                <div class="list-group col-sm-4" id="associatedMenuItems">
-                    <!-- Menu items will be dynamically added here -->
-                </div>
-            </div>
-        </section>
+        </div>
     </div>
 </main>
 <!-- Return Button -->

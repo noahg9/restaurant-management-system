@@ -8,7 +8,7 @@ async function showResults(e) {
         searchResults.innerHTML = '';
         return;
     }
-    const response = await fetch(`/api/chefs?search=${searchTerm}`, {
+    const response = await fetch(`/api/chefs/search?search=${searchTerm}`, {
         headers: {
             "Accept": "application/json"
         }

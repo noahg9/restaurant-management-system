@@ -8,7 +8,7 @@ async function showResults(e) {
         searchResults.innerHTML = '';
         return;
     }
-    const response = await fetch(`/api/menu-items?search=${searchTerm}`, {
+    const response = await fetch(`/api/menu-items/search?search=${searchTerm}`, {
         headers: {
             "Accept": "application/json"
         }

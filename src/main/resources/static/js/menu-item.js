@@ -26,8 +26,8 @@ async function toggleChefs() {
 
 toggleChefsButton.addEventListener("click", toggleChefs);
 
-const nameInput = document.getElementById("nameInput");
-const updateButton = document.getElementById("updateButton");
+const nameInput = document.getElementById("nameInputField");
+const saveButton = document.getElementById("saveButton");
 
 async function changeMenuItem() {
     const response = await fetch(`/api/menu-items/${menuItemIdInput.value}`, {
@@ -38,12 +38,12 @@ async function changeMenuItem() {
         }), redirect: "manual"
     })
     if (response.status === 204) {
-        updateButton.disabled = true;
+        saveButton.disabled = true;
     } else {
         const errorMessage = await response.text();
         alert(`Error ${response.status}: ${errorMessage}`);
     }
 }
 
-updateButton.addEventListener("click", changeMenuItem);
-nameInput.addEventListener("input", () => updateButton.disabled = false);
+saveButton.addEventListener("click", changeMenuItem);
+nameInput.addEventListener("input", () => saveButton.disabled = false);

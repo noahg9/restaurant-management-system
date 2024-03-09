@@ -1,5 +1,5 @@
 async function fillChefsTable() {
-    const response = await fetch('/api/chefs/all', {
+    const response = await fetch('/api/chefs', {
         headers: {
             "Accept": "application/json"
         }});
