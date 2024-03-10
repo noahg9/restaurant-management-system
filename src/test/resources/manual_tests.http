@@ -41,7 +41,7 @@ Accept: application/json
 
 DELETE http://localhost:9242/api/menu-items/1
 
-### API: delete a menu item (404)
+### API: delete a menu item (403)
 
 DELETE http://localhost:9242/api/menu-items/99
 
@@ -52,7 +52,11 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "name": "Name"
+  "name": "Pizza",
+  "price": 10.0,
+  "course": "Main",
+  "vegetarian": false,
+  "spiceLvl": 3
 }
 
 ### API: add a menu item
@@ -62,7 +66,11 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "name": ""
+  "name": "",
+  "price": 10.0,
+  "course": "Main",
+  "vegetarian": false,
+  "spiceLvl": 3
 }
 
 ### API: change a menu item name (204)
@@ -72,17 +80,25 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "name": "Pizza"
+  "name": "Pizza",
+  "price": 10.0,
+  "course": "Main",
+  "vegetarian": false,
+  "spiceLvl": 3
 }
 
-### API: change a menu item name
+### API: change a menu item name (404)
 
 PATCH http://localhost:9242/api/menu-items/99
 Accept: application/json
 Content-Type: application/json
 
 {
-  "name": "Name"
+  "name": "Pizza",
+  "price": 10.0,
+  "course": "Main",
+  "vegetarian": false,
+  "spiceLvl": 3
 }
 
 ### API: change a menu item name
@@ -92,5 +108,9 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "name": ""
+  "name": "",
+  "price": 10.0,
+  "course": "Main",
+  "vegetarian": false,
+  "spiceLvl": 3
 }

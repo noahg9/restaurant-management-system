@@ -58,8 +58,6 @@ Content-Length: 0
 Date: Thu, 07 Mar 2024 15:48:10 GMT
 Keep-Alive: timeout=60
 Connection: keep-alive
-
-<Response body is empty>Response code: 404; Time: 20ms (20 ms); Content length: 0 bytes (0 B)
 ```
 
 ### Fetching all menu items - OK
@@ -88,8 +86,6 @@ HTTP/1.1 204
 Date: Thu, 07 Mar 2024 15:28:29 GMT
 Keep-Alive: timeout=60
 Connection: keep-alive
-
-<Response body is empty>Response code: 204; Time: 124ms (124 ms); Content length: 0 bytes (0 B)
 ```
 
 ### Deleting one menu item - Not Found
@@ -104,8 +100,6 @@ Content-Length: 0
 Date: Thu, 07 Mar 2024 15:28:29 GMT
 Keep-Alive: timeout=60
 Connection: keep-alive
-
-<Response body is empty>Response code: 404; Time: 27ms (27 ms); Content length: 0 bytes (0 B)
 ```
 
 ## Week 3
@@ -118,17 +112,39 @@ Accept: application/json
 Content-Type: application/json
 
 {
-"name": "Name"
+  "name": "Pizza",
+  "price": 10.0,
+  "course": "Main",
+  "vegetarian": false,
+  "spiceLvl": 3
 }
 ```
 
 ```
 HTTP/1.1 201 
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 0
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY
 Content-Type: application/json
 Transfer-Encoding: chunked
-Date: Thu, 07 Mar 2024 15:28:29 GMT
+Date: Sun, 10 Mar 2024 16:21:42 GMT
 Keep-Alive: timeout=60
 Connection: keep-alive
+
+{
+  "id": 6,
+  "name": "Pizza",
+  "price": 10.0,
+  "course": "Main",
+  "vegetarian": false,
+  "spiceLvl": 3
+}
 ```
 
 ### Changing a menu item name - OK
@@ -139,17 +155,28 @@ Accept: application/json
 Content-Type: application/json
 
 {
-"name": "Pizza"
+  "name": "Pizza",
+  "price": 10.0,
+  "course": "Main",
+  "vegetarian": false,
+  "spiceLvl": 3
 }
 ```
 
 ```
 HTTP/1.1 204 
-Date: Thu, 07 Mar 2024 15:40:35 GMT
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 0
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY
+Date: Sun, 10 Mar 2024 16:22:13 GMT
 Keep-Alive: timeout=60
 Connection: keep-alive
-
-<Response body is empty>Response code: 204; Time: 468ms (468 ms); Content length: 0 bytes (0 B)
 ```
 
 
@@ -161,18 +188,29 @@ Accept: application/json
 Content-Type: application/json
 
 {
-"name": "Name"
+  "name": "Pizza",
+  "price": 10.0,
+  "course": "Main",
+  "vegetarian": false,
+  "spiceLvl": 3
 }
 ```
 
 ```
-HTTP/1.1 404
+HTTP/1.1 404 
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 0
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY
 Content-Length: 0
-Date: Thu, 07 Mar 2024 15:56:07 GMT
+Date: Sun, 10 Mar 2024 16:23:45 GMT
 Keep-Alive: timeout=60
 Connection: keep-alive
-
-<Response body is empty>Response code: 404; Time: 26ms (26 ms); Content length: 0 bytes (0 B)
 ```
 
 ### Fetching one menu item in XML format - OK
@@ -183,10 +221,19 @@ Accept: application/xml
 ```
 
 ```
-HTTP/1.1 200
+HTTP/1.1 200 
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 0
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY
 Content-Type: application/xml;charset=UTF-8
 Transfer-Encoding: chunked
-Date: Thu, 07 Mar 2024 15:46:34 GMT
+Date: Sun, 10 Mar 2024 16:53:17 GMT
 Keep-Alive: timeout=60
 Connection: keep-alive
 
@@ -194,6 +241,9 @@ Connection: keep-alive
     <id>1</id>
     <name>Ceasar Salad</name>
     <price>3.5</price>
+    <course>Main</course>
+    <vegetarian>false</vegetarian>
+    <spiceLvl>0</spiceLvl>
 </MenuItemDto>
 ```
 
@@ -205,11 +255,28 @@ Accept: application/xml
 ```
 
 ```
-HTTP/1.1 404
-Content-Length: 0
-Date: Thu, 07 Mar 2024 15:47:10 GMT
+HTTP/1.1 200 
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 0
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY
+Content-Type: application/xml;charset=UTF-8
+Transfer-Encoding: chunked
+Date: Sun, 10 Mar 2024 16:53:17 GMT
 Keep-Alive: timeout=60
 Connection: keep-alive
 
-<Response body is empty>Response code: 404; Time: 22ms (22 ms); Content length: 0 bytes (0 B)
+<MenuItemDto>
+    <id>1</id>
+    <name>Ceasar Salad</name>
+    <price>3.5</price>
+    <course>Main</course>
+    <vegetarian>false</vegetarian>
+    <spiceLvl>0</spiceLvl>
+</MenuItemDto>
 ```

@@ -11,21 +11,19 @@
 <header th:replace="~{fragments/includes::header}"></header>
 <main class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <h1 class="page-title" th:text="#{title.searchChefs}">Search Chefs</h1>
-            <!-- Search Bar -->
-            <form>
-                <div class="row mb-3">
-                    <div class="col">
-                        <label class="form-label" for="searchTerm" th:text="#{message.searchTerm}">Search term</label>
-                        <input aria-describedby="searchHelp" class="form-control" id="searchTerm"
-                               th:placeholder="#{message.chefsSearch}" type="text">
-                    </div>
+        <h1 class="page-title" th:text="#{title.searchChefs}">Search Chefs</h1>
+        <!-- Search Bar -->
+        <form>
+            <div class="row mb-3">
+                <div class="col">
+                    <label class="form-label" for="searchTerm" th:text="#{message.searchTerm}">Search term</label>
+                    <input aria-describedby="searchHelp" class="form-control" id="searchTerm"
+                           th:placeholder="#{message.chefsSearch}" type="text">
                 </div>
-            </form>
-            <!-- Search Results -->
-            <div id="searchResultsSection">
             </div>
+        </form>
+        <!-- Search Results -->
+        <div id="searchResultsSection">
         </div>
     </div>
 </main>
