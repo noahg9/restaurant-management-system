@@ -1,6 +1,8 @@
 package be.kdg.programming5.programming5.controllers.api.dto;
 
 import be.kdg.programming5.programming5.domain.Course;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 
 /**
@@ -9,9 +11,11 @@ import jakarta.validation.constraints.NotBlank;
 public class NewMenuItemDto {
     @NotBlank
     private String name;
+    @DecimalMin(value = "0.0")
     private double price;
     private Course course;
     private boolean vegetarian;
+    @Min(value = 0)
     private int spiceLvl;
 
     /**
