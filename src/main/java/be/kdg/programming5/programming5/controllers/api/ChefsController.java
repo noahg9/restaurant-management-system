@@ -122,7 +122,7 @@ public class ChefsController {
     @PostMapping
     ResponseEntity<ChefDto> addChef(@RequestBody @Valid NewChefDto chefDto) {
         var createdChef = chefService.addChef(
-                chefDto.getFirstName(), chefDto.getLastName());
+                chefDto.getFirstName(), chefDto.getLastName(), chefDto.getDateOfBirth());
         return new ResponseEntity<>(
                 modelMapper.map(createdChef, ChefDto.class),
                 HttpStatus.CREATED
@@ -153,7 +153,7 @@ public class ChefsController {
     @PatchMapping("{id}")
     ResponseEntity<Void> changeChef(@PathVariable("id") long chefId,
                                      @RequestBody @Valid UpdateChefDto updateChefDto) {
-        if (chefService.changeChefName(chefId, updateChefDto.getFirstName(), updateChefDto.getLastName())) {
+        if (chefService.changeChefName(chefId, updateChefDto.getFirstName(), updateChefDto.getLastName(), updateChefDto.getDateOfBirth())) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

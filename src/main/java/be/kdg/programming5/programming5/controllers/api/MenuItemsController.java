@@ -65,11 +65,7 @@ public class MenuItemsController {
         if (menuItem.getChefs().isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return ResponseEntity.ok(menuItem.getChefs()
-                .stream()
-                .map(MenuItemChef::getChef)
-                .map(dev -> modelMapper.map(dev, ChefDto.class))
-                .toList());
+        return ResponseEntity.ok(menuItem.getChefs().stream().map(MenuItemChef::getChef).map(dev -> modelMapper.map(dev, ChefDto.class)).toList());
     }
 
     /**
@@ -83,9 +79,7 @@ public class MenuItemsController {
         if (allMenuItems.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
-            List<MenuItemDto> menuItemDtos = allMenuItems.stream()
-                    .map(menuItem -> modelMapper.map(menuItem, MenuItemDto.class))
-                    .collect(Collectors.toList());
+            List<MenuItemDto> menuItemDtos = allMenuItems.stream().map(menuItem -> modelMapper.map(menuItem, MenuItemDto.class)).collect(Collectors.toList());
             return ResponseEntity.ok(menuItemDtos);
         }
     }
@@ -105,10 +99,7 @@ public class MenuItemsController {
             if (searchResult.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             } else {
-                return ResponseEntity.ok(searchResult
-                        .stream()
-                        .map(menuItem -> modelMapper.map(menuItem, MenuItemDto.class))
-                        .toList());
+                return ResponseEntity.ok(searchResult.stream().map(menuItem -> modelMapper.map(menuItem, MenuItemDto.class)).toList());
             }
         }
     }
@@ -121,12 +112,8 @@ public class MenuItemsController {
      */
     @PostMapping
     ResponseEntity<MenuItemDto> addMenuItem(@RequestBody @Valid NewMenuItemDto menuItemDto) {
-        var createdMenuItem = menuItemService.addMenuItem(
-                menuItemDto.getName(), menuItemDto.getPrice());
-        return new ResponseEntity<>(
-                modelMapper.map(createdMenuItem, MenuItemDto.class),
-                HttpStatus.CREATED
-        );
+        var createdMenuItem = menuItemService.addMenuItem(menuItemDto.getName(), menuItemDto.getPrice(), menuItemDto.getCourse(), menuItemDto.isVegetarian(), menuItemDto.getSpiceLvl());
+        return new ResponseEntity<>(modelMapper.map(createdMenuItem, MenuItemDto.class), HttpStatus.CREATED);
     }
 
     /**
@@ -151,9 +138,8 @@ public class MenuItemsController {
      * @return the response entity
      */
     @PatchMapping("{id}")
-    ResponseEntity<Void> changeMenuItem(@PathVariable("id") long menuItemId,
-                                    @RequestBody @Valid UpdateMenuItemDto updateMenuItemDto) {
-        if (menuItemService.changeMenuItemName(menuItemId, updateMenuItemDto.getName())) {
+    ResponseEntity<Void> changeMenuItem(@PathVariable("id") long menuItemId, @RequestBody @Valid UpdateMenuItemDto updateMenuItemDto) {
+        if (menuItemService.changeMenuItemName(menuItemId, updateMenuItemDto.getName(), updateMenuItemDto.getPrice(), updateMenuItemDto.getCourse(), updateMenuItemDto.isVegetarian(), updateMenuItemDto.getSpiceLvl())) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

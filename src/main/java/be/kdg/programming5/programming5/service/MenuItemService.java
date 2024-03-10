@@ -126,12 +126,15 @@ public class MenuItemService {
     /**
      * Add menu item menu item.
      *
-     * @param name  the name
-     * @param price the price
+     * @param name       the name
+     * @param price      the price
+     * @param course     the course
+     * @param vegetarian the vegetarian
+     * @param spiceLvl   the spice lvl
      * @return the menu item
      */
-    public MenuItem addMenuItem(String name, double price) {
-        return menuItemRepository.save(new MenuItem(name, price, Course.Main, false, 0, restaurantService.getRestaurant(1)));
+    public MenuItem addMenuItem(String name, double price, Course course, Boolean vegetarian, int spiceLvl) {
+        return menuItemRepository.save(new MenuItem(name, price, course, vegetarian, spiceLvl, restaurantService.getRestaurant(1)));
     }
 
     /**
@@ -166,14 +169,22 @@ public class MenuItemService {
      *
      * @param menuItemId the menu item id
      * @param name       the name
+     * @param price      the price
+     * @param course     the course
+     * @param vegetarian the vegetarian
+     * @param spiceLvl   the spice lvl
      * @return the boolean
      */
-    public boolean changeMenuItemName(long menuItemId, String name) {
+    public boolean changeMenuItemName(long menuItemId, String name, double price, Course course, boolean vegetarian, int spiceLvl) {
         var menuItem = menuItemRepository.findById(menuItemId).orElse(null);
         if (menuItem == null) {
             return false;
         }
         menuItem.setName(name);
+        menuItem.setPrice(price);
+        menuItem.setCourse(course);
+        menuItem.setVegetarian(vegetarian);
+        menuItem.setSpiceLvl(spiceLvl);
         menuItemRepository.save(menuItem);
         return true;
     }

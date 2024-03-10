@@ -1,5 +1,7 @@
 package be.kdg.programming5.programming5.controllers.api.dto;
 
+import be.kdg.programming5.programming5.domain.Course;
+
 /**
  * The type Menu item dto.
  */
@@ -7,6 +9,9 @@ public class MenuItemDto {
     private long id;
     private String name;
     private double price;
+    private Course course;
+    private boolean vegetarian;
+    private int spiceLvl;
 
     /**
      * Instantiates a new Menu item dto.
@@ -79,5 +84,59 @@ public class MenuItemDto {
      */
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    /**
+     * Gets course.
+     *
+     * @return the course
+     */
+    public Course getCourse() {
+        return course;
+    }
+
+    /**
+     * Sets course.
+     *
+     * @param course the course
+     */
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
+    /**
+     * Is vegetarian boolean.
+     *
+     * @return the boolean
+     */
+    public boolean isVegetarian() {
+        return vegetarian;
+    }
+
+    /**
+     * Sets vegetarian.
+     *
+     * @param vegetarian the vegetarian
+     */
+    public void setVegetarian(boolean vegetarian) {
+        this.vegetarian = vegetarian;
+    }
+
+    /**
+     * Gets spice lvl.
+     *
+     * @return the spice lvl
+     */
+    public int getSpiceLvl() {
+        return spiceLvl;
+    }
+
+    /**
+     * Sets spice lvl.
+     *
+     * @param spiceLvl the spice lvl
+     */
+    public void setSpiceLvl(int spiceLvl) {
+        this.spiceLvl = spiceLvl;
     }
 }

@@ -40,6 +40,7 @@ async function handleDeleteChef(event) {
 
 const firstNameInput = document.getElementById("firstNameInput");
 const lastNameInput = document.getElementById("lastNameInput");
+const dobInput = document.getElementById("dobInput");
 const addButton = document.getElementById("addButton");
 const chefBody = document.getElementById("chefBody");
 
@@ -53,11 +54,12 @@ async function addNewChef() {
         body: JSON.stringify({
             firstName: firstNameInput.value,
             lastName: lastNameInput.value,
+            dateOfBirth: dobInput.value
         })
     })
     if (response.status === 201) {
         /**
-         * @type {{id: number, firstName: string, lastName: string, dateOfBirth: date, restaurant: String}}
+         * @type {{id: number, firstName: string, lastName: string, dateOfBirth: date}}
          */
         const chef = await response.json()
         addChefToTable(chef);
@@ -68,14 +70,16 @@ async function addNewChef() {
 }
 
 /**
- * @param {{id: number, firstName: string, lastName: string, dateOfBirth: date, restaurant: string}} chef
+ * @param {{id: number, firstName: string, lastName: string, dateOfBirth: date}} chef
  */
 function addChefToTable(chef) {
     const card = document.createElement("div");
-    card.classList.add("card", "mb-3", "col-md-8"); // Adjusted width for two cards per row
+    card.classList.add("card", "mb-3", "col-md-8");
+    const age = Math.floor((new Date() - new Date(chef.dateOfBirth)) / (1000 * 60 * 60 * 24 * 365));
     card.innerHTML = `
         <div class="card-body">
             <h5 class="card-title">${chef.firstName + ' ' + chef.lastName}</h5>
+            <p class="card-text">${age}  years old</p>
             <button type="button" class="btn btn-danger btn-sm delete-button"><i class="fas fa-trash-alt"></i></button>
         </div>
     `;

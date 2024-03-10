@@ -127,17 +127,6 @@ public class ChefService {
     /**
      * Add chef chef.
      *
-     * @param firstName the first name
-     * @param lastName  the last name
-     * @return the chef
-     */
-    public Chef addChef(String firstName, String lastName) {
-        return chefRepository.save(new Chef(firstName, lastName, LocalDate.now(), restaurantService.getRestaurant(1)));
-    }
-
-    /**
-     * Add chef chef.
-     *
      * @param chef the chef
      * @return the chef
      */
@@ -165,18 +154,20 @@ public class ChefService {
     /**
      * Change chef name boolean.
      *
-     * @param chefId    the chef id
-     * @param firstName the first name
-     * @param lastName  the last name
+     * @param chefId      the chef id
+     * @param firstName   the first name
+     * @param lastName    the last name
+     * @param dateOfBirth the date of birth
      * @return the boolean
      */
-    public boolean changeChefName(long chefId, String firstName, String lastName) {
+    public boolean changeChefName(long chefId, String firstName, String lastName, LocalDate dateOfBirth) {
         var chef = chefRepository.findById(chefId).orElse(null);
         if (chef == null) {
             return false;
         }
         chef.setFirstName(firstName);
         chef.setLastName(lastName);
+        chef.setDateOfBirth(dateOfBirth);
         chefRepository.save(chef);
         return true;
     }

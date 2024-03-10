@@ -45,6 +45,32 @@
                                 <input class="form-control" id="priceInput" required step="0.01" type="number">
                             </div>
                         </div>
+                        <!-- Course -->
+                        <div class="row mb-3">
+                            <div class="col-sm-4">
+                                <label class="form-label" for="courseInput" th:text="#{attribute.price}">Price</label>
+                                <select class="form-select" id="courseInput" name="course">
+                                    <option th:each="course : ${courseValues}"
+                                            th:value="${course}"
+                                            th:text="${course.toString()}">
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- Vegetarian -->
+                        <div class="row mb-3">
+                            <div class="col-sm-4">
+                                <label class="form-label" for="vegetarianInput" th:text="#{attribute.vegetarian}">Vegetarian</label>
+                                <input type="checkbox" id="vegetarianInput">
+                            </div>
+                        </div>
+                        <!-- Spice Level -->
+                        <div class="row mb-3">
+                            <div class="col-sm-4">
+                                <label class="form-label" for="spiceLvlInput" th:text="#{attribute.spiceLvl}">Spice Level</label>
+                                <input class="form-control" id="spiceLvlInput" required type="number">
+                            </div>
+                        </div>
                         <!-- Add Button -->
                         <div class="row">
                             <div class="col-sm-4">

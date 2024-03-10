@@ -45,6 +45,15 @@
                                     <input class="form-control" id="lastNameInputField" type="text" th:value="${one_chef.lastName}">
                                 </td>
                             </tr>
+                            <!-- Date of Birth -->
+                            <tr>
+                                <th class="col-sm-4">
+                                    <label for="dobInputField" class="form-label" th:text="#{attribute.dateOfBirth}">Date of Birth:</label>
+                                </th>
+                                <td class="col-sm-8">
+                                    <input class="form-control" id="dobInputField" type="date" th:value="${one_chef.dateOfBirth}">
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
                         <!-- Save Button -->

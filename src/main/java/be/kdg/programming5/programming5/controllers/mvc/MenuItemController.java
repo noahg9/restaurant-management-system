@@ -2,6 +2,7 @@ package be.kdg.programming5.programming5.controllers.mvc;
 
 import be.kdg.programming5.programming5.controllers.mvc.viewmodel.ChefViewModel;
 import be.kdg.programming5.programming5.controllers.mvc.viewmodel.MenuItemViewModel;
+import be.kdg.programming5.programming5.domain.Course;
 import be.kdg.programming5.programming5.domain.util.HistoryUtil;
 import be.kdg.programming5.programming5.service.MenuItemService;
 import jakarta.servlet.http.HttpSession;
@@ -59,6 +60,7 @@ public class MenuItemController {
                                 menuItem.getRestaurant().getId(),
                                 menuItem.getRestaurant().getName()))
                         .toList());
+        mav.addObject("courseValues", Course.values());
         return mav;
     }
 
@@ -103,6 +105,7 @@ public class MenuItemController {
                                                 )
                                 ).toList()
                 ));
+        mav.addObject("courseValues", Course.values());
         return mav;
     }
 

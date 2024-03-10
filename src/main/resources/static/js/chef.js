@@ -28,6 +28,7 @@ toggleMenuItemsButton.addEventListener("click", toggleMenuItems);
 
 const firstNameInput = document.getElementById("firstNameInputField");
 const lastNameInput = document.getElementById("lastNameInputField");
+const dobInput = document.getElementById("dobInputField");
 const saveButton = document.getElementById("saveButton");
 
 async function saveChef() {
@@ -38,7 +39,8 @@ async function saveChef() {
             "Content-Type": "application/json"
         }, body: JSON.stringify({
             firstName: firstNameInput.value,
-            lastName: lastNameInput.value
+            lastName: lastNameInput.value,
+            dateOfBirth: dobInput.value
         }), redirect: "manual"
     })
     if (response.status === 204) {

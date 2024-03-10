@@ -27,6 +27,10 @@ async function toggleChefs() {
 toggleChefsButton.addEventListener("click", toggleChefs);
 
 const nameInput = document.getElementById("nameInputField");
+const priceInput = document.getElementById("priceInputField");
+const courseInput = document.getElementById("courseInputField");
+const vegetarianInput = document.getElementById("vegetarianInputField");
+const spiceLvlInput = document.getElementById("spiceLvlInputField");
 const saveButton = document.getElementById("saveButton");
 
 async function changeMenuItem() {
@@ -34,7 +38,11 @@ async function changeMenuItem() {
         method: "PATCH", headers: {
             "Accept": "application/json", "Content-Type": "application/json"
         }, body: JSON.stringify({
-            name: nameInput.value
+            name: nameInput.value,
+            price: priceInput.value,
+            course: courseInput.value,
+            vegetarian: vegetarianInput.checked,
+            spiceLvl: spiceLvlInput.value
         }), redirect: "manual"
     })
     if (response.status === 204) {

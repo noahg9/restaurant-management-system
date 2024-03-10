@@ -1,5 +1,8 @@
 package be.kdg.programming5.programming5.controllers.api.dto;
 
+import java.time.LocalDate;
+import java.time.Period;
+
 /**
  * The type Chef dto.
  */
@@ -7,6 +10,7 @@ public class ChefDto {
     private long id;
     private String firstName;
     private String lastName;
+    private LocalDate dateOfBirth;
 
     /**
      * Instantiates a new Chef dto.
@@ -79,5 +83,23 @@ public class ChefDto {
      */
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    /**
+     * Gets date of birth.
+     *
+     * @return the date of birth
+     */
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    /**
+     * Sets date of birth.
+     *
+     * @param dateOfBirth the date of birth
+     */
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 }

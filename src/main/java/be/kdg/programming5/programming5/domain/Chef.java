@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 import java.util.Objects;
 
@@ -33,7 +34,8 @@ public class Chef extends AbstractEntity<Long> implements Serializable {
     /**
      * Instantiates a new Chef.
      */
-    protected Chef() {}
+    protected Chef() {
+    }
 
     /**
      * Instantiates a new Chef.
@@ -193,10 +195,7 @@ public class Chef extends AbstractEntity<Long> implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Chef chef = (Chef) o;
-        return Objects.equals(id, chef.id) &&
-                Objects.equals(firstName, chef.firstName) &&
-                Objects.equals(lastName, chef.lastName) &&
-                Objects.equals(dateOfBirth, chef.dateOfBirth);
+        return Objects.equals(id, chef.id) && Objects.equals(firstName, chef.firstName) && Objects.equals(lastName, chef.lastName) && Objects.equals(dateOfBirth, chef.dateOfBirth);
     }
 
     @Override

@@ -40,6 +40,9 @@ async function handleDeleteMenuItem(event) {
 
 const nameInput = document.getElementById("nameInput");
 const priceInput = document.getElementById("priceInput");
+const courseInput = document.getElementById("courseInput");
+const vegetarianInput = document.getElementById("vegetarianInput");
+const spiceLvlInput = document.getElementById("spiceLvlInput");
 const addButton = document.getElementById("addButton");
 const menuItemBody = document.getElementById("menuItemBody");
 
@@ -52,7 +55,10 @@ async function addNewMenuItem() {
         },
         body: JSON.stringify({
             name: nameInput.value,
-            price: priceInput.value
+            price: priceInput.value,
+            course: courseInput.value,
+            vegetarian: vegetarianInput.checked,
+            spiceLvl: spiceLvlInput.value
         })
     })
     if (response.status === 201) {

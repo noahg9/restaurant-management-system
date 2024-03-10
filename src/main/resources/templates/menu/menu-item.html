@@ -36,6 +36,48 @@
                                     <input class="form-control" id="nameInputField" type="text" th:value="${one_menu_item.name}">
                                 </td>
                             </tr>
+                            <!-- Price -->
+                            <tr>
+                                <th class="col-sm-4">
+                                    <label for="priceInputField" class="form-label" th:text="#{attribute.price}">Price:</label>
+                                </th>
+                                <td class="col-sm-8">
+                                    <input class="form-control" id="priceInputField" required step="0.01" type="number" th:value="${one_menu_item.price}">
+                                </td>
+                            </tr>
+                            <!-- Course -->
+                            <tr>
+                                <th class="col-sm-4">
+                                    <label for="courseInputField" class="form-label" th:text="#{attribute.course}">Course:</label>
+                                </th>
+                                <td class="col-sm-8">
+                                    <select class="form-select" id="courseInputField" name="course" th:value="${one_menu_item.course}">
+                                        <option th:each="course : ${courseValues}"
+                                                th:value="${course}"
+                                                th:text="${course.toString()}"
+                                                th:selected="${one_menu_item.course}">
+                                        </option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <!-- Vegetarian -->
+                            <tr>
+                                <th class="col-sm-4">
+                                    <label for="vegetarianInputField" class="form-label" th:text="#{attribute.vegetarian}">Vegetarian:</label>
+                                </th>
+                                <td class="col-sm-8">
+                                    <input type="checkbox" id="vegetarianInputField" th:checked="${one_menu_item.vegetarian}">
+                                </td>
+                            </tr>
+                            <!-- Spice Level -->
+                            <tr>
+                                <th class="col-sm-4">
+                                    <label for="spiceLvlInputField" class="form-label" th:text="#{attribute.spiceLvl}">Spice Level:</label>
+                                </th>
+                                <td class="col-sm-8">
+                                    <input class="form-control" id="spiceLvlInputField" required type="number" th:value="${one_menu_item.spiceLvl}">
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
