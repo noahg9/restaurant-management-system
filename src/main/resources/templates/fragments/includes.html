@@ -24,97 +24,94 @@
 </head>
 <body>
 <header class="pb-3" th:fragment="header">
-    <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
-        <div class="container">
-            <!-- Website Name -->
-            <a class="navbar-brand" th:href="@{/}" th:text="#{title.website}">Restaurant Management</a>
-            <!-- Toggler Button -->
-            <button aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"
-                    class="navbar-toggler"
-                    data-bs-target="#navbarNav" data-bs-toggle="collapse" type="button">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <!-- Links -->
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <!-- Home -->
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/}">
-                            <i class="fas fa-home"></i>
-                            <span th:text="#{title.home}">Home</span>
-                        </a>
-                    </li>
-                    <!-- Menu Item Dropdown -->
-                    <li class="nav-item dropdown">
-                        <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
-                           id="menuItemDropdown" role="button">
-                            <i class="fas fa-utensils"></i>
-                            <span th:text="#{title.menuItems}">Menu Items</span>
-                        </a>
-                        <ul aria-labelledby="menuItemDropdown" class="dropdown-menu">
-                            <li>
-                                <a class="dropdown-item" th:href="@{/menu-items}">
-                                    <i class="fas fa-list"></i>
-                                    <span th:text="#{header.menuItemList}">Menu Item List</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" th:href="@{/search-menu-items}">
-                                    <i class="fas fa-search"></i>
-                                    <span th:text="#{title.searchMenuItems}">Search Menu Items</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <!-- Chef Dropdown -->
-                    <li class="nav-item dropdown">
-                        <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
-                           id="chefDropdown" role="button">
-                            <i class="fas fa-user"></i>
-                            <span th:text="#{title.chefs}">Chefs</span>
-                        </a>
-                        <ul aria-labelledby="chefDropdown" class="dropdown-menu">
-                            <li>
-                                <a class="dropdown-item" th:href="@{/chefs}">
-                                    <i class="fas fa-list"></i>
-                                    <span th:text="#{header.chefList}">Chef List</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" th:href="@{/search-chefs}">
-                                    <i class="fas fa-search"></i>
-                                    <span th:text="#{title.searchChefs}">Search Chefs</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <!-- History -->
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/history}">
-                            <i class="fas fa-history"></i>
-                            <span th:text="#{title.history}">History</span>
-                        </a>
-                    </li>
-                </ul>
-                <!-- Authentication -->
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item me-2 pt-2" sec:authorize="isAuthenticated()">
-                        <span class="navbar-text">Welcome, <span th:text="${#strings.capitalize(#authentication.name)}">user</span>!</span>
-                    </li>
-                    <li sec:authorize="isAuthenticated()">
-                        <form class="d-flex" th:action="@{/logout}" th:method="POST">
-                            <button class="btn btn-secondary" th:text="#{button.logout}" type="submit">Log out</button>
-                        </form>
-                    </li>
-                    <li class="nav-item" sec:authorize="!isAuthenticated()">
-                        <a class="nav-link" th:href="@{/login}" th:text="#{button.login}">Log in</a>
-                    </li>
-                </ul>
-                <!-- Language Toggle -->
-                <div class="navbar-nav">
-                    <button class="nav-link btn btn-link" onclick="switchLanguage()" th:text="#{button.language}"
-                            type="button"></button>
-                </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <!-- Website Name -->
+        <a class="navbar-brand" th:href="@{/}" th:text="#{title.website}">Restaurant Management</a>
+        <!-- Toggler -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Links -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <!-- Home -->
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">
+                        <i class="fas fa-home"></i>
+                        <span th:text="#{title.home}">Home</span>
+                    </a>
+                </li>
+                <!-- Menu Item Dropdown -->
+                <li class="nav-item dropdown">
+                    <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
+                       id="menuItemDropdown" role="button">
+                        <i class="fas fa-utensils"></i>
+                        <span th:text="#{title.menuItems}">Menu Items</span>
+                    </a>
+                    <ul aria-labelledby="menuItemDropdown" class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item" th:href="@{/menu-items}">
+                                <i class="fas fa-list"></i>
+                                <span th:text="#{header.menuItemList}">Menu Item List</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" th:href="@{/search-menu-items}">
+                                <i class="fas fa-search"></i>
+                                <span th:text="#{title.searchMenuItems}">Search Menu Items</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- Chef Dropdown -->
+                <li class="nav-item dropdown">
+                    <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
+                       id="chefDropdown" role="button">
+                        <i class="fas fa-user"></i>
+                        <span th:text="#{title.chefs}">Chefs</span>
+                    </a>
+                    <ul aria-labelledby="chefDropdown" class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item" th:href="@{/chefs}">
+                                <i class="fas fa-list"></i>
+                                <span th:text="#{header.chefList}">Chef List</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" th:href="@{/search-chefs}">
+                                <i class="fas fa-search"></i>
+                                <span th:text="#{title.searchChefs}">Search Chefs</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- History -->
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/history}">
+                        <i class="fas fa-history"></i>
+                        <span th:text="#{title.history}">History</span>
+                    </a>
+                </li>
+            </ul>
+            <!-- Authentication -->
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item me-2 pt-2" sec:authorize="isAuthenticated()">
+                    <span class="navbar-text">Welcome, <span
+                            th:text="${#strings.capitalize(#authentication.name)}">user</span>!</span>
+                </li>
+                <li sec:authorize="isAuthenticated()">
+                    <form class="d-flex" th:action="@{/logout}" th:method="POST">
+                        <button class="btn btn-secondary" th:text="#{button.logout}" type="submit">Log out</button>
+                    </form>
+                </li>
+                <li class="nav-item" sec:authorize="!isAuthenticated()">
+                    <a class="nav-link" th:href="@{/login}" th:text="#{button.login}">Log in</a>
+                </li>
+            </ul>
+            <!-- Language Toggle -->
+            <div class="navbar-nav">
+                <button class="nav-link btn btn-link" onclick="switchLanguage()" th:text="#{button.language}"
+                        type="button"></button>
             </div>
         </div>
     </nav>

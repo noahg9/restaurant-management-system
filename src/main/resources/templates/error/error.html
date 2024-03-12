@@ -10,11 +10,8 @@
 <header th:replace="~{fragments/includes::header}"></header>
 <main class="container">
     <div class="row justify-content-center error-container">
-        <!-- Error Description -->
-        <div class="mt-5">
-            <h1 class="display-4 error-message">Oops! Something went wrong...</h1>
-            <p class="error-message">We apologize for the inconvenience. Please try again later.</p>
-        </div>
+        <h1 class="display-4 error-message text-primary">Oops! Something went wrong...</h1>
+        <p class="error-message text-body">We apologize for the inconvenience. Please try again later.</p>
         <!-- Error Image -->
         <div class="mt-5">
             <img alt="Error Icon" class="img-fluid error-image" th:src="@{/images/error-icon.png}"/>

@@ -12,22 +12,20 @@
 <header th:replace="~{fragments/includes::header}"></header>
 <main class="container">
     <div class="row justify-content-center">
-        <h1 class="page-title" th:text="#{title.menuItems}">Menu Items</h1>
+        <h1 class="page-title text-primary" th:text="#{title.menuItems}">Menu Items</h1>
         <div class="row">
             <!-- List Section -->
             <div class="col-md-6">
-                <section class="mt-5">
-                    <h2 th:text="#{header.menuItemList}">Menu Item List</h2><br>
+                    <h2 class="text-secondary" th:text="#{header.menuItemList}">Menu Item List</h2><br>
                     <!-- Menu Items -->
                     <div id="menuItemBody">
                         <!-- Menu items will be dynamically added here -->
                     </div>
-                </section>
             </div>
             <!-- Add Section -->
             <div class="col-md-6">
                 <section class="mt-5" sec:authorize="isAuthenticated()">
-                    <h2 th:text="#{header.addMenuItem}">Add Menu Item</h2><br>
+                    <h2 class="text-secondary" th:text="#{header.addMenuItem}">Add Menu Item</h2><br>
                     <!-- Form -->
                     <form>
                         <!-- Name -->

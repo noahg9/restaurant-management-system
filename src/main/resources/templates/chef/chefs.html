@@ -12,12 +12,12 @@
 <header th:replace="~{fragments/includes::header}"></header>
 <main class="container">
     <div class="row justify-content-center">
-        <h1 class="page-title" th:text="#{title.chefs}">Chefs</h1>
+        <h1 class="page-title text-primary" th:text="#{title.chefs}">Chefs</h1>
         <div class="row">
             <!-- List Section -->
             <div class="col-md-6">
                 <section class="mt-5">
-                    <h2 th:text="#{header.chefList}">Chef List</h2><br>
+                    <h2 class="text-secondary" th:text="#{header.chefList}">Chef List</h2><br>
                     <!-- Chefs -->
                     <div id="chefBody">
                         <!-- Chefs will be dynamically added here -->
@@ -27,7 +27,7 @@
             <!-- Add Section -->
             <div class="col-md-6">
                 <section class="mt-5" sec:authorize="isAuthenticated()">
-                    <h2 th:text="#{header.addChef}">Add Chef</h2><br>
+                    <h2 class="text-secondary" th:text="#{header.addChef}">Add Chef</h2><br>
                     <!-- Form -->
                     <form>
                         <!-- First Name -->
