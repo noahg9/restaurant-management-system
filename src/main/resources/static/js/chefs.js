@@ -32,9 +32,6 @@ async function handleDeleteChef(event) {
     });
     if (response.status === 204) {
         row.remove();
-    } else {
-        const errorMessage = await response.text();
-        alert(`Error ${response.status}: ${errorMessage}`);
     }
 }
 

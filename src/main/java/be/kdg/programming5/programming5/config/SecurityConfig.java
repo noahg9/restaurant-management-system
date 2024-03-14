@@ -32,7 +32,7 @@ public class SecurityConfig {
         http.authorizeHttpRequests(
                 auths -> auths
                         .requestMatchers(
-                                regexMatcher("^/(menu-item\\?.+|menu-items|chef\\?.+|chefs|search-chefs|search-menu-items|history|switch-language)"))
+                                regexMatcher("^/(menu-items|chefs|search-chefs|search-menu-items|history|switch-language)"))
                         .permitAll()
                         .requestMatchers(
                                 antMatcher(HttpMethod.GET, "/api/**"),

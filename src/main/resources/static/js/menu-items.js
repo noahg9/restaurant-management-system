@@ -32,9 +32,6 @@ async function handleDeleteMenuItem(event) {
     });
     if (response.status === 204) {
         row.remove()
-    } else {
-        const errorMessage = await response.text();
-        alert(`Error ${response.status}: ${errorMessage}`);
     }
 }
 
@@ -91,7 +88,12 @@ function addMenuItemToTable(menuItem) {
     menuItemBody.appendChild(card);
     const newDeleteButton = card.querySelector('button');
     newDeleteButton.addEventListener("click", (event) => {
-        event.stopPropagation(); // Prevent propagation to parent elements
+        event.stopPropagation(); // Prevent
+
+
+
+
+        // propagation to parent elements
         handleDeleteMenuItem(event);
     });
     card.addEventListener("click", () => {
