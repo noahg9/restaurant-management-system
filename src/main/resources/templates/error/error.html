@@ -8,17 +8,23 @@
 </head>
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
-<main class="container">
+<main class="container text-center">
     <div class="row justify-content-center error-container">
-        <h1 class="display-4 error-message text-primary">Oops! Something went wrong...</h1>
-        <p class="error-message text-body">We apologize for the inconvenience. Please try again later.</p>
-        <!-- Error Image -->
-        <div class="mt-5">
-            <img alt="Error Icon" class="img-fluid error-image" th:src="@{/images/error-icon.png}"/>
+        <div class="col-md-12">
+            <h1 class="display-4 error-message text-primary">Oops! Something went wrong...</h1>
+        </div>
+        <div class="col-md-12">
+            <p class="error-message text-body">We apologize for the inconvenience. Please try again later.</p>
+            <!-- Error Image -->
+            <div class="mt-5">
+                <img alt="Error Icon" class="img-fluid error-image" th:src="@{/images/error-icon.png}"/>
+            </div>
         </div>
         <!-- Home Link -->
-        <div class="mt-5 back-home-link">
-            <a class="btn btn-primary" th:href="@{/}">Back to home</a>
+        <div class="row justify-content-center">
+            <div class="mt-5 back-home-link">
+                <a class="btn btn-primary" th:href="@{/}">Back to home</a>
+            </div>
         </div>
     </div>
 </main>

@@ -6,69 +6,69 @@
 <head>
     <title th:text="#{title.chefs}">Chefs</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
-    <script defer src="/js/chefs.js"></script>
+    <script src="/js/chefs.js" type="module"></script>
 </head>
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
-<main class="container">
+<main class="container text-center">
     <div class="row justify-content-center">
-        <h1 class="page-title text-primary" th:text="#{title.chefs}">Chefs</h1>
-        <div class="row">
-            <!-- List Section -->
-            <div class="col-md-6">
-                <section class="mt-5">
-                    <h2 class="text-secondary" th:text="#{header.chefList}">Chef List</h2><br>
-                    <!-- Chefs -->
-                    <div id="chefBody">
-                        <!-- Chefs will be dynamically added here -->
+        <div class="col-md-12">
+            <h1 class="page-title text-primary" th:text="#{title.chefs}">Chefs</h1>
+        </div>
+        <!-- List Section -->
+        <div class="col-md-6">
+            <section class="mt-5 text-center">
+                <h2 class="text-secondary" th:text="#{header.list}">List</h2><br>
+                <!-- Chefs -->
+                <div class="row mb-3 justify-content-center" id="chefBody">
+                    <!-- Chefs will be dynamically added here -->
+                </div>
+            </section>
+        </div>
+        <!-- Add Section -->
+        <div class="col-md-6">
+            <section class="mt-5 text-center" sec:authorize="isAuthenticated()">
+                <h2 class="text-secondary" th:text="#{header.add}">Add</h2><br>
+                <!-- Form -->
+                <form>
+                    <!-- First Name -->
+                    <div class="row mb-3 justify-content-center">
+                        <div class="col-sm-4">
+                            <label class="form-label" for="firstNameInput" th:text="#{attribute.firstName}">First
+                                Name</label>
+                            <input class="form-control" id="firstNameInput" required
+                                   th:placeholder="#{attribute.firstName}"
+                                   type="text">
+                        </div>
                     </div>
-                </section>
-            </div>
-            <!-- Add Section -->
-            <div class="col-md-6">
-                <section class="mt-5" sec:authorize="isAuthenticated()">
-                    <h2 class="text-secondary" th:text="#{header.addChef}">Add Chef</h2><br>
-                    <!-- Form -->
-                    <form>
-                        <!-- First Name -->
-                        <div class="row mb-3">
-                            <div class="col-sm-4">
-                                <label class="form-label" for="firstNameInput" th:text="#{attribute.firstName}">First
-                                    Name</label>
-                                <input class="form-control" id="firstNameInput" required
-                                       th:placeholder="#{attribute.firstName}"
-                                       type="text">
-                            </div>
+                    <!-- Last Name -->
+                    <div class="row mb-3 justify-content-center">
+                        <div class="col-sm-4">
+                            <label class="form-label" for="lastNameInput" th:text="#{attribute.lastName}">Last
+                                Name</label>
+                            <input class="form-control" id="lastNameInput" required
+                                   th:placeholder="#{attribute.lastName}"
+                                   type="text">
                         </div>
-                        <!-- Last Name -->
-                        <div class="row mb-3">
-                            <div class="col-sm-4">
-                                <label class="form-label" for="lastNameInput" th:text="#{attribute.lastName}">Last
-                                    Name</label>
-                                <input class="form-control" id="lastNameInput" required
-                                       th:placeholder="#{attribute.lastName}"
-                                       type="text">
-                            </div>
+                    </div>
+                    <!-- Date of Birth -->
+                    <div class="row mb-3 justify-content-center">
+                        <div class="col-sm-4">
+                            <label class="form-label" for="dobInput" th:text="#{attribute.dateOfBirth}">Date of
+                                Birth</label>
+                            <input class="form-control" id="dobInput" type="date">
                         </div>
-                        <!-- Date of Birth -->
-                        <div class="row mb-3">
-                            <div class="col-sm-4">
-                                <label class="form-label" for="dobInput" th:text="#{attribute.dateOfBirth}">Date of
-                                    Birth</label>
-                                <input class="form-control" id="dobInput" type="date">
-                            </div>
+                    </div>
+                    <!-- Add Button -->
+                    <div class="row justify-content-center">
+                        <div class="col-sm-4">
+                            <button class="btn btn-primary mb-3" id="addButton" th:text="#{button.add}"
+                                    type="button">Add
+                            </button>
                         </div>
-                        <!-- Add Button -->
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <button class="btn btn-primary mb-3" id="addButton" th:text="#{button.add}"
-                                        type="button">Add
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </section>
-            </div>
+                    </div>
+                </form>
+            </section>
         </div>
     </div>
 </main>

@@ -16,11 +16,9 @@ async function showResults(e) {
     if (response.status === 200) {
         const chefs = await response.json();
         let html = `<p>Found ${chefs.length} results</p>`;
-        html += '<ul>';
         chefs.forEach(chef => {
-            html += `<li><a href="/chef?id=${chef.id}">${chef.firstName + ' ' + chef.lastName}</a></li>`;
+            html += `<a href="/chef?id=${chef.id}">${chef.firstName + ' ' + chef.lastName}</a><br>`;
         });
-        html += '</ul>';
         searchResults.innerHTML = html;
     } else {
         searchResults.innerHTML = `<p>Found no results</p>`;

@@ -35,6 +35,8 @@ public class MenuItemViewModel {
 
     private List<ChefViewModel> chefs;
 
+    private boolean modificationAllowed;
+
 
     /**
      * Instantiates a new Menu item view model.
@@ -88,6 +90,18 @@ public class MenuItemViewModel {
         setRestaurantId(restaurantId);
         setRestaurantName(restaurantName);
         setChefs(chefs);
+    }
+
+    public MenuItemViewModel(long id, String name, double price, Course course, boolean vegetarian, int spiceLvl, long restaurantId, String restaurantName, boolean modificationAllowed) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.course = course;
+        this.vegetarian = vegetarian;
+        this.spiceLvl = spiceLvl;
+        this.restaurantId = restaurantId;
+        this.restaurantName = restaurantName;
+        this.modificationAllowed = modificationAllowed;
     }
 
     /**
@@ -250,5 +264,13 @@ public class MenuItemViewModel {
      */
     public void setChefs(List<ChefViewModel> chefs) {
         this.chefs = chefs;
+    }
+
+    public boolean isModificationAllowed() {
+        return modificationAllowed;
+    }
+
+    public void setModificationAllowed(boolean modificationAllowed) {
+        this.modificationAllowed = modificationAllowed;
     }
 }

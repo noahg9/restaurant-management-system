@@ -11,22 +11,16 @@ import java.util.List;
  * The type Chef view model.
  */
 public class ChefViewModel {
-
     private long id;
-
     @NotBlank(message = "First name cannot be empty")
     private String firstName;
-
     @NotBlank(message = "Last name cannot be empty")
     private String lastName;
-
     @NotNull(message = "Date of birth cannot be null")
     private LocalDate dateOfBirth;
-
     private long restaurantId;
-
     private String restaurantName;
-
+    private boolean modificationAllowed;
     private List<MenuItemViewModel> menuItems;
 
     /**
@@ -34,44 +28,25 @@ public class ChefViewModel {
      */
     public ChefViewModel() {}
 
-    /**
-     * Instantiates a new Chef view model.
-     *
-     * @param id             the id
-     * @param firstName      the first name
-     * @param lastName       the last name
-     * @param dateOfBirth    the date of birth
-     * @param restaurantId   the restaurant id
-     * @param restaurantName the restaurant name
-     */
-    public ChefViewModel(long id, String firstName, String lastName, LocalDate dateOfBirth, long restaurantId, String restaurantName) {
+    public ChefViewModel(long id, String firstName, String lastName, LocalDate dateOfBirth, long restaurantId, String restaurantName, boolean modificationAllowed, List<MenuItemViewModel> menuItems) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
         this.restaurantId = restaurantId;
         this.restaurantName = restaurantName;
+        this.modificationAllowed = modificationAllowed;
+        this.menuItems = menuItems;
     }
 
-    /**
-     * Instantiates a new Chef view model.
-     *
-     * @param id             the id
-     * @param firstName      the first name
-     * @param lastName       the last name
-     * @param dateOfBirth    the date of birth
-     * @param restaurantId   the restaurant id
-     * @param restaurantName the restaurant name
-     * @param menuItems      the menu items
-     */
-    public ChefViewModel(long id, String firstName, String lastName, LocalDate dateOfBirth, long restaurantId, String restaurantName, List<MenuItemViewModel> menuItems) {
+    public ChefViewModel(long id, String firstName, String lastName, LocalDate dateOfBirth, long restaurantId, String restaurantName, boolean modificationAllowed) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
         this.restaurantId = restaurantId;
         this.restaurantName = restaurantName;
-        this.menuItems = menuItems;
+        this.modificationAllowed = modificationAllowed;
     }
 
     /**
@@ -191,6 +166,14 @@ public class ChefViewModel {
     public int calculateAge() {
         LocalDate currentDate = LocalDate.now();
         return Period.between(dateOfBirth, currentDate).getYears();
+    }
+
+    public boolean isModificationAllowed() {
+        return modificationAllowed;
+    }
+
+    public void setModificationAllowed(boolean modificationAllowed) {
+        this.modificationAllowed = modificationAllowed;
     }
 
     /**

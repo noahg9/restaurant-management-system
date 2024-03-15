@@ -8,42 +8,38 @@
 </head>
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
-<main class="container">
+<main class="container text-center">
     <div class="row justify-content-center">
-        <h1 class="page-title text-primary" th:text="#{title.home}">Home</h1>
-        <p class="lead text-body text-body" th:text="#{message.home}">Welcome to our database of restaurants.</p>
-        <!-- Navigation Cards -->
-        <div class="row">
-            <!-- Menu Item Links -->
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title" th:text="#{title.menuItems}">Menu Items</h5>
-                        <a class="btn btn-primary" href="/menu-items" th:text="#{header.menuItemList}">Menu Item
-                            List</a>
-                        <a class="btn btn-primary" href="/search-menu-items" th:text="#{title.searchMenuItems}">Search
-                            Menu
-                            Items</a>
-                    </div>
+        <div class="col-md-12">
+            <h1 class="page-title text-primary" th:text="#{title.home}">Home</h1>
+            <p class="lead text-body text-body" th:text="#{message.home}">For chefs, by chefs.</p>
+        </div>
+        <!-- Menu Item Links -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="#{title.menuItems}">Menu Items</h5>
+                    <a class="btn btn-primary" href="/menu-items" th:text="#{header.list}">List</a>
+                    <a class="btn btn-primary" href="/search-menu-items" th:text="#{header.search}">Search</a>
                 </div>
             </div>
-            <!-- Chef Links -->
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title" th:text="#{title.chefs}">Chefs</h5>
-                        <a class="btn btn-primary" href="/chefs" th:text="#{header.chefList}">Chef List</a>
-                        <a class="btn btn-primary" href="/search-chefs" th:text="#{title.searchChefs}">Search Chefs</a>
-                    </div>
+        </div>
+        <!-- Chef Links -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="#{title.chefs}">Chefs</h5>
+                    <a class="btn btn-primary" href="/chefs" th:text="#{header.list}">List</a>
+                    <a class="btn btn-primary" href="/search-chefs" th:text="#{header.search}">Search</a>
                 </div>
             </div>
-            <!-- More Links -->
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title" th:text="#{title.more}">More</h5>
-                        <a class="btn btn-primary" href="/history" th:text="#{title.history}">History</a>
-                    </div>
+        </div>
+        <!-- More Links -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="#{title.more}">More</h5>
+                    <a class="btn btn-primary" href="/history" th:text="#{title.history}">History</a>
                 </div>
             </div>
         </div>

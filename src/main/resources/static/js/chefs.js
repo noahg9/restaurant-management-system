@@ -1,8 +1,12 @@
+import {header, token} from "./util/csrf.js";
+
 async function fillChefsTable() {
     const response = await fetch('/api/chefs', {
         headers: {
-            "Accept": "application/json"
-        }});
+            "Accept": "application/json",
+            [header]: token
+        }
+    });
     if (response.status === 200) {
         const chefs = await response.json();
         chefs.forEach(chef => {
@@ -24,10 +28,8 @@ async function handleDeleteChef(event) {
     const row = event.target.closest('.card');
     const chefId = row.dataset.chefId;
     const response = await fetch(`/api/chefs/${chefId}`, {
-        method: "DELETE",
-        headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
+        method: "DELETE", headers: {
+            [header]: token
         }
     });
     if (response.status === 204) {
@@ -43,15 +45,10 @@ const chefBody = document.getElementById("chefBody");
 
 async function addNewChef() {
     const response = await fetch(`/api/chefs`, {
-        method: "POST",
-        headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            firstName: firstNameInput.value,
-            lastName: lastNameInput.value,
-            dateOfBirth: dobInput.value
+        method: "POST", headers: {
+            "Accept": "application/json", "Content-Type": "application/json", [header]: token
+        }, body: JSON.stringify({
+            firstName: firstNameInput.value, lastName: lastNameInput.value, dateOfBirth: dobInput.value
         })
     })
     if (response.status === 201) {
@@ -84,7 +81,7 @@ function addChefToTable(chef) {
     chefBody.appendChild(card);
     const newDeleteButton = card.querySelector('button');
     newDeleteButton.addEventListener("click", (event) => {
-        event.stopPropagation(); // Prevent propagation to parent elements
+        event.stopPropagation();
         handleDeleteChef(event);
     });
     card.addEventListener("click", () => {

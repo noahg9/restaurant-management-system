@@ -1,18 +1,24 @@
 package be.kdg.programming5.programming5.controllers.mvc;
 
-import be.kdg.programming5.programming5.controllers.mvc.viewmodel.ChefViewModel;
 import be.kdg.programming5.programming5.controllers.mvc.viewmodel.MenuItemViewModel;
 import be.kdg.programming5.programming5.domain.Course;
+import be.kdg.programming5.programming5.domain.MenuItemChef;
 import be.kdg.programming5.programming5.domain.util.HistoryUtil;
+import be.kdg.programming5.programming5.service.MenuItemChefService;
 import be.kdg.programming5.programming5.service.MenuItemService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import be.kdg.programming5.programming5.security.CustomUserDetails;
+
+import static be.kdg.programming5.programming5.domain.ChefRole.ADMIN;
 
 /**
  * The type Menu item controller.
@@ -21,14 +27,11 @@ import org.springframework.web.servlet.ModelAndView;
 public class MenuItemController {
     private final Logger logger = LoggerFactory.getLogger(MenuItemController.class);
     private final MenuItemService menuItemService;
+    private final MenuItemChefService menuItemChefService;
 
-    /**
-     * Instantiates a new Menu item controller.
-     *
-     * @param menuItemService the menu item service
-     */
-    public MenuItemController(MenuItemService menuItemService) {
+    public MenuItemController(MenuItemService menuItemService, MenuItemChefService menuItemChefService) {
         this.menuItemService = menuItemService;
+        this.menuItemChefService = menuItemChefService;
     }
 
     /**
@@ -39,12 +42,15 @@ public class MenuItemController {
      * @return the model and view
      */
     @GetMapping("/menu-items")
-    public ModelAndView allMenuItems(HttpSession session, Model model) {
+    public ModelAndView allMenuItems(HttpSession session, Model model,
+                                     @AuthenticationPrincipal CustomUserDetails user,
+                                     HttpServletRequest request) {
         logger.info("Getting menu items");
         String pageTitle = "Menu Item";
         HistoryUtil.updateHistory(session, pageTitle);
         model.addAttribute("pageTitle", pageTitle);
 
+        Long chefId = user != null ? user.getChefId() : null;
         var mav = new ModelAndView();
         mav.setViewName("menu/menu-items");
         mav.addObject("all_menu_items",
@@ -58,8 +64,12 @@ public class MenuItemController {
                                 menuItem.isVegetarian(),
                                 menuItem.getSpiceLvl(),
                                 menuItem.getRestaurant().getId(),
-                                menuItem.getRestaurant().getName()))
-                        .toList());
+                                menuItem.getRestaurant().getName(),
+                                request.isUserInRole(ADMIN.getCode()) ||
+                                        chefId != null
+                                                && menuItemChefService
+                                                .isChefAssignedToMenuItem(menuItem.getId(), chefId)
+                                )).toList());
         mav.addObject("courseValues", Course.values());
         return mav;
     }
@@ -73,12 +83,15 @@ public class MenuItemController {
      * @return the model and view
      */
     @GetMapping("/menu-item")
-    public ModelAndView oneMenuItem(@RequestParam("id") long menuItemId, HttpSession session, Model model) {
+    public ModelAndView oneMenuItem(@RequestParam("id") long menuItemId, HttpSession session, Model model,
+                                    @AuthenticationPrincipal CustomUserDetails user,
+                                    HttpServletRequest request) {
         logger.info("Getting menu item");
         String pageTitle = "Menu Item";
         HistoryUtil.updateHistory(session, pageTitle);
         model.addAttribute("pageTitle", pageTitle);
 
+        Long chefId = user != null ? user.getChefId() : null;
         var menuItem = menuItemService.getMenuItemWithChefs(menuItemId);
         var mav = new ModelAndView();
         mav.setViewName("menu/menu-item");
@@ -92,18 +105,12 @@ public class MenuItemController {
                         menuItem.getSpiceLvl(),
                         menuItem.getRestaurant().getId(),
                         menuItem.getRestaurant().getName(),
-                        menuItem.getChefs()
-                                .stream().map(
-                                        menuItemChef ->
-                                                new ChefViewModel(
-                                                        menuItemChef.getChef().getId(),
-                                                        menuItemChef.getChef().getFirstName(),
-                                                        menuItemChef.getChef().getLastName(),
-                                                        menuItemChef.getChef().getDateOfBirth(),
-                                                        menuItemChef.getChef().getRestaurant().getId(),
-                                                        menuItemChef.getChef().getRestaurant().getName()
-                                                )
-                                ).toList()
+                        request.isUserInRole(ADMIN.getCode()) ||
+                                chefId != null &&
+                                        menuItem.getChefs()
+                                                .stream()
+                                                .map(MenuItemChef::getChef)
+                                                .anyMatch(chef -> chef.getId() == chefId)
                 ));
         mav.addObject("courseValues", Course.values());
         return mav;

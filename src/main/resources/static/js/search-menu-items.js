@@ -16,11 +16,9 @@ async function showResults(e) {
     if (response.status === 200) {
         const menuItems = await response.json();
         let html = `<p>Found ${menuItems.length} results</p>`;
-        html += '<ul>';
         menuItems.forEach(menuItem => {
-            html += `<li><a href="/menu-item?id=${menuItem.id}">${menuItem.name}</a></li>`;
+            html += `<a href="/menu-item?id=${menuItem.id}">${menuItem.name}</a><br>`;
         });
-        html += '</ul>';
         searchResults.innerHTML = html;
     } else {
         searchResults.innerHTML = `<p>Found no results</p>`;

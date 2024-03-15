@@ -6,11 +6,14 @@ import be.kdg.programming5.programming5.controllers.api.dto.NewChefDto;
 import be.kdg.programming5.programming5.controllers.api.dto.UpdateChefDto;
 import be.kdg.programming5.programming5.domain.MenuItemChef;
 import be.kdg.programming5.programming5.service.ChefService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import be.kdg.programming5.programming5.security.CustomUserDetails;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -56,12 +59,13 @@ public class ChefsController {
      * @return the all chefs
      */
     @GetMapping
-    public ResponseEntity<List<ChefDto>> getAllChefs() {
+    ResponseEntity<List<ChefDto>> getAllChefs() {
         var allChefs = chefService.getAllChefs();
         if (allChefs.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
-            List<ChefDto> chefDtos = allChefs.stream()
+            List<ChefDto> chefDtos = allChefs
+                    .stream()
                     .map(chef -> modelMapper.map(chef, ChefDto.class))
                     .collect(Collectors.toList());
             return ResponseEntity.ok(chefDtos);
@@ -99,7 +103,11 @@ public class ChefsController {
     @GetMapping("search")
     ResponseEntity<List<ChefDto>> searchChefs(@RequestParam(required = false) String search) {
         if (search == null || search.trim().isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return ResponseEntity
+                    .ok(chefService.getAllChefs()
+                            .stream()
+                            .map(chef -> modelMapper.map(chef, ChefDto.class))
+                            .toList());
         } else {
             var searchResult = chefService.searchChefsByFirstNameOrLastName(search);
             if (searchResult.isEmpty()) {
@@ -120,13 +128,13 @@ public class ChefsController {
      * @return the response entity
      */
     @PostMapping
-    ResponseEntity<ChefDto> addChef(@RequestBody @Valid NewChefDto chefDto) {
+    ResponseEntity<ChefDto> addChef(@RequestBody @Valid NewChefDto chefDto,
+                                    @AuthenticationPrincipal CustomUserDetails user) {
         var createdChef = chefService.addChef(
                 chefDto.getFirstName(), chefDto.getLastName(), chefDto.getDateOfBirth());
         return new ResponseEntity<>(
                 modelMapper.map(createdChef, ChefDto.class),
-                HttpStatus.CREATED
-        );
+                HttpStatus.CREATED);
     }
 
     /**
@@ -136,7 +144,9 @@ public class ChefsController {
      * @return the response entity
      */
     @DeleteMapping("{id}")
-    ResponseEntity<Void> deleteChef(@PathVariable("id") long chefId) {
+    ResponseEntity<Void> deleteChef(@PathVariable("id") long chefId,
+                                    @AuthenticationPrincipal CustomUserDetails user,
+                                    HttpServletRequest request) {
         if (chefService.removeChef(chefId)) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -152,8 +162,10 @@ public class ChefsController {
      */
     @PatchMapping("{id}")
     ResponseEntity<Void> changeChef(@PathVariable("id") long chefId,
-                                     @RequestBody @Valid UpdateChefDto updateChefDto) {
-        if (chefService.changeChefName(chefId, updateChefDto.getFirstName(), updateChefDto.getLastName(), updateChefDto.getDateOfBirth())) {
+                                    @RequestBody @Valid UpdateChefDto updateChefDto,
+                                    @AuthenticationPrincipal CustomUserDetails user) {
+        if (chefService.changeChef(chefId, updateChefDto.getFirstName(), updateChefDto.getLastName(),
+                updateChefDto.getDateOfBirth())) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

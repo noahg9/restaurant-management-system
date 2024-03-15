@@ -1,17 +1,20 @@
-INSERT INTO application_user(username, password)
-VALUES ('noah', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6'),
-       ('lars', '$2a$10$N3TGXdcRDhTBQbPxD1BFjO2c0/eV7mAZKl5bpgakNn4tRET53Kgbi'),
-       ('admin', '$2a$10$2n9H5HUuGpJLL9H0dauGNeb7Al4qsJD3iA2Ua7P81M9xsbP9s/BBW');
-
 INSERT INTO restaurant (name, date_established, seating_capacity)
 VALUES ('San Remo', '1989-01-14', 20),
        ('Zeus', '2001-04-13', 23);
 
-INSERT INTO chef (first_name, last_name, date_of_birth, restaurant_id)
-VALUES ('Tom', 'Hanks', '1981-04-22', 2),
-       ('Gordon', 'Ramsey', '1978-09-08', 2),
-       ('Mary', 'Poppins', '1971-12-20', 1),
-       ('Billie', 'Eilish', '2004-02-11', 1);
+INSERT INTO chef (first_name, last_name, date_of_birth, username, password, role, restaurant_id)
+VALUES ('Tom', 'Hanks', '1981-04-22',
+        'tom', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6',
+        1, 2),
+       ('Gordon', 'Ramsey', '1978-09-08',
+        'gordon', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6',
+        1, 2),
+       ('Mary', 'Poppins', '1971-12-20',
+        'mary', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6',
+        1, 1),
+       ('Billie', 'Eilish', '2004-02-11',
+        'billie', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6',
+        1, 1);
 
 INSERT INTO menu_item (name, price, course, vegetarian, spice_lvl, restaurant_id)
 VALUES ('Ceasar Salad', 3.5, 'Main', FALSE, 0, 1),

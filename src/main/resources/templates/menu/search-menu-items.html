@@ -5,25 +5,29 @@
 <head>
     <title th:text="#{title.searchMenuItems}">Search Menu Items</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
-    <script defer src="/js/search-menu-items.js"></script>
+    <script src="/js/search-menu-items.js"></script>
 </head>
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
-<main class="container">
+<main class="container text-center">
     <div class="row justify-content-center">
-        <h1 class="page-title text-primary" th:text="#{title.searchMenuItems}">Search Chefs</h1>
+        <div class="col-md-12">
+            <h1 class="page-title text-primary" th:text="#{title.searchMenuItems}">Search Chefs</h1>
+        </div>
         <!-- Search Bar -->
-        <form>
-            <div class="row mb-3">
-                <div class="col">
-                    <label class="form-label" for="searchTerm" th:text="#{message.searchTerm}">Name</label>
-                    <input aria-describedby="searchHelp" class="form-control" id="searchTerm"
-                           th:placeholder="#{message.menuItemsSearch}" type="text">
+        <div class="col-md-4">
+            <form>
+                <div class="row mb-3">
+                    <div class="col">
+                        <label class="form-label" for="searchTerm" th:text="#{message.searchTerm}">Name</label>
+                        <input aria-describedby="searchHelp" class="form-control" id="searchTerm"
+                               th:placeholder="#{message.menuItemsSearch}" type="text">
+                    </div>
                 </div>
+            </form>
+            <!-- Search Results -->
+            <div id="searchResultsSection">
             </div>
-        </form>
-        <!-- Search Results -->
-        <div id="searchResultsSection">
         </div>
     </div>
 </main>

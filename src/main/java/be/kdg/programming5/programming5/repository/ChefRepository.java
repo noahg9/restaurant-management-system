@@ -28,6 +28,8 @@ public interface ChefRepository extends JpaRepository<Chef, Long> {
         """)
     Optional<Chef> findByIdWithMenuItems(long chefId);
 
+    Optional<Chef> findByUsername(String username);
+
     /**
      * Find all with menu items list.
      *

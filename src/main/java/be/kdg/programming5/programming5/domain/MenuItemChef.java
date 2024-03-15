@@ -38,6 +38,11 @@ public class MenuItemChef extends AbstractEntity<Long> implements Serializable {
         setChef(chef);
     }
 
+    public MenuItemChef(MenuItem menuItem, Chef chef) {
+        setMenuItem(menuItem);
+        setChef(chef);
+    }
+
     /**
      * Gets menu item.
      *

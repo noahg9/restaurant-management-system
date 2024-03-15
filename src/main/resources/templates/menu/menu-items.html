@@ -6,80 +6,84 @@
 <head>
     <title th:text="#{title.menuItems}">Menu Items</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
-    <script defer src="/js/menu-items.js"></script>
+    <script src="/js/menu-items.js" type="module"></script>
 </head>
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
-<main class="container">
+<main class="container text-center">
     <div class="row justify-content-center">
-        <h1 class="page-title text-primary" th:text="#{title.menuItems}">Menu Items</h1>
-        <div class="row">
-            <!-- List Section -->
-            <div class="col-md-6">
-                    <h2 class="text-secondary" th:text="#{header.menuItemList}">Menu Item List</h2><br>
-                    <!-- Menu Items -->
-                    <div id="menuItemBody">
-                        <!-- Menu items will be dynamically added here -->
+        <div class="col-md-12">
+            <h1 class="page-title text-primary" th:text="#{title.menuItems}">Menu Items</h1>
+        </div>
+        <!-- List Section -->
+        <div class="col-md-6">
+            <section class="mt-5 text-center">
+                <h2 class="text-secondary" th:text="#{header.list}">List</h2><br>
+                <!-- Menu Items -->
+                <div class="row mb-3 justify-content-center" id="menuItemBody">
+                    <!-- Menu items will be dynamically added here -->
+                </div>
+            </section>
+        </div>
+        <!-- Add Section -->
+        <div class="col-md-6">
+            <section class="mt-5 text-center" sec:authorize="isAuthenticated()">
+                <h2 class="text-secondary" th:text="#{header.add}">Add</h2><br>
+                <!-- Form -->
+                <form>
+                    <!-- Name -->
+                    <div class="row mb-3 justify-content-center">
+                        <div class="col-sm-4">
+                            <label class="form-label" for="nameInput" th:text="#{attribute.name}">Name</label>
+                            <input class="form-control" id="nameInput" required th:placeholder="#{attribute.name}"
+                                   type="text">
+                        </div>
                     </div>
-            </div>
-            <!-- Add Section -->
-            <div class="col-md-6">
-                <section class="mt-5" sec:authorize="isAuthenticated()">
-                    <h2 class="text-secondary" th:text="#{header.addMenuItem}">Add Menu Item</h2><br>
-                    <!-- Form -->
-                    <form>
-                        <!-- Name -->
-                        <div class="row mb-3">
-                            <div class="col-sm-4">
-                                <label class="form-label" for="nameInput" th:text="#{attribute.name}">Name</label>
-                                <input class="form-control" id="nameInput" required th:placeholder="#{attribute.name}"
-                                       type="text">
-                            </div>
+                    <!-- Price -->
+                    <div class="row mb-3 justify-content-center">
+                        <div class="col-sm-4">
+                            <label class="form-label" for="priceInput" th:text="#{attribute.price}">Price</label>
+                            <input class="form-control" id="priceInput" required step="0.01" type="number">
                         </div>
-                        <!-- Price -->
-                        <div class="row mb-3">
-                            <div class="col-sm-4">
-                                <label class="form-label" for="priceInput" th:text="#{attribute.price}">Price</label>
-                                <input class="form-control" id="priceInput" required step="0.01" type="number">
-                            </div>
+                    </div>
+                    <!-- Course -->
+                    <div class="row mb-3 justify-content-center">
+                        <div class="col-sm-4">
+                            <label class="form-label" for="courseInput" th:text="#{attribute.price}">Price</label>
+                            <select class="form-select" id="courseInput" name="course">
+                                <option th:each="course : ${courseValues}"
+                                        th:text="${course.toString()}"
+                                        th:value="${course}">
+                                </option>
+                            </select>
                         </div>
-                        <!-- Course -->
-                        <div class="row mb-3">
-                            <div class="col-sm-4">
-                                <label class="form-label" for="courseInput" th:text="#{attribute.price}">Price</label>
-                                <select class="form-select" id="courseInput" name="course">
-                                    <option th:each="course : ${courseValues}"
-                                            th:value="${course}"
-                                            th:text="${course.toString()}">
-                                    </option>
-                                </select>
-                            </div>
+                    </div>
+                    <!-- Vegetarian -->
+                    <div class="row mb-3 justify-content-center">
+                        <div class="col-sm-4">
+                            <label class="form-label" for="vegetarianInput"
+                                   th:text="#{attribute.vegetarian}">Vegetarian</label>
+                            <input class="form-check" id="vegetarianInput" type="checkbox">
                         </div>
-                        <!-- Vegetarian -->
-                        <div class="row mb-3">
-                            <div class="col-sm-4">
-                                <label class="form-label" for="vegetarianInput" th:text="#{attribute.vegetarian}">Vegetarian</label>
-                                <input type="checkbox" id="vegetarianInput">
-                            </div>
+                    </div>
+                    <!-- Spice Level -->
+                    <div class="row mb-3 justify-content-center">
+                        <div class="col-sm-4">
+                            <label class="form-label" for="spiceLvlInput" th:text="#{attribute.spiceLvl}">Spice
+                                Level</label>
+                            <input class="form-control" id="spiceLvlInput" required type="number">
                         </div>
-                        <!-- Spice Level -->
-                        <div class="row mb-3">
-                            <div class="col-sm-4">
-                                <label class="form-label" for="spiceLvlInput" th:text="#{attribute.spiceLvl}">Spice Level</label>
-                                <input class="form-control" id="spiceLvlInput" required type="number">
-                            </div>
+                    </div>
+                    <!-- Add Button -->
+                    <div class="row justify-content-center">
+                        <div class="col-sm-4">
+                            <button class="btn btn-primary mb-3" id="addButton" th:text="#{button.add}"
+                                    type="button">Add
+                            </button>
                         </div>
-                        <!-- Add Button -->
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <button class="btn btn-primary mb-3" id="addButton" th:text="#{button.add}"
-                                        type="button">Add
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </section>
-            </div>
+                    </div>
+                </form>
+            </section>
         </div>
     </div>
 </main>

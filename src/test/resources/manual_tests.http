@@ -40,6 +40,8 @@ Accept: application/json
 ### API: delete a menu items (204)
 
 DELETE http://localhost:9242/api/menu-items/1
+Cookie: JSESSIONID=E9D803ECD90745F0F547D68D6602CBD2
+X-CSRF-TOKEN: zoNrlbJ2ZBRGvX90J6-Re5wD2CT_xie1sOHxSxSSh5bONxUu_bMJ8YAXVnBrhBoWRYKlTPk39UXN_kWYgIDAfy2g4vT4ASMb
 
 ### API: delete a menu item (403)
 

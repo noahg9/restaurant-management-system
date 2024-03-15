@@ -21,6 +21,12 @@ public class MenuItemChefService {
         this.menuItemChefRepository = menuItemChefRepository;
     }
 
+    public boolean isChefAssignedToMenuItem(long menuItemId, long chefId) {
+        return menuItemChefRepository
+                .findByMenuItemIdAndChefId(menuItemId, chefId)
+                .isPresent();
+    }
+
     /**
      * Remove all chefs.
      *

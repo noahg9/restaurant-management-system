@@ -5,15 +5,14 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <thymeleaf th:fragment="meta_script_link" th:remove="tag">
-        <!-- Meta -->
         <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
         <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-        <!-- Links -->
+        <meta name="_csrf" th:content="${_csrf.token}"/>
+        <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
         <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
         <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
         <link href="/images/logo.png" rel="icon" type="image/png">
-        <!-- Scripts -->
         <script th:src="@{/js/language-switch.js}"></script>
         <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
         <script crossorigin="anonymous"
@@ -31,7 +30,7 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <!-- Links -->
+        <!-- Left Side -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <!-- Home -->
@@ -93,26 +92,30 @@
                     </a>
                 </li>
             </ul>
-            <!-- Authentication -->
+            <!-- Right Side -->
             <ul class="navbar-nav ms-auto">
+                <!-- Welcome Message -->
                 <li class="nav-item me-2 pt-2" sec:authorize="isAuthenticated()">
-                    <span class="navbar-text">Welcome, <span
-                            th:text="${#strings.capitalize(#authentication.name)}">user</span>!</span>
+                    <span class="navbar-text">
+                        Welcome, <span th:text="${#strings.capitalize(#authentication.name)}">user</span>!
+                    </span>
                 </li>
+                <!-- Logout Button -->
                 <li sec:authorize="isAuthenticated()">
                     <form class="d-flex" th:action="@{/logout}" th:method="POST">
-                        <button class="btn btn-secondary" th:text="#{button.logout}" type="submit">Log out</button>
+                        <button class="btn" type="submit"><i class="fas fa-sign-out-alt"></i></button>
                     </form>
                 </li>
+                <!-- Login Button -->
                 <li class="nav-item" sec:authorize="!isAuthenticated()">
-                    <a class="nav-link" th:href="@{/login}" th:text="#{button.login}">Log in</a>
+                    <a class="nav-link" th:href="@{/login}"><i class="fas fa-sign-in-alt"></i></a>
+                </li>
+                <!-- Language Switch -->
+                <li class="navbar-item">
+                    <button class="nav-link btn btn-link btn-secondary" onclick="switchLanguage()" th:text="#{button.language}"
+                            type="button"></button>
                 </li>
             </ul>
-            <!-- Language Toggle -->
-            <div class="navbar-nav">
-                <button class="nav-link btn btn-link" onclick="switchLanguage()" th:text="#{button.language}"
-                        type="button"></button>
-            </div>
         </div>
     </nav>
 </header>

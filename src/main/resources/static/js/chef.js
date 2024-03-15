@@ -1,3 +1,5 @@
+import {header, token} from "./util/csrf.js";
+
 const chefIdInput = document.getElementById("chefId");
 const toggleMenuItemsButton = document.getElementById("toggleMenuItemInformation");
 const associatedMenuItems = document.getElementById("associatedMenuItems");
@@ -8,7 +10,8 @@ async function toggleMenuItems() {
     } else {
         const response = await fetch(`/api/chefs/${chefIdInput.value}/menu-items`, {
             headers: {
-                "Accept": "application/json"
+                "Accept": "application/json",
+                [header]: token
             }
         });
         if (response.status === 200) {
@@ -33,14 +36,10 @@ const saveButton = document.getElementById("saveButton");
 
 async function saveChef() {
     const response = await fetch(`/api/chefs/${chefIdInput.value}`, {
-        method: "PATCH",
-        headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
+        method: "PATCH", headers: {
+            "Accept": "application/json", [header]: token
         }, body: JSON.stringify({
-            firstName: firstNameInput.value,
-            lastName: lastNameInput.value,
-            dateOfBirth: dobInput.value
+            firstName: firstNameInput.value, lastName: lastNameInput.value, dateOfBirth: dobInput.value
         }), redirect: "manual"
     })
     if (response.status === 204) {

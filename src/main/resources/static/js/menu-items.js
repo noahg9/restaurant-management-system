@@ -1,8 +1,11 @@
+import {header, token} from "./util/csrf.js";
+
 async function fillMenuItemsTable() {
     const response = await fetch('/api/menu-items', {
         headers: {
-            "Accept": "application/json"
-        }});
+            "Accept": "application/json", [header]: token
+        }
+    });
     if (response.status === 200) {
         const menuItems = await response.json();
         menuItems.forEach(menuItem => {
@@ -24,10 +27,8 @@ async function handleDeleteMenuItem(event) {
     const row = event.target.closest('.card');
     const menuItemId = row.dataset.menuItemId;
     const response = await fetch(`/api/menu-items/${menuItemId}`, {
-        method: "DELETE",
-        headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
+        method: "DELETE", headers: {
+            [header]: token
         }
     });
     if (response.status === 204) {
@@ -45,12 +46,9 @@ const menuItemBody = document.getElementById("menuItemBody");
 
 async function addNewMenuItem() {
     const response = await fetch(`/api/menu-items`, {
-        method: "POST",
-        headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
+        method: "POST", headers: {
+            "Accept": "application/json", "Content-Type": "application/json", [header]: token
+        }, body: JSON.stringify({
             name: nameInput.value,
             price: priceInput.value,
             course: courseInput.value,
@@ -88,12 +86,7 @@ function addMenuItemToTable(menuItem) {
     menuItemBody.appendChild(card);
     const newDeleteButton = card.querySelector('button');
     newDeleteButton.addEventListener("click", (event) => {
-        event.stopPropagation(); // Prevent
-
-
-
-
-        // propagation to parent elements
+        event.stopPropagation();
         handleDeleteMenuItem(event);
     });
     card.addEventListener("click", () => {

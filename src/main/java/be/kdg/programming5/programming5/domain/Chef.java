@@ -24,6 +24,15 @@ public class Chef extends AbstractEntity<Long> implements Serializable {
     @Column(nullable = false)
     private LocalDate dateOfBirth;
 
+    @Column(nullable = false)
+    private String username;
+
+    @Column(nullable = false)
+    private String password;
+
+    @Column(nullable = false)
+    private ChefRole role;
+
     @ManyToOne
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
@@ -92,6 +101,16 @@ public class Chef extends AbstractEntity<Long> implements Serializable {
         setRestaurant(restaurant);
     }
 
+    public Chef(String firstName, String lastName, LocalDate dateOfBirth, ChefRole role) {
+        this(firstName, lastName, dateOfBirth);
+        this.role = role;
+    }
+
+    public Chef(Long id, String firstName, String lastName, LocalDate dateOfBirth, ChefRole role) {
+        this(id, firstName, lastName, dateOfBirth);
+        this.role = role;
+    }
+
     /**
      * Gets first name.
      *
@@ -151,6 +170,30 @@ public class Chef extends AbstractEntity<Long> implements Serializable {
     public void setDateOfBirth(LocalDate dateOfBirth) {
         Objects.requireNonNull(dateOfBirth, "Date of birth cannot be null");
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public ChefRole getRole() {
+        return role;
+    }
+
+    public void setRole(ChefRole role) {
+        this.role = role;
     }
 
     /**

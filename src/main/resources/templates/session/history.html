@@ -5,36 +5,36 @@
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
-<main class="container">
+<main class="container text-center">
     <div class="row justify-content-center">
-        <h1 class="page-title text-primary" th:text="#{title.history}">Session History</h1>
-        <div class="row">
-            <div class="col-md-4">
-                <table class="table">
-                    <!-- Column Headers -->
-                    <thead>
-                    <tr>
-                        <th th:text="#{attribute.page}">Page</th>
-                        <th th:text="#{attribute.time}">Time</th>
-                    </tr>
-                    </thead>
-                    <!-- Rows -->
-                    <tbody>
-                    <tr th:each="entry : ${history}">
-                        <!-- Page Name -->
-                        <td>
-                            <i class="fas fa-file"></i>
-                            <span th:text="${entry.page}"></span>
-                        </td>
-                        <!-- Timestamp -->
-                        <td>
-                            <i class="far fa-clock"></i>
-                            <span th:text="${#temporals.format(entry.timestamp, 'd MMM HH:mm')}"></span>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+        <div class="col-md-12">
+            <h1 class="page-title text-primary" th:text="#{title.history}">Session History</h1>
+        </div>
+        <div class="col-md-4">
+            <table class="table">
+                <!-- Column Headers -->
+                <thead>
+                <tr>
+                    <th th:text="#{attribute.page}">Page</th>
+                    <th th:text="#{attribute.time}">Time</th>
+                </tr>
+                </thead>
+                <!-- Rows -->
+                <tbody>
+                <tr th:each="entry : ${history}">
+                    <!-- Page Name -->
+                    <td>
+                        <i class="fas fa-file"></i>
+                        <span th:text="${entry.page}"></span>
+                    </td>
+                    <!-- Timestamp -->
+                    <td>
+                        <i class="far fa-clock"></i>
+                        <span th:text="${#temporals.format(entry.timestamp, 'd MMM HH:mm')}"></span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </main>

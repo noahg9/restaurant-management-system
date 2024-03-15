@@ -5,15 +5,22 @@ import be.kdg.programming5.programming5.controllers.api.dto.MenuItemDto;
 import be.kdg.programming5.programming5.controllers.api.dto.NewMenuItemDto;
 import be.kdg.programming5.programming5.controllers.api.dto.UpdateMenuItemDto;
 import be.kdg.programming5.programming5.domain.MenuItemChef;
+import be.kdg.programming5.programming5.service.MenuItemChefService;
 import be.kdg.programming5.programming5.service.MenuItemService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import be.kdg.programming5.programming5.security.CustomUserDetails;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static be.kdg.programming5.programming5.domain.ChefRole.ADMIN;
+
 
 /**
  * The type Menu items controller.
@@ -22,6 +29,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/menu-items")
 public class MenuItemsController {
     private final MenuItemService menuItemService;
+    private final MenuItemChefService menuItemChefService;
     private final ModelMapper modelMapper;
 
     /**
@@ -30,8 +38,9 @@ public class MenuItemsController {
      * @param menuItemService the menu item service
      * @param modelMapper     the model mapper
      */
-    public MenuItemsController(MenuItemService menuItemService, ModelMapper modelMapper) {
+    public MenuItemsController(MenuItemService menuItemService, MenuItemChefService menuItemChefService, ModelMapper modelMapper) {
         this.menuItemService = menuItemService;
+        this.menuItemChefService = menuItemChefService;
         this.modelMapper = modelMapper;
     }
 
@@ -51,6 +60,25 @@ public class MenuItemsController {
     }
 
     /**
+     * Gets all menu items.
+     *
+     * @return the all menu items
+     */
+    @GetMapping
+    ResponseEntity<List<MenuItemDto>> getAllMenuItems() {
+        var allMenuItems = menuItemService.getAllMenuItems();
+        if (allMenuItems.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            List<MenuItemDto> menuItemDtos = allMenuItems
+                    .stream()
+                    .map(menuItem -> modelMapper.map(menuItem, MenuItemDto.class))
+                    .collect(Collectors.toList());
+            return ResponseEntity.ok(menuItemDtos);
+        }
+    }
+
+    /**
      * Gets chefs of menu item.
      *
      * @param menuItemId the menu item id
@@ -65,23 +93,11 @@ public class MenuItemsController {
         if (menuItem.getChefs().isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return ResponseEntity.ok(menuItem.getChefs().stream().map(MenuItemChef::getChef).map(dev -> modelMapper.map(dev, ChefDto.class)).toList());
-    }
-
-    /**
-     * Gets all menu items.
-     *
-     * @return the all menu items
-     */
-    @GetMapping
-    public ResponseEntity<List<MenuItemDto>> getAllMenuItems() {
-        var allMenuItems = menuItemService.getAllMenuItems();
-        if (allMenuItems.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } else {
-            List<MenuItemDto> menuItemDtos = allMenuItems.stream().map(menuItem -> modelMapper.map(menuItem, MenuItemDto.class)).collect(Collectors.toList());
-            return ResponseEntity.ok(menuItemDtos);
-        }
+        return ResponseEntity.ok(menuItem.getChefs()
+                .stream()
+                .map(MenuItemChef::getChef)
+                .map(chef -> modelMapper.map(chef, ChefDto.class))
+                .toList());
     }
 
     /**
@@ -93,13 +109,20 @@ public class MenuItemsController {
     @GetMapping("search")
     ResponseEntity<List<MenuItemDto>> searchMenuItems(@RequestParam(required = false) String search) {
         if (search == null || search.trim().isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return ResponseEntity
+                    .ok(menuItemService.getAllMenuItems()
+                            .stream()
+                            .map(menuItem -> modelMapper.map(menuItem, MenuItemDto.class))
+                            .toList());
         } else {
             var searchResult = menuItemService.searchMenuItemsByNameLike(search);
             if (searchResult.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             } else {
-                return ResponseEntity.ok(searchResult.stream().map(menuItem -> modelMapper.map(menuItem, MenuItemDto.class)).toList());
+                return ResponseEntity.ok(searchResult
+                        .stream()
+                        .map(menuItem -> modelMapper.map(menuItem, MenuItemDto.class))
+                        .toList());
             }
         }
     }
@@ -111,9 +134,14 @@ public class MenuItemsController {
      * @return the response entity
      */
     @PostMapping
-    ResponseEntity<MenuItemDto> addMenuItem(@RequestBody @Valid NewMenuItemDto menuItemDto) {
-        var createdMenuItem = menuItemService.addMenuItem(menuItemDto.getName(), menuItemDto.getPrice(), menuItemDto.getCourse(), menuItemDto.isVegetarian(), menuItemDto.getSpiceLvl());
-        return new ResponseEntity<>(modelMapper.map(createdMenuItem, MenuItemDto.class), HttpStatus.CREATED);
+    ResponseEntity<MenuItemDto> addMenuItem(@RequestBody @Valid NewMenuItemDto menuItemDto,
+                                            @AuthenticationPrincipal CustomUserDetails user) {
+        var createdMenuItem = menuItemService.addMenuItem(
+                menuItemDto.getName(), menuItemDto.getPrice(), menuItemDto.getCourse(), menuItemDto.isVegetarian(),
+                menuItemDto.getSpiceLvl(), user.getChefId());
+        return new ResponseEntity<>(
+                modelMapper.map(createdMenuItem, MenuItemDto.class),
+                HttpStatus.CREATED);
     }
 
     /**
@@ -123,7 +151,13 @@ public class MenuItemsController {
      * @return the response entity
      */
     @DeleteMapping("{id}")
-    ResponseEntity<Void> deleteMenuItem(@PathVariable("id") long menuItemId) {
+    ResponseEntity<Void> deleteMenuItem(@PathVariable("id") long menuItemId,
+                                        @AuthenticationPrincipal CustomUserDetails user,
+                                        HttpServletRequest request) {
+        if (!menuItemChefService.isChefAssignedToMenuItem(menuItemId, user.getChefId())
+                && !request.isUserInRole(ADMIN.getCode())) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
         if (menuItemService.removeMenuItem(menuItemId)) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -138,8 +172,16 @@ public class MenuItemsController {
      * @return the response entity
      */
     @PatchMapping("{id}")
-    ResponseEntity<Void> changeMenuItem(@PathVariable("id") long menuItemId, @RequestBody @Valid UpdateMenuItemDto updateMenuItemDto) {
-        if (menuItemService.changeMenuItemName(menuItemId, updateMenuItemDto.getName(), updateMenuItemDto.getPrice(), updateMenuItemDto.getCourse(), updateMenuItemDto.isVegetarian(), updateMenuItemDto.getSpiceLvl())) {
+    ResponseEntity<Void> changeMenuItem(@PathVariable("id") long menuItemId,
+                                        @RequestBody @Valid UpdateMenuItemDto updateMenuItemDto,
+                                        @AuthenticationPrincipal CustomUserDetails user,
+                                        HttpServletRequest request) {
+        if (!menuItemChefService.isChefAssignedToMenuItem(menuItemId, user.getChefId())
+                && !request.isUserInRole(ADMIN.getCode())) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+        if (menuItemService.changeMenuItemName(menuItemId, updateMenuItemDto.getName(), updateMenuItemDto.getPrice(),
+                updateMenuItemDto.getCourse(), updateMenuItemDto.isVegetarian(), updateMenuItemDto.getSpiceLvl())) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

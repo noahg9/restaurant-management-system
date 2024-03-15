@@ -4,9 +4,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -32,12 +32,10 @@ public class SecurityConfig {
         http.authorizeHttpRequests(
                 auths -> auths
                         .requestMatchers(
-                                regexMatcher("^/(menu-items|chefs|search-chefs|search-menu-items|history|switch-language)"))
+                                regexMatcher("^/(menu-items|chefs|search-chefs|search-menu-items|history|switch-language|error)"))
                         .permitAll()
                         .requestMatchers(
-                                antMatcher(HttpMethod.GET, "/api/**"),
-                                antMatcher(HttpMethod.POST, "/api/**"),
-                                antMatcher(HttpMethod.PATCH, "/api/**"))
+                                antMatcher(HttpMethod.GET, "/api/**"))
                         .permitAll()
                         .requestMatchers(
                                 antMatcher(HttpMethod.GET, "/js/**"),
@@ -55,16 +53,12 @@ public class SecurityConfig {
                 .formLogin(formLogin ->
                         formLogin
                                 .loginPage("/login")
-                                .permitAll()
-                )
-                // TODO: eventually REMOVE this disable
-                .csrf(
-                        AbstractHttpConfigurer::disable
-                )
+                                .permitAll())
                 .exceptionHandling(exceptionHandling ->
-                        exceptionHandling.authenticationEntryPoint((request, response, exception) -> {
+                        exceptionHandling.authenticationEntryPoint(
+                                (request, response, exception) -> {
                             if (request.getRequestURI().startsWith("/api")) {
-                                response.setStatus(HttpStatus.FORBIDDEN.value());
+                                response.setStatus(HttpStatus.UNAUTHORIZED.value());
                             } else {
                                 response.sendRedirect(request.getContextPath() + "/login");
                             }

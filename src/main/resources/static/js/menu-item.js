@@ -1,3 +1,5 @@
+import {header, token} from "./util/csrf.js";
+
 const menuItemIdInput = document.getElementById("menuItemId");
 const toggleChefsButton = document.getElementById("toggleChefInformation");
 const associatedChefs = document.getElementById("associatedChefs");
@@ -8,7 +10,8 @@ async function toggleChefs() {
     } else {
         const response = await fetch(`/api/menu-items/${menuItemIdInput.value}/chefs`, {
             headers: {
-                "Accept": "application/json"
+                "Accept": "application/json",
+                [header]: token
             }
         });
         if (response.status === 200) {
@@ -36,7 +39,7 @@ const saveButton = document.getElementById("saveButton");
 async function changeMenuItem() {
     const response = await fetch(`/api/menu-items/${menuItemIdInput.value}`, {
         method: "PATCH", headers: {
-            "Accept": "application/json", "Content-Type": "application/json"
+            "Accept": "application/json", [header]: token
         }, body: JSON.stringify({
             name: nameInput.value,
             price: priceInput.value,

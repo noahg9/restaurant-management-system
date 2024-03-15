@@ -41,15 +41,6 @@ public class ChefService {
     }
 
     /**
-     * Gets chefs with menu items.
-     *
-     * @return the chefs with menu items
-     */
-    public List<Chef> getChefsWithMenuItems() {
-        return chefRepository.findAllWithMenuItems();
-    }
-
-    /**
      * Gets chef.
      *
      * @param chefId the chef id
@@ -67,6 +58,19 @@ public class ChefService {
      */
     public Chef getChefWithMenuItems(long chefId) {
         return chefRepository.findByIdWithMenuItems(chefId).orElse(null);
+    }
+
+    /**
+     * Gets chefs with menu items.
+     *
+     * @return the chefs with menu items
+     */
+    public List<Chef> getChefsWithMenuItems() {
+        return chefRepository.findAllWithMenuItems();
+    }
+
+    public Chef getChefByName(String username) {
+        return chefRepository.findByUsername(username).orElse(null);
     }
 
     /**
@@ -160,7 +164,7 @@ public class ChefService {
      * @param dateOfBirth the date of birth
      * @return the boolean
      */
-    public boolean changeChefName(long chefId, String firstName, String lastName, LocalDate dateOfBirth) {
+    public boolean changeChef(long chefId, String firstName, String lastName, LocalDate dateOfBirth) {
         var chef = chefRepository.findById(chefId).orElse(null);
         if (chef == null) {
             return false;
