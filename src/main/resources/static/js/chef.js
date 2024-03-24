@@ -37,16 +37,13 @@ const saveButton = document.getElementById("saveButton");
 async function saveChef() {
     const response = await fetch(`/api/chefs/${chefIdInput.value}`, {
         method: "PATCH", headers: {
-            "Accept": "application/json", [header]: token
+            "Content-Type": "application/json", [header]: token
         }, body: JSON.stringify({
-            firstName: firstNameInput.value, lastName: lastNameInput.value, dateOfBirth: dobInput.value
+            firstName: firstNameInput.value, lastName: lastNameInput.value, dateOfBirth: dobInput.value, role: 'Chef'
         }), redirect: "manual"
     })
     if (response.status === 204) {
         saveButton.disabled = true;
-    } else {
-        const errorMessage = await response.text();
-        alert(`Error ${response.status}: ${errorMessage}`);
     }
 }
 

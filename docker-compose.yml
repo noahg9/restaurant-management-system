@@ -10,3 +10,12 @@ services:
       POSTGRES_PASSWORD: 'admin'
     ports:
       - '5432:5432'
+  postgres_programming5_test_db:
+    image: postgres:16.1-alpine
+    restart: always
+    environment:
+      POSTGRES_DB: 'programming5'
+      POSTGRES_USER: 'admin'
+      POSTGRES_PASSWORD: 'admin'
+    ports:
+      - '12223:5432'

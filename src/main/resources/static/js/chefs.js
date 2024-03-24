@@ -12,9 +12,6 @@ async function fillChefsTable() {
         chefs.forEach(chef => {
             addChefToTable(chef)
         })
-    } else {
-        const errorMessage = await response.text();
-        alert(`Error ${response.status}: ${errorMessage}`);
     }
 }
 
@@ -57,9 +54,6 @@ async function addNewChef() {
          */
         const chef = await response.json()
         addChefToTable(chef);
-    } else {
-        const errorMessage = await response.text();
-        alert(`Error ${response.status}: ${errorMessage}`);
     }
 }
 

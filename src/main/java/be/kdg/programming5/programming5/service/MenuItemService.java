@@ -183,7 +183,7 @@ public class MenuItemService {
      * @param spiceLvl   the spice lvl
      * @return the boolean
      */
-    public boolean changeMenuItemName(long menuItemId, String name, double price, Course course, boolean vegetarian, int spiceLvl) {
+    public boolean changeMenuItem(long menuItemId, String name, double price, Course course, boolean vegetarian, int spiceLvl) {
         var menuItem = menuItemRepository.findById(menuItemId).orElse(null);
         if (menuItem == null) {
             return false;

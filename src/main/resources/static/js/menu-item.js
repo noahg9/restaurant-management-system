@@ -36,10 +36,10 @@ const vegetarianInput = document.getElementById("vegetarianInputField");
 const spiceLvlInput = document.getElementById("spiceLvlInputField");
 const saveButton = document.getElementById("saveButton");
 
-async function changeMenuItem() {
+async function saveMenuItem() {
     const response = await fetch(`/api/menu-items/${menuItemIdInput.value}`, {
         method: "PATCH", headers: {
-            "Accept": "application/json", [header]: token
+            "Content-Type": "application/json", [header]: token
         }, body: JSON.stringify({
             name: nameInput.value,
             price: priceInput.value,
@@ -50,11 +50,8 @@ async function changeMenuItem() {
     })
     if (response.status === 204) {
         saveButton.disabled = true;
-    } else {
-        const errorMessage = await response.text();
-        alert(`Error ${response.status}: ${errorMessage}`);
     }
 }
 
-saveButton.addEventListener("click", changeMenuItem);
+saveButton.addEventListener("click", saveMenuItem);
 nameInput.addEventListener("input", () => saveButton.disabled = false);

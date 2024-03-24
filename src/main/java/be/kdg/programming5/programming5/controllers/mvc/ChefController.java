@@ -2,6 +2,7 @@ package be.kdg.programming5.programming5.controllers.mvc;
 
 import be.kdg.programming5.programming5.controllers.mvc.viewmodel.ChefViewModel;
 import be.kdg.programming5.programming5.controllers.mvc.viewmodel.MenuItemViewModel;
+import be.kdg.programming5.programming5.domain.ChefRole;
 import be.kdg.programming5.programming5.domain.util.HistoryUtil;
 import be.kdg.programming5.programming5.service.ChefService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import be.kdg.programming5.programming5.security.CustomUserDetails;
 
-import static be.kdg.programming5.programming5.domain.ChefRole.ADMIN;
+import static be.kdg.programming5.programming5.domain.ChefRole.Admin;
 
 /**
  * The type Chef controller.
@@ -62,10 +63,12 @@ public class ChefController {
                                 chef.getFirstName(),
                                 chef.getLastName(),
                                 chef.getDateOfBirth(),
+                                chef.getRole(),
                                 chef.getRestaurant().getId(),
                                 chef.getRestaurant().getName(),
                                 false))
                         .toList());
+        mav.addObject("roleValues", ChefRole.values());
         return mav;
     }
 
@@ -95,9 +98,10 @@ public class ChefController {
                         chef.getFirstName(),
                         chef.getLastName(),
                         chef.getDateOfBirth(),
+                        chef.getRole(),
                         chef.getRestaurant().getId(),
                         chef.getRestaurant().getName(),
-                        user != null && (user.getChefId() == chefId || request.isUserInRole(ADMIN.getCode())),
+                        user != null && (user.getChefId() == chefId || request.isUserInRole(Admin.getCode())),
                         chef.getMenuItems()
                                 .stream()
                                 .map(menuItemChef -> new MenuItemViewModel(
@@ -115,6 +119,7 @@ public class ChefController {
                                 .toList()
                 )
         );
+        mav.addObject("roleValues", ChefRole.values());
         return mav;
     }
 
@@ -138,7 +143,7 @@ public class ChefController {
                                   BindingResult bindingResult,
                                   @AuthenticationPrincipal CustomUserDetails user,
                                   HttpServletRequest request) {
-        if ((user.getChefId() == chefViewModel.getId() || request.isUserInRole(ADMIN.getCode()))
+        if ((user.getChefId() == chefViewModel.getId() || request.isUserInRole(Admin.getCode()))
                 && (!bindingResult.hasErrors())) {
             chefService.changeChef(
                     chefViewModel.getId(),

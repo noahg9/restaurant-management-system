@@ -97,7 +97,7 @@
                 <!-- Welcome Message -->
                 <li class="nav-item me-2 pt-2" sec:authorize="isAuthenticated()">
                     <span class="navbar-text">
-                        Welcome, <span th:text="${#strings.capitalize(#authentication.name)}">user</span>!
+                        Logged in as <span sec:authentication="name">user</span>
                     </span>
                 </li>
                 <!-- Logout Button -->

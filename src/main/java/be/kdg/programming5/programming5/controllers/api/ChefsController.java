@@ -131,7 +131,7 @@ public class ChefsController {
     ResponseEntity<ChefDto> addChef(@RequestBody @Valid NewChefDto chefDto,
                                     @AuthenticationPrincipal CustomUserDetails user) {
         var createdChef = chefService.addChef(
-                chefDto.getFirstName(), chefDto.getLastName(), chefDto.getDateOfBirth());
+                chefDto.getFirstName(), chefDto.getLastName(), chefDto.getDateOfBirth(), chefDto.getRole());
         return new ResponseEntity<>(
                 modelMapper.map(createdChef, ChefDto.class),
                 HttpStatus.CREATED);

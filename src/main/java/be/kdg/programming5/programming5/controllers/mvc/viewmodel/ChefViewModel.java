@@ -1,5 +1,6 @@
 package be.kdg.programming5.programming5.controllers.mvc.viewmodel;
 
+import be.kdg.programming5.programming5.domain.ChefRole;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -18,6 +19,7 @@ public class ChefViewModel {
     private String lastName;
     @NotNull(message = "Date of birth cannot be null")
     private LocalDate dateOfBirth;
+    private ChefRole role;
     private long restaurantId;
     private String restaurantName;
     private boolean modificationAllowed;
@@ -28,22 +30,24 @@ public class ChefViewModel {
      */
     public ChefViewModel() {}
 
-    public ChefViewModel(long id, String firstName, String lastName, LocalDate dateOfBirth, long restaurantId, String restaurantName, boolean modificationAllowed, List<MenuItemViewModel> menuItems) {
+    public ChefViewModel(long id, String firstName, String lastName, LocalDate dateOfBirth, ChefRole role, long restaurantId, String restaurantName, boolean modificationAllowed, List<MenuItemViewModel> menuItems) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
+        this.role = role;
         this.restaurantId = restaurantId;
         this.restaurantName = restaurantName;
         this.modificationAllowed = modificationAllowed;
         this.menuItems = menuItems;
     }
 
-    public ChefViewModel(long id, String firstName, String lastName, LocalDate dateOfBirth, long restaurantId, String restaurantName, boolean modificationAllowed) {
+    public ChefViewModel(long id, String firstName, String lastName, LocalDate dateOfBirth, ChefRole role, long restaurantId, String restaurantName, boolean modificationAllowed) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
+        this.role = role;
         this.restaurantId = restaurantId;
         this.restaurantName = restaurantName;
         this.modificationAllowed = modificationAllowed;
@@ -119,6 +123,14 @@ public class ChefViewModel {
      */
     public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public ChefRole getRole() {
+        return role;
+    }
+
+    public void setRole(ChefRole role) {
+        this.role = role;
     }
 
     /**

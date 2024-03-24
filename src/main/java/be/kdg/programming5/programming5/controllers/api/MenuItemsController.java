@@ -19,7 +19,7 @@ import be.kdg.programming5.programming5.security.CustomUserDetails;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static be.kdg.programming5.programming5.domain.ChefRole.ADMIN;
+import static be.kdg.programming5.programming5.domain.ChefRole.Admin;
 
 
 /**
@@ -155,7 +155,7 @@ public class MenuItemsController {
                                         @AuthenticationPrincipal CustomUserDetails user,
                                         HttpServletRequest request) {
         if (!menuItemChefService.isChefAssignedToMenuItem(menuItemId, user.getChefId())
-                && !request.isUserInRole(ADMIN.getCode())) {
+                && !request.isUserInRole(Admin.getCode())) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
         if (menuItemService.removeMenuItem(menuItemId)) {
@@ -177,10 +177,10 @@ public class MenuItemsController {
                                         @AuthenticationPrincipal CustomUserDetails user,
                                         HttpServletRequest request) {
         if (!menuItemChefService.isChefAssignedToMenuItem(menuItemId, user.getChefId())
-                && !request.isUserInRole(ADMIN.getCode())) {
+                && !request.isUserInRole(Admin.getCode())) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
-        if (menuItemService.changeMenuItemName(menuItemId, updateMenuItemDto.getName(), updateMenuItemDto.getPrice(),
+        if (menuItemService.changeMenuItem(menuItemId, updateMenuItemDto.getName(), updateMenuItemDto.getPrice(),
                 updateMenuItemDto.getCourse(), updateMenuItemDto.isVegetarian(), updateMenuItemDto.getSpiceLvl())) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {

@@ -1,5 +1,6 @@
 package be.kdg.programming5.programming5.controllers.api.dto;
 
+import be.kdg.programming5.programming5.domain.ChefRole;
 import jakarta.validation.constraints.NotBlank;
 
 import java.time.LocalDate;
@@ -14,6 +15,7 @@ public class NewChefDto {
     @NotBlank
     private String lastName;
     private LocalDate dateOfBirth;
+    private ChefRole role;
 
     /**
      * Instantiates a new New chef dto.
@@ -21,13 +23,6 @@ public class NewChefDto {
     public NewChefDto() {
     }
 
-    /**
-     * Instantiates a new New chef dto.
-     *
-     * @param firstName   the first name
-     * @param lastName    the last name
-     * @param dateOfBirth the date of birth
-     */
     public NewChefDto(String firstName, String lastName, LocalDate dateOfBirth) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -37,12 +32,15 @@ public class NewChefDto {
     /**
      * Instantiates a new New chef dto.
      *
-     * @param firstName the first name
-     * @param lastName  the last name
+     * @param firstName   the first name
+     * @param lastName    the last name
+     * @param dateOfBirth the date of birth
      */
-    public NewChefDto(String firstName, String lastName) {
+    public NewChefDto(String firstName, String lastName, LocalDate dateOfBirth, ChefRole role) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
+        this.role = role;
     }
 
 
@@ -100,4 +98,11 @@ public class NewChefDto {
         this.dateOfBirth = dateOfBirth;
     }
 
+    public ChefRole getRole() {
+        return role;
+    }
+
+    public void setRole(ChefRole role) {
+        this.role = role;
+    }
 }

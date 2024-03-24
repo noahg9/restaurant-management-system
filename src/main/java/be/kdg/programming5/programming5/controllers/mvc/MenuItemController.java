@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import be.kdg.programming5.programming5.security.CustomUserDetails;
 
-import static be.kdg.programming5.programming5.domain.ChefRole.ADMIN;
+import static be.kdg.programming5.programming5.domain.ChefRole.Admin;
 
 /**
  * The type Menu item controller.
@@ -65,7 +65,7 @@ public class MenuItemController {
                                 menuItem.getSpiceLvl(),
                                 menuItem.getRestaurant().getId(),
                                 menuItem.getRestaurant().getName(),
-                                request.isUserInRole(ADMIN.getCode()) ||
+                                request.isUserInRole(Admin.getCode()) ||
                                         chefId != null
                                                 && menuItemChefService
                                                 .isChefAssignedToMenuItem(menuItem.getId(), chefId)
@@ -105,7 +105,7 @@ public class MenuItemController {
                         menuItem.getSpiceLvl(),
                         menuItem.getRestaurant().getId(),
                         menuItem.getRestaurant().getName(),
-                        request.isUserInRole(ADMIN.getCode()) ||
+                        request.isUserInRole(Admin.getCode()) ||
                                 chefId != null &&
                                         menuItem.getChefs()
                                                 .stream()

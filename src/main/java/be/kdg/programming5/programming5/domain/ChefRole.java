@@ -1,7 +1,13 @@
 package be.kdg.programming5.programming5.domain;
 
+/**
+ * The enum Chef role.
+ */
 public enum ChefRole {
-    USER("ROLE_USER"), ADMIN("ROLE_ADMIN");
+    /**
+     * Chef chef role.
+     */
+    Chef("ROLE_CHEF"), Admin("ROLE_ADMIN");
 
     private final String code;
 
@@ -9,6 +15,11 @@ public enum ChefRole {
         this.code = code;
     }
 
+    /**
+     * Gets code.
+     *
+     * @return the code
+     */
     public String getCode() {
         return code;
     }

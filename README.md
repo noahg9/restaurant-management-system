@@ -16,15 +16,33 @@
 
 ## User Accounts
 
-| Username | Password |
-|----------|----------|
-| noah     | noah     |
-| lars     | lars     |
-| admin    | admin    |
+| Username | Password | Role   |
+|----------|----------|--------|
+| noahg    | noah     | Admin  |
+| larsw    | noah     | Admin  |
+| gordonr  | noah     | Chef   |
+| jamieo   | noah     | Chef   |
+| joanr    | noah     | Chef   |
+| davidc   | noah     | Chef   |
+
+## Role Rights
+
+| Page                   | Guest  | Chef   | Admin  |
+|------------------------|--------|--------|--------|
+| home                   | Viewer | Viewer | Viewer |
+| chefs                  | Viewer | Viewer | Editor |
+| menu-items             | Viewer | Viewer | Editor |      
+| search-chefs           | Viewer | Viewer | Viewer |
+| search-menu-items      | Viewer | Viewer | Viewer |
+| history                | Viewer | Viewer | Viewer |
+| chef                   | N/a    | Viewer | Editor |
+| chef (own)             | N/a    | Editor | Editor |
+| menu-item              | N/a    | Viewer | Editor |
+| menu-item (associated) | N/a    | Editor | Editor |
 
 ## Week 2
 
-### Fetching one menu itemd - OK
+### Fetching one menu item - OK
 
 ```
 GET http://localhost:9242/api/menu-items/1

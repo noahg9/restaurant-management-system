@@ -11,9 +11,6 @@ async function fillMenuItemsTable() {
         menuItems.forEach(menuItem => {
             addMenuItemToTable(menuItem)
         })
-    } else {
-        const errorMessage = await response.text();
-        alert(`Error ${response.status}: ${errorMessage}`);
     }
 }
 
@@ -62,9 +59,6 @@ async function addNewMenuItem() {
          */
         const menuItem = await response.json()
         addMenuItemToTable(menuItem);
-    } else {
-        const errorMessage = await response.text();
-        alert(`Error ${response.status}: ${errorMessage}`);
     }
 }
 

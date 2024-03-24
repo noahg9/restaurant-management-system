@@ -31,6 +31,7 @@ public class Chef extends AbstractEntity<Long> implements Serializable {
     private String password;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private ChefRole role;
 
     @ManyToOne
@@ -108,6 +109,16 @@ public class Chef extends AbstractEntity<Long> implements Serializable {
 
     public Chef(Long id, String firstName, String lastName, LocalDate dateOfBirth, ChefRole role) {
         this(id, firstName, lastName, dateOfBirth);
+        this.role = role;
+    }
+
+    public Chef(String firstName, String lastName, LocalDate dateOfBirth, ChefRole role, Restaurant restaurant) {
+        this(firstName, lastName, dateOfBirth, restaurant);
+        this.role = role;
+    }
+
+    public Chef(Long id, String firstName, String lastName, LocalDate dateOfBirth, ChefRole role, Restaurant restaurant) {
+        this(id, firstName, lastName, dateOfBirth, restaurant);
         this.role = role;
     }
 

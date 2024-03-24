@@ -27,7 +27,7 @@
         </div>
         <!-- Add Section -->
         <div class="col-md-6">
-            <section class="mt-5 text-center" sec:authorize="isAuthenticated()">
+            <section class="mt-5 text-center">
                 <h2 class="text-secondary" th:text="#{header.add}">Add</h2><br>
                 <!-- Form -->
                 <form>
@@ -49,7 +49,7 @@
                     <!-- Course -->
                     <div class="row mb-3 justify-content-center">
                         <div class="col-sm-4">
-                            <label class="form-label" for="courseInput" th:text="#{attribute.price}">Price</label>
+                            <label class="form-label" for="courseInput" th:text="#{attribute.course}">Course</label>
                             <select class="form-select" id="courseInput" name="course">
                                 <option th:each="course : ${courseValues}"
                                         th:text="${course.toString()}"

@@ -1,6 +1,7 @@
 package be.kdg.programming5.programming5.service;
 
 import be.kdg.programming5.programming5.domain.Chef;
+import be.kdg.programming5.programming5.domain.ChefRole;
 import be.kdg.programming5.programming5.domain.Restaurant;
 import be.kdg.programming5.programming5.repository.ChefRepository;
 import jakarta.transaction.Transactional;
@@ -112,8 +113,8 @@ public class ChefService {
      * @param restaurant  the restaurant
      * @return the chef
      */
-    public Chef addChef(String firstName, String lastName, LocalDate dateOfBirth, Restaurant restaurant) {
-        return chefRepository.save(new Chef(firstName, lastName, dateOfBirth, restaurant));
+    public Chef addChef(String firstName, String lastName, LocalDate dateOfBirth, ChefRole role, Restaurant restaurant) {
+        return chefRepository.save(new Chef(firstName, lastName, dateOfBirth, role, restaurant));
     }
 
     /**
@@ -124,8 +125,8 @@ public class ChefService {
      * @param dateOfBirth the date of birth
      * @return the chef
      */
-    public Chef addChef(String firstName, String lastName, LocalDate dateOfBirth) {
-        return chefRepository.save(new Chef(firstName, lastName, dateOfBirth));
+    public Chef addChef(String firstName, String lastName, LocalDate dateOfBirth, ChefRole role) {
+        return chefRepository.save(new Chef(firstName, lastName, dateOfBirth, role));
     }
 
     /**

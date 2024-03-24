@@ -1,5 +1,7 @@
 package be.kdg.programming5.programming5.controllers.api.dto;
 
+import be.kdg.programming5.programming5.domain.ChefRole;
+
 import java.time.LocalDate;
 import java.time.Period;
 
@@ -11,6 +13,7 @@ public class ChefDto {
     private String firstName;
     private String lastName;
     private LocalDate dateOfBirth;
+    private ChefRole role;
 
     /**
      * Instantiates a new Chef dto.
@@ -18,17 +21,19 @@ public class ChefDto {
     public ChefDto() {
     }
 
-    /**
-     * Instantiates a new Chef dto.
-     *
-     * @param id        the id
-     * @param firstName the first name
-     * @param lastName  the last name
-     */
-    public ChefDto(long id, String firstName, String lastName) {
+    public ChefDto(long id, String firstName, String lastName, LocalDate dateOfBirth) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public ChefDto(long id, String firstName, String lastName, LocalDate dateOfBirth, ChefRole role) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
+        this.role = role;
     }
 
     /**
@@ -101,5 +106,13 @@ public class ChefDto {
      */
     public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public ChefRole getRole() {
+        return role;
+    }
+
+    public void setRole(ChefRole role) {
+        this.role = role;
     }
 }
