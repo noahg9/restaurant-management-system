@@ -1,13 +1,18 @@
 package be.kdg.programming5.programming5.service;
 
-import be.kdg.programming5.programming5.domain.*;
+import be.kdg.programming5.programming5.domain.Chef;
+import be.kdg.programming5.programming5.domain.Course;
+import be.kdg.programming5.programming5.domain.MenuItem;
+import be.kdg.programming5.programming5.domain.MenuItemChef;
 import be.kdg.programming5.programming5.repository.ChefRepository;
 import be.kdg.programming5.programming5.repository.MenuItemChefRepository;
 import be.kdg.programming5.programming5.repository.MenuItemRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * The type Menu item service.
@@ -16,21 +21,20 @@ import java.util.List;
 public class MenuItemService {
     private final MenuItemRepository menuItemRepository;
     private final MenuItemChefService menuItemChefService;
-    private final RestaurantService restaurantService;
     private final MenuItemChefRepository menuItemChefRepository;
     private final ChefRepository chefRepository;
 
     /**
      * Instantiates a new Menu item service.
      *
-     * @param menuItemRepository  the menu item repository
-     * @param menuItemChefService the menu item chef service
-     * @param restaurantService   the restaurant service
+     * @param menuItemRepository     the menu item repository
+     * @param menuItemChefService    the menu item chef service
+     * @param menuItemChefRepository the menu item chef repository
+     * @param chefRepository         the chef repository
      */
-    public MenuItemService(MenuItemRepository menuItemRepository, MenuItemChefService menuItemChefService, RestaurantService restaurantService, MenuItemChefRepository menuItemChefRepository, ChefRepository chefRepository) {
+    public MenuItemService(MenuItemRepository menuItemRepository, MenuItemChefService menuItemChefService, MenuItemChefRepository menuItemChefRepository, ChefRepository chefRepository) {
         this.menuItemRepository = menuItemRepository;
         this.menuItemChefService = menuItemChefService;
-        this.restaurantService = restaurantService;
         this.menuItemChefRepository = menuItemChefRepository;
         this.chefRepository = chefRepository;
     }
@@ -42,15 +46,6 @@ public class MenuItemService {
      */
     public List<MenuItem> getAllMenuItems() {
         return menuItemRepository.findAll();
-    }
-
-    /**
-     * Gets menu items with chefs.
-     *
-     * @return the menu items with chefs
-     */
-    public List<MenuItem> getMenuItemsWithChefs() {
-        return menuItemRepository.findAllWithChefs();
     }
 
     /**
@@ -84,25 +79,6 @@ public class MenuItemService {
     }
 
     /**
-     * Gets menu items by max price.
-     *
-     * @param maxPrice the max price
-     * @return the menu items by max price
-     */
-    public List<MenuItem> getMenuItemsByMaxPrice(double maxPrice) {
-        return menuItemRepository.findByPriceLessThanEqual(maxPrice);
-    }
-
-    /**
-     * Gets veg menu items.
-     *
-     * @return the veg menu items
-     */
-    public List<MenuItem> getVegMenuItems() {
-        return menuItemRepository.findByVegetarianTrue();
-    }
-
-    /**
      * Search menu items by name like list.
      *
      * @param searchTerm the search term
@@ -120,39 +96,15 @@ public class MenuItemService {
      * @param course     the course
      * @param vegetarian the vegetarian
      * @param spiceLvl   the spice lvl
-     * @param restaurant the restaurant
+     * @param userId     the user id
      * @return the menu item
      */
-    public MenuItem addMenuItem(String name, double price, Course course, Boolean vegetarian, int spiceLvl, Restaurant restaurant, long chefId) {
-        var menuItem = new MenuItem(name, price, course, vegetarian, spiceLvl, restaurant);
-        var createdMenuItem = menuItemRepository.save(menuItem);
-        var chef = chefRepository.findById(chefId).orElse(null);
-        menuItemChefRepository.save(new MenuItemChef(createdMenuItem, chef));
-        return createdMenuItem;
-    }
-
-    /**
-     * Add menu item menu item.
-     *
-     * @param name       the name
-     * @param price      the price
-     * @param course     the course
-     * @param vegetarian the vegetarian
-     * @param spiceLvl   the spice lvl
-     * @return the menu item
-     */
-    public MenuItem addMenuItem(String name, double price, Course course, Boolean vegetarian, int spiceLvl, long chefId) {
-        return menuItemRepository.save(new MenuItem(name, price, course, vegetarian, spiceLvl, restaurantService.getRestaurant(1)));
-    }
-
-    /**
-     * Add menu item menu item.
-     *
-     * @param menuItem the menu item
-     * @return the menu item
-     */
-    public MenuItem addMenuItem(MenuItem menuItem) {
-        return menuItemRepository.save(menuItem);
+    public MenuItem addMenuItem(String name, double price, Course course, Boolean vegetarian, int spiceLvl, long userId) {
+        MenuItem menuItem = menuItemRepository.save(new MenuItem(name, price, course, vegetarian, spiceLvl));
+        MenuItem savedMenuItem = menuItemRepository.save(menuItem);
+        Chef chef = chefRepository.findById(userId).orElse(null);
+        menuItemChefRepository.save(new MenuItemChef(savedMenuItem, chef, LocalDateTime.now()));
+        return savedMenuItem;
     }
 
     /**
@@ -163,7 +115,7 @@ public class MenuItemService {
      */
     @Transactional
     public boolean removeMenuItem(long menuItemId) {
-        var menuItem = menuItemRepository.findByIdWithChefs(menuItemId);
+        Optional<MenuItem> menuItem = menuItemRepository.findByIdWithChefs(menuItemId);
         if (menuItem.isEmpty()) {
             return false;
         }
@@ -173,7 +125,7 @@ public class MenuItemService {
     }
 
     /**
-     * Change menu item name boolean.
+     * Change menu item boolean.
      *
      * @param menuItemId the menu item id
      * @param name       the name
@@ -184,7 +136,7 @@ public class MenuItemService {
      * @return the boolean
      */
     public boolean changeMenuItem(long menuItemId, String name, double price, Course course, boolean vegetarian, int spiceLvl) {
-        var menuItem = menuItemRepository.findById(menuItemId).orElse(null);
+        MenuItem menuItem = menuItemRepository.findById(menuItemId).orElse(null);
         if (menuItem == null) {
             return false;
         }

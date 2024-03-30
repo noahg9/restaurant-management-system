@@ -55,7 +55,7 @@ async function addNewMenuItem() {
     })
     if (response.status === 201) {
         /**
-         * @type {{id: number, name: string, price: number, course: string, vegetarian: boolean, spiceLvl: number, restaurant: string}}
+         * @type {{id: number, name: string, price: number, course: string, vegetarian: boolean, spiceLvl: number}}
          */
         const menuItem = await response.json()
         addMenuItemToTable(menuItem);
@@ -63,14 +63,14 @@ async function addNewMenuItem() {
 }
 
 /**
- * @param {{id: number, name: string, price: number, course: string, vegetarian: boolean, spiceLvl: number, restaurant: string}} menuItem
+ * @param {{id: number, name: string, price: number, course: string, vegetarian: boolean, spiceLvl: number}} menuItem
  */
 function addMenuItemToTable(menuItem) {
     const card = document.createElement("div");
     card.classList.add("card", "mb-3", "col-md-8"); // Adjusted width for two cards per row
     const vegetarianIndicator = menuItem.vegetarian ? "(V)" : ""; // "(V)" for vegetarian, empty string for non-vegetarian
     card.innerHTML = `
-        <div class="card-body">
+        <div class="card-body" style="cursor: pointer;">
             <h5 class="card-title">${menuItem.name} ${vegetarianIndicator}</h5>
             <p class="card-text">€${menuItem.price}</p>
             <button type="button" class="btn btn-danger btn-sm delete-button"><i class="fas fa-trash-alt"></i></button>

@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * The type Menu item.
@@ -28,10 +27,6 @@ public class MenuItem extends AbstractEntity<Long> implements Serializable {
 
     @Column(nullable = false)
     private int spiceLvl;
-
-    @ManyToOne
-    @JoinColumn(name = "restaurant_id")
-    private Restaurant restaurant;
 
     @OneToMany(mappedBy = "menuItem")
     private List<MenuItemChef> chefs;
@@ -75,37 +70,6 @@ public class MenuItem extends AbstractEntity<Long> implements Serializable {
         setCourse(course);
         setVegetarian(vegetarian);
         setSpiceLvl(spiceLvl);
-    }
-
-    /**
-     * Instantiates a new Menu item.
-     *
-     * @param name       the name
-     * @param price      the price
-     * @param course     the course
-     * @param vegetarian the vegetarian
-     * @param spiceLvl   the spice lvl
-     * @param restaurant the restaurant
-     */
-    public MenuItem(String name, double price, Course course, boolean vegetarian, int spiceLvl, Restaurant restaurant) {
-        this(name, price, course, vegetarian, spiceLvl);
-        setRestaurant(restaurant);
-    }
-
-    /**
-     * Instantiates a new Menu item.
-     *
-     * @param id         the id
-     * @param name       the name
-     * @param price      the price
-     * @param course     the course
-     * @param vegetarian the vegetarian
-     * @param spiceLvl   the spice lvl
-     * @param restaurant the restaurant
-     */
-    public MenuItem(long id, String name, double price, Course course, boolean vegetarian, int spiceLvl, Restaurant restaurant) {
-        this(id, name, price, course, vegetarian, spiceLvl);
-        setRestaurant(restaurant);
     }
 
     /**
@@ -208,27 +172,6 @@ public class MenuItem extends AbstractEntity<Long> implements Serializable {
     }
 
     /**
-     * Gets restaurant.
-     *
-     * @return the restaurant
-     */
-    public Restaurant getRestaurant() {
-        return this.restaurant;
-    }
-
-    /**
-     * Sets restaurant.
-     *
-     * @param restaurant the restaurant
-     */
-    public void setRestaurant(Restaurant restaurant) {
-        if (restaurant == null) {
-            throw new IllegalArgumentException("Restaurant cannot be null");
-        }
-        this.restaurant = restaurant;
-    }
-
-    /**
      * Gets chefs.
      *
      * @return the chefs
@@ -244,38 +187,5 @@ public class MenuItem extends AbstractEntity<Long> implements Serializable {
      */
     public void setChefs(List<MenuItemChef> chefs) {
         this.chefs = chefs;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        MenuItem menuItem = (MenuItem) o;
-        return Objects.equals(id, menuItem.id) &&
-                Double.compare(menuItem.price, price) == 0 &&
-                vegetarian == menuItem.vegetarian &&
-                spiceLvl == menuItem.spiceLvl &&
-                Objects.equals(name, menuItem.name) &&
-                course == menuItem.course &&
-                Objects.equals(restaurant, menuItem.restaurant) &&
-                Objects.equals(chefs, menuItem.chefs);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, price, course, vegetarian, spiceLvl, restaurant, chefs);
-    }
-
-    @Override
-    public String toString() {
-        return "MenuItem{" +
-                "name='" + name + '\'' +
-                ", price=" + price +
-                ", course=" + course +
-                ", vegetarian=" + vegetarian +
-                ", spiceLvl=" + spiceLvl +
-                ", restaurant=" + restaurant +
-                ", chefs=" + chefs +
-                '}';
     }
 }

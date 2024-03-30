@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{title.registration}">Registration</title>
+    <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
+    <script src="/js/register-chef.js" type="module"></script>
+</head>
+<body>
+<header th:replace="~{fragments/includes::header}"></header>
+<main class="container text-center">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <h1 class="page-title text-primary" th:text="#{title.registration}">Registration</h1>
+        </div>
+        <div class="col-md-12">
+            <section class="mt-5 text-center">
+                <div class="row mb-3 justify-content-center">
+                    <form method="POST" th:action="@{/register}">
+                        <!-- First Name -->
+                        <div class="row pb-3 justify-content-center">
+                            <div class="col-sm-4">
+                                <label class="form-label" for="firstName"
+                                       th:text="#{attribute.firstName}">First Name</label>
+                                <input class="form-control" id="firstName" name="firstName" type="text">
+                            </div>
+                        </div>
+                        <!-- Last Name -->
+                        <div class="row pb-3 justify-content-center">
+                            <div class="col-sm-4">
+                                <label class="form-label" for="lastName"
+                                       th:text="#{attribute.lastName}">Last Name</label>
+                                <input class="form-control" id="lastName" name="lastName" type="text">
+                            </div>
+                        </div>
+                        <!-- Date of Birth -->
+                        <div class="row pb-3 justify-content-center">
+                            <div class="col-sm-4">
+                                <label class="form-label" for="dateOfBirth" th:text="#{attribute.dateOfBirth}">Date of
+                                    Birth</label>
+                                <input class="form-control" id="dateOfBirth" type="date">
+                            </div>
+                        </div>
+                        <!-- Username -->
+                        <div class="row pb-3 justify-content-center">
+                            <div class="col-sm-4">
+                                <label class="form-label" for="username"
+                                       th:text="#{attribute.username}">Username</label>
+                                <input class="form-control" id="username" name="username" type="text">
+                            </div>
+                        </div>
+                        <!-- Password -->
+                        <div class="row pb-3 justify-content-center">
+                            <div class="col-sm-4">
+                                <label class="form-label" for="password"
+                                       th:text="#{attribute.password}">Password</label>
+                                <input class="form-control" id="password" name="password" type="password">
+                            </div>
+                        </div>
+                        <!-- Role -->
+                        <div class="row mb-3 justify-content-center">
+                            <div class="col-sm-4">
+                                <label class="form-label" for="role" th:text="#{attribute.course}">Role</label>
+                                <select class="form-select" id="role" name="role">
+                                    <option th:each="role : ${roleValues}"
+                                            th:text="${role.toString()}"
+                                            th:value="${role}">
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-sm-4">
+                                <button class="btn btn-primary" th:text="#{button.register}" type="submit">Register
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </div>
+</main>
+<footer th:insert="~{fragments/footer::copy}"></footer>
+</body>
+</html>

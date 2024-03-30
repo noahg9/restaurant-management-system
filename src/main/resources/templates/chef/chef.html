@@ -34,25 +34,25 @@
                                 <!-- First Name -->
                                 <tr>
                                     <th class="col-sm-4">
-                                        <label class="form-label" for="firstNameInputField"
+                                        <label class="form-label" for="firstNameField"
                                                th:text="#{attribute.firstName}">
                                             First Name:</label>
                                     </th>
                                     <td class="col-sm-8">
-                                        <input class="form-control" id="firstNameInputField"
+                                        <input class="form-control" id="firstNameField"
                                                th:value="${one_chef.firstName}" type="text">
                                     </td>
                                 </tr>
                                 <!-- Last Name -->
                                 <tr>
                                     <th class="col-sm-4">
-                                        <label class="form-label" for="lastNameInputField"
+                                        <label class="form-label" for="lastNameField"
                                                th:text="#{attribute.lastName}">
                                             Last Name:
                                         </label>
                                     </th>
                                     <td class="col-sm-8">
-                                        <input class="form-control" id="lastNameInputField"
+                                        <input class="form-control" id="lastNameField"
                                                th:value="${one_chef.lastName}"
                                                type="text">
                                     </td>
@@ -60,15 +60,29 @@
                                 <!-- Date of Birth -->
                                 <tr>
                                     <th class="col-sm-4">
-                                        <label class="form-label" for="dobInputField"
+                                        <label class="form-label" for="dateOfBirthField"
                                                th:text="#{attribute.dateOfBirth}">
                                             Date of Birth:
                                         </label>
                                     </th>
                                     <td class="col-sm-8">
-                                        <input class="form-control" id="dobInputField"
+                                        <input class="form-control" id="dateOfBirthField"
                                                th:value="${one_chef.dateOfBirth}"
                                                type="date">
+                                    </td>
+                                </tr>
+                                <!-- Username -->
+                                <tr>
+                                    <th class="col-sm-4">
+                                        <label class="form-label" for="usernameField"
+                                               th:text="#{attribute.username}">
+                                            Username:
+                                        </label>
+                                    </th>
+                                    <td class="col-sm-8">
+                                        <input class="form-control" id="usernameField"
+                                               th:value="${one_chef.username}"
+                                               type="text">
                                     </td>
                                 </tr>
                                 <!-- Role -->

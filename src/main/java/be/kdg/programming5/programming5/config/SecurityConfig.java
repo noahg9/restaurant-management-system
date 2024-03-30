@@ -18,6 +18,7 @@ import static org.springframework.security.web.util.matcher.RegexRequestMatcher.
  */
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class SecurityConfig {
     /**
      * Filter chain security filter chain.
@@ -27,44 +28,16 @@ public class SecurityConfig {
      * @throws Exception the exception
      */
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        // @formatter:off
-        http.authorizeHttpRequests(
-                auths -> auths
-                        .requestMatchers(
-                                regexMatcher("^/(menu-items|chefs|search-chefs|search-menu-items|history|switch-language|error)"))
-                        .permitAll()
-                        .requestMatchers(
-                                antMatcher(HttpMethod.GET, "/api/**"))
-                        .permitAll()
-                        .requestMatchers(
-                                antMatcher(HttpMethod.GET, "/js/**"),
-                                antMatcher(HttpMethod.GET, "/css/**"),
-                                antMatcher(HttpMethod.GET, "/images/**"),
-                                antMatcher(HttpMethod.GET, "/webjars/**"),
-                                regexMatcher(HttpMethod.GET, ".+\\.ico"))
-                        .permitAll()
-                        .requestMatchers(
-                                antMatcher(HttpMethod.GET, "/"))
-                        .permitAll()
-                        .anyRequest()
-                        .authenticated()
-                )
-                .formLogin(formLogin ->
-                        formLogin
-                                .loginPage("/login")
-                                .permitAll())
-                .exceptionHandling(exceptionHandling ->
-                        exceptionHandling.authenticationEntryPoint(
-                                (request, response, exception) -> {
-                            if (request.getRequestURI().startsWith("/api")) {
-                                response.setStatus(HttpStatus.UNAUTHORIZED.value());
-                            } else {
-                                response.sendRedirect(request.getContextPath() + "/login");
-                            }
-                        })
-                );
-        // @formatter:on
+    public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
+        http.authorizeHttpRequests(auths -> auths.requestMatchers(regexMatcher("^/(menu-items|chefs|search-chefs|search-menu-items|history|switch-language|error|registration)")).permitAll().requestMatchers(antMatcher(HttpMethod.GET, "/api/**")).permitAll().requestMatchers(antMatcher(HttpMethod.GET, "/js/**"), antMatcher(HttpMethod.GET, "/css/**"), antMatcher(HttpMethod.GET, "/images/**"), antMatcher(HttpMethod.GET, "/webjars/**"), regexMatcher(HttpMethod.GET, "\\.ico$")).permitAll().requestMatchers(antMatcher(HttpMethod.GET, "/")).permitAll().anyRequest().authenticated());
+        http.formLogin(formLogin -> formLogin.loginPage("/login").permitAll());
+        http.exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint((request, response, exception) -> {
+            if (request.getRequestURI().startsWith("/api")) {
+                response.setStatus(HttpStatus.UNAUTHORIZED.value());
+            } else {
+                response.sendRedirect(request.getContextPath() + "/login");
+            }
+        }));
         return http.build();
     }
 

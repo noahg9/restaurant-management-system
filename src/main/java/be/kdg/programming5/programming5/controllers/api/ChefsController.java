@@ -4,16 +4,14 @@ import be.kdg.programming5.programming5.controllers.api.dto.ChefDto;
 import be.kdg.programming5.programming5.controllers.api.dto.MenuItemDto;
 import be.kdg.programming5.programming5.controllers.api.dto.NewChefDto;
 import be.kdg.programming5.programming5.controllers.api.dto.UpdateChefDto;
+import be.kdg.programming5.programming5.domain.Chef;
 import be.kdg.programming5.programming5.domain.MenuItemChef;
 import be.kdg.programming5.programming5.service.ChefService;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-import be.kdg.programming5.programming5.security.CustomUserDetails;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -46,7 +44,7 @@ public class ChefsController {
      */
     @GetMapping("{id}")
     ResponseEntity<ChefDto> getOneChef(@PathVariable("id") long chefId) {
-        var chef = chefService.getChef(chefId);
+        Chef chef = chefService.getChef(chefId);
         if (chef == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -60,14 +58,11 @@ public class ChefsController {
      */
     @GetMapping
     ResponseEntity<List<ChefDto>> getAllChefs() {
-        var allChefs = chefService.getAllChefs();
+        List<Chef> allChefs = chefService.getAllChefs();
         if (allChefs.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
-            List<ChefDto> chefDtos = allChefs
-                    .stream()
-                    .map(chef -> modelMapper.map(chef, ChefDto.class))
-                    .collect(Collectors.toList());
+            List<ChefDto> chefDtos = allChefs.stream().map(chef -> modelMapper.map(chef, ChefDto.class)).collect(Collectors.toList());
             return ResponseEntity.ok(chefDtos);
         }
     }
@@ -80,18 +75,14 @@ public class ChefsController {
      */
     @GetMapping("{id}/menu-items")
     ResponseEntity<List<MenuItemDto>> getMenuItemsOfChef(@PathVariable("id") long chefId) {
-        var chef = chefService.getChefWithMenuItems(chefId);
+        Chef chef = chefService.getChefWithMenuItems(chefId);
         if (chef == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         if (chef.getMenuItems().isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return ResponseEntity.ok(chef.getMenuItems()
-                .stream()
-                .map(MenuItemChef::getMenuItem)
-                .map(dev -> modelMapper.map(dev, MenuItemDto.class))
-                .toList());
+        return ResponseEntity.ok(chef.getMenuItems().stream().map(MenuItemChef::getMenuItem).map(dev -> modelMapper.map(dev, MenuItemDto.class)).toList());
     }
 
     /**
@@ -103,20 +94,13 @@ public class ChefsController {
     @GetMapping("search")
     ResponseEntity<List<ChefDto>> searchChefs(@RequestParam(required = false) String search) {
         if (search == null || search.trim().isEmpty()) {
-            return ResponseEntity
-                    .ok(chefService.getAllChefs()
-                            .stream()
-                            .map(chef -> modelMapper.map(chef, ChefDto.class))
-                            .toList());
+            return ResponseEntity.ok(chefService.getAllChefs().stream().map(chef -> modelMapper.map(chef, ChefDto.class)).toList());
         } else {
-            var searchResult = chefService.searchChefsByFirstNameOrLastName(search);
+            List<Chef> searchResult = chefService.searchChefsByFirstNameOrLastName(search);
             if (searchResult.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             } else {
-                return ResponseEntity.ok(searchResult
-                        .stream()
-                        .map(chef -> modelMapper.map(chef, ChefDto.class))
-                        .toList());
+                return ResponseEntity.ok(searchResult.stream().map(chef -> modelMapper.map(chef, ChefDto.class)).toList());
             }
         }
     }
@@ -128,13 +112,9 @@ public class ChefsController {
      * @return the response entity
      */
     @PostMapping
-    ResponseEntity<ChefDto> addChef(@RequestBody @Valid NewChefDto chefDto,
-                                    @AuthenticationPrincipal CustomUserDetails user) {
-        var createdChef = chefService.addChef(
-                chefDto.getFirstName(), chefDto.getLastName(), chefDto.getDateOfBirth(), chefDto.getRole());
-        return new ResponseEntity<>(
-                modelMapper.map(createdChef, ChefDto.class),
-                HttpStatus.CREATED);
+    ResponseEntity<ChefDto> addChef(@RequestBody @Valid NewChefDto chefDto) {
+        Chef createdChef = chefService.addChef(chefDto.getFirstName(), chefDto.getLastName(), chefDto.getDateOfBirth(), chefDto.getUsername(), chefDto.getPassword(), chefDto.getRole());
+        return new ResponseEntity<>(modelMapper.map(createdChef, ChefDto.class), HttpStatus.CREATED);
     }
 
     /**
@@ -144,9 +124,7 @@ public class ChefsController {
      * @return the response entity
      */
     @DeleteMapping("{id}")
-    ResponseEntity<Void> deleteChef(@PathVariable("id") long chefId,
-                                    @AuthenticationPrincipal CustomUserDetails user,
-                                    HttpServletRequest request) {
+    ResponseEntity<Void> deleteChef(@PathVariable("id") long chefId) {
         if (chefService.removeChef(chefId)) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -161,11 +139,8 @@ public class ChefsController {
      * @return the response entity
      */
     @PatchMapping("{id}")
-    ResponseEntity<Void> changeChef(@PathVariable("id") long chefId,
-                                    @RequestBody @Valid UpdateChefDto updateChefDto,
-                                    @AuthenticationPrincipal CustomUserDetails user) {
-        if (chefService.changeChef(chefId, updateChefDto.getFirstName(), updateChefDto.getLastName(),
-                updateChefDto.getDateOfBirth())) {
+    ResponseEntity<Void> changeChef(@PathVariable("id") long chefId, @RequestBody @Valid UpdateChefDto updateChefDto) {
+        if (chefService.changeChef(chefId, updateChefDto.getFirstName(), updateChefDto.getLastName(), updateChefDto.getDateOfBirth(), updateChefDto.getUsername(), updateChefDto.getPassword(), updateChefDto.getRole())) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

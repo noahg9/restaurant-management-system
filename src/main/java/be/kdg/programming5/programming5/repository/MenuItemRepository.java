@@ -21,11 +21,11 @@ public interface MenuItemRepository extends JpaRepository<MenuItem, Long> {
      * @return the optional
      */
     @Query("""
-        select m from MenuItem m
-        left join fetch m.chefs chefs
-        left join fetch chefs.chef
-        where m.id = :menuItemId
-        """)
+            select m from MenuItem m
+            left join fetch m.chefs chefs
+            left join fetch chefs.chef
+            where m.id = :menuItemId
+            """)
     Optional<MenuItem> findByIdWithChefs(long menuItemId);
 
     /**
@@ -34,10 +34,10 @@ public interface MenuItemRepository extends JpaRepository<MenuItem, Long> {
      * @return the list
      */
     @Query("""
-        select m from MenuItem m
-        left join fetch m.chefs chefs
-        left join fetch chefs.chef
-        """)
+            select m from MenuItem m
+            left join fetch m.chefs chefs
+            left join fetch chefs.chef
+            """)
     List<MenuItem> findAllWithChefs();
 
     /**
@@ -47,27 +47,12 @@ public interface MenuItemRepository extends JpaRepository<MenuItem, Long> {
      * @return the list
      */
     @Query("""
-           select m from MenuItem m
-           left join m.chefs chefs
-           left join chefs.chef chef
-           where chef.id = :chefId
-           """)
+            select m from MenuItem m
+            left join m.chefs chefs
+            left join chefs.chef chef
+            where chef.id = :chefId
+            """)
     List<MenuItem> findByChefId(long chefId);
-
-    /**
-     * Find by price less than equal list.
-     *
-     * @param maxPrice the max price
-     * @return the list
-     */
-    List<MenuItem> findByPriceLessThanEqual(double maxPrice);
-
-    /**
-     * Find by vegetarian true list.
-     *
-     * @return the list
-     */
-    List<MenuItem> findByVegetarianTrue();
 
     /**
      * Find menu items by name like ignore case list.

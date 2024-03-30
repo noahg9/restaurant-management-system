@@ -5,7 +5,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
-import java.time.Period;
 import java.util.List;
 
 /**
@@ -19,37 +18,63 @@ public class ChefViewModel {
     private String lastName;
     @NotNull(message = "Date of birth cannot be null")
     private LocalDate dateOfBirth;
+    private String username;
+    private String password;
     private ChefRole role;
-    private long restaurantId;
-    private String restaurantName;
     private boolean modificationAllowed;
     private List<MenuItemViewModel> menuItems;
 
     /**
      * Instantiates a new Chef view model.
      */
-    public ChefViewModel() {}
+    public ChefViewModel() {
+    }
 
-    public ChefViewModel(long id, String firstName, String lastName, LocalDate dateOfBirth, ChefRole role, long restaurantId, String restaurantName, boolean modificationAllowed, List<MenuItemViewModel> menuItems) {
+    /**
+     * Instantiates a new Chef view model.
+     *
+     * @param id                  the id
+     * @param firstName           the first name
+     * @param lastName            the last name
+     * @param dateOfBirth         the date of birth
+     * @param username            the username
+     * @param password            the password
+     * @param role                the role
+     * @param modificationAllowed the modification allowed
+     * @param menuItems           the menu items
+     */
+    public ChefViewModel(long id, String firstName, String lastName, LocalDate dateOfBirth, String username, String password, ChefRole role, boolean modificationAllowed, List<MenuItemViewModel> menuItems) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
+        this.username = username;
+        this.password = password;
         this.role = role;
-        this.restaurantId = restaurantId;
-        this.restaurantName = restaurantName;
         this.modificationAllowed = modificationAllowed;
         this.menuItems = menuItems;
     }
 
-    public ChefViewModel(long id, String firstName, String lastName, LocalDate dateOfBirth, ChefRole role, long restaurantId, String restaurantName, boolean modificationAllowed) {
+    /**
+     * Instantiates a new Chef view model.
+     *
+     * @param id                  the id
+     * @param firstName           the first name
+     * @param lastName            the last name
+     * @param dateOfBirth         the date of birth
+     * @param username            the username
+     * @param password            the password
+     * @param role                the role
+     * @param modificationAllowed the modification allowed
+     */
+    public ChefViewModel(long id, String firstName, String lastName, LocalDate dateOfBirth, String username, String password, ChefRole role, boolean modificationAllowed) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
+        this.username = username;
+        this.password = password;
         this.role = role;
-        this.restaurantId = restaurantId;
-        this.restaurantName = restaurantName;
         this.modificationAllowed = modificationAllowed;
     }
 
@@ -125,59 +150,58 @@ public class ChefViewModel {
         this.dateOfBirth = dateOfBirth;
     }
 
+    /**
+     * Gets username.
+     *
+     * @return the username
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * Sets username.
+     *
+     * @param username the username
+     */
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    /**
+     * Gets password.
+     *
+     * @return the password
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * Sets password.
+     *
+     * @param password the password
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    /**
+     * Gets role.
+     *
+     * @return the role
+     */
     public ChefRole getRole() {
         return role;
     }
 
+    /**
+     * Sets role.
+     *
+     * @param role the role
+     */
     public void setRole(ChefRole role) {
         this.role = role;
-    }
-
-    /**
-     * Gets restaurant id.
-     *
-     * @return the restaurant id
-     */
-    public long getRestaurantId() {
-        return restaurantId;
-    }
-
-    /**
-     * Sets restaurant id.
-     *
-     * @param restaurantId the restaurant id
-     */
-    public void setRestaurantId(long restaurantId) {
-        this.restaurantId = restaurantId;
-    }
-
-
-    /**
-     * Gets restaurant name.
-     *
-     * @return the restaurant name
-     */
-    public String getRestaurantName() {
-        return restaurantName;
-    }
-
-    /**
-     * Sets restaurant name.
-     *
-     * @param restaurantName the restaurant name
-     */
-    public void setRestaurantName(String restaurantName) {
-        this.restaurantName = restaurantName;
-    }
-
-    /**
-     * Calculate age int.
-     *
-     * @return the int
-     */
-    public int calculateAge() {
-        LocalDate currentDate = LocalDate.now();
-        return Period.between(dateOfBirth, currentDate).getYears();
     }
 
     public boolean isModificationAllowed() {
@@ -188,20 +212,10 @@ public class ChefViewModel {
         this.modificationAllowed = modificationAllowed;
     }
 
-    /**
-     * Gets menu items.
-     *
-     * @return the menu items
-     */
     public List<MenuItemViewModel> getMenuItems() {
         return menuItems;
     }
 
-    /**
-     * Sets menu items.
-     *
-     * @param menuItems the menu items
-     */
     public void setMenuItems(List<MenuItemViewModel> menuItems) {
         this.menuItems = menuItems;
     }

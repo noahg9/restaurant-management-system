@@ -29,10 +29,6 @@ public class MenuItemViewModel {
     @Min(value = 0, message = "Spice level must be at least 1")
     private int spiceLvl;
 
-    private long restaurantId;
-
-    private String restaurantName;
-
     private List<ChefViewModel> chefs;
 
     private boolean modificationAllowed;
@@ -47,60 +43,44 @@ public class MenuItemViewModel {
     /**
      * Instantiates a new Menu item view model.
      *
-     * @param id             the id
-     * @param name           the name
-     * @param price          the price
-     * @param course         the course
-     * @param vegetarian     the vegetarian
-     * @param spiceLvl       the spice lvl
-     * @param restaurantId   the restaurant id
-     * @param restaurantName the restaurant name
+     * @param id                  the id
+     * @param name                the name
+     * @param price               the price
+     * @param course              the course
+     * @param vegetarian          the vegetarian
+     * @param spiceLvl            the spice lvl
+     * @param modificationAllowed the modification allowed
+     * @param chefs               the chefs
      */
-    public MenuItemViewModel(long id, String name, double price, Course course, boolean vegetarian, int spiceLvl, long restaurantId, String restaurantName) {
-        setId(id);
-        setName(name);
-        setPrice(price);
-        setCourse(course);
-        setVegetarian(vegetarian);
-        setSpiceLvl(spiceLvl);
-        setRestaurantId(restaurantId);
-        setRestaurantName(restaurantName);
-    }
-
-    /**
-     * Instantiates a new Menu item view model.
-     *
-     * @param id             the id
-     * @param name           the name
-     * @param price          the price
-     * @param course         the course
-     * @param vegetarian     the vegetarian
-     * @param spiceLvl       the spice lvl
-     * @param restaurantId   the restaurant id
-     * @param restaurantName the restaurant name
-     * @param chefs          the chefs
-     */
-    public MenuItemViewModel(long id, String name, double price, Course course, boolean vegetarian, int spiceLvl, long restaurantId, String restaurantName, List<ChefViewModel> chefs) {
-        setId(id);
-        setName(name);
-        setPrice(price);
-        setCourse(course);
-        setVegetarian(vegetarian);
-        setSpiceLvl(spiceLvl);
-        setRestaurantId(restaurantId);
-        setRestaurantName(restaurantName);
-        setChefs(chefs);
-    }
-
-    public MenuItemViewModel(long id, String name, double price, Course course, boolean vegetarian, int spiceLvl, long restaurantId, String restaurantName, boolean modificationAllowed) {
+    public MenuItemViewModel(long id, String name, double price, Course course, boolean vegetarian, int spiceLvl, boolean modificationAllowed, List<ChefViewModel> chefs) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.course = course;
         this.vegetarian = vegetarian;
         this.spiceLvl = spiceLvl;
-        this.restaurantId = restaurantId;
-        this.restaurantName = restaurantName;
+        this.modificationAllowed = modificationAllowed;
+        this.chefs = chefs;
+    }
+
+    /**
+     * Instantiates a new Menu item view model.
+     *
+     * @param id                  the id
+     * @param name                the name
+     * @param price               the price
+     * @param course              the course
+     * @param vegetarian          the vegetarian
+     * @param spiceLvl            the spice lvl
+     * @param modificationAllowed the modification allowed
+     */
+    public MenuItemViewModel(long id, String name, double price, Course course, boolean vegetarian, int spiceLvl, boolean modificationAllowed) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.course = course;
+        this.vegetarian = vegetarian;
+        this.spiceLvl = spiceLvl;
         this.modificationAllowed = modificationAllowed;
     }
 
@@ -213,42 +193,6 @@ public class MenuItemViewModel {
     }
 
     /**
-     * Gets restaurant id.
-     *
-     * @return the restaurant id
-     */
-    public long getRestaurantId() {
-        return restaurantId;
-    }
-
-    /**
-     * Sets restaurant id.
-     *
-     * @param restaurantId the restaurant id
-     */
-    public void setRestaurantId(long restaurantId) {
-        this.restaurantId = restaurantId;
-    }
-
-    /**
-     * Gets restaurant name.
-     *
-     * @return the restaurant name
-     */
-    public String getRestaurantName() {
-        return restaurantName;
-    }
-
-    /**
-     * Sets restaurant name.
-     *
-     * @param restaurantName the restaurant name
-     */
-    public void setRestaurantName(String restaurantName) {
-        this.restaurantName = restaurantName;
-    }
-
-    /**
      * Gets chefs.
      *
      * @return the chefs
@@ -266,10 +210,20 @@ public class MenuItemViewModel {
         this.chefs = chefs;
     }
 
+    /**
+     * Is modification allowed boolean.
+     *
+     * @return the boolean
+     */
     public boolean isModificationAllowed() {
         return modificationAllowed;
     }
 
+    /**
+     * Sets modification allowed.
+     *
+     * @param modificationAllowed the modification allowed
+     */
     public void setModificationAllowed(boolean modificationAllowed) {
         this.modificationAllowed = modificationAllowed;
     }

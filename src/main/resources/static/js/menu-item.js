@@ -1,6 +1,6 @@
 import {header, token} from "./util/csrf.js";
 
-const menuItemIdInput = document.getElementById("menuItemId");
+const menuItemId = document.getElementById("menuItemId");
 const toggleChefsButton = document.getElementById("toggleChefInformation");
 const associatedChefs = document.getElementById("associatedChefs");
 
@@ -8,7 +8,7 @@ async function toggleChefs() {
     if (associatedChefs.innerHTML !== '') {
         associatedChefs.innerHTML = '';
     } else {
-        const response = await fetch(`/api/menu-items/${menuItemIdInput.value}/chefs`, {
+        const response = await fetch(`/api/menu-items/${menuItemId.value}/chefs`, {
             headers: {
                 "Accept": "application/json",
                 [header]: token
@@ -29,23 +29,23 @@ async function toggleChefs() {
 
 toggleChefsButton.addEventListener("click", toggleChefs);
 
-const nameInput = document.getElementById("nameInputField");
-const priceInput = document.getElementById("priceInputField");
-const courseInput = document.getElementById("courseInputField");
-const vegetarianInput = document.getElementById("vegetarianInputField");
-const spiceLvlInput = document.getElementById("spiceLvlInputField");
+const name = document.getElementById("nameField");
+const price = document.getElementById("priceField");
+const course = document.getElementById("courseField");
+const vegetarian = document.getElementById("vegetarianField");
+const spiceLvl = document.getElementById("spiceLvlField");
 const saveButton = document.getElementById("saveButton");
 
 async function saveMenuItem() {
-    const response = await fetch(`/api/menu-items/${menuItemIdInput.value}`, {
+    const response = await fetch(`/api/menu-items/${menuItemId.value}`, {
         method: "PATCH", headers: {
             "Content-Type": "application/json", [header]: token
         }, body: JSON.stringify({
-            name: nameInput.value,
-            price: priceInput.value,
-            course: courseInput.value,
-            vegetarian: vegetarianInput.checked,
-            spiceLvl: spiceLvlInput.value
+            name: name.value,
+            price: price.value,
+            course: course.value,
+            vegetarian: vegetarian.checked,
+            spiceLvl: spiceLvl.value
         }), redirect: "manual"
     })
     if (response.status === 204) {
@@ -54,4 +54,4 @@ async function saveMenuItem() {
 }
 
 saveButton.addEventListener("click", saveMenuItem);
-nameInput.addEventListener("input", () => saveButton.disabled = false);
+name.addEventListener("", () => saveButton.disabled = false);

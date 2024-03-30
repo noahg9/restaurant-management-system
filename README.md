@@ -7,11 +7,10 @@
 
 ## Domain Entities
 
-| Entity     | Relationships                                               |
-|------------|-------------------------------------------------------------|
-| MenuItem   | Belongs to one Restaurant, Owns and owned by many Chefs     |
-| Chef       | Belongs to one Restaurant, Owns and owned by many MenuItems |
-| Restaurant | Owns many Chefs and many MenuItems                          |
+| Entity     | Relationships                    |
+|------------|----------------------------------|
+| MenuItem   | Owns and owned by many Chefs     |
+| Chef       | Owns and owned by many MenuItems |
 
 
 ## User Accounts

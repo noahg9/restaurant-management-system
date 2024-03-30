@@ -7,7 +7,11 @@ public enum ChefRole {
     /**
      * Chef chef role.
      */
-    Chef("ROLE_CHEF"), Admin("ROLE_ADMIN");
+    Chef("ROLE_DEVELOPER"),
+    /**
+     * Admin chef role.
+     */
+    Admin("ROLE_ADMIN");
 
     private final String code;
 

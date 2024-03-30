@@ -2,13 +2,13 @@ package be.kdg.programming5.programming5.service;
 
 import be.kdg.programming5.programming5.domain.Chef;
 import be.kdg.programming5.programming5.domain.ChefRole;
-import be.kdg.programming5.programming5.domain.Restaurant;
 import be.kdg.programming5.programming5.repository.ChefRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * The type Chef service.
@@ -17,19 +17,16 @@ import java.util.List;
 public class ChefService {
     private final ChefRepository chefRepository;
     private final MenuItemChefService menuItemChefService;
-    private final RestaurantService restaurantService;
 
     /**
      * Instantiates a new Chef service.
      *
      * @param chefRepository      the chef repository
      * @param menuItemChefService the menu item chef service
-     * @param restaurantService   the restaurant service
      */
-    public ChefService(ChefRepository chefRepository, MenuItemChefService menuItemChefService, RestaurantService restaurantService) {
+    public ChefService(ChefRepository chefRepository, MenuItemChefService menuItemChefService) {
         this.chefRepository = chefRepository;
         this.menuItemChefService = menuItemChefService;
-        this.restaurantService = restaurantService;
     }
 
     /**
@@ -62,14 +59,11 @@ public class ChefService {
     }
 
     /**
-     * Gets chefs with menu items.
+     * Gets chef by name.
      *
-     * @return the chefs with menu items
+     * @param username the username
+     * @return the chef by name
      */
-    public List<Chef> getChefsWithMenuItems() {
-        return chefRepository.findAllWithMenuItems();
-    }
-
     public Chef getChefByName(String username) {
         return chefRepository.findByUsername(username).orElse(null);
     }
@@ -110,33 +104,13 @@ public class ChefService {
      * @param firstName   the first name
      * @param lastName    the last name
      * @param dateOfBirth the date of birth
-     * @param restaurant  the restaurant
+     * @param username    the username
+     * @param password    the password
+     * @param role        the role
      * @return the chef
      */
-    public Chef addChef(String firstName, String lastName, LocalDate dateOfBirth, ChefRole role, Restaurant restaurant) {
-        return chefRepository.save(new Chef(firstName, lastName, dateOfBirth, role, restaurant));
-    }
-
-    /**
-     * Add chef chef.
-     *
-     * @param firstName   the first name
-     * @param lastName    the last name
-     * @param dateOfBirth the date of birth
-     * @return the chef
-     */
-    public Chef addChef(String firstName, String lastName, LocalDate dateOfBirth, ChefRole role) {
-        return chefRepository.save(new Chef(firstName, lastName, dateOfBirth, role));
-    }
-
-    /**
-     * Add chef chef.
-     *
-     * @param chef the chef
-     * @return the chef
-     */
-    public Chef addChef(Chef chef) {
-        return chefRepository.save(chef);
+    public Chef addChef(String firstName, String lastName, LocalDate dateOfBirth, String username, String password, ChefRole role) {
+        return chefRepository.save(new Chef(firstName, lastName, dateOfBirth, username, password, role));
     }
 
     /**
@@ -147,7 +121,7 @@ public class ChefService {
      */
     @Transactional
     public boolean removeChef(long chefId) {
-        var chef = chefRepository.findByIdWithMenuItems(chefId);
+        Optional<Chef> chef = chefRepository.findByIdWithMenuItems(chefId);
         if (chef.isEmpty()) {
             return false;
         }
@@ -157,22 +131,28 @@ public class ChefService {
     }
 
     /**
-     * Change chef name boolean.
+     * Change chef boolean.
      *
      * @param chefId      the chef id
      * @param firstName   the first name
      * @param lastName    the last name
      * @param dateOfBirth the date of birth
+     * @param username    the username
+     * @param password    the password
+     * @param role        the role
      * @return the boolean
      */
-    public boolean changeChef(long chefId, String firstName, String lastName, LocalDate dateOfBirth) {
-        var chef = chefRepository.findById(chefId).orElse(null);
+    public boolean changeChef(long chefId, String firstName, String lastName, LocalDate dateOfBirth, String username, String password, ChefRole role) {
+        Chef chef = chefRepository.findById(chefId).orElse(null);
         if (chef == null) {
             return false;
         }
         chef.setFirstName(firstName);
         chef.setLastName(lastName);
         chef.setDateOfBirth(dateOfBirth);
+        chef.setUsername(username);
+        chef.setPassword(password);
+        chef.setRole(role);
         chefRepository.save(chef);
         return true;
     }

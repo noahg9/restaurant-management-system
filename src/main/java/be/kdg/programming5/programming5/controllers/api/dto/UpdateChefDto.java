@@ -1,5 +1,6 @@
 package be.kdg.programming5.programming5.controllers.api.dto;
 
+import be.kdg.programming5.programming5.domain.ChefRole;
 import jakarta.validation.constraints.NotBlank;
 
 import java.time.LocalDate;
@@ -10,11 +11,12 @@ import java.time.LocalDate;
 public class UpdateChefDto {
     @NotBlank
     private String firstName;
-
     @NotBlank
     private String lastName;
-
     private LocalDate dateOfBirth;
+    private String username;
+    private String password;
+    private ChefRole role;
 
     /**
      * Instantiates a new Update chef dto.
@@ -74,5 +76,59 @@ public class UpdateChefDto {
      */
     public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    /**
+     * Gets username.
+     *
+     * @return the username
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * Sets username.
+     *
+     * @param username the username
+     */
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    /**
+     * Gets password.
+     *
+     * @return the password
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * Sets password.
+     *
+     * @param password the password
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    /**
+     * Gets role.
+     *
+     * @return the role
+     */
+    public ChefRole getRole() {
+        return role;
+    }
+
+    /**
+     * Sets role.
+     *
+     * @param role the role
+     */
+    public void setRole(ChefRole role) {
+        this.role = role;
     }
 }

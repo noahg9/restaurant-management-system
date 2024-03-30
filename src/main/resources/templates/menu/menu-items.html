@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <title th:text="#{title.menuItems}">Menu Items</title>
@@ -18,7 +17,7 @@
         <!-- List Section -->
         <div class="col-md-6">
             <section class="mt-5 text-center">
-                <h2 class="text-secondary" th:text="#{header.list}">List</h2><br>
+                <h2 class="text-secondary" th:text="#{header.list}">List</h2>
                 <!-- Menu Items -->
                 <div class="row mb-3 justify-content-center" id="menuItemBody">
                     <!-- Menu items will be dynamically added here -->
@@ -28,7 +27,7 @@
         <!-- Add Section -->
         <div class="col-md-6">
             <section class="mt-5 text-center">
-                <h2 class="text-secondary" th:text="#{header.add}">Add</h2><br>
+                <h2 class="text-secondary" th:text="#{header.add}">Add</h2>
                 <!-- Form -->
                 <form>
                     <!-- Name -->
@@ -84,6 +83,15 @@
                     </div>
                 </form>
             </section>
+        </div>
+        <!-- Search Menu Items -->
+        <div class="col-md-12">
+            <div class="center-container text-center">
+                <a class="btn btn-secondary" th:href="@{/search-menu-items}">
+                    <i class="fas fa-search"></i>
+                    <span th:text="#{title.searchMenuItems}">Search Menu Items</span>
+                </a>
+            </div>
         </div>
     </div>
 </main>

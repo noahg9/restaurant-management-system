@@ -1,6 +1,6 @@
 import {header, token} from "./util/csrf.js";
 
-const chefIdInput = document.getElementById("chefId");
+const chefId = document.getElementById("chefId");
 const toggleMenuItemsButton = document.getElementById("toggleMenuItemInformation");
 const associatedMenuItems = document.getElementById("associatedMenuItems");
 
@@ -8,7 +8,7 @@ async function toggleMenuItems() {
     if (associatedMenuItems.innerHTML !== '') {
         associatedMenuItems.innerHTML = '';
     } else {
-        const response = await fetch(`/api/chefs/${chefIdInput.value}/menu-items`, {
+        const response = await fetch(`/api/chefs/${chefId.value}/menu-items`, {
             headers: {
                 "Accept": "application/json",
                 [header]: token
@@ -29,17 +29,18 @@ async function toggleMenuItems() {
 
 toggleMenuItemsButton.addEventListener("click", toggleMenuItems);
 
-const firstNameInput = document.getElementById("firstNameInputField");
-const lastNameInput = document.getElementById("lastNameInputField");
-const dobInput = document.getElementById("dobInputField");
+const firstName = document.getElementById("firstNameField");
+const lastName = document.getElementById("lastNameField");
+const dob = document.getElementById("dobField");
+const username = document.getElementById("usernameField");
 const saveButton = document.getElementById("saveButton");
 
 async function saveChef() {
-    const response = await fetch(`/api/chefs/${chefIdInput.value}`, {
+    const response = await fetch(`/api/chefs/${chefId.value}`, {
         method: "PATCH", headers: {
             "Content-Type": "application/json", [header]: token
         }, body: JSON.stringify({
-            firstName: firstNameInput.value, lastName: lastNameInput.value, dateOfBirth: dobInput.value, role: 'Chef'
+            firstName: firstName.value, lastName: lastName.value, dateOfBirth: dob.value, username: username.value, role: 'Chef'
         }), redirect: "manual"
     })
     if (response.status === 204) {
@@ -48,5 +49,5 @@ async function saveChef() {
 }
 
 saveButton.addEventListener("click", saveChef);
-firstNameInput.addEventListener("input", () => saveButton.disabled = false);
-lastNameInput.addEventListener("input", () => saveButton.disabled = false);
+firstName.addEventListener("", () => saveButton.disabled = false);
+lastName.addEventListener("", () => saveButton.disabled = false);

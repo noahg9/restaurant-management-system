@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.LocaleResolver;
 
 import java.util.Locale;
+import java.util.Locale.Builder;
 
 /**
  * The type Language controller.
@@ -35,7 +36,7 @@ public class LanguageController {
     @PostMapping("/switch-language")
     public ResponseEntity<Void> switchLanguage(HttpServletRequest request) {
         Locale currentLocale = localeResolver.resolveLocale(request);
-        Locale newLocale = currentLocale.getLanguage().equals("en") ? new Locale("nl") : new Locale("en");
+        Locale newLocale = currentLocale.getLanguage().equals("en") ? new Builder().setLanguage("nl").build() : new Builder().setLanguage("en").build();
         localeResolver.setLocale(request, null, newLocale);
         return ResponseEntity.ok().build();
     }

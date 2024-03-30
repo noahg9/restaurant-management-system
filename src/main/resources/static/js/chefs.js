@@ -1,10 +1,11 @@
-import {header, token} from "./util/csrf.js";
+const header = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+const token = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+
 
 async function fillChefsTable() {
     const response = await fetch('/api/chefs', {
         headers: {
-            "Accept": "application/json",
-            [header]: token
+            "Accept": "application/json", [header]: token
         }
     });
     if (response.status === 200) {
@@ -34,39 +35,18 @@ async function handleDeleteChef(event) {
     }
 }
 
-const firstNameInput = document.getElementById("firstNameInput");
-const lastNameInput = document.getElementById("lastNameInput");
-const dobInput = document.getElementById("dobInput");
-const addButton = document.getElementById("addButton");
 const chefBody = document.getElementById("chefBody");
 
-async function addNewChef() {
-    const response = await fetch(`/api/chefs`, {
-        method: "POST", headers: {
-            "Accept": "application/json", "Content-Type": "application/json", [header]: token
-        }, body: JSON.stringify({
-            firstName: firstNameInput.value, lastName: lastNameInput.value, dateOfBirth: dobInput.value
-        })
-    })
-    if (response.status === 201) {
-        /**
-         * @type {{id: number, firstName: string, lastName: string, dateOfBirth: date}}
-         */
-        const chef = await response.json()
-        addChefToTable(chef);
-    }
-}
-
 /**
- * @param {{id: number, firstName: string, lastName: string, dateOfBirth: date}} chef
+ * @param {{id: number, firstName: string, lastName: string, dateOfBirth: date, username: string, password: string, role, string}} chef
  */
 function addChefToTable(chef) {
     const card = document.createElement("div");
-    card.classList.add("card", "mb-3", "col-md-8");
+    card.classList.add("card", "mb-3", "col-md-4");
     const age = Math.floor((new Date() - new Date(chef.dateOfBirth)) / (1000 * 60 * 60 * 24 * 365));
     card.innerHTML = `
-        <div class="card-body">
-            <h5 class="card-title">${chef.firstName + ' ' + chef.lastName}</h5>
+        <div class="card-body" onclick="location.href=\`/chef?id=${chef.id}\`;" style="cursor: pointer;">
+            <h5 class="card-title">${chef.role + ' ' + chef.firstName + ' ' + chef.lastName}</h5>
             <p class="card-text">${age}  years old</p>
             <button type="button" class="btn btn-danger btn-sm delete-button"><i class="fas fa-trash-alt"></i></button>
         </div>
@@ -78,13 +58,8 @@ function addChefToTable(chef) {
         event.stopPropagation();
         handleDeleteChef(event);
     });
-    card.addEventListener("click", () => {
-        window.location.href = `/chef?id=${chef.id}`;
-    });
 }
 
 fillChefsTable().catch(error => {
     console.error('Error fetching chefs:', error);
 });
-
-addButton.addEventListener("click", addNewChef);

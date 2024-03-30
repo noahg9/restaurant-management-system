@@ -2,8 +2,10 @@ package be.kdg.programming5.programming5.controllers.mvc;
 
 import be.kdg.programming5.programming5.controllers.mvc.viewmodel.ChefViewModel;
 import be.kdg.programming5.programming5.controllers.mvc.viewmodel.MenuItemViewModel;
+import be.kdg.programming5.programming5.domain.Chef;
 import be.kdg.programming5.programming5.domain.ChefRole;
 import be.kdg.programming5.programming5.domain.util.HistoryUtil;
+import be.kdg.programming5.programming5.domain.CustomUserDetails;
 import be.kdg.programming5.programming5.service.ChefService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -18,7 +20,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import be.kdg.programming5.programming5.security.CustomUserDetails;
 
 import static be.kdg.programming5.programming5.domain.ChefRole.Admin;
 
@@ -47,13 +48,12 @@ public class ChefController {
      * @return the model and view
      */
     @GetMapping("/chefs")
-    public ModelAndView allChefs(HttpSession session, Model model) {
+    public ModelAndView allChefs(HttpSession session, Model model, ModelAndView mav) {
         logger.info("Getting chefs");
         String pageTitle = "Chefs";
         HistoryUtil.updateHistory(session, pageTitle);
         model.addAttribute("pageTitle", pageTitle);
 
-        var mav = new ModelAndView();
         mav.setViewName("chef/chefs");
         mav.addObject("all_chefs",
                 chefService.getAllChefs()
@@ -63,9 +63,9 @@ public class ChefController {
                                 chef.getFirstName(),
                                 chef.getLastName(),
                                 chef.getDateOfBirth(),
+                                chef.getUsername(),
+                                chef.getPassword(),
                                 chef.getRole(),
-                                chef.getRestaurant().getId(),
-                                chef.getRestaurant().getName(),
                                 false))
                         .toList());
         mav.addObject("roleValues", ChefRole.values());
@@ -78,19 +78,18 @@ public class ChefController {
      * @param chefId  the chef id
      * @param session the session
      * @param model   the model
+     * @param user    the user
+     * @param request the request
      * @return the model and view
      */
     @GetMapping("/chef")
-    public ModelAndView oneChef(@RequestParam("id") long chefId, HttpSession session, Model model,
-                                @AuthenticationPrincipal CustomUserDetails user,
-                                HttpServletRequest request) {
+    public ModelAndView oneChef(@RequestParam("id") long chefId, HttpSession session, Model model, ModelAndView mav, @AuthenticationPrincipal CustomUserDetails user, HttpServletRequest request) {
         logger.info("Getting chef");
         String pageTitle = "Chef";
         HistoryUtil.updateHistory(session, pageTitle);
         model.addAttribute("pageTitle", pageTitle);
 
-        var chef = chefService.getChefWithMenuItems(chefId);
-        var mav = new ModelAndView();
+        Chef chef = chefService.getChefWithMenuItems(chefId);
         mav.setViewName("chef/chef");
         mav.addObject("one_chef",
                 new ChefViewModel(
@@ -98,27 +97,19 @@ public class ChefController {
                         chef.getFirstName(),
                         chef.getLastName(),
                         chef.getDateOfBirth(),
+                        chef.getUsername(),
+                        chef.getPassword(),
                         chef.getRole(),
-                        chef.getRestaurant().getId(),
-                        chef.getRestaurant().getName(),
                         user != null && (user.getChefId() == chefId || request.isUserInRole(Admin.getCode())),
-                        chef.getMenuItems()
-                                .stream()
-                                .map(menuItemChef -> new MenuItemViewModel(
+                        chef.getMenuItems().stream().map(menuItemChef ->
+                                new MenuItemViewModel(
                                         menuItemChef.getMenuItem().getId(),
                                         menuItemChef.getMenuItem().getName(),
                                         menuItemChef.getMenuItem().getPrice(),
                                         menuItemChef.getMenuItem().getCourse(),
                                         menuItemChef.getMenuItem().isVegetarian(),
                                         menuItemChef.getMenuItem().getSpiceLvl(),
-                                        menuItemChef.getMenuItem().getRestaurant().getId(),
-                                        menuItemChef.getMenuItem().getRestaurant().getName(),
-                                        false
-                                        )
-                                )
-                                .toList()
-                )
-        );
+                                        false)).toList()));
         mav.addObject("roleValues", ChefRole.values());
         return mav;
     }
@@ -138,18 +129,19 @@ public class ChefController {
         return "chef/search-chefs";
     }
 
+    /**
+     * Update chef string.
+     *
+     * @param chefViewModel the chef view model
+     * @param bindingResult the binding result
+     * @param user          the user
+     * @param request       the request
+     * @return the string
+     */
     @PostMapping("/chef/update")
-    public String updateChef(@Valid ChefViewModel chefViewModel,
-                                  BindingResult bindingResult,
-                                  @AuthenticationPrincipal CustomUserDetails user,
-                                  HttpServletRequest request) {
-        if ((user.getChefId() == chefViewModel.getId() || request.isUserInRole(Admin.getCode()))
-                && (!bindingResult.hasErrors())) {
-            chefService.changeChef(
-                    chefViewModel.getId(),
-                    chefViewModel.getFirstName(),
-                    chefViewModel.getLastName(),
-                    chefViewModel.getDateOfBirth());
+    public String updateChef(@Valid ChefViewModel chefViewModel, BindingResult bindingResult, @AuthenticationPrincipal CustomUserDetails user, HttpServletRequest request) {
+        if ((user.getChefId() == chefViewModel.getId() || request.isUserInRole(Admin.getCode())) && (!bindingResult.hasErrors())) {
+            chefService.changeChef(chefViewModel.getId(), chefViewModel.getFirstName(), chefViewModel.getLastName(), chefViewModel.getDateOfBirth(), chefViewModel.getUsername(), chefViewModel.getPassword(), chefViewModel.getRole());
         }
         return "redirect:/chef?id=" + chefViewModel.getId();
     }

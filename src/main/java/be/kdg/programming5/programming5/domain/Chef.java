@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.Period;
 import java.util.List;
 import java.util.Objects;
 
@@ -33,10 +32,6 @@ public class Chef extends AbstractEntity<Long> implements Serializable {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private ChefRole role;
-
-    @ManyToOne
-    @JoinColumn(name = "restaurant_id")
-    private Restaurant restaurant;
 
     @OneToMany(mappedBy = "chef")
     private List<MenuItemChef> menuItems;
@@ -81,11 +76,11 @@ public class Chef extends AbstractEntity<Long> implements Serializable {
      * @param firstName   the first name
      * @param lastName    the last name
      * @param dateOfBirth the date of birth
-     * @param restaurant  the restaurant
+     * @param role        the role
      */
-    public Chef(String firstName, String lastName, LocalDate dateOfBirth, Restaurant restaurant) {
+    public Chef(String firstName, String lastName, LocalDate dateOfBirth, ChefRole role) {
         this(firstName, lastName, dateOfBirth);
-        setRestaurant(restaurant);
+        setRole(role);
     }
 
     /**
@@ -95,31 +90,44 @@ public class Chef extends AbstractEntity<Long> implements Serializable {
      * @param firstName   the first name
      * @param lastName    the last name
      * @param dateOfBirth the date of birth
-     * @param restaurant  the restaurant
+     * @param role        the role
      */
-    public Chef(long id, String firstName, String lastName, LocalDate dateOfBirth, Restaurant restaurant) {
-        this(id, firstName, lastName, dateOfBirth);
-        setRestaurant(restaurant);
-    }
-
-    public Chef(String firstName, String lastName, LocalDate dateOfBirth, ChefRole role) {
-        this(firstName, lastName, dateOfBirth);
-        this.role = role;
-    }
-
     public Chef(Long id, String firstName, String lastName, LocalDate dateOfBirth, ChefRole role) {
         this(id, firstName, lastName, dateOfBirth);
-        this.role = role;
+        setRole(role);
     }
 
-    public Chef(String firstName, String lastName, LocalDate dateOfBirth, ChefRole role, Restaurant restaurant) {
-        this(firstName, lastName, dateOfBirth, restaurant);
-        this.role = role;
+    /**
+     * Instantiates a new Chef.
+     *
+     * @param firstName   the first name
+     * @param lastName    the last name
+     * @param dateOfBirth the date of birth
+     * @param username    the username
+     * @param password    the password
+     * @param role        the role
+     */
+    public Chef(String firstName, String lastName, LocalDate dateOfBirth, String username, String password, ChefRole role) {
+        this(firstName, lastName, dateOfBirth, role);
+        setUsername(username);
+        setPassword(password);
     }
 
-    public Chef(Long id, String firstName, String lastName, LocalDate dateOfBirth, ChefRole role, Restaurant restaurant) {
-        this(id, firstName, lastName, dateOfBirth, restaurant);
-        this.role = role;
+    /**
+     * Instantiates a new Chef.
+     *
+     * @param id          the id
+     * @param firstName   the first name
+     * @param lastName    the last name
+     * @param dateOfBirth the date of birth
+     * @param username    the username
+     * @param password    the password
+     * @param role        the role
+     */
+    public Chef(Long id, String firstName, String lastName, LocalDate dateOfBirth, String username, String password, ChefRole role) {
+        this(id, firstName, lastName, dateOfBirth, role);
+        setUsername(username);
+        setPassword(password);
     }
 
     /**
@@ -183,47 +191,58 @@ public class Chef extends AbstractEntity<Long> implements Serializable {
         this.dateOfBirth = dateOfBirth;
     }
 
+    /**
+     * Gets username.
+     *
+     * @return the username
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     * Sets username.
+     *
+     * @param username the username
+     */
     public void setUsername(String username) {
         this.username = username;
     }
 
+    /**
+     * Gets password.
+     *
+     * @return the password
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     * Sets password.
+     *
+     * @param password the password
+     */
     public void setPassword(String password) {
         this.password = password;
     }
 
+    /**
+     * Gets role.
+     *
+     * @return the role
+     */
     public ChefRole getRole() {
         return role;
     }
 
+    /**
+     * Sets role.
+     *
+     * @param role the role
+     */
     public void setRole(ChefRole role) {
         this.role = role;
-    }
-
-    /**
-     * Gets restaurant.
-     *
-     * @return the restaurant
-     */
-    public Restaurant getRestaurant() {
-        return restaurant;
-    }
-
-    /**
-     * Sets restaurant.
-     *
-     * @param restaurant the restaurant
-     */
-    public void setRestaurant(Restaurant restaurant) {
-        Objects.requireNonNull(restaurant, "Restaurant cannot be null");
-        this.restaurant = restaurant;
     }
 
     /**
@@ -242,18 +261,5 @@ public class Chef extends AbstractEntity<Long> implements Serializable {
      */
     public void setMenuItems(List<MenuItemChef> menuItems) {
         this.menuItems = menuItems;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Chef chef = (Chef) o;
-        return Objects.equals(id, chef.id) && Objects.equals(firstName, chef.firstName) && Objects.equals(lastName, chef.lastName) && Objects.equals(dateOfBirth, chef.dateOfBirth);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, firstName, lastName, dateOfBirth);
     }
 }

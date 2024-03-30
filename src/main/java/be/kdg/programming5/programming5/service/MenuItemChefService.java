@@ -21,6 +21,13 @@ public class MenuItemChefService {
         this.menuItemChefRepository = menuItemChefRepository;
     }
 
+    /**
+     * Is chef assigned to menu item boolean.
+     *
+     * @param menuItemId the menu item id
+     * @param chefId     the chef id
+     * @return the boolean
+     */
     public boolean isChefAssignedToMenuItem(long menuItemId, long chefId) {
         return menuItemChefRepository
                 .findByMenuItemIdAndChefId(menuItemId, chefId)

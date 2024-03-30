@@ -12,40 +12,35 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <h1 class="page-title text-primary" th:text="#{title.home}">Home</h1>
-            <p class="lead text-body text-body" th:text="#{message.home}">For chefs, by chefs.</p>
+            <p class="lead text-body text-body" th:text="#{message.home}">A restaurant database for chefs.</p>
         </div>
-        <!-- Menu Item Links -->
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title" th:text="#{title.menuItems}">Menu Items</h5>
-                    <a class="btn btn-primary" href="/menu-items" th:text="#{header.list}">List</a>
-                    <a class="btn btn-primary" href="/search-menu-items" th:text="#{header.search}">Search</a>
+        <div class="col-md-8">
+                <div class="row mb-3 justify-content-center">
+                    <div class="col-md-6">
+                        <!-- Menu Items Card -->
+                        <div class="card" onclick="location.href='/menu-items';" style="cursor: pointer;">
+                            <div class="card-body">
+                                <h5 class="card-title" th:text="#{message.viewMenuItems}">View Menu Items</h5>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <!-- Chef Links -->
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title" th:text="#{title.chefs}">Chefs</h5>
-                    <a class="btn btn-primary" href="/chefs" th:text="#{header.list}">List</a>
-                    <a class="btn btn-primary" href="/search-chefs" th:text="#{header.search}">Search</a>
+                <div class="row mb-3 justify-content-center">
+                    <div class="col-md-6">
+                        <!-- Chefs Card -->
+                        <div class="card" onclick="location.href='/chefs';" style="cursor: pointer;">
+                            <div class="card-body">
+                                <h5 class="card-title" th:text="#{message.viewChefs}">View Chefs</h5>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <!-- More Links -->
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title" th:text="#{title.more}">More</h5>
-                    <a class="btn btn-primary" href="/history" th:text="#{title.history}">History</a>
-                </div>
-            </div>
         </div>
         <!-- Home Page Image -->
-        <div class="mt-4">
-            <img alt="Home Image" class="img-fluid" th:src="@{/images/home-image.jpg}"/>
+        <div class="col-md-6">
+            <div class="mt-4">
+                <img alt="Home Image" class="img-fluid" th:src="@{/images/home-image.jpg}"/>
+            </div>
         </div>
     </div>
 </main>

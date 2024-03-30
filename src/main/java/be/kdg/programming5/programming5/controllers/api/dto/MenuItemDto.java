@@ -22,14 +22,20 @@ public class MenuItemDto {
     /**
      * Instantiates a new Menu item dto.
      *
-     * @param id    the id
-     * @param name  the name
-     * @param price the price
+     * @param id         the id
+     * @param name       the name
+     * @param price      the price
+     * @param course     the course
+     * @param vegetarian the vegetarian
+     * @param spiceLvl   the spice lvl
      */
-    public MenuItemDto(long id, String name, double price) {
+    public MenuItemDto(long id, String name, double price, Course course, boolean vegetarian, int spiceLvl) {
         this.id = id;
         this.name = name;
         this.price = price;
+        this.course = course;
+        this.vegetarian = vegetarian;
+        this.spiceLvl = spiceLvl;
     }
 
     /**

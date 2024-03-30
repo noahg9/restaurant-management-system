@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <title th:text="#{title.chefs}">Chefs</title>
@@ -16,59 +15,23 @@
             <h1 class="page-title text-primary" th:text="#{title.chefs}">Chefs</h1>
         </div>
         <!-- List Section -->
-        <div class="col-md-6">
+        <div class="col-md-12">
             <section class="mt-5 text-center">
-                <h2 class="text-secondary" th:text="#{header.list}">List</h2><br>
+                <h2 class="text-secondary" th:text="#{header.list}">List</h2>
                 <!-- Chefs -->
                 <div class="row mb-3 justify-content-center" id="chefBody">
                     <!-- Chefs will be dynamically added here -->
                 </div>
             </section>
         </div>
-        <!-- Add Section -->
-        <div class="col-md-6">
-            <section class="mt-5 text-center" sec:authorize="isAuthenticated()">
-                <h2 class="text-secondary" th:text="#{header.add}">Add</h2><br>
-                <!-- Form -->
-                <form>
-                    <!-- First Name -->
-                    <div class="row mb-3 justify-content-center">
-                        <div class="col-sm-4">
-                            <label class="form-label" for="firstNameInput" th:text="#{attribute.firstName}">First
-                                Name</label>
-                            <input class="form-control" id="firstNameInput" required
-                                   th:placeholder="#{attribute.firstName}"
-                                   type="text">
-                        </div>
-                    </div>
-                    <!-- Last Name -->
-                    <div class="row mb-3 justify-content-center">
-                        <div class="col-sm-4">
-                            <label class="form-label" for="lastNameInput" th:text="#{attribute.lastName}">Last
-                                Name</label>
-                            <input class="form-control" id="lastNameInput" required
-                                   th:placeholder="#{attribute.lastName}"
-                                   type="text">
-                        </div>
-                    </div>
-                    <!-- Date of Birth -->
-                    <div class="row mb-3 justify-content-center">
-                        <div class="col-sm-4">
-                            <label class="form-label" for="dobInput" th:text="#{attribute.dateOfBirth}">Date of
-                                Birth</label>
-                            <input class="form-control" id="dobInput" type="date">
-                        </div>
-                    </div>
-                    <!-- Add Button -->
-                    <div class="row justify-content-center">
-                        <div class="col-sm-4">
-                            <button class="btn btn-primary mb-3" id="addButton" th:text="#{button.add}"
-                                    type="button">Add
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </section>
+        <!-- Search Chefs -->
+        <div class="col-md-12">
+            <div class="center-container text-center">
+                <a class="btn btn-secondary" th:href="@{/search-chefs}">
+                    <i class="fas fa-search"></i>
+                    <span th:text="#{title.searchChefs}">Search Chefs</span>
+                </a>
+            </div>
         </div>
     </div>
 </main>
