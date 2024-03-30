@@ -41,18 +41,39 @@ const chefBody = document.getElementById("chefBody");
  * @param {{id: number, firstName: string, lastName: string, dateOfBirth: date, username: string, password: string, role, string}} chef
  */
 function addChefToTable(chef) {
+    const roleGroup = document.getElementById(chef.role + "-group"); // Check if group exists
+    let cardGroup;
+    if (!roleGroup) {
+        // Create a new group if it doesn't exist
+        cardGroup = document.createElement("div");
+        cardGroup.classList.add("role-group", "mb-4", "row"); // Add Bootstrap classes for rows
+        cardGroup.id = chef.role + "-group";
+
+        const groupName = document.createElement("h2");
+        groupName.textContent = chef.role; // Use role name as group header
+        cardGroup.appendChild(groupName);
+
+        chefBody.appendChild(cardGroup);
+    } else {
+        cardGroup = roleGroup;
+    }
+
+    const cardColumn = document.createElement("div");
+    cardColumn.classList.add("col-md-4"); // Bootstrap class for columns
     const card = document.createElement("div");
-    card.classList.add("card", "mb-3", "col-md-4");
+    card.classList.add("card", "mb-3");
     const age = Math.floor((new Date() - new Date(chef.dateOfBirth)) / (1000 * 60 * 60 * 24 * 365));
     card.innerHTML = `
-        <div class="card-body" onclick="location.href=\`/chef?id=${chef.id}\`;" style="cursor: pointer;">
-            <h5 class="card-title">${chef.role + ' ' + chef.firstName + ' ' + chef.lastName}</h5>
-            <p class="card-text">${age}  years old</p>
+        <div class="card-body" onclick="location.href='/chef?id=${chef.id}';" style="cursor: pointer;">
+            <h5 class="card-title">${chef.firstName + ' ' + chef.lastName}</h5>
+            <p class="card-text">${age} years old</p>
             <button type="button" class="btn btn-danger btn-sm delete-button"><i class="fas fa-trash-alt"></i></button>
         </div>
     `;
     card.dataset.chefId = chef.id;
-    chefBody.appendChild(card);
+    cardColumn.appendChild(card);
+    cardGroup.appendChild(cardColumn);
+
     const newDeleteButton = card.querySelector('button');
     newDeleteButton.addEventListener("click", (event) => {
         event.stopPropagation();

@@ -18,31 +18,27 @@
                 <div class="row mb-3 justify-content-center">
                     <form method="POST" th:action="@{/login}">
                         <div class="row pb-3 justify-content-center">
-                            <div class="col-sm-4">
+                            <div class="col-sm-2">
                                 <label class="form-label" for="username"
                                        th:text="#{attribute.username}">Username</label>
                                 <input class="form-control" id="username" name="username" type="text">
                             </div>
                         </div>
                         <div class="row pb-3 justify-content-center">
-                            <div class="col-sm-4">
+                            <div class="col-sm-2">
                                 <label class="form-label" for="password"
                                        th:text="#{attribute.password}">Password</label>
                                 <input class="form-control" id="password" name="password" type="password">
                             </div>
                         </div>
                         <div class="row justify-content-center">
-                            <div class="col-sm-4">
+                            <div class="col-sm-2">
                                 <button class="btn btn-primary" th:text="#{button.login}" type="submit">Log in</button>
                             </div>
                         </div>
                     </form>
                 </div>
             </section>
-        </div>
-        <!-- Register Button -->
-        <div class="center-container text-center">
-            <a class="btn btn-secondary" th:href="@{/registration}" th:text="#{button.register}">Register</a>
         </div>
     </div>
 </main>

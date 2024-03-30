@@ -28,12 +28,9 @@ public class SessionController {
     @GetMapping("/history")
     public String getHistory(HttpSession session, Model model) {
         logger.info("Getting history");
-
         String pageTitle = "History";
-
         HistoryUtil.updateHistory(session, pageTitle);
         List<Map<String, Object>> history = HistoryUtil.getHistory(session);
-
         model.addAttribute("pageTitle", pageTitle);
         model.addAttribute("history", history);
         return "session/history";

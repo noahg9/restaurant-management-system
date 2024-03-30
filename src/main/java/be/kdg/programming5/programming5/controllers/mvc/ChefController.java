@@ -114,19 +114,29 @@ public class ChefController {
         return mav;
     }
 
-    /**
-     * Search chefs string.
-     *
-     * @param session the session
-     * @param model   the model
-     * @return the string
-     */
+        /**
+         * Search chefs string.
+         *
+         * @param session the session
+         * @param model   the model
+         * @return the string
+         */
     @GetMapping("/search-chefs")
     public String searchChefs(HttpSession session, Model model) {
+        logger.info("Getting chef search page");
         String pageTitle = "Search Chefs";
         HistoryUtil.updateHistory(session, pageTitle);
         model.addAttribute("pageTitle", pageTitle);
         return "chef/search-chefs";
+    }
+
+    @GetMapping("/register-chef")
+    public String registerChef(HttpSession session, Model model) {
+        logger.info("Getting chef registration page");
+        String pageTitle = "Register New Chef";
+        HistoryUtil.updateHistory(session, pageTitle);
+        model.addAttribute("pageTitle", pageTitle);
+        return "chef/register-chef";
     }
 
     /**
@@ -140,6 +150,7 @@ public class ChefController {
      */
     @PostMapping("/chef/update")
     public String updateChef(@Valid ChefViewModel chefViewModel, BindingResult bindingResult, @AuthenticationPrincipal CustomUserDetails user, HttpServletRequest request) {
+        logger.info("Updating chef");
         if ((user.getChefId() == chefViewModel.getId() || request.isUserInRole(Admin.getCode())) && (!bindingResult.hasErrors())) {
             chefService.changeChef(chefViewModel.getId(), chefViewModel.getFirstName(), chefViewModel.getLastName(), chefViewModel.getDateOfBirth(), chefViewModel.getUsername(), chefViewModel.getPassword(), chefViewModel.getRole());
         }

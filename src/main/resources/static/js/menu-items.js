@@ -66,8 +66,27 @@ async function addNewMenuItem() {
  * @param {{id: number, name: string, price: number, course: string, vegetarian: boolean, spiceLvl: number}} menuItem
  */
 function addMenuItemToTable(menuItem) {
+    const courseGroup = document.getElementById(menuItem.course + "-group"); // Check if group exists
+    let cardGroup;
+    if (!courseGroup) {
+        // Create a new group if it doesn't exist
+        cardGroup = document.createElement("div");
+        cardGroup.classList.add("course-group", "mb-4", "row"); // Add Bootstrap classes for rows
+        cardGroup.id = menuItem.course + "-group";
+
+        const groupName = document.createElement("h2");
+        groupName.textContent = menuItem.course; // Use course name as group header
+        cardGroup.appendChild(groupName);
+
+        menuItemBody.appendChild(cardGroup);
+    } else {
+        cardGroup = courseGroup;
+    }
+
+    const cardColumn = document.createElement("div");
+    cardColumn.classList.add("col-md-6"); // Bootstrap class for columns
     const card = document.createElement("div");
-    card.classList.add("card", "mb-3", "col-md-8"); // Adjusted width for two cards per row
+    card.classList.add("card", "mb-3"); // Adjusted width for two cards per row
     const vegetarianIndicator = menuItem.vegetarian ? "(V)" : ""; // "(V)" for vegetarian, empty string for non-vegetarian
     card.innerHTML = `
         <div class="card-body" style="cursor: pointer;">
@@ -77,7 +96,9 @@ function addMenuItemToTable(menuItem) {
         </div>
     `;
     card.dataset.menuItemId = menuItem.id;
-    menuItemBody.appendChild(card);
+    cardColumn.appendChild(card);
+    cardGroup.appendChild(cardColumn);
+
     const newDeleteButton = card.querySelector('button');
     newDeleteButton.addEventListener("click", (event) => {
         event.stopPropagation();
@@ -87,6 +108,7 @@ function addMenuItemToTable(menuItem) {
         window.location.href = `/menu-item?id=${menuItem.id}`;
     });
 }
+
 
 fillMenuItemsTable().catch(error => {
     console.error('Error fetching menu items:', error);

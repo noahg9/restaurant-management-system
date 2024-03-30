@@ -131,6 +131,7 @@ public class MenuItemController {
      */
     @GetMapping("/search-menu-items")
     public String searchMenuItems(HttpSession session, Model model) {
+        logger.info("Getting menu item search page");
         String pageTitle = "Search Menu Items";
         HistoryUtil.updateHistory(session, pageTitle);
         model.addAttribute("pageTitle", pageTitle);
