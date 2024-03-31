@@ -109,6 +109,7 @@ public class ChefService {
      * @param role        the role
      * @return the chef
      */
+    @Transactional
     public Chef addChef(String firstName, String lastName, LocalDate dateOfBirth, String username, String password, ChefRole role) {
         return chefRepository.save(new Chef(firstName, lastName, dateOfBirth, username, password, role));
     }

@@ -35,7 +35,7 @@ async function handleDeleteMenuItem(event) {
 
 const name = document.getElementById("name");
 const price = document.getElementById("price");
-const courseName = document.getElementById("course");
+const courseName = document.getElementById("courseName");
 const vegetarian = document.getElementById("vegetarian");
 const spiceLvl = document.getElementById("spiceLvl");
 const addButton = document.getElementById("addButton");

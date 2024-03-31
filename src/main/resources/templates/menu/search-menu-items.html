@@ -5,7 +5,7 @@
 <head>
     <title th:text="#{title.searchMenuItems}">Search Menu Items</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
-    <script src="/js/search-menu-items.js"></script>
+    <script src="/js/search-menu-items.js" type="module"></script>
 </head>
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
@@ -17,9 +17,8 @@
         <div class="col-md-4">
             <!-- Search Bar -->
             <form>
-                <div class="row mb-3">
+                <div class="row mb-3 justify-content-center">
                     <div class="col">
-                        <label class="form-label" for="searchTerm" th:text="#{message.searchTerm}">Name</label>
                         <input aria-describedby="searchHelp" class="form-control" id="searchTerm"
                                th:placeholder="#{message.menuItemsSearch}" type="text">
                     </div>

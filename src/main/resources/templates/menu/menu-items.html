@@ -48,9 +48,9 @@
                         <div class="col-sm-4">
                             <label class="form-label" for="courseName" th:text="#{attribute.course}">Course</label>
                             <select class="form-select" id="courseName" name="course">
-                                <option th:each="course : ${courseNames}"
-                                        th:text="${course}"
-                                        th:value="${course}">
+                                <option th:each="courseName : ${courseNames}"
+                                        th:text="${courseName}"
+                                        th:value="${courseName}">
                                 </option>
                             </select>
                         </div>

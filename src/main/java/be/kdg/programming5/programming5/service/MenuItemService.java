@@ -99,12 +99,12 @@ public class MenuItemService {
      * @param userId     the user id
      * @return the menu item
      */
+    @Transactional
     public MenuItem addMenuItem(String name, double price, Course course, Boolean vegetarian, int spiceLvl, long userId) {
         MenuItem menuItem = menuItemRepository.save(new MenuItem(name, price, course, vegetarian, spiceLvl));
-        MenuItem savedMenuItem = menuItemRepository.save(menuItem);
         Chef chef = chefRepository.findById(userId).orElse(null);
-        assignedChefRepository.save(new AssignedChef(savedMenuItem, chef, LocalDateTime.now()));
-        return savedMenuItem;
+        assignedChefRepository.save(new AssignedChef(menuItem, chef, LocalDateTime.now()));
+        return menuItem;
     }
 
     /**

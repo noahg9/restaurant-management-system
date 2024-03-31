@@ -35,34 +35,6 @@ public class NewChefDto {
      * @param firstName   the first name
      * @param lastName    the last name
      * @param dateOfBirth the date of birth
-     */
-    public NewChefDto(String firstName, String lastName, LocalDate dateOfBirth) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    /**
-     * Instantiates a new New chef dto.
-     *
-     * @param firstName   the first name
-     * @param lastName    the last name
-     * @param dateOfBirth the date of birth
-     * @param roleName        the role
-     */
-    public NewChefDto(String firstName, String lastName, LocalDate dateOfBirth, String roleName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.dateOfBirth = dateOfBirth;
-        this.roleName = roleName;
-    }
-
-    /**
-     * Instantiates a new New chef dto.
-     *
-     * @param firstName   the first name
-     * @param lastName    the last name
-     * @param dateOfBirth the date of birth
      * @param username    the username
      * @param password    the password
      * @param roleName        the role

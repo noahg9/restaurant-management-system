@@ -1,5 +1,4 @@
-const header = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
-const token = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+import {header, token} from "./util/csrf.js";
 
 const firstName = document.getElementById("firstName");
 const lastName = document.getElementById("lastName");
