@@ -1,7 +1,7 @@
 package be.kdg.programming5.programming5.service;
 
-import be.kdg.programming5.programming5.domain.Chef;
-import be.kdg.programming5.programming5.domain.ChefRole;
+import be.kdg.programming5.programming5.model.Chef;
+import be.kdg.programming5.programming5.model.ChefRole;
 import be.kdg.programming5.programming5.repository.ChefRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;

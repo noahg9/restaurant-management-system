@@ -1,7 +1,7 @@
 package be.kdg.programming5.programming5.service;
 
-import be.kdg.programming5.programming5.domain.Chef;
-import be.kdg.programming5.programming5.domain.CustomUserDetails;
+import be.kdg.programming5.programming5.model.Chef;
+import be.kdg.programming5.programming5.model.CustomUserDetails;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

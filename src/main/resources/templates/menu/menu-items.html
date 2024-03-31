@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <title th:text="#{title.menuItems}">Menu Items</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
@@ -15,42 +15,40 @@
         <div class="col-md-12">
             <h1 class="page-title text-primary" th:text="#{title.menuItems}">Menu Items</h1>
         </div>
-        <!-- List Section -->
+        <!-- Menu Item List Section -->
         <div class="col-md-6">
             <section class="mt-5 text-center">
                 <h2 class="text-secondary" th:text="#{header.list}">List</h2>
-                <!-- Menu Items -->
                 <div class="row mb-3 justify-content-center" id="menuItemBody">
                     <!-- Menu items will be dynamically added here -->
                 </div>
             </section>
         </div>
-        <!-- Add Section -->
+        <!-- Add Menu Item Section -->
         <div class="col-md-6" sec:authorize="isAuthenticated()">
             <section class="mt-5 text-center">
                 <h2 class="text-secondary" th:text="#{header.add}">Add</h2>
-                <!-- Form -->
                 <form>
                     <!-- Name -->
                     <div class="row mb-3 justify-content-center">
                         <div class="col-sm-4">
-                            <label class="form-label" for="nameInput" th:text="#{attribute.name}">Name</label>
-                            <input class="form-control" id="nameInput" required th:placeholder="#{attribute.name}"
+                            <label class="form-label" for="name" th:text="#{attribute.name}">Name</label>
+                            <input class="form-control" id="name" required th:placeholder="#{attribute.name}"
                                    type="text">
                         </div>
                     </div>
                     <!-- Price -->
                     <div class="row mb-3 justify-content-center">
                         <div class="col-sm-4">
-                            <label class="form-label" for="priceInput" th:text="#{attribute.price}">Price</label>
-                            <input class="form-control" id="priceInput" required step="0.01" type="number">
+                            <label class="form-label" for="price" th:text="#{attribute.price}">Price</label>
+                            <input class="form-control" id="price" required step="0.01" type="number">
                         </div>
                     </div>
                     <!-- Course -->
                     <div class="row mb-3 justify-content-center">
                         <div class="col-sm-4">
-                            <label class="form-label" for="courseInput" th:text="#{attribute.course}">Course</label>
-                            <select class="form-select" id="courseInput" name="course">
+                            <label class="form-label" for="course" th:text="#{attribute.course}">Course</label>
+                            <select class="form-select" id="course" name="course">
                                 <option th:each="course : ${courseValues}"
                                         th:text="${course.toString()}"
                                         th:value="${course}">
@@ -61,17 +59,17 @@
                     <!-- Vegetarian -->
                     <div class="row mb-3 justify-content-center">
                         <div class="col-sm-4">
-                            <label class="form-label" for="vegetarianInput"
+                            <label class="form-label" for="vegetarian"
                                    th:text="#{attribute.vegetarian}">Vegetarian</label>
-                            <input class="form-check" id="vegetarianInput" type="checkbox">
+                            <input class="form-check" id="vegetarian" type="checkbox">
                         </div>
                     </div>
                     <!-- Spice Level -->
                     <div class="row mb-3 justify-content-center">
                         <div class="col-sm-4">
-                            <label class="form-label" for="spiceLvlInput" th:text="#{attribute.spiceLvl}">Spice
+                            <label class="form-label" for="spiceLvl" th:text="#{attribute.spiceLvl}">Spice
                                 Level</label>
-                            <input class="form-control" id="spiceLvlInput" required type="number">
+                            <input class="form-control" id="spiceLvl" required type="number">
                         </div>
                     </div>
                     <!-- Add Button -->
@@ -85,13 +83,18 @@
                 </form>
             </section>
         </div>
-        <!-- Search Menu Items -->
-        <div class="col-md-12">
-            <div class="center-container text-center">
-                <a class="btn btn-secondary" th:href="@{/search-menu-items}">
-                    <i class="fas fa-search"></i>
-                    <span th:text="#{title.searchMenuItems}">Search Menu Items</span>
-                </a>
+        <!-- Bottom Page Buttons Section -->
+        <div class="col-md-4">
+            <div class="row mb-3 justify-content-center">
+                <!-- Search Menu Items Button -->
+                <div class="col-md-12">
+                    <div class="center-container text-center">
+                        <a class="btn btn-secondary" th:href="@{/search-menu-items}">
+                            <i class="fas fa-search"></i>
+                            <span th:text="#{title.searchMenuItems}">Search Menu Items</span>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

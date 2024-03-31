@@ -1,9 +1,9 @@
 package be.kdg.programming5.programming5.service;
 
-import be.kdg.programming5.programming5.domain.Chef;
-import be.kdg.programming5.programming5.domain.Course;
-import be.kdg.programming5.programming5.domain.MenuItem;
-import be.kdg.programming5.programming5.domain.MenuItemChef;
+import be.kdg.programming5.programming5.model.Chef;
+import be.kdg.programming5.programming5.model.Course;
+import be.kdg.programming5.programming5.model.MenuItem;
+import be.kdg.programming5.programming5.model.MenuItemChef;
 import be.kdg.programming5.programming5.repository.ChefRepository;
 import be.kdg.programming5.programming5.repository.MenuItemChefRepository;
 import be.kdg.programming5.programming5.repository.MenuItemRepository;

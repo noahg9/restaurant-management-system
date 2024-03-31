@@ -33,11 +33,11 @@ async function handleDeleteMenuItem(event) {
     }
 }
 
-const nameInput = document.getElementById("nameInput");
-const priceInput = document.getElementById("priceInput");
-const courseInput = document.getElementById("courseInput");
-const vegetarianInput = document.getElementById("vegetarianInput");
-const spiceLvlInput = document.getElementById("spiceLvlInput");
+const name = document.getElementById("name");
+const price = document.getElementById("price");
+const course = document.getElementById("course");
+const vegetarian = document.getElementById("vegetarian");
+const spiceLvl = document.getElementById("spiceLvl");
 const addButton = document.getElementById("addButton");
 const menuItemBody = document.getElementById("menuItemBody");
 
@@ -46,11 +46,11 @@ async function addNewMenuItem() {
         method: "POST", headers: {
             "Accept": "application/json", "Content-Type": "application/json", [header]: token
         }, body: JSON.stringify({
-            name: nameInput.value,
-            price: priceInput.value,
-            course: courseInput.value,
-            vegetarian: vegetarianInput.checked,
-            spiceLvl: spiceLvlInput.value
+            name: name.value,
+            price: price.value,
+            course: course.value,
+            vegetarian: vegetarian.checked,
+            spiceLvl: spiceLvl.value
         })
     })
     if (response.status === 201) {
