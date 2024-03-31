@@ -1,11 +1,11 @@
 package be.kdg.programming5.programming5.service;
 
+import be.kdg.programming5.programming5.model.AssignedChef;
 import be.kdg.programming5.programming5.model.Chef;
 import be.kdg.programming5.programming5.model.Course;
 import be.kdg.programming5.programming5.model.MenuItem;
-import be.kdg.programming5.programming5.model.AssignedChef;
-import be.kdg.programming5.programming5.repository.ChefRepository;
 import be.kdg.programming5.programming5.repository.AssignedChefRepository;
+import be.kdg.programming5.programming5.repository.ChefRepository;
 import be.kdg.programming5.programming5.repository.MenuItemRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -130,19 +130,17 @@ public class MenuItemService {
      * @param menuItemId the menu item id
      * @param name       the name
      * @param price      the price
-     * @param course     the course
      * @param vegetarian the vegetarian
      * @param spiceLvl   the spice lvl
      * @return the boolean
      */
-    public boolean changeMenuItem(long menuItemId, String name, double price, Course course, boolean vegetarian, int spiceLvl) {
+    public boolean changeMenuItem(long menuItemId, String name, double price, boolean vegetarian, int spiceLvl) {
         MenuItem menuItem = menuItemRepository.findById(menuItemId).orElse(null);
         if (menuItem == null) {
             return false;
         }
         menuItem.setName(name);
         menuItem.setPrice(price);
-        menuItem.setCourse(course);
         menuItem.setVegetarian(vegetarian);
         menuItem.setSpiceLvl(spiceLvl);
         menuItemRepository.save(menuItem);

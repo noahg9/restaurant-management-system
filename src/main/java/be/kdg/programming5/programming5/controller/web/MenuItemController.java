@@ -107,7 +107,6 @@ public class MenuItemController extends BaseController {
                                 assignedChef.getChef().getLastName(),
                                 assignedChef.getChef().getDateOfBirth(),
                                 assignedChef.getChef().getUsername(),
-                                assignedChef.getChef().getPassword(),
                                 assignedChef.getChef().getRole().getName(),
                                 false)).toList()));
         mav.addObject("courseNames", Arrays.stream(Course.values()).map(Course::getName).toList());

@@ -33,7 +33,6 @@ const firstName = document.getElementById("firstNameField");
 const lastName = document.getElementById("lastNameField");
 const dateOfBirth = document.getElementById("dateOfBirthField");
 const username = document.getElementById("usernameField");
-const role = document.getElementById("roleField");
 const saveButton = document.getElementById("saveButton");
 
 async function saveChef() {
@@ -41,7 +40,7 @@ async function saveChef() {
         method: "PATCH", headers: {
             "Content-Type": "application/json", [header]: token
         }, body: JSON.stringify({
-            firstName: firstName.value, lastName: lastName.value, dateOfBirth: dateOfBirth.value, username: username.value, role: role.value
+            firstName: firstName.value, lastName: lastName.value, dateOfBirth: dateOfBirth.value, username: username.value
         }), redirect: "manual"
     })
     if (response.status === 204) {
@@ -50,5 +49,5 @@ async function saveChef() {
 }
 
 saveButton?.addEventListener("click", saveChef);
-firstName?.addEventListener("", () => saveButton.disabled = false);
-lastName?.addEventListener("", () => saveButton.disabled = false);
+firstName?.addEventListener("input", () => saveButton.disabled = false);
+lastName?.addEventListener("input", () => saveButton.disabled = false);

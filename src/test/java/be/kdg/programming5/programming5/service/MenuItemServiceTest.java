@@ -42,7 +42,7 @@ class MenuItemServiceTest {
         var createdMenuItem = menuItemRepository.save(new MenuItem("Cheese Bagel", 1.0, Course.MAIN, false, 1));
 
         // Act
-        var result = menuItemService.changeMenuItem(createdMenuItem.getId(), "Ham Bagel", 1.5, Course.MAIN, true, 2);
+        var result = menuItemService.changeMenuItem(createdMenuItem.getId(), "Ham Bagel", 1.5, true, 2);
 
         // Assert
         assertTrue(result);
@@ -57,7 +57,7 @@ class MenuItemServiceTest {
         // Arrange
 
         // Act
-        var result = menuItemService.changeMenuItem(9999, "Ham Bagel", 1.5, Course.MAIN, true, 2);
+        var result = menuItemService.changeMenuItem(9999, "Ham Bagel", 1.5, true, 2);
 
         // Assert
         assertFalse(result);

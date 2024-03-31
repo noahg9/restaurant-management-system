@@ -18,10 +18,6 @@ public class UpdateChefDto {
     private LocalDate dateOfBirth;
     @NotBlank
     private String username;
-    @NotBlank
-    private String password;
-    @NotBlank
-    private String roleName;
 
     /**
      * Instantiates a new Update chef dto.
@@ -99,41 +95,5 @@ public class UpdateChefDto {
      */
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    /**
-     * Gets password.
-     *
-     * @return the password
-     */
-    public String getPassword() {
-        return password;
-    }
-
-    /**
-     * Sets password.
-     *
-     * @param password the password
-     */
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    /**
-     * Gets role.
-     *
-     * @return the role
-     */
-    public String getRoleName() {
-        return roleName;
-    }
-
-    /**
-     * Sets role.
-     *
-     * @param roleName the role
-     */
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
     }
 }

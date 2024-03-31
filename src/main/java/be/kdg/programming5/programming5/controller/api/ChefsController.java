@@ -152,7 +152,7 @@ public class ChefsController {
      */
     @PatchMapping("{id}")
     ResponseEntity<Void> changeChef(@PathVariable("id") long chefId, @RequestBody @Valid UpdateChefDto updateChefDto) {
-        if (chefService.changeChef(chefId, updateChefDto.getFirstName(), updateChefDto.getLastName(), updateChefDto.getDateOfBirth(), updateChefDto.getUsername(), updateChefDto.getPassword(), ChefRole.fromName(updateChefDto.getRoleName()))) {
+        if (chefService.changeChef(chefId, updateChefDto.getFirstName(), updateChefDto.getLastName(), updateChefDto.getDateOfBirth(), updateChefDto.getUsername())) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

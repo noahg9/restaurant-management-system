@@ -138,11 +138,9 @@ public class ChefService {
      * @param lastName    the last name
      * @param dateOfBirth the date of birth
      * @param username    the username
-     * @param password    the password
-     * @param role        the role
      * @return the boolean
      */
-    public boolean changeChef(long chefId, String firstName, String lastName, LocalDate dateOfBirth, String username, String password, ChefRole role) {
+    public boolean changeChef(long chefId, String firstName, String lastName, LocalDate dateOfBirth, String username) {
         Chef chef = chefRepository.findById(chefId).orElse(null);
         if (chef == null) {
             return false;
@@ -151,8 +149,6 @@ public class ChefService {
         chef.setLastName(lastName);
         chef.setDateOfBirth(dateOfBirth);
         chef.setUsername(username);
-        chef.setPassword(password);
-        chef.setRole(role);
         chefRepository.save(chef);
         return true;
     }

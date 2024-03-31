@@ -162,7 +162,7 @@ public class MenuItemsController {
         if (!assignedChefService.isChefAssignedToMenuItem(menuItemId, user.getChefId()) && !request.isUserInRole(HEAD_CHEF.getCode())) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
-        if (menuItemService.changeMenuItem(menuItemId, updateMenuItemDto.getName(), updateMenuItemDto.getPrice(), Course.fromName(updateMenuItemDto.getCourseName()), updateMenuItemDto.isVegetarian(), updateMenuItemDto.getSpiceLvl())) {
+        if (menuItemService.changeMenuItem(menuItemId, updateMenuItemDto.getName(), updateMenuItemDto.getPrice(), updateMenuItemDto.isVegetarian(), updateMenuItemDto.getSpiceLvl())) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

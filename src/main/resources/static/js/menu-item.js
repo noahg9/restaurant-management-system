@@ -31,7 +31,6 @@ toggleChefsButton?.addEventListener("click", toggleChefs);
 
 const name = document.getElementById("nameField");
 const price = document.getElementById("priceField");
-const course = document.getElementById("courseField");
 const vegetarian = document.getElementById("vegetarianField");
 const spiceLvl = document.getElementById("spiceLvlField");
 const saveButton = document.getElementById("saveButton");
@@ -43,7 +42,6 @@ async function saveMenuItem() {
         }, body: JSON.stringify({
             name: name.value,
             price: price.value,
-            course: course.value,
             vegetarian: vegetarian.checked,
             spiceLvl: spiceLvl.value
         }), redirect: "manual"
@@ -54,4 +52,4 @@ async function saveMenuItem() {
 }
 
 saveButton?.addEventListener("click", saveMenuItem);
-name?.addEventListener("", () => saveButton.disabled = false);
+name?.addEventListener("input", () => saveButton.disabled = false);

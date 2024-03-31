@@ -39,7 +39,8 @@
                                                th:if="${one_menu_item.modificationAllowed}"
                                                th:value="${one_menu_item.name}"
                                                type="text">
-                                        <p th:if="${!one_menu_item.modificationAllowed}" th:text="${one_menu_item.name}">
+                                        <p th:if="${!one_menu_item.modificationAllowed}"
+                                           th:text="${one_menu_item.name}">
                                     </td>
                                 </tr>
                                 <!-- Price -->
@@ -53,26 +54,17 @@
                                                th:if="${one_menu_item.modificationAllowed}"
                                                th:value="${one_menu_item.price}"
                                                type="number">
-                                        <p th:if="${!one_menu_item.modificationAllowed}" th:text="${one_menu_item.price}">
+                                        <p th:if="${!one_menu_item.modificationAllowed}"
+                                           th:text="${one_menu_item.price}">
                                     </td>
                                 </tr>
                                 <!-- Course -->
                                 <tr>
                                     <th class="col-sm-4">
-                                        <label class="form-label" for="courseField"
-                                               th:text="#{attribute.course}">Course:</label>
+                                        <label class="form-label" th:text="#{attribute.course}">Course:</label>
                                     </th>
                                     <td class="col-sm-8">
-                                        <select class="form-select" id="courseField" name="course"
-                                                th:if="${one_menu_item.modificationAllowed}"
-                                                th:value="${one_menu_item.courseName}">
-                                            <option th:each="courseName : ${courseNames}"
-                                                    th:selected="${one_menu_item.courseName}"
-                                                    th:text="${courseName}"
-                                                    th:value="${courseName}">
-                                            </option>
-                                        </select>
-                                        <p th:if="${!one_menu_item.modificationAllowed}" th:text="${one_menu_item.courseName}" >
+                                        <p th:text="${one_menu_item.courseName}">
                                     </td>
                                 </tr>
                                 <!-- Vegetarian -->
@@ -85,7 +77,8 @@
                                         <input id="vegetarianField" th:checked="${one_menu_item.vegetarian}"
                                                th:if="${one_menu_item.modificationAllowed}"
                                                type="checkbox">
-                                        <p th:if="${!one_menu_item.modificationAllowed}" th:text="${one_menu_item.vegetarian}">
+                                        <p th:if="${!one_menu_item.modificationAllowed}"
+                                           th:text="${one_menu_item.vegetarian}">
                                     </td>
                                 </tr>
                                 <!-- Spice Level -->
@@ -100,7 +93,8 @@
                                                th:if="${one_menu_item.modificationAllowed}"
                                                th:value="${one_menu_item.spiceLvl}"
                                                type="number">
-                                        <p th:if="${!one_menu_item.modificationAllowed}" th:text="${one_menu_item.spiceLvl}">
+                                        <p th:if="${!one_menu_item.modificationAllowed}"
+                                           th:text="${one_menu_item.spiceLvl}">
                                     </td>
                                 </tr>
                                 </tbody>
