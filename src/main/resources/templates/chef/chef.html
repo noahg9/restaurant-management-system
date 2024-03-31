@@ -102,13 +102,13 @@
                                         <select class="form-select" id="roleField" name="role"
                                                 th:if="${one_chef.modificationAllowed}"
                                                 th:value="${one_chef.roleName}">
-                                            <option th:each="role : ${roleNames}"
+                                            <option th:each="roleName : ${roleNames}"
                                                     th:selected="${one_chef.roleName}"
-                                                    th:text="${role}"
-                                                    th:value="${role}">
+                                                    th:text="${roleName}"
+                                                    th:value="${roleName}">
                                             </option>
                                         </select>
-                                        <p th:if="${!one_chef.modificationAllowed}" th:text="${one_chef.roleName.name}" >
+                                        <p th:if="${!one_chef.modificationAllowed}" th:text="${one_chef.roleName}" >
                                     </td>
                                 </tr>
                                 </tbody>

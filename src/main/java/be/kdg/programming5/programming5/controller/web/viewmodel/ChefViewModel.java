@@ -1,6 +1,5 @@
 package be.kdg.programming5.programming5.controller.web.viewmodel;
 
-import be.kdg.programming5.programming5.model.ChefRole;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 

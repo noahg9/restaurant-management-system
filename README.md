@@ -11,30 +11,30 @@ Chef >------< MenuItem ------ Recipe
 
 ## User Accounts
 
-| Username | Password | Role   |
-|----------|----------|--------|
-| noahg    | noah     | Admin  |
-| larsw    | lars     | Admin  |
-| gordonr  | gordon   | Chef   |
-| jamieo   | jamie    | Chef   |
-| joanr    | joan     | Chef   |
-| davidc   | david    | Chef   |
+| Username | Password | Role      |
+|----------|----------|-----------|
+| noahg    | noah     | Head Chef |
+| larsw    | lars     | Head Chef |
+| gordonr  | gordon   | Sous Chef |
+| jamieo   | jamie    | Sous Chef |
+| joanr    | joan     | Sous Chef |
+| davidc   | david    | Sous Chef |
 
 ## Access Levels
 
-| Page                       | Guest   | Chef    | Admin |
-|----------------------------|---------|---------|-------|
-| home                       | Full    | Full    | Full  | 
-| search-chefs               | Full    | Full    | Full  |
-| search-menu-items          | Full    | Full    | Full  |
-| chef (own)                 | Limited | Full    | Full  |
-| menu-item (associated)     | Limited | Full    | Full  |
-| history                    | None    | Full    | Full  |
-| chefs                      | Limited | Limited | Full  |
-| menu-items                 | Limited | Limited | Full  |   
-| chef (other)               | Limited | Limited | Full  |
-| menu-item (not-associated) | Limited | Limited | Full  |
-| register-chef              | None    | None    | Full  |
+| Page                       | Guest   | Sous Chef | Head Chef |
+|----------------------------|---------|-----------|-----------|
+| home                       | Full    | Full      | Full      | 
+| search-chefs               | Full    | Full      | Full      |
+| search-menu-items          | Full    | Full      | Full      |
+| chef (own)                 | Limited | Full      | Full      |
+| menu-item (associated)     | Limited | Full      | Full      |
+| history                    | None    | Full      | Full      |
+| chefs                      | Limited | Limited   | Full      |
+| menu-items                 | Limited | Limited   | Full      |   
+| chef (other)               | Limited | Limited   | Full      |
+| menu-item (not-associated) | Limited | Limited   | Full      |
+| register-chef              | None    | None      | Full      |
 
 ## Week 2
 

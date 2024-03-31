@@ -66,13 +66,13 @@
                                         <select class="form-select" id="courseField" name="course"
                                                 th:if="${one_menu_item.modificationAllowed}"
                                                 th:value="${one_menu_item.courseName}">
-                                            <option th:each="course : ${courseNames}"
-                                                    th:selected="${one_menu_item.courseName.toString() == course.toString()}"
-                                                    th:text="${course.toString()}"
-                                                    th:value="${course}">
+                                            <option th:each="courseName : ${courseNames}"
+                                                    th:selected="${one_menu_item.courseName}"
+                                                    th:text="${courseName}"
+                                                    th:value="${courseName}">
                                             </option>
                                         </select>
-                                        <p th:if="${!one_menu_item.modificationAllowed}" th:text="${one_menu_item.courseName.name}" >
+                                        <p th:if="${!one_menu_item.modificationAllowed}" th:text="${one_menu_item.courseName}" >
                                     </td>
                                 </tr>
                                 <!-- Vegetarian -->

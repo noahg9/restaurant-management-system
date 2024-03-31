@@ -63,9 +63,9 @@
                             <div class="col-sm-2">
                                 <label class="form-label" for="roleName" th:text="#{attribute.role}">Role</label>
                                 <select class="form-select" id="roleName" name="role">
-                                    <option th:each="role : ${roleNames}"
-                                            th:text="${role}"
-                                            th:value="${role}">
+                                    <option th:each="roleName : ${roleNames}"
+                                            th:text="${roleName}"
+                                            th:value="${roleName}">
                                     </option>
                                 </select>
                             </div>

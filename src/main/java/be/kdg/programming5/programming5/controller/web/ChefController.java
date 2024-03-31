@@ -72,6 +72,7 @@ public class ChefController extends BaseController {
         Chef chef = chefService.getChefWithMenuItems(chefId);
         mav.setViewName("chef/chef");
         mav.addObject("one_chef", new ChefViewModel(chef.getId(), chef.getFirstName(), chef.getLastName(), chef.getDateOfBirth(), chef.getUsername(), chef.getPassword(), chef.getRole().getName(), user != null && (user.getChefId() == chefId || request.isUserInRole(HEAD_CHEF.getCode())), chef.getMenuItems().stream().map(assignedChef -> new MenuItemViewModel(assignedChef.getMenuItem().getId(), assignedChef.getMenuItem().getName(), assignedChef.getMenuItem().getPrice(), assignedChef.getMenuItem().getCourse().getName(), assignedChef.getMenuItem().isVegetarian(), assignedChef.getMenuItem().getSpiceLvl(), false)).toList()));
+        mav.addObject("roleNames", Arrays.stream(ChefRole.values()).map(ChefRole::getName).toList());
         return mav;
     }
 
