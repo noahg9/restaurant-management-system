@@ -28,6 +28,9 @@ public class MenuItem extends AbstractEntity<Long> implements Serializable {
     @Column(nullable = false)
     private int spiceLvl;
 
+    @OneToOne(mappedBy = "menuItem", cascade = CascadeType.ALL)
+    private Recipe recipe;
+
     @OneToMany(mappedBy = "menuItem")
     private List<AssignedChef> chefs;
 
@@ -46,25 +49,6 @@ public class MenuItem extends AbstractEntity<Long> implements Serializable {
      * @param spiceLvl   the spice lvl
      */
     public MenuItem(String name, double price, Course course, boolean vegetarian, int spiceLvl) {
-        setName(name);
-        setPrice(price);
-        setCourse(course);
-        setVegetarian(vegetarian);
-        setSpiceLvl(spiceLvl);
-    }
-
-    /**
-     * Instantiates a new Menu item.
-     *
-     * @param id         the id
-     * @param name       the name
-     * @param price      the price
-     * @param course     the course
-     * @param vegetarian the vegetarian
-     * @param spiceLvl   the spice lvl
-     */
-    public MenuItem(long id, String name, double price, Course course, boolean vegetarian, int spiceLvl) {
-        super(id);
         setName(name);
         setPrice(price);
         setCourse(course);
@@ -169,6 +153,14 @@ public class MenuItem extends AbstractEntity<Long> implements Serializable {
      */
     public void setSpiceLvl(int spiceLvl) {
         this.spiceLvl = spiceLvl;
+    }
+
+    public Recipe getRecipe() {
+        return recipe;
+    }
+
+    public void setRecipe(Recipe recipe) {
+        this.recipe = recipe;
     }
 
     /**

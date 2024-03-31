@@ -31,8 +31,9 @@ toggleMenuItemsButton?.addEventListener("click", toggleMenuItems);
 
 const firstName = document.getElementById("firstNameField");
 const lastName = document.getElementById("lastNameField");
-const dob = document.getElementById("dobField");
+const dateOfBirth = document.getElementById("dateOfBirthField");
 const username = document.getElementById("usernameField");
+const role = document.getElementById("roleField");
 const saveButton = document.getElementById("saveButton");
 
 async function saveChef() {
@@ -40,7 +41,7 @@ async function saveChef() {
         method: "PATCH", headers: {
             "Content-Type": "application/json", [header]: token
         }, body: JSON.stringify({
-            firstName: firstName.value, lastName: lastName.value, dateOfBirth: dob.value, username: username.value, role: 'Chef'
+            firstName: firstName.value, lastName: lastName.value, dateOfBirth: dateOfBirth.value, username: username.value, role: role.value
         }), redirect: "manual"
     })
     if (response.status === 204) {

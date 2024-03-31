@@ -6,7 +6,7 @@ const lastName = document.getElementById("lastName");
 const dateOfBirth = document.getElementById("dateOfBirth");
 const username = document.getElementById("username");
 const password = document.getElementById("password");
-const role = document.getElementById("role");
+const roleName = document.getElementById("roleName");
 const registerButton = document.getElementById("registerButton");
 
 async function addNewChef() {
@@ -19,7 +19,7 @@ async function addNewChef() {
             dateOfBirth: dateOfBirth.value,
             username: username.value,
             password: password.value,
-            role: role.value
+            roleName: roleName.value
         })
     });
 }

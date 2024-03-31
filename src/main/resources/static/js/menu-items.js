@@ -35,7 +35,7 @@ async function handleDeleteMenuItem(event) {
 
 const name = document.getElementById("name");
 const price = document.getElementById("price");
-const course = document.getElementById("course");
+const courseName = document.getElementById("course");
 const vegetarian = document.getElementById("vegetarian");
 const spiceLvl = document.getElementById("spiceLvl");
 const addButton = document.getElementById("addButton");
@@ -48,14 +48,14 @@ async function addNewMenuItem() {
         }, body: JSON.stringify({
             name: name.value,
             price: price.value,
-            course: course.value,
+            courseName: courseName.value,
             vegetarian: vegetarian.checked,
             spiceLvl: spiceLvl.value
         })
     })
     if (response.status === 201) {
         /**
-         * @type {{id: number, name: string, price: number, course: string, vegetarian: boolean, spiceLvl: number}}
+         * @type {{id: number, name: string, price: number, courseName: string, vegetarian: boolean, spiceLvl: number}}
          */
         const menuItem = await response.json()
         addMenuItemToTable(menuItem);
@@ -63,9 +63,20 @@ async function addNewMenuItem() {
 }
 
 /**
- * @param {{id: number, name: string, price: number, course: string, vegetarian: boolean, spiceLvl: number}} menuItem
+ * @param {{id: number, name: string, price: number, courseName: string, vegetarian: boolean, spiceLvl: number}} menuItem
  */
 function addMenuItemToTable(menuItem) {
+    const courseNames = {
+        "STARTER": "Starter",
+        "MAIN": "Main",
+        "APPETIZER": "Appetizer",
+        "DESSERT": "Dessert",
+        "BEVERAGE": "Beverage",
+        "OTHER": "Other"
+    };
+
+    const courseName = courseNames[menuItem.course];
+
     const courseGroup = document.getElementById(menuItem.course + "-group"); // Check if group exists
     let cardGroup;
     if (!courseGroup) {
@@ -75,7 +86,7 @@ function addMenuItemToTable(menuItem) {
         cardGroup.id = menuItem.course + "-group";
 
         const groupName = document.createElement("h2");
-        groupName.textContent = menuItem.course; // Use course name as group header
+        groupName.textContent = courseName; // Use course name as group header
         cardGroup.appendChild(groupName);
 
         menuItemBody.appendChild(cardGroup);

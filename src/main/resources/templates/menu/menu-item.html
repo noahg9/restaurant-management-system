@@ -31,11 +31,11 @@
                                 <!-- Name -->
                                 <tr>
                                     <th class="col-sm-4">
-                                        <label class="form-label" for="nameInputField"
+                                        <label class="form-label" for="nameField"
                                                th:text="#{attribute.name}">Name:</label>
                                     </th>
                                     <td class="col-sm-8">
-                                        <input class="form-control" id="nameInputField"
+                                        <input class="form-control" id="nameField"
                                                th:if="${one_menu_item.modificationAllowed}"
                                                th:value="${one_menu_item.name}"
                                                type="text">
@@ -45,11 +45,11 @@
                                 <!-- Price -->
                                 <tr>
                                     <th class="col-sm-4">
-                                        <label class="form-label" for="priceInputField"
+                                        <label class="form-label" for="priceField"
                                                th:text="#{attribute.price}">Price:</label>
                                     </th>
                                     <td class="col-sm-8">
-                                        <input class="form-control" id="priceInputField" required step="0.01"
+                                        <input class="form-control" id="priceField" required step="0.01"
                                                th:if="${one_menu_item.modificationAllowed}"
                                                th:value="${one_menu_item.price}"
                                                type="number">
@@ -59,30 +59,30 @@
                                 <!-- Course -->
                                 <tr>
                                     <th class="col-sm-4">
-                                        <label class="form-label" for="courseInputField"
+                                        <label class="form-label" for="courseField"
                                                th:text="#{attribute.course}">Course:</label>
                                     </th>
                                     <td class="col-sm-8">
-                                        <select class="form-select" id="courseInputField" name="course"
+                                        <select class="form-select" id="courseField" name="course"
                                                 th:if="${one_menu_item.modificationAllowed}"
-                                                th:value="${one_menu_item.course}">
-                                            <option th:each="course : ${courseValues}"
-                                                    th:selected="${one_menu_item.course}"
+                                                th:value="${one_menu_item.courseName}">
+                                            <option th:each="course : ${courseNames}"
+                                                    th:selected="${one_menu_item.courseName.toString() == course.toString()}"
                                                     th:text="${course.toString()}"
                                                     th:value="${course}">
                                             </option>
                                         </select>
-                                        <p th:if="${!one_menu_item.modificationAllowed}" th:text="${one_menu_item.course}" >
+                                        <p th:if="${!one_menu_item.modificationAllowed}" th:text="${one_menu_item.courseName.name}" >
                                     </td>
                                 </tr>
                                 <!-- Vegetarian -->
                                 <tr>
                                     <th class="col-sm-4">
-                                        <label class="form-label" for="vegetarianInputField"
+                                        <label class="form-label" for="vegetarianField"
                                                th:text="#{attribute.vegetarian}">Vegetarian:</label>
                                     </th>
                                     <td class="col-sm-8">
-                                        <input id="vegetarianInputField" th:checked="${one_menu_item.vegetarian}"
+                                        <input id="vegetarianField" th:checked="${one_menu_item.vegetarian}"
                                                th:if="${one_menu_item.modificationAllowed}"
                                                type="checkbox">
                                         <p th:if="${!one_menu_item.modificationAllowed}" th:text="${one_menu_item.vegetarian}">
@@ -91,12 +91,12 @@
                                 <!-- Spice Level -->
                                 <tr>
                                     <th class="col-sm-4">
-                                        <label class="form-label" for="spiceLvlInputField"
+                                        <label class="form-label" for="spiceLvlField"
                                                th:text="#{attribute.spiceLvl}">Spice
                                             Level:</label>
                                     </th>
                                     <td class="col-sm-8">
-                                        <input class="form-control" id="spiceLvlInputField" required
+                                        <input class="form-control" id="spiceLvlField" required
                                                th:if="${one_menu_item.modificationAllowed}"
                                                th:value="${one_menu_item.spiceLvl}"
                                                type="number">

@@ -13,7 +13,8 @@ public class NewMenuItemDto {
     private String name;
     @DecimalMin(value = "0.0")
     private double price;
-    private Course course;
+    @NotBlank
+    private String courseName;
     private boolean vegetarian;
     @Min(value = 0)
     private int spiceLvl;
@@ -29,14 +30,14 @@ public class NewMenuItemDto {
      *
      * @param name       the name
      * @param price      the price
-     * @param course     the course
+     * @param courseName     the course
      * @param vegetarian the vegetarian
      * @param spiceLvl   the spice lvl
      */
-    public NewMenuItemDto(String name, double price, Course course, boolean vegetarian, int spiceLvl) {
+    public NewMenuItemDto(String name, double price, String courseName, boolean vegetarian, int spiceLvl) {
         this.name = name;
         this.price = price;
-        this.course = course;
+        this.courseName = courseName;
         this.vegetarian = vegetarian;
         this.spiceLvl = spiceLvl;
     }
@@ -82,17 +83,17 @@ public class NewMenuItemDto {
      *
      * @return the course
      */
-    public Course getCourse() {
-        return course;
+    public String getCourseName() {
+        return courseName;
     }
 
     /**
      * Sets course.
      *
-     * @param course the course
+     * @param courseName the course
      */
-    public void setCourse(Course course) {
-        this.course = course;
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
     }
 
     /**

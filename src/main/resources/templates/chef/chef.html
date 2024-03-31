@@ -95,13 +95,20 @@
                                 <!-- Role -->
                                 <tr>
                                     <th class="col-sm-4">
-                                        <label class="form-label"
-                                               th:text="#{attribute.role}">
-                                            Role:
-                                        </label>
+                                        <label class="form-label" for="roleField"
+                                               th:text="#{attribute.role}">Role:</label>
                                     </th>
                                     <td class="col-sm-8">
-                                        <p th:text="${one_chef.role}"></p>
+                                        <select class="form-select" id="roleField" name="role"
+                                                th:if="${one_chef.modificationAllowed}"
+                                                th:value="${one_chef.roleName}">
+                                            <option th:each="role : ${roleNames}"
+                                                    th:selected="${one_chef.roleName}"
+                                                    th:text="${role}"
+                                                    th:value="${role}">
+                                            </option>
+                                        </select>
+                                        <p th:if="${!one_chef.modificationAllowed}" th:text="${one_chef.roleName.name}" >
                                     </td>
                                 </tr>
                                 </tbody>

@@ -19,9 +19,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Arrays;
 import java.util.Objects;
 
-import static be.kdg.programming5.programming5.model.ChefRole.Admin;
+import static be.kdg.programming5.programming5.model.ChefRole.HEAD_CHEF;
 
 /**
  * The type Menu item controller.
@@ -64,14 +65,14 @@ public class MenuItemController extends BaseController {
                                 menuItem.getId(),
                                 menuItem.getName(),
                                 menuItem.getPrice(),
-                                menuItem.getCourse(),
+                                menuItem.getCourse().getName(),
                                 menuItem.isVegetarian(),
                                 menuItem.getSpiceLvl(),
-                                request.isUserInRole(Admin.getCode())
+                                request.isUserInRole(HEAD_CHEF.getCode())
                                         || chefId != null
                                         && assignedChefService.isChefAssignedToMenuItem(menuItem.getId(), chefId)))
                         .toList());
-        mav.addObject("courseValues", Course.values());
+        mav.addObject("courseNames", Arrays.stream(Course.values()).map(Course::getName).toList());
         return mav;
     }
 
@@ -96,10 +97,10 @@ public class MenuItemController extends BaseController {
                         menuItem.getId(),
                         menuItem.getName(),
                         menuItem.getPrice(),
-                        menuItem.getCourse(),
+                        menuItem.getCourse().getName(),
                         menuItem.isVegetarian(),
                         menuItem.getSpiceLvl(),
-                        request.isUserInRole(Admin.getCode()) || chefId != null && menuItem.getChefs().stream().map(AssignedChef::getChef).anyMatch(chef -> Objects.equals(chef.getId(), chefId)),
+                        request.isUserInRole(HEAD_CHEF.getCode()) || chefId != null && menuItem.getChefs().stream().map(AssignedChef::getChef).anyMatch(chef -> Objects.equals(chef.getId(), chefId)),
                         menuItem.getChefs().stream().map(assignedChef -> new ChefViewModel(
                                 assignedChef.getChef().getId(),
                                 assignedChef.getChef().getFirstName(),
@@ -107,9 +108,9 @@ public class MenuItemController extends BaseController {
                                 assignedChef.getChef().getDateOfBirth(),
                                 assignedChef.getChef().getUsername(),
                                 assignedChef.getChef().getPassword(),
-                                assignedChef.getChef().getRole(),
+                                assignedChef.getChef().getRole().getName(),
                                 false)).toList()));
-        mav.addObject("courseValues", Course.values());
+        mav.addObject("courseNames", Arrays.stream(Course.values()).map(Course::getName).toList());
         return mav;
     }
 

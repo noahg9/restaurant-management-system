@@ -14,8 +14,8 @@ public class UpdateMenuItemDto {
     private String name;
     @DecimalMin(value = "0.0")
     private double price;
-    @NotNull
-    private Course course;
+    @NotBlank
+    private String courseName;
     private boolean vegetarian;
     @Min(value = 0)
     private int spiceLvl;
@@ -67,17 +67,17 @@ public class UpdateMenuItemDto {
      *
      * @return the course
      */
-    public Course getCourse() {
-        return course;
+    public String getCourseName() {
+        return courseName;
     }
 
     /**
      * Sets course.
      *
-     * @param course the course
+     * @param courseName the course
      */
-    public void setCourse(Course course) {
-        this.course = course;
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
     }
 
     /**

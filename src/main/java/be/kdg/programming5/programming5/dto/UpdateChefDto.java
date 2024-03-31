@@ -20,8 +20,8 @@ public class UpdateChefDto {
     private String username;
     @NotBlank
     private String password;
-    @NotNull
-    private ChefRole role;
+    @NotBlank
+    private String roleName;
 
     /**
      * Instantiates a new Update chef dto.
@@ -124,16 +124,16 @@ public class UpdateChefDto {
      *
      * @return the role
      */
-    public ChefRole getRole() {
-        return role;
+    public String getRoleName() {
+        return roleName;
     }
 
     /**
      * Sets role.
      *
-     * @param role the role
+     * @param roleName the role
      */
-    public void setRole(ChefRole role) {
-        this.role = role;
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 }

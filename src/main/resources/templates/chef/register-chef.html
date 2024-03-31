@@ -61,10 +61,10 @@
                         <!-- Role -->
                         <div class="row mb-3 justify-content-center">
                             <div class="col-sm-2">
-                                <label class="form-label" for="role" th:text="#{attribute.role}">Role</label>
-                                <select class="form-select" id="role" name="role">
-                                    <option th:each="role : ${roleValues}"
-                                            th:text="${role.toString()}"
+                                <label class="form-label" for="roleName" th:text="#{attribute.role}">Role</label>
+                                <select class="form-select" id="roleName" name="role">
+                                    <option th:each="role : ${roleNames}"
+                                            th:text="${role}"
                                             th:value="${role}">
                                     </option>
                                 </select>

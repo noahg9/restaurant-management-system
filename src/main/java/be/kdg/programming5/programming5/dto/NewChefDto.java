@@ -1,7 +1,7 @@
 package be.kdg.programming5.programming5.dto;
 
-import be.kdg.programming5.programming5.model.ChefRole;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 
@@ -14,10 +14,14 @@ public class NewChefDto {
     private String firstName;
     @NotBlank
     private String lastName;
+    @NotNull
     private LocalDate dateOfBirth;
+    @NotBlank
     private String username;
+    @NotBlank
     private String password;
-    private ChefRole role;
+    @NotBlank
+    private String roleName;
 
     /**
      * Instantiates a new New chef dto.
@@ -44,13 +48,13 @@ public class NewChefDto {
      * @param firstName   the first name
      * @param lastName    the last name
      * @param dateOfBirth the date of birth
-     * @param role        the role
+     * @param roleName        the role
      */
-    public NewChefDto(String firstName, String lastName, LocalDate dateOfBirth, ChefRole role) {
+    public NewChefDto(String firstName, String lastName, LocalDate dateOfBirth, String roleName) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
-        this.role = role;
+        this.roleName = roleName;
     }
 
     /**
@@ -61,15 +65,15 @@ public class NewChefDto {
      * @param dateOfBirth the date of birth
      * @param username    the username
      * @param password    the password
-     * @param role        the role
+     * @param roleName        the role
      */
-    public NewChefDto(String firstName, String lastName, LocalDate dateOfBirth, String username, String password, ChefRole role) {
+    public NewChefDto(String firstName, String lastName, LocalDate dateOfBirth, String username, String password, String roleName) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
         this.username = username;
         this.password = password;
-        this.role = role;
+        this.roleName = roleName;
     }
 
     /**
@@ -167,16 +171,16 @@ public class NewChefDto {
      *
      * @return the role
      */
-    public ChefRole getRole() {
-        return role;
+    public String getRoleName() {
+        return roleName;
     }
 
     /**
      * Sets role.
      *
-     * @param role the role
+     * @param roleName the role
      */
-    public void setRole(ChefRole role) {
-        this.role = role;
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 }

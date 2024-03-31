@@ -46,10 +46,10 @@
                     <!-- Course -->
                     <div class="row mb-3 justify-content-center">
                         <div class="col-sm-4">
-                            <label class="form-label" for="course" th:text="#{attribute.course}">Course</label>
-                            <select class="form-select" id="course" name="course">
-                                <option th:each="course : ${courseValues}"
-                                        th:text="${course.toString()}"
+                            <label class="form-label" for="courseName" th:text="#{attribute.course}">Course</label>
+                            <select class="form-select" id="courseName" name="course">
+                                <option th:each="course : ${courseNames}"
+                                        th:text="${course}"
                                         th:value="${course}">
                                 </option>
                             </select>

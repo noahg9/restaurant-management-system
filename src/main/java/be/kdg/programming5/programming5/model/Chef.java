@@ -48,86 +48,17 @@ public class Chef extends AbstractEntity<Long> implements Serializable {
      * @param firstName   the first name
      * @param lastName    the last name
      * @param dateOfBirth the date of birth
-     */
-    public Chef(String firstName, String lastName, LocalDate dateOfBirth) {
-        setFirstName(firstName);
-        setLastName(lastName);
-        setDateOfBirth(dateOfBirth);
-    }
-
-    /**
-     * Instantiates a new Chef.
-     *
-     * @param id          the id
-     * @param firstName   the first name
-     * @param lastName    the last name
-     * @param dateOfBirth the date of birth
-     */
-    public Chef(long id, String firstName, String lastName, LocalDate dateOfBirth) {
-        super(id);
-        setFirstName(firstName);
-        setLastName(lastName);
-        setDateOfBirth(dateOfBirth);
-    }
-
-    /**
-     * Instantiates a new Chef.
-     *
-     * @param firstName   the first name
-     * @param lastName    the last name
-     * @param dateOfBirth the date of birth
-     * @param role        the role
-     */
-    public Chef(String firstName, String lastName, LocalDate dateOfBirth, ChefRole role) {
-        this(firstName, lastName, dateOfBirth);
-        setRole(role);
-    }
-
-    /**
-     * Instantiates a new Chef.
-     *
-     * @param id          the id
-     * @param firstName   the first name
-     * @param lastName    the last name
-     * @param dateOfBirth the date of birth
-     * @param role        the role
-     */
-    public Chef(Long id, String firstName, String lastName, LocalDate dateOfBirth, ChefRole role) {
-        this(id, firstName, lastName, dateOfBirth);
-        setRole(role);
-    }
-
-    /**
-     * Instantiates a new Chef.
-     *
-     * @param firstName   the first name
-     * @param lastName    the last name
-     * @param dateOfBirth the date of birth
      * @param username    the username
      * @param password    the password
      * @param role        the role
      */
     public Chef(String firstName, String lastName, LocalDate dateOfBirth, String username, String password, ChefRole role) {
-        this(firstName, lastName, dateOfBirth, role);
+        setFirstName(firstName);
+        setLastName(lastName);
+        setDateOfBirth(dateOfBirth);
         setUsername(username);
         setPassword(password);
-    }
-
-    /**
-     * Instantiates a new Chef.
-     *
-     * @param id          the id
-     * @param firstName   the first name
-     * @param lastName    the last name
-     * @param dateOfBirth the date of birth
-     * @param username    the username
-     * @param password    the password
-     * @param role        the role
-     */
-    public Chef(Long id, String firstName, String lastName, LocalDate dateOfBirth, String username, String password, ChefRole role) {
-        this(id, firstName, lastName, dateOfBirth, role);
-        setUsername(username);
-        setPassword(password);
+        setRole(role);
     }
 
     /**

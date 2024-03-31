@@ -22,8 +22,8 @@ public class ChefViewModel {
     private String username;
     @NotBlank(message = "Password cannot be empty")
     private String password;
-    @NotNull(message = "Role cannot be null")
-    private ChefRole role;
+    @NotBlank(message = "Role name cannot be empty")
+    private String roleName;
     private boolean modificationAllowed;
     private List<MenuItemViewModel> menuItems;
 
@@ -42,18 +42,18 @@ public class ChefViewModel {
      * @param dateOfBirth         the date of birth
      * @param username            the username
      * @param password            the password
-     * @param role                the role
+     * @param roleName                the role
      * @param modificationAllowed the modification allowed
      * @param menuItems           the menu items
      */
-    public ChefViewModel(long id, String firstName, String lastName, LocalDate dateOfBirth, String username, String password, ChefRole role, boolean modificationAllowed, List<MenuItemViewModel> menuItems) {
+    public ChefViewModel(long id, String firstName, String lastName, LocalDate dateOfBirth, String username, String password, String roleName, boolean modificationAllowed, List<MenuItemViewModel> menuItems) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
         this.username = username;
         this.password = password;
-        this.role = role;
+        this.roleName = roleName;
         this.modificationAllowed = modificationAllowed;
         this.menuItems = menuItems;
     }
@@ -67,17 +67,17 @@ public class ChefViewModel {
      * @param dateOfBirth         the date of birth
      * @param username            the username
      * @param password            the password
-     * @param role                the role
+     * @param roleName                the role
      * @param modificationAllowed the modification allowed
      */
-    public ChefViewModel(long id, String firstName, String lastName, LocalDate dateOfBirth, String username, String password, ChefRole role, boolean modificationAllowed) {
+    public ChefViewModel(long id, String firstName, String lastName, LocalDate dateOfBirth, String username, String password, String roleName, boolean modificationAllowed) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
         this.username = username;
         this.password = password;
-        this.role = role;
+        this.roleName = roleName;
         this.modificationAllowed = modificationAllowed;
     }
 
@@ -194,17 +194,17 @@ public class ChefViewModel {
      *
      * @return the role
      */
-    public ChefRole getRole() {
-        return role;
+    public String getRoleName() {
+        return roleName;
     }
 
     /**
      * Sets role.
      *
-     * @param role the role
+     * @param roleName the role
      */
-    public void setRole(ChefRole role) {
-        this.role = role;
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
     public boolean isModificationAllowed() {

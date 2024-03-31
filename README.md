@@ -7,22 +7,18 @@
 
 ## Domain Entities
 
-| Entity     | Relationships                    |
-|------------|----------------------------------|
-| MenuItem   | Owns and owned by many Chefs     |
-| Chef       | Owns and owned by many MenuItems |
-
+Chef >------< MenuItem ------ Recipe
 
 ## User Accounts
 
 | Username | Password | Role   |
 |----------|----------|--------|
 | noahg    | noah     | Admin  |
-| larsw    | noah     | Admin  |
-| gordonr  | noah     | Chef   |
-| jamieo   | noah     | Chef   |
-| joanr    | noah     | Chef   |
-| davidc   | noah     | Chef   |
+| larsw    | lars     | Admin  |
+| gordonr  | gordon   | Chef   |
+| jamieo   | jamie    | Chef   |
+| joanr    | joan     | Chef   |
+| davidc   | david    | Chef   |
 
 ## Access Levels
 

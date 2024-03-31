@@ -39,6 +39,14 @@ const chefBody = document.getElementById("chefBody");
  * @param {{id: number, firstName: string, lastName: string, dateOfBirth: date, username: string, password: string, role, string}} chef
  */
 function addChefToTable(chef) {
+    const roleNames = {
+        "HEAD_CHEF": "Head Chef",
+        "SOUS_CHEF": "Sous Chef",
+        "LINE_COOK": "Line Cook"
+    };
+
+    const roleName = roleNames[chef.role];
+
     const roleGroup = document.getElementById(chef.role + "-group"); // Check if group exists
     let cardGroup;
     if (!roleGroup) {
@@ -48,7 +56,7 @@ function addChefToTable(chef) {
         cardGroup.id = chef.role + "-group";
 
         const groupName = document.createElement("h2");
-        groupName.textContent = chef.role; // Use role name as group header
+        groupName.textContent = roleName; // Use role name as group header
         cardGroup.appendChild(groupName);
 
         chefBody.appendChild(cardGroup);

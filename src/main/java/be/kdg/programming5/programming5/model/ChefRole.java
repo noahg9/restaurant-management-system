@@ -4,19 +4,27 @@ package be.kdg.programming5.programming5.model;
  * The enum Chef role.
  */
 public enum ChefRole {
+
     /**
-     * Chef chef role.
+     * The Head chef.
      */
-    Chef("ROLE_DEVELOPER"),
+    HEAD_CHEF("HC", "Head Chef"),
     /**
-     * Admin chef role.
+     * The Sous chef.
      */
-    Admin("ROLE_ADMIN");
+    SOUS_CHEF("SC", "Sous Chef"),
+    /**
+     * The Line cook.
+     */
+    LINE_COOK("LC", "Line Chef");
+
 
     private final String code;
+    private final String name;
 
-    ChefRole(String code) {
+    ChefRole(String code, String name) {
         this.code = code;
+        this.name = name;
     }
 
     /**
@@ -26,5 +34,29 @@ public enum ChefRole {
      */
     public String getCode() {
         return code;
+    }
+
+    /**
+     * Gets role name.
+     *
+     * @return the role name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * From name chef role.
+     *
+     * @param name the name
+     * @return the chef role
+     */
+    public static ChefRole fromName(java.lang.String name) {
+        for (ChefRole role : values()) {
+            if (role.getName().equalsIgnoreCase(name)) {
+                return role;
+            }
+        }
+        throw new IllegalArgumentException("No ChefRole found with name: " + name);
     }
 }

@@ -7,6 +7,7 @@ import be.kdg.programming5.programming5.dto.UpdateMenuItemDto;
 import be.kdg.programming5.programming5.model.MenuItem;
 import be.kdg.programming5.programming5.model.AssignedChef;
 import be.kdg.programming5.programming5.model.CustomUserDetails;
+import be.kdg.programming5.programming5.model.Course;
 import be.kdg.programming5.programming5.service.AssignedChefService;
 import be.kdg.programming5.programming5.service.MenuItemService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static be.kdg.programming5.programming5.model.ChefRole.Admin;
+import static be.kdg.programming5.programming5.model.ChefRole.HEAD_CHEF;
 
 
 /**
@@ -124,7 +125,7 @@ public class MenuItemsController {
      */
     @PostMapping
     ResponseEntity<MenuItemDto> addMenuItem(@RequestBody @Valid NewMenuItemDto menuItemDto, @AuthenticationPrincipal CustomUserDetails user) {
-        MenuItem createdMenuItem = menuItemService.addMenuItem(menuItemDto.getName(), menuItemDto.getPrice(), menuItemDto.getCourse(), menuItemDto.isVegetarian(), menuItemDto.getSpiceLvl(), user.getChefId());
+        MenuItem createdMenuItem = menuItemService.addMenuItem(menuItemDto.getName(), menuItemDto.getPrice(), Course.fromName(menuItemDto.getCourseName()), menuItemDto.isVegetarian(), menuItemDto.getSpiceLvl(), user.getChefId());
         return new ResponseEntity<>(modelMapper.map(createdMenuItem, MenuItemDto.class), HttpStatus.CREATED);
     }
 
@@ -138,7 +139,7 @@ public class MenuItemsController {
      */
     @DeleteMapping("{id}")
     ResponseEntity<Void> deleteMenuItem(@PathVariable("id") long menuItemId, @AuthenticationPrincipal CustomUserDetails user, HttpServletRequest request) {
-        if (!assignedChefService.isChefAssignedToMenuItem(menuItemId, user.getChefId()) && !request.isUserInRole(Admin.getCode())) {
+        if (!assignedChefService.isChefAssignedToMenuItem(menuItemId, user.getChefId()) && !request.isUserInRole(HEAD_CHEF.getCode())) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
         if (menuItemService.removeMenuItem(menuItemId)) {
@@ -158,10 +159,10 @@ public class MenuItemsController {
      */
     @PatchMapping("{id}")
     ResponseEntity<Void> changeMenuItem(@PathVariable("id") long menuItemId, @RequestBody @Valid UpdateMenuItemDto updateMenuItemDto, @AuthenticationPrincipal CustomUserDetails user, HttpServletRequest request) {
-        if (!assignedChefService.isChefAssignedToMenuItem(menuItemId, user.getChefId()) && !request.isUserInRole(Admin.getCode())) {
+        if (!assignedChefService.isChefAssignedToMenuItem(menuItemId, user.getChefId()) && !request.isUserInRole(HEAD_CHEF.getCode())) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
-        if (menuItemService.changeMenuItem(menuItemId, updateMenuItemDto.getName(), updateMenuItemDto.getPrice(), updateMenuItemDto.getCourse(), updateMenuItemDto.isVegetarian(), updateMenuItemDto.getSpiceLvl())) {
+        if (menuItemService.changeMenuItem(menuItemId, updateMenuItemDto.getName(), updateMenuItemDto.getPrice(), Course.fromName(updateMenuItemDto.getCourseName()), updateMenuItemDto.isVegetarian(), updateMenuItemDto.getSpiceLvl())) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

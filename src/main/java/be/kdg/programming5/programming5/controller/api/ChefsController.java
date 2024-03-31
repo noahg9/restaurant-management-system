@@ -6,6 +6,7 @@ import be.kdg.programming5.programming5.dto.NewChefDto;
 import be.kdg.programming5.programming5.dto.UpdateChefDto;
 import be.kdg.programming5.programming5.model.Chef;
 import be.kdg.programming5.programming5.model.AssignedChef;
+import be.kdg.programming5.programming5.model.ChefRole;
 import be.kdg.programming5.programming5.repository.ChefRepository;
 import be.kdg.programming5.programming5.service.ChefService;
 import jakarta.validation.Valid;
@@ -100,7 +101,7 @@ public class ChefsController {
      * @return the response entity
      */
     @GetMapping("search")
-    ResponseEntity<List<ChefDto>> searchChefs(@RequestParam(required = false) String search) {
+    ResponseEntity<List<ChefDto>> searchChefs(@RequestParam(required = false) java.lang.String search) {
         if (search == null || search.trim().isEmpty()) {
             return ResponseEntity.ok(chefService.getAllChefs().stream().map(chef -> modelMapper.map(chef, ChefDto.class)).toList());
         } else {
@@ -124,7 +125,7 @@ public class ChefsController {
         if (chefRepository.findByUsername(chefDto.getUsername()).isPresent()) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
-        Chef createdChef = chefService.addChef(chefDto.getFirstName(), chefDto.getLastName(), chefDto.getDateOfBirth(), chefDto.getUsername(), passwordEncoder.encode(chefDto.getPassword()), chefDto.getRole());
+        Chef createdChef = chefService.addChef(chefDto.getFirstName(), chefDto.getLastName(), chefDto.getDateOfBirth(), chefDto.getUsername(), passwordEncoder.encode(chefDto.getPassword()), ChefRole.fromName(chefDto.getRoleName()));
         return new ResponseEntity<>(modelMapper.map(createdChef, ChefDto.class), HttpStatus.CREATED);
     }
 
@@ -151,7 +152,7 @@ public class ChefsController {
      */
     @PatchMapping("{id}")
     ResponseEntity<Void> changeChef(@PathVariable("id") long chefId, @RequestBody @Valid UpdateChefDto updateChefDto) {
-        if (chefService.changeChef(chefId, updateChefDto.getFirstName(), updateChefDto.getLastName(), updateChefDto.getDateOfBirth(), updateChefDto.getUsername(), updateChefDto.getPassword(), updateChefDto.getRole())) {
+        if (chefService.changeChef(chefId, updateChefDto.getFirstName(), updateChefDto.getLastName(), updateChefDto.getDateOfBirth(), updateChefDto.getUsername(), updateChefDto.getPassword(), ChefRole.fromName(updateChefDto.getRoleName()))) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

@@ -18,8 +18,8 @@ public class MenuItemViewModel {
     private String name;
     @DecimalMin(value = "0.0", message = "Price must be greater than 0.0")
     private double price;
-    @NotNull(message = "Course cannot be null")
-    private Course course;
+    @NotBlank(message = "Course cannot be empty")
+    private String courseName;
     private boolean vegetarian;
     @Min(value = 0, message = "Spice level must be at least 1")
     private int spiceLvl;
@@ -41,17 +41,17 @@ public class MenuItemViewModel {
      * @param id                  the id
      * @param name                the name
      * @param price               the price
-     * @param course              the course
+     * @param courseName              the course
      * @param vegetarian          the vegetarian
      * @param spiceLvl            the spice lvl
      * @param modificationAllowed the modification allowed
      * @param chefs               the chefs
      */
-    public MenuItemViewModel(long id, String name, double price, Course course, boolean vegetarian, int spiceLvl, boolean modificationAllowed, List<ChefViewModel> chefs) {
+    public MenuItemViewModel(long id, String name, double price, String courseName, boolean vegetarian, int spiceLvl, boolean modificationAllowed, List<ChefViewModel> chefs) {
         this.id = id;
         this.name = name;
         this.price = price;
-        this.course = course;
+        this.courseName = courseName;
         this.vegetarian = vegetarian;
         this.spiceLvl = spiceLvl;
         this.modificationAllowed = modificationAllowed;
@@ -64,16 +64,16 @@ public class MenuItemViewModel {
      * @param id                  the id
      * @param name                the name
      * @param price               the price
-     * @param course              the course
+     * @param courseName              the course
      * @param vegetarian          the vegetarian
      * @param spiceLvl            the spice lvl
      * @param modificationAllowed the modification allowed
      */
-    public MenuItemViewModel(long id, String name, double price, Course course, boolean vegetarian, int spiceLvl, boolean modificationAllowed) {
+    public MenuItemViewModel(long id, String name, double price, String courseName, boolean vegetarian, int spiceLvl, boolean modificationAllowed) {
         this.id = id;
         this.name = name;
         this.price = price;
-        this.course = course;
+        this.courseName = courseName;
         this.vegetarian = vegetarian;
         this.spiceLvl = spiceLvl;
         this.modificationAllowed = modificationAllowed;
@@ -138,17 +138,17 @@ public class MenuItemViewModel {
      *
      * @return the course
      */
-    public Course getCourse() {
-        return course;
+    public String getCourseName() {
+        return courseName;
     }
 
     /**
      * Sets course.
      *
-     * @param course the course
+     * @param courseName the course
      */
-    public void setCourse(Course course) {
-        this.course = course;
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
     }
 
     /**
