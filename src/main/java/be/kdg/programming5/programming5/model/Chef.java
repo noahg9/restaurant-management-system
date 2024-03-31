@@ -34,7 +34,7 @@ public class Chef extends AbstractEntity<Long> implements Serializable {
     private ChefRole role;
 
     @OneToMany(mappedBy = "chef")
-    private List<MenuItemChef> menuItems;
+    private List<AssignedChef> menuItems;
 
     /**
      * Instantiates a new Chef.
@@ -250,7 +250,7 @@ public class Chef extends AbstractEntity<Long> implements Serializable {
      *
      * @return the menu items
      */
-    public List<MenuItemChef> getMenuItems() {
+    public List<AssignedChef> getMenuItems() {
         return menuItems;
     }
 
@@ -259,7 +259,7 @@ public class Chef extends AbstractEntity<Long> implements Serializable {
      *
      * @param menuItems the menu items
      */
-    public void setMenuItems(List<MenuItemChef> menuItems) {
+    public void setMenuItems(List<AssignedChef> menuItems) {
         this.menuItems = menuItems;
     }
 }

@@ -10,8 +10,8 @@ import java.time.LocalDateTime;
  * The type Menu item chef.
  */
 @Entity
-@Table(name = "menu_item_chef", uniqueConstraints = { @UniqueConstraint(columnNames = { "menu_item_id", "chef_id" }) })
-public class MenuItemChef extends AbstractEntity<Long> implements Serializable {
+@Table(name = "assigned_chef", uniqueConstraints = {@UniqueConstraint(columnNames = {"menu_item_id", "chef_id"})})
+public class AssignedChef extends AbstractEntity<Long> implements Serializable {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "menu_item_id")
     private MenuItem menuItem;
@@ -26,7 +26,7 @@ public class MenuItemChef extends AbstractEntity<Long> implements Serializable {
     /**
      * Instantiates a new Menu item chef.
      */
-    public MenuItemChef() {
+    public AssignedChef() {
     }
 
     /**
@@ -36,7 +36,7 @@ public class MenuItemChef extends AbstractEntity<Long> implements Serializable {
      * @param menuItem the menu item
      * @param chef     the chef
      */
-    public MenuItemChef(long id, MenuItem menuItem, Chef chef) {
+    public AssignedChef(long id, MenuItem menuItem, Chef chef) {
         super(id);
         setMenuItem(menuItem);
         setChef(chef);
@@ -48,7 +48,7 @@ public class MenuItemChef extends AbstractEntity<Long> implements Serializable {
      * @param menuItem the menu item
      * @param chef     the chef
      */
-    public MenuItemChef(MenuItem menuItem, Chef chef) {
+    public AssignedChef(MenuItem menuItem, Chef chef) {
         setMenuItem(menuItem);
         setChef(chef);
     }
@@ -61,7 +61,7 @@ public class MenuItemChef extends AbstractEntity<Long> implements Serializable {
      * @param chef             the chef
      * @param assignedDateTime the assigned date time
      */
-    public MenuItemChef(long id, MenuItem menuItem, Chef chef, LocalDateTime assignedDateTime) {
+    public AssignedChef(long id, MenuItem menuItem, Chef chef, LocalDateTime assignedDateTime) {
         super(id);
         setMenuItem(menuItem);
         setChef(chef);
@@ -75,7 +75,7 @@ public class MenuItemChef extends AbstractEntity<Long> implements Serializable {
      * @param chef             the chef
      * @param assignedDateTime the assigned date time
      */
-    public MenuItemChef(MenuItem menuItem, Chef chef, LocalDateTime assignedDateTime) {
+    public AssignedChef(MenuItem menuItem, Chef chef, LocalDateTime assignedDateTime) {
         setMenuItem(menuItem);
         setChef(chef);
         setAssignedDateTime(assignedDateTime);

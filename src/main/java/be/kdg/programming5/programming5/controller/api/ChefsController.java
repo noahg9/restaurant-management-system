@@ -5,7 +5,7 @@ import be.kdg.programming5.programming5.dto.MenuItemDto;
 import be.kdg.programming5.programming5.dto.NewChefDto;
 import be.kdg.programming5.programming5.dto.UpdateChefDto;
 import be.kdg.programming5.programming5.model.Chef;
-import be.kdg.programming5.programming5.model.MenuItemChef;
+import be.kdg.programming5.programming5.model.AssignedChef;
 import be.kdg.programming5.programming5.repository.ChefRepository;
 import be.kdg.programming5.programming5.service.ChefService;
 import jakarta.validation.Valid;
@@ -90,7 +90,7 @@ public class ChefsController {
         if (chef.getMenuItems().isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return ResponseEntity.ok(chef.getMenuItems().stream().map(MenuItemChef::getMenuItem).map(dev -> modelMapper.map(dev, MenuItemDto.class)).toList());
+        return ResponseEntity.ok(chef.getMenuItems().stream().map(AssignedChef::getMenuItem).map(dev -> modelMapper.map(dev, MenuItemDto.class)).toList());
     }
 
     /**

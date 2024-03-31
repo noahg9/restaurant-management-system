@@ -72,7 +72,7 @@ public class ChefController extends BaseController {
         setupPage(session, model, "Chef");
         Chef chef = chefService.getChefWithMenuItems(chefId);
         mav.setViewName("chef/chef");
-        mav.addObject("one_chef", new ChefViewModel(chef.getId(), chef.getFirstName(), chef.getLastName(), chef.getDateOfBirth(), chef.getUsername(), chef.getPassword(), chef.getRole(), user != null && (user.getChefId() == chefId || request.isUserInRole(Admin.getCode())), chef.getMenuItems().stream().map(menuItemChef -> new MenuItemViewModel(menuItemChef.getMenuItem().getId(), menuItemChef.getMenuItem().getName(), menuItemChef.getMenuItem().getPrice(), menuItemChef.getMenuItem().getCourse(), menuItemChef.getMenuItem().isVegetarian(), menuItemChef.getMenuItem().getSpiceLvl(), false)).toList()));
+        mav.addObject("one_chef", new ChefViewModel(chef.getId(), chef.getFirstName(), chef.getLastName(), chef.getDateOfBirth(), chef.getUsername(), chef.getPassword(), chef.getRole(), user != null && (user.getChefId() == chefId || request.isUserInRole(Admin.getCode())), chef.getMenuItems().stream().map(assignedChef -> new MenuItemViewModel(assignedChef.getMenuItem().getId(), assignedChef.getMenuItem().getName(), assignedChef.getMenuItem().getPrice(), assignedChef.getMenuItem().getCourse(), assignedChef.getMenuItem().isVegetarian(), assignedChef.getMenuItem().getSpiceLvl(), false)).toList()));
         return mav;
     }
 

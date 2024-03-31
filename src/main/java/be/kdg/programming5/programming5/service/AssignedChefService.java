@@ -2,23 +2,23 @@ package be.kdg.programming5.programming5.service;
 
 import be.kdg.programming5.programming5.model.Chef;
 import be.kdg.programming5.programming5.model.MenuItem;
-import be.kdg.programming5.programming5.repository.MenuItemChefRepository;
+import be.kdg.programming5.programming5.repository.AssignedChefRepository;
 import org.springframework.stereotype.Service;
 
 /**
  * The type Menu item chef service.
  */
 @Service
-public class MenuItemChefService {
-    private final MenuItemChefRepository menuItemChefRepository;
+public class AssignedChefService {
+    private final AssignedChefRepository assignedChefRepository;
 
     /**
      * Instantiates a new Menu item chef service.
      *
-     * @param menuItemChefRepository the menu item chef repository
+     * @param assignedChefRepository the menu item chef repository
      */
-    public MenuItemChefService(MenuItemChefRepository menuItemChefRepository) {
-        this.menuItemChefRepository = menuItemChefRepository;
+    public AssignedChefService(AssignedChefRepository assignedChefRepository) {
+        this.assignedChefRepository = assignedChefRepository;
     }
 
     /**
@@ -29,7 +29,7 @@ public class MenuItemChefService {
      * @return the boolean
      */
     public boolean isChefAssignedToMenuItem(long menuItemId, long chefId) {
-        return menuItemChefRepository
+        return assignedChefRepository
                 .findByMenuItemIdAndChefId(menuItemId, chefId)
                 .isPresent();
     }
@@ -40,7 +40,7 @@ public class MenuItemChefService {
      * @param chef the chef
      */
     public void removeAllChefs(Chef chef) {
-        menuItemChefRepository.deleteAll(chef.getMenuItems());
+        assignedChefRepository.deleteAll(chef.getMenuItems());
     }
 
     /**
@@ -49,6 +49,6 @@ public class MenuItemChefService {
      * @param menuItem the menu item
      */
     public void removeAllMenuItems(MenuItem menuItem) {
-        menuItemChefRepository.deleteAll(menuItem.getChefs());
+        assignedChefRepository.deleteAll(menuItem.getChefs());
     }
 }

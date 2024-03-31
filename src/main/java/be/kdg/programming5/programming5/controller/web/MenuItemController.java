@@ -4,9 +4,9 @@ import be.kdg.programming5.programming5.controller.web.viewmodel.ChefViewModel;
 import be.kdg.programming5.programming5.controller.web.viewmodel.MenuItemViewModel;
 import be.kdg.programming5.programming5.model.Course;
 import be.kdg.programming5.programming5.model.MenuItem;
-import be.kdg.programming5.programming5.model.MenuItemChef;
+import be.kdg.programming5.programming5.model.AssignedChef;
 import be.kdg.programming5.programming5.model.CustomUserDetails;
-import be.kdg.programming5.programming5.service.MenuItemChefService;
+import be.kdg.programming5.programming5.service.AssignedChefService;
 import be.kdg.programming5.programming5.service.MenuItemService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -30,17 +30,17 @@ import static be.kdg.programming5.programming5.model.ChefRole.Admin;
 public class MenuItemController extends BaseController {
     private final Logger logger = LoggerFactory.getLogger(MenuItemController.class);
     private final MenuItemService menuItemService;
-    private final MenuItemChefService menuItemChefService;
+    private final AssignedChefService assignedChefService;
 
     /**
      * Instantiates a new Menu item controller.
      *
      * @param menuItemService     the menu item service
-     * @param menuItemChefService the menu item chef service
+     * @param assignedChefService the menu item chef service
      */
-    public MenuItemController(MenuItemService menuItemService, MenuItemChefService menuItemChefService) {
+    public MenuItemController(MenuItemService menuItemService, AssignedChefService assignedChefService) {
         this.menuItemService = menuItemService;
-        this.menuItemChefService = menuItemChefService;
+        this.assignedChefService = assignedChefService;
     }
 
     /**
@@ -69,7 +69,7 @@ public class MenuItemController extends BaseController {
                                 menuItem.getSpiceLvl(),
                                 request.isUserInRole(Admin.getCode())
                                         || chefId != null
-                                        && menuItemChefService.isChefAssignedToMenuItem(menuItem.getId(), chefId)))
+                                        && assignedChefService.isChefAssignedToMenuItem(menuItem.getId(), chefId)))
                         .toList());
         mav.addObject("courseValues", Course.values());
         return mav;
@@ -99,15 +99,15 @@ public class MenuItemController extends BaseController {
                         menuItem.getCourse(),
                         menuItem.isVegetarian(),
                         menuItem.getSpiceLvl(),
-                        request.isUserInRole(Admin.getCode()) || chefId != null && menuItem.getChefs().stream().map(MenuItemChef::getChef).anyMatch(chef -> Objects.equals(chef.getId(), chefId)),
-                        menuItem.getChefs().stream().map(menuItemChef -> new ChefViewModel(
-                                menuItemChef.getChef().getId(),
-                                menuItemChef.getChef().getFirstName(),
-                                menuItemChef.getChef().getLastName(),
-                                menuItemChef.getChef().getDateOfBirth(),
-                                menuItemChef.getChef().getUsername(),
-                                menuItemChef.getChef().getPassword(),
-                                menuItemChef.getChef().getRole(),
+                        request.isUserInRole(Admin.getCode()) || chefId != null && menuItem.getChefs().stream().map(AssignedChef::getChef).anyMatch(chef -> Objects.equals(chef.getId(), chefId)),
+                        menuItem.getChefs().stream().map(assignedChef -> new ChefViewModel(
+                                assignedChef.getChef().getId(),
+                                assignedChef.getChef().getFirstName(),
+                                assignedChef.getChef().getLastName(),
+                                assignedChef.getChef().getDateOfBirth(),
+                                assignedChef.getChef().getUsername(),
+                                assignedChef.getChef().getPassword(),
+                                assignedChef.getChef().getRole(),
                                 false)).toList()));
         mav.addObject("courseValues", Course.values());
         return mav;

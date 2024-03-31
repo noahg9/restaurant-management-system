@@ -5,9 +5,9 @@ import be.kdg.programming5.programming5.dto.MenuItemDto;
 import be.kdg.programming5.programming5.dto.NewMenuItemDto;
 import be.kdg.programming5.programming5.dto.UpdateMenuItemDto;
 import be.kdg.programming5.programming5.model.MenuItem;
-import be.kdg.programming5.programming5.model.MenuItemChef;
+import be.kdg.programming5.programming5.model.AssignedChef;
 import be.kdg.programming5.programming5.model.CustomUserDetails;
-import be.kdg.programming5.programming5.service.MenuItemChefService;
+import be.kdg.programming5.programming5.service.AssignedChefService;
 import be.kdg.programming5.programming5.service.MenuItemService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -30,19 +30,19 @@ import static be.kdg.programming5.programming5.model.ChefRole.Admin;
 @RequestMapping("/api/menu-items")
 public class MenuItemsController {
     private final MenuItemService menuItemService;
-    private final MenuItemChefService menuItemChefService;
+    private final AssignedChefService assignedChefService;
     private final ModelMapper modelMapper;
 
     /**
      * Instantiates a new Menu items controller.
      *
      * @param menuItemService     the menu item service
-     * @param menuItemChefService the menu item chef service
+     * @param assignedChefService the menu item chef service
      * @param modelMapper         the model mapper
      */
-    public MenuItemsController(MenuItemService menuItemService, MenuItemChefService menuItemChefService, ModelMapper modelMapper) {
+    public MenuItemsController(MenuItemService menuItemService, AssignedChefService assignedChefService, ModelMapper modelMapper) {
         this.menuItemService = menuItemService;
-        this.menuItemChefService = menuItemChefService;
+        this.assignedChefService = assignedChefService;
         this.modelMapper = modelMapper;
     }
 
@@ -92,7 +92,7 @@ public class MenuItemsController {
         if (menuItem.getChefs().isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return ResponseEntity.ok(menuItem.getChefs().stream().map(MenuItemChef::getChef).map(chef -> modelMapper.map(chef, ChefDto.class)).toList());
+        return ResponseEntity.ok(menuItem.getChefs().stream().map(AssignedChef::getChef).map(chef -> modelMapper.map(chef, ChefDto.class)).toList());
     }
 
     /**
@@ -138,7 +138,7 @@ public class MenuItemsController {
      */
     @DeleteMapping("{id}")
     ResponseEntity<Void> deleteMenuItem(@PathVariable("id") long menuItemId, @AuthenticationPrincipal CustomUserDetails user, HttpServletRequest request) {
-        if (!menuItemChefService.isChefAssignedToMenuItem(menuItemId, user.getChefId()) && !request.isUserInRole(Admin.getCode())) {
+        if (!assignedChefService.isChefAssignedToMenuItem(menuItemId, user.getChefId()) && !request.isUserInRole(Admin.getCode())) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
         if (menuItemService.removeMenuItem(menuItemId)) {
@@ -158,7 +158,7 @@ public class MenuItemsController {
      */
     @PatchMapping("{id}")
     ResponseEntity<Void> changeMenuItem(@PathVariable("id") long menuItemId, @RequestBody @Valid UpdateMenuItemDto updateMenuItemDto, @AuthenticationPrincipal CustomUserDetails user, HttpServletRequest request) {
-        if (!menuItemChefService.isChefAssignedToMenuItem(menuItemId, user.getChefId()) && !request.isUserInRole(Admin.getCode())) {
+        if (!assignedChefService.isChefAssignedToMenuItem(menuItemId, user.getChefId()) && !request.isUserInRole(Admin.getCode())) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
         if (menuItemService.changeMenuItem(menuItemId, updateMenuItemDto.getName(), updateMenuItemDto.getPrice(), updateMenuItemDto.getCourse(), updateMenuItemDto.isVegetarian(), updateMenuItemDto.getSpiceLvl())) {

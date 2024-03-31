@@ -5,7 +5,6 @@ import be.kdg.programming5.programming5.model.ChefRole;
 import be.kdg.programming5.programming5.repository.ChefRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -17,17 +16,17 @@ import java.util.Optional;
 @Service
 public class ChefService {
     private final ChefRepository chefRepository;
-    private final MenuItemChefService menuItemChefService;
+    private final AssignedChefService assignedChefService;
 
     /**
      * Instantiates a new Chef service.
      *
      * @param chefRepository      the chef repository
-     * @param menuItemChefService the menu item chef service
+     * @param assignedChefService the menu item chef service
      */
-    public ChefService(ChefRepository chefRepository, MenuItemChefService menuItemChefService) {
+    public ChefService(ChefRepository chefRepository, AssignedChefService assignedChefService) {
         this.chefRepository = chefRepository;
-        this.menuItemChefService = menuItemChefService;
+        this.assignedChefService = assignedChefService;
     }
 
     /**
@@ -126,7 +125,7 @@ public class ChefService {
         if (chef.isEmpty()) {
             return false;
         }
-        menuItemChefService.removeAllChefs(chef.get());
+        assignedChefService.removeAllChefs(chef.get());
         chefRepository.deleteById(chefId);
         return true;
     }
