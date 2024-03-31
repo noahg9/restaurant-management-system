@@ -36,6 +36,10 @@ Chef >------< MenuItem ------ Recipe
 | menu-item (not-associated) | Limited | Limited   | Full      |
 | register-chef              | None    | None      | Full      |
 
+## Spring Profiles
+
+test - Used for testing purposes.
+
 ## Week 2
 
 ### Fetching one menu item - OK

@@ -96,6 +96,21 @@ public class MenuItemService {
      * @param course     the course
      * @param vegetarian the vegetarian
      * @param spiceLvl   the spice lvl
+     * @return the menu item
+     */
+    @Transactional
+    public MenuItem addMenuItem(String name, double price, Course course, Boolean vegetarian, int spiceLvl) {
+        return menuItemRepository.save(new MenuItem(name, price, course, vegetarian, spiceLvl));
+    }
+
+    /**
+     * Add menu item menu item.
+     *
+     * @param name       the name
+     * @param price      the price
+     * @param course     the course
+     * @param vegetarian the vegetarian
+     * @param spiceLvl   the spice lvl
      * @param userId     the user id
      * @return the menu item
      */
@@ -105,6 +120,11 @@ public class MenuItemService {
         Chef chef = chefRepository.findById(userId).orElse(null);
         assignedChefRepository.save(new AssignedChef(menuItem, chef, LocalDateTime.now()));
         return menuItem;
+    }
+
+    @Transactional
+    public MenuItem addMenuItem(MenuItem menuItem) {
+        return menuItemRepository.save(menuItem);
     }
 
     /**
@@ -119,7 +139,7 @@ public class MenuItemService {
         if (menuItem.isEmpty()) {
             return false;
         }
-        assignedChefService.removeAllMenuItems(menuItem.get());
+        assignedChefRepository.deleteAll(menuItem.get().getChefs());
         menuItemRepository.deleteById(menuItemId);
         return true;
     }

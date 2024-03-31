@@ -27,12 +27,12 @@ Accept: application/xml
 GET http://localhost:9242/api/menu-items
 Accept: application/json
 
-### API: retrieve all chefs of one menu item
+### API: retrieve all chefs of one menu item (200)
 
-GET http://localhost:9242/api/menu-items/1/chef
+GET http://localhost:9242/api/menu-items/1/chefs
 Accept: application/json
 
-### API: search menu items (204)
+### API: search menu items (200)
 
 GET http://localhost:9242/api/menu-items/search?search=salad
 Accept: application/json
@@ -40,23 +40,27 @@ Accept: application/json
 ### API: delete a menu items (204)
 
 DELETE http://localhost:9242/api/menu-items/1
-Cookie: JSESSIONID=E9D803ECD90745F0F547D68D6602CBD2
-X-CSRF-TOKEN: zoNrlbJ2ZBRGvX90J6-Re5wD2CT_xie1sOHxSxSSh5bONxUu_bMJ8YAXVnBrhBoWRYKlTPk39UXN_kWYgIDAfy2g4vT4ASMb
+Cookie: JSESSIONID=5DF68D1F05485503D2E21C52774058C3
+X-CSRF-TOKEN: v3RX2AC1UfpvN0ETXsy9Oo1x_iTgHrP22nZsaI_TbfKBfCkJ2UNvvDiDYMNCU3IjbeGJDugS00WFLovb40VZXOrlX8e5RB47
 
 ### API: delete a menu item (403)
 
 DELETE http://localhost:9242/api/menu-items/99
+Cookie: JSESSIONID=5DF68D1F05485503D2E21C52774058C3
+X-CSRF-TOKEN: v3RX2AC1UfpvN0ETXsy9Oo1x_iTgHrP22nZsaI_TbfKBfCkJ2UNvvDiDYMNCU3IjbeGJDugS00WFLovb40VZXOrlX8e5RB47
 
 ### API: add a menu item (201)
 
 POST http://localhost:9242/api/menu-items
 Accept: application/json
 Content-Type: application/json
+Cookie: JSESSIONID=5DF68D1F05485503D2E21C52774058C3
+X-CSRF-TOKEN: v3RX2AC1UfpvN0ETXsy9Oo1x_iTgHrP22nZsaI_TbfKBfCkJ2UNvvDiDYMNCU3IjbeGJDugS00WFLovb40VZXOrlX8e5RB47
 
 {
   "name": "Pizza",
   "price": 10.0,
-  "course": "Main",
+  "courseName": "Main",
   "vegetarian": false,
   "spiceLvl": 3
 }
@@ -66,30 +70,33 @@ Content-Type: application/json
 POST http://localhost:9242/api/menu-items
 Accept: application/json
 Content-Type: application/json
+Cookie: JSESSIONID=5DF68D1F05485503D2E21C52774058C3
+X-CSRF-TOKEN: v3RX2AC1UfpvN0ETXsy9Oo1x_iTgHrP22nZsaI_TbfKBfCkJ2UNvvDiDYMNCU3IjbeGJDugS00WFLovb40VZXOrlX8e5RB47
 
 {
   "name": "",
-  "price": 10.0,
-  "course": "Main",
+  "price": -5,
+  "courseName": "Main",
   "vegetarian": false,
   "spiceLvl": 3
 }
 
-### API: change a menu item name (204)
+### API: change a menu item (204)
 
 PATCH http://localhost:9242/api/menu-items/1
 Accept: application/json
 Content-Type: application/json
+Cookie: JSESSIONID=5DF68D1F05485503D2E21C52774058C3
+X-CSRF-TOKEN: v3RX2AC1UfpvN0ETXsy9Oo1x_iTgHrP22nZsaI_TbfKBfCkJ2UNvvDiDYMNCU3IjbeGJDugS00WFLovb40VZXOrlX8e5RB47
 
 {
   "name": "Pizza",
   "price": 10.0,
-  "course": "Main",
   "vegetarian": false,
   "spiceLvl": 3
 }
 
-### API: change a menu item name (404)
+### API: change a menu item (404)
 
 PATCH http://localhost:9242/api/menu-items/99
 Accept: application/json
@@ -98,21 +105,21 @@ Content-Type: application/json
 {
   "name": "Pizza",
   "price": 10.0,
-  "course": "Main",
   "vegetarian": false,
   "spiceLvl": 3
 }
 
-### API: change a menu item name
+### API: change a menu item
 
 PATCH http://localhost:9242/api/menu-items/1
 Accept: application/json
 Content-Type: application/json
+Cookie: JSESSIONID=5DF68D1F05485503D2E21C52774058C3
+X-CSRF-TOKEN: v3RX2AC1UfpvN0ETXsy9Oo1x_iTgHrP22nZsaI_TbfKBfCkJ2UNvvDiDYMNCU3IjbeGJDugS00WFLovb40VZXOrlX8e5RB47
 
 {
   "name": "",
   "price": 10.0,
-  "course": "Main",
   "vegetarian": false,
   "spiceLvl": 3
 }

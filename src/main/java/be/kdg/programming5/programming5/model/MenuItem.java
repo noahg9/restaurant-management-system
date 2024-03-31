@@ -4,7 +4,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * The type Menu item.
@@ -37,7 +39,8 @@ public class MenuItem extends AbstractEntity<Long> implements Serializable {
     /**
      * Instantiates a new Menu item.
      */
-    protected MenuItem() {}
+    protected MenuItem() {
+    }
 
     /**
      * Instantiates a new Menu item.
@@ -155,10 +158,20 @@ public class MenuItem extends AbstractEntity<Long> implements Serializable {
         this.spiceLvl = spiceLvl;
     }
 
+    /**
+     * Gets recipe.
+     *
+     * @return the recipe
+     */
     public Recipe getRecipe() {
         return recipe;
     }
 
+    /**
+     * Sets recipe.
+     *
+     * @param recipe the recipe
+     */
     public void setRecipe(Recipe recipe) {
         this.recipe = recipe;
     }
@@ -179,5 +192,32 @@ public class MenuItem extends AbstractEntity<Long> implements Serializable {
      */
     public void setChefs(List<AssignedChef> chefs) {
         this.chefs = chefs;
+    }
+
+
+    /**
+     * Add assigned chef.
+     *
+     * @param assignedChef the assigned chef
+     */
+    public void addAssignedChef(AssignedChef assignedChef) {
+        if (chefs == null) {
+            chefs = new ArrayList<>();
+        }
+        chefs.add(assignedChef);
+        assignedChef.setMenuItem(this);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MenuItem menuItem = (MenuItem) o;
+        return Objects.equals(id, menuItem.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

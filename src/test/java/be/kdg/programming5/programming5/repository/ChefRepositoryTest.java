@@ -1,12 +1,13 @@
 package be.kdg.programming5.programming5.repository;
 
-import be.kdg.programming5.programming5.model.AssignedChef;
-import be.kdg.programming5.programming5.model.Chef;
+import be.kdg.programming5.programming5.model.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +18,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class ChefRepositoryTest {
     @Autowired
     private ChefRepository chefRepository;
+    @Autowired
+    private MenuItemRepository menuItemRepository;
 
     @Test
     void findByIdWithMenuItemsShouldFetchRelatedData() {
@@ -50,5 +53,4 @@ class ChefRepositoryTest {
         Chef chef = chefOptional.get();
         assertEquals(username, chef.getUsername(), "Username should match");
     }
-
 }

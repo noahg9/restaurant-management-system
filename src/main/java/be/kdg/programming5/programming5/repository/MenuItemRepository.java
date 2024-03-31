@@ -21,7 +21,6 @@ public interface MenuItemRepository extends JpaRepository<MenuItem, Long> {
     @Query("""
             select m from MenuItem m
             left join fetch m.chefs chefs
-            left join fetch chefs.chef
             where m.id = :menuItemId
             """)
     Optional<MenuItem> findByIdWithChefs(long menuItemId);

@@ -33,22 +33,4 @@ public class AssignedChefService {
                 .findByMenuItemIdAndChefId(menuItemId, chefId)
                 .isPresent();
     }
-
-    /**
-     * Remove all chefs.
-     *
-     * @param chef the chef
-     */
-    public void removeAllChefs(Chef chef) {
-        assignedChefRepository.deleteAll(chef.getMenuItems());
-    }
-
-    /**
-     * Remove all menu items.
-     *
-     * @param menuItem the menu item
-     */
-    public void removeAllMenuItems(MenuItem menuItem) {
-        assignedChefRepository.deleteAll(menuItem.getChefs());
-    }
 }
