@@ -27,7 +27,7 @@ class MenuItemServiceTest {
 
     @BeforeAll
     public void setup() {
-        var testMenuItem = menuItemRepository.save(new MenuItem("Cheese Bagel", 1.0, Course.MAIN, false, 1));
+        MenuItem testMenuItem = menuItemRepository.save(new MenuItem("Cheese Bagel", 1.0, Course.MAIN, false, 1));
         testMenuItemId = testMenuItem.getId();
     }
 
@@ -39,10 +39,10 @@ class MenuItemServiceTest {
     @Test
     void changeMenuItemShouldReturnTrueForExistingMenuItemAndUpdateSaidMenuItem() {
         // Arrange
-        var createdMenuItem = menuItemRepository.save(new MenuItem("Cheese Bagel", 1.0, Course.MAIN, false, 1));
+        MenuItem createdMenuItem = menuItemRepository.save(new MenuItem("Cheese Bagel", 1.0, Course.MAIN, false, 1));
 
         // Act
-        var result = menuItemService.changeMenuItem(createdMenuItem.getId(), "Ham Bagel", 1.5, true, 2);
+        boolean result = menuItemService.changeMenuItem(createdMenuItem.getId(), "Ham Bagel", 1.5, true, 2);
 
         // Assert
         assertTrue(result);
@@ -57,7 +57,7 @@ class MenuItemServiceTest {
         // Arrange
 
         // Act
-        var result = menuItemService.changeMenuItem(9999, "Ham Bagel", 1.5, true, 2);
+        boolean result = menuItemService.changeMenuItem(9999, "Ham Bagel", 1.5, true, 2);
 
         // Assert
         assertFalse(result);
