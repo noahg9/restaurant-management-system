@@ -3,7 +3,6 @@ package be.kdg.programming5.programming5.repository;
 import be.kdg.programming5.programming5.model.MenuItem;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,7 +10,6 @@ import java.util.Optional;
 /**
  * The interface Menu item repository.
  */
-@Repository
 public interface MenuItemRepository extends JpaRepository<MenuItem, Long> {
 
     /**
@@ -61,5 +59,4 @@ public interface MenuItemRepository extends JpaRepository<MenuItem, Long> {
      * @return the list
      */
     List<MenuItem> findMenuItemsByNameLikeIgnoreCase(String searchTerm);
-
 }

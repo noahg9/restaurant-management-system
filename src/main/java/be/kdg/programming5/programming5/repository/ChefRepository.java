@@ -11,7 +11,6 @@ import java.util.Optional;
 /**
  * The interface Chef repository.
  */
-@Repository
 public interface ChefRepository extends JpaRepository<Chef, Long> {
 
     /**

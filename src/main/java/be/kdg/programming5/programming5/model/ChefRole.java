@@ -8,15 +8,15 @@ public enum ChefRole {
     /**
      * The Head chef.
      */
-    HEAD_CHEF("HC", "Head Chef"),
+    HEAD_CHEF("ROLE_HEAD_CHEF", "Head Chef"),
     /**
      * The Sous chef.
      */
-    SOUS_CHEF("SC", "Sous Chef"),
+    SOUS_CHEF("ROLE_SOUS_CHEF", "Sous Chef"),
     /**
      * The Line cook.
      */
-    LINE_COOK("LC", "Line Chef");
+    LINE_COOK("ROLE_LINE_COOK", "Line Chef");
 
 
     private final String code;
