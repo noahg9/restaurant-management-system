@@ -14,7 +14,7 @@ import java.util.Map;
  * The type Custom error controller.
  */
 @Controller
-public class CustomErrorController implements ErrorController {
+public class CustomErrorController extends BaseController implements ErrorController {
 
     private final ErrorAttributes errorAttributes;
 

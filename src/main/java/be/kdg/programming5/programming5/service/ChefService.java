@@ -5,6 +5,7 @@ import be.kdg.programming5.programming5.model.ChefRole;
 import be.kdg.programming5.programming5.repository.ChefRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.LocalDate;
 import java.util.List;

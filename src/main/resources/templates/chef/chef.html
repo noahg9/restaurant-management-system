@@ -19,12 +19,11 @@
         <!-- Details Sections -->
         <div class="col-md-6">
             <section class="mt-5 text-center">
-                <h2 class="text-secondary" th:text="#{header.details}">Details</h2>
                 <div class="row mb-3 justify-content-center">
                     <div class="col-md-8">
                         <input id="chefId" th:value="${one_chef.id}" type="hidden">
                         <div class="row mt-3 justify-content-center">
-                            <table class="table table-bordered table-striped">
+                            <table class="table">
                                 <tbody>
                                 <!-- ID -->
                                 <tr>
@@ -40,7 +39,9 @@
                                     </th>
                                     <td class="col-sm-8">
                                         <input class="form-control" id="firstNameField"
+                                               th:if="${one_chef.modificationAllowed}"
                                                th:value="${one_chef.firstName}" type="text">
+                                        <p th:if="${!one_chef.modificationAllowed}" th:text="${one_chef.firstName}">
                                     </td>
                                 </tr>
                                 <!-- Last Name -->
@@ -53,8 +54,10 @@
                                     </th>
                                     <td class="col-sm-8">
                                         <input class="form-control" id="lastNameField"
+                                               th:if="${one_chef.modificationAllowed}"
                                                th:value="${one_chef.lastName}"
                                                type="text">
+                                        <p th:if="${!one_chef.modificationAllowed}" th:text="${one_chef.lastName}">
                                     </td>
                                 </tr>
                                 <!-- Date of Birth -->
@@ -67,8 +70,10 @@
                                     </th>
                                     <td class="col-sm-8">
                                         <input class="form-control" id="dateOfBirthField"
+                                               th:if="${one_chef.modificationAllowed}"
                                                th:value="${one_chef.dateOfBirth}"
                                                type="date">
+                                        <p th:if="${!one_chef.modificationAllowed}" th:text="${one_chef.dateOfBirth}">
                                     </td>
                                 </tr>
                                 <!-- Username -->
@@ -81,8 +86,10 @@
                                     </th>
                                     <td class="col-sm-8">
                                         <input class="form-control" id="usernameField"
+                                               th:if="${one_chef.modificationAllowed}"
                                                th:value="${one_chef.username}"
                                                type="text">
+                                        <p th:if="${!one_chef.modificationAllowed}" th:text="${one_chef.username}">
                                     </td>
                                 </tr>
                                 <!-- Role -->
@@ -117,7 +124,7 @@
             <section class="mt-5 text-center">
                 <!-- Dropdown -->
                 <div class="dropdown" id="dropdownButtonWrapper">
-                    <button class="btn btn-secondary col-md-5 dropdown-toggle" id="toggleMenuItemInformation"
+                    <button class="btn btn-primary col-md-5 dropdown-toggle" id="toggleMenuItemInformation"
                             th:text="#{message.menuItemsDropdown}"
                             type="button">
                         Menu items involved in
@@ -132,13 +139,15 @@
             </section>
         </div>
         <!-- Bottom Page Buttons Section -->
-        <div class="col-md-4">
+        <div class="col-md-12">
             <div class="row mb-3 justify-content-center">
                 <!-- Return Button -->
-                <div class="center-container text-center">
-                    <a class="btn btn-secondary" href="javascript:history.back()" th:text="#{button.return}">
-                        <i class="fas fa-arrow-left"></i> Return
-                    </a>
+                <div class="col-md-2">
+                    <div class="center-container text-center">
+                        <a class="btn btn-secondary" href="javascript:history.back()" th:text="#{button.return}">
+                            <i class="fas fa-arrow-left"></i> Return
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

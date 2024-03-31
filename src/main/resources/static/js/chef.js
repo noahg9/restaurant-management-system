@@ -27,7 +27,7 @@ async function toggleMenuItems() {
     }
 }
 
-toggleMenuItemsButton.addEventListener("click", toggleMenuItems);
+toggleMenuItemsButton?.addEventListener("click", toggleMenuItems);
 
 const firstName = document.getElementById("firstNameField");
 const lastName = document.getElementById("lastNameField");
@@ -48,6 +48,6 @@ async function saveChef() {
     }
 }
 
-saveButton.addEventListener("click", saveChef);
-firstName.addEventListener("", () => saveButton.disabled = false);
-lastName.addEventListener("", () => saveButton.disabled = false);
+saveButton?.addEventListener("click", saveChef);
+firstName?.addEventListener("", () => saveButton.disabled = false);
+lastName?.addEventListener("", () => saveButton.disabled = false);

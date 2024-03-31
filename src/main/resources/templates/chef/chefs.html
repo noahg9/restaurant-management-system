@@ -16,26 +16,25 @@
             <h1 class="page-title text-primary" th:text="#{title.chefs}">Chefs</h1>
         </div>
         <!-- Chef List Section -->
-        <div class="col-md-12">
+        <div class="col-md-6">
             <section class="mt-5 text-center">
-                <h2 class="text-secondary" th:text="#{header.list}">List</h2>
                 <div class="row mb-3 justify-content-center" id="chefBody">
                     <!-- Chefs will be dynamically added here -->
                 </div>
             </section>
         </div>
         <!-- Bottom Page Buttons Section -->
-        <div class="col-md-4">
+        <div class="col-md-12">
             <div class="row mb-3 justify-content-center">
                 <!-- Register Chef Button -->
-                <div class="col-md-6 center-container text-center" sec:authorize="isAuthenticated()">
+                <div class="col-md-2 center-container text-center" sec:authorize="isAuthenticated()">
                     <a class="btn btn-primary" th:href="@{/register-chef}">
                         <i class="fas fa-plus"></i>
                         <span th:text="#{title.registerChef}">Register Chef</span>
                     </a>
                 </div>
                 <!-- Search Chefs Button -->
-                <div class="col-md-6 center-container text-center">
+                <div class="col-md-2 center-container text-center">
                     <div class="center-container text-center">
                         <a class="btn btn-secondary" th:href="@{/search-chefs}">
                             <i class="fas fa-search"></i>

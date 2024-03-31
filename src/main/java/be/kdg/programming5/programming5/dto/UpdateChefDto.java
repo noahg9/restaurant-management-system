@@ -2,6 +2,7 @@ package be.kdg.programming5.programming5.dto;
 
 import be.kdg.programming5.programming5.model.ChefRole;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 
@@ -13,9 +14,13 @@ public class UpdateChefDto {
     private String firstName;
     @NotBlank
     private String lastName;
+    @NotNull
     private LocalDate dateOfBirth;
+    @NotBlank
     private String username;
+    @NotBlank
     private String password;
+    @NotNull
     private ChefRole role;
 
     /**

@@ -30,6 +30,19 @@
                 <!-- Queried chefs will be dynamically added here -->
             </div>
         </div>
+        <!-- Bottom Page Buttons Section -->
+        <div class="col-md-12">
+            <div class="row mb-3 justify-content-center">
+                <!-- Return Button -->
+                <div class="col-md-2">
+                    <div class="center-container text-center">
+                        <a class="btn btn-secondary" href="javascript:history.back()" th:text="#{button.return}">
+                            <i class="fas fa-arrow-left"></i> Return
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </main>
 <footer th:insert="~{fragments/footer::copy}"></footer>

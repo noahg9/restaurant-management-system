@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title th:text="#{title.login}">Login</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
@@ -13,7 +13,7 @@
         <div class="col-md-12">
             <h1 class="page-title text-primary" th:text="#{title.login}">Log in</h1>
         </div>
-        <div class="col-md-12">
+        <div class="col-md-12" sec:authorize="!isAuthenticated()">
             <section class="mt-5 text-center">
                 <div class="row mb-3 justify-content-center">
                     <form method="POST" th:action="@{/login}">
@@ -21,14 +21,16 @@
                             <div class="col-sm-2">
                                 <label class="form-label" for="username"
                                        th:text="#{attribute.username}">Username</label>
-                                <input class="form-control" id="username" name="username" type="text">
+                                <input class="form-control" id="username" name="username" required
+                                       th:placeholder="#{attribute.username}" type="text">
                             </div>
                         </div>
                         <div class="row pb-3 justify-content-center">
                             <div class="col-sm-2">
                                 <label class="form-label" for="password"
                                        th:text="#{attribute.password}">Password</label>
-                                <input class="form-control" id="password" name="password" type="password">
+                                <input class="form-control" id="password" name="password" required
+                                       th:placeholder="#{attribute.password}" type="password">
                             </div>
                         </div>
                         <div class="row justify-content-center">
@@ -39,6 +41,22 @@
                     </form>
                 </div>
             </section>
+        </div>
+        <div class="col-md-12" sec:authorize="isAuthenticated()">
+            <p class="lead text-body text-body">Logged in as <span sec:authentication="name">user</span>.</p>
+        </div>
+        <!-- Bottom Page Buttons Section -->
+        <div class="col-md-12">
+            <div class="row mb-3 justify-content-center">
+                <!-- Return Button -->
+                <div class="col-md-2">
+                    <div class="center-container text-center">
+                        <a class="btn btn-secondary" href="javascript:history.back()" th:text="#{button.return}">
+                            <i class="fas fa-arrow-left"></i> Return
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </main>

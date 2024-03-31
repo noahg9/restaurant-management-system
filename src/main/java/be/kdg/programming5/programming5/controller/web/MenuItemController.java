@@ -5,7 +5,6 @@ import be.kdg.programming5.programming5.controller.web.viewmodel.MenuItemViewMod
 import be.kdg.programming5.programming5.model.Course;
 import be.kdg.programming5.programming5.model.MenuItem;
 import be.kdg.programming5.programming5.model.MenuItemChef;
-import be.kdg.programming5.programming5.model.util.HistoryUtil;
 import be.kdg.programming5.programming5.model.CustomUserDetails;
 import be.kdg.programming5.programming5.service.MenuItemChefService;
 import be.kdg.programming5.programming5.service.MenuItemService;
@@ -28,7 +27,7 @@ import static be.kdg.programming5.programming5.model.ChefRole.Admin;
  * The type Menu item controller.
  */
 @Controller
-public class MenuItemController {
+public class MenuItemController extends BaseController {
     private final Logger logger = LoggerFactory.getLogger(MenuItemController.class);
     private final MenuItemService menuItemService;
     private final MenuItemChefService menuItemChefService;
@@ -55,11 +54,7 @@ public class MenuItemController {
      */
     @GetMapping("/menu-items")
     public ModelAndView allMenuItems(HttpSession session, Model model, ModelAndView mav, @AuthenticationPrincipal CustomUserDetails user, HttpServletRequest request) {
-        logger.info("Getting menu items");
-        String pageTitle = "Menu Items";
-        HistoryUtil.updateHistory(session, pageTitle);
-        model.addAttribute("pageTitle", pageTitle);
-
+        setupPage(session, model, "Menu Items");
         Long chefId = user != null ? user.getChefId() : null;
         mav.setViewName("menu/menu-items");
         mav.addObject("all_menu_items",
@@ -92,11 +87,7 @@ public class MenuItemController {
      */
     @GetMapping("/menu-item")
     public ModelAndView oneMenuItem(@RequestParam("id") long menuItemId, HttpSession session, Model model, ModelAndView mav, @AuthenticationPrincipal CustomUserDetails user, HttpServletRequest request) {
-        logger.info("Getting menu item page");
-        String pageTitle = "Menu Item";
-        HistoryUtil.updateHistory(session, pageTitle);
-        model.addAttribute("pageTitle", pageTitle);
-
+        setupPage(session, model, "Menu Item");
         Long chefId = user != null ? user.getChefId() : null;
         MenuItem menuItem = menuItemService.getMenuItemWithChefs(menuItemId);
         mav.setViewName("menu/menu-item");
@@ -131,10 +122,7 @@ public class MenuItemController {
      */
     @GetMapping("/search-menu-items")
     public String searchMenuItems(HttpSession session, Model model) {
-        logger.info("Getting menu item search page");
-        String pageTitle = "Search Menu Items";
-        HistoryUtil.updateHistory(session, pageTitle);
-        model.addAttribute("pageTitle", pageTitle);
+        setupPage(session, model, "Search Menu Items");
         return "menu/search-menu-items";
     }
 }

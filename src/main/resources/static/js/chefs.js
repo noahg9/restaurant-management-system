@@ -1,6 +1,4 @@
-const header = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
-const token = document.querySelector('meta[name="_csrf"]').getAttribute('content');
-
+import {header, token} from "./util/csrf.js";
 
 async function fillChefsTable() {
     const response = await fetch('/api/chefs', {
@@ -19,7 +17,7 @@ async function fillChefsTable() {
 const deleteButtons = document.querySelectorAll("button.btn-danger");
 
 for (const deleteButton of deleteButtons) {
-    deleteButton.addEventListener("click", handleDeleteChef)
+    deleteButton?.addEventListener("click", handleDeleteChef)
 }
 
 async function handleDeleteChef(event) {
@@ -46,7 +44,7 @@ function addChefToTable(chef) {
     if (!roleGroup) {
         // Create a new group if it doesn't exist
         cardGroup = document.createElement("div");
-        cardGroup.classList.add("role-group", "mb-4", "row"); // Add Bootstrap classes for rows
+        cardGroup.classList.add("role-group", "mb-4", "row", "text-secondary"); // Add Bootstrap classes for rows
         cardGroup.id = chef.role + "-group";
 
         const groupName = document.createElement("h2");
@@ -59,7 +57,7 @@ function addChefToTable(chef) {
     }
 
     const cardColumn = document.createElement("div");
-    cardColumn.classList.add("col-md-4"); // Bootstrap class for columns
+    cardColumn.classList.add("col-md-6"); // Bootstrap class for columns
     const card = document.createElement("div");
     card.classList.add("card", "mb-3");
     const age = Math.floor((new Date() - new Date(chef.dateOfBirth)) / (1000 * 60 * 60 * 24 * 365));
@@ -75,7 +73,7 @@ function addChefToTable(chef) {
     cardGroup.appendChild(cardColumn);
 
     const newDeleteButton = card.querySelector('button');
-    newDeleteButton.addEventListener("click", (event) => {
+    newDeleteButton?.addEventListener("click", (event) => {
         event.stopPropagation();
         handleDeleteChef(event);
     });

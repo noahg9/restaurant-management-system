@@ -1,4 +1,4 @@
-package be.kdg.programming5.programming5.model.util;
+package be.kdg.programming5.programming5.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -4,7 +4,6 @@ import be.kdg.programming5.programming5.controller.web.viewmodel.ChefViewModel;
 import be.kdg.programming5.programming5.controller.web.viewmodel.MenuItemViewModel;
 import be.kdg.programming5.programming5.model.Chef;
 import be.kdg.programming5.programming5.model.ChefRole;
-import be.kdg.programming5.programming5.model.util.HistoryUtil;
 import be.kdg.programming5.programming5.model.CustomUserDetails;
 import be.kdg.programming5.programming5.service.ChefService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,7 +26,7 @@ import static be.kdg.programming5.programming5.model.ChefRole.Admin;
  * The type Chef controller.
  */
 @Controller
-public class ChefController {
+public class ChefController extends BaseController {
     private static final Logger logger = LoggerFactory.getLogger(ChefController.class);
     private final ChefService chefService;
 
@@ -45,29 +44,14 @@ public class ChefController {
      *
      * @param session the session
      * @param model   the model
+     * @param mav     the mav
      * @return the model and view
      */
     @GetMapping("/chefs")
     public ModelAndView allChefs(HttpSession session, Model model, ModelAndView mav) {
-        logger.info("Getting chefs");
-        String pageTitle = "Chefs";
-        HistoryUtil.updateHistory(session, pageTitle);
-        model.addAttribute("pageTitle", pageTitle);
-
+        setupPage(session, model, "Chefs");
         mav.setViewName("chef/chefs");
-        mav.addObject("all_chefs",
-                chefService.getAllChefs()
-                        .stream()
-                        .map(chef -> new ChefViewModel(
-                                chef.getId(),
-                                chef.getFirstName(),
-                                chef.getLastName(),
-                                chef.getDateOfBirth(),
-                                chef.getUsername(),
-                                chef.getPassword(),
-                                chef.getRole(),
-                                false))
-                        .toList());
+        mav.addObject("all_chefs", chefService.getAllChefs().stream().map(chef -> new ChefViewModel(chef.getId(), chef.getFirstName(), chef.getLastName(), chef.getDateOfBirth(), chef.getUsername(), chef.getPassword(), chef.getRole(), false)).toList());
         mav.addObject("roleValues", ChefRole.values());
         return mav;
     }
@@ -78,63 +62,44 @@ public class ChefController {
      * @param chefId  the chef id
      * @param session the session
      * @param model   the model
+     * @param mav     the mav
      * @param user    the user
      * @param request the request
      * @return the model and view
      */
     @GetMapping("/chef")
     public ModelAndView oneChef(@RequestParam("id") long chefId, HttpSession session, Model model, ModelAndView mav, @AuthenticationPrincipal CustomUserDetails user, HttpServletRequest request) {
-        logger.info("Getting chef");
-        String pageTitle = "Chef";
-        HistoryUtil.updateHistory(session, pageTitle);
-        model.addAttribute("pageTitle", pageTitle);
-
+        setupPage(session, model, "Chef");
         Chef chef = chefService.getChefWithMenuItems(chefId);
         mav.setViewName("chef/chef");
-        mav.addObject("one_chef",
-                new ChefViewModel(
-                        chef.getId(),
-                        chef.getFirstName(),
-                        chef.getLastName(),
-                        chef.getDateOfBirth(),
-                        chef.getUsername(),
-                        chef.getPassword(),
-                        chef.getRole(),
-                        user != null && (user.getChefId() == chefId || request.isUserInRole(Admin.getCode())),
-                        chef.getMenuItems().stream().map(menuItemChef ->
-                                new MenuItemViewModel(
-                                        menuItemChef.getMenuItem().getId(),
-                                        menuItemChef.getMenuItem().getName(),
-                                        menuItemChef.getMenuItem().getPrice(),
-                                        menuItemChef.getMenuItem().getCourse(),
-                                        menuItemChef.getMenuItem().isVegetarian(),
-                                        menuItemChef.getMenuItem().getSpiceLvl(),
-                                        false)).toList()));
+        mav.addObject("one_chef", new ChefViewModel(chef.getId(), chef.getFirstName(), chef.getLastName(), chef.getDateOfBirth(), chef.getUsername(), chef.getPassword(), chef.getRole(), user != null && (user.getChefId() == chefId || request.isUserInRole(Admin.getCode())), chef.getMenuItems().stream().map(menuItemChef -> new MenuItemViewModel(menuItemChef.getMenuItem().getId(), menuItemChef.getMenuItem().getName(), menuItemChef.getMenuItem().getPrice(), menuItemChef.getMenuItem().getCourse(), menuItemChef.getMenuItem().isVegetarian(), menuItemChef.getMenuItem().getSpiceLvl(), false)).toList()));
         return mav;
     }
 
-        /**
-         * Search chefs string.
-         *
-         * @param session the session
-         * @param model   the model
-         * @return the string
-         */
+    /**
+     * Search chefs string.
+     *
+     * @param session the session
+     * @param model   the model
+     * @return the string
+     */
     @GetMapping("/search-chefs")
     public String searchChefs(HttpSession session, Model model) {
-        logger.info("Getting chef search page");
-        String pageTitle = "Search Chefs";
-        HistoryUtil.updateHistory(session, pageTitle);
-        model.addAttribute("pageTitle", pageTitle);
+        setupPage(session, model, "Search Chefs");
         return "chef/search-chefs";
     }
 
+    /**
+     * Register chef model and view.
+     *
+     * @param session the session
+     * @param model   the model
+     * @param mav     the mav
+     * @return the model and view
+     */
     @GetMapping("/register-chef")
     public ModelAndView registerChef(HttpSession session, Model model, ModelAndView mav) {
-        logger.info("Getting chef registration page");
-        String pageTitle = "Register New Chef";
-        HistoryUtil.updateHistory(session, pageTitle);
-        model.addAttribute("pageTitle", pageTitle);
+        setupPage(session, model, "Register Chef");
         mav.setViewName("chef/register-chef");
         mav.addObject("roleValues", ChefRole.values());
         return mav;

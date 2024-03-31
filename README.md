@@ -24,20 +24,21 @@
 | joanr    | noah     | Chef   |
 | davidc   | noah     | Chef   |
 
-## Role Rights
+## Access Levels
 
-| Page                   | Guest  | Chef   | Admin  |
-|------------------------|--------|--------|--------|
-| home                   | Viewer | Viewer | Viewer |
-| chefs                  | Viewer | Viewer | Editor |
-| menu-items             | Viewer | Viewer | Editor |      
-| search-chefs           | Viewer | Viewer | Viewer |
-| search-menu-items      | Viewer | Viewer | Viewer |
-| history                | Viewer | Viewer | Viewer |
-| chef                   | N/a    | Viewer | Editor |
-| chef (own)             | N/a    | Editor | Editor |
-| menu-item              | N/a    | Viewer | Editor |
-| menu-item (associated) | N/a    | Editor | Editor |
+| Page                       | Guest   | Chef    | Admin |
+|----------------------------|---------|---------|-------|
+| home                       | Full    | Full    | Full  | 
+| search-chefs               | Full    | Full    | Full  |
+| search-menu-items          | Full    | Full    | Full  |
+| chef (own)                 | Limited | Full    | Full  |
+| menu-item (associated)     | Limited | Full    | Full  |
+| history                    | None    | Full    | Full  |
+| chefs                      | Limited | Limited | Full  |
+| menu-items                 | Limited | Limited | Full  |   
+| chef (other)               | Limited | Limited | Full  |
+| menu-item (not-associated) | Limited | Limited | Full  |
+| register-chef              | None    | None    | Full  |
 
 ## Week 2
 

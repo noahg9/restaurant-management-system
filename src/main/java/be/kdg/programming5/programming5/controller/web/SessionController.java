@@ -15,7 +15,7 @@ import java.util.Map;
  * The type Session controller.
  */
 @Controller
-public class SessionController {
+public class SessionController extends BaseController {
     private final Logger logger = LoggerFactory.getLogger(SessionController.class);
 
     /**
@@ -27,12 +27,11 @@ public class SessionController {
      */
     @GetMapping("/history")
     public String getHistory(HttpSession session, Model model) {
-        logger.info("Getting history");
-        String pageTitle = "History";
-        HistoryUtil.updateHistory(session, pageTitle);
-        List<Map<String, Object>> history = HistoryUtil.getHistory(session);
-        model.addAttribute("pageTitle", pageTitle);
-        model.addAttribute("history", history);
+        setupPage(session, model, "Session History");
+        List<Map<String, Object>> fullHistory = HistoryUtil.getHistory(session);
+        int size = fullHistory.size();
+        List<Map<String, Object>> recentHistory = fullHistory.subList(Math.max(0, size - 16), size);
+        model.addAttribute("history", recentHistory);
         return "session/history";
     }
 }

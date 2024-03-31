@@ -18,8 +18,11 @@ public class ChefViewModel {
     private String lastName;
     @NotNull(message = "Date of birth cannot be null")
     private LocalDate dateOfBirth;
+    @NotBlank(message = "Username cannot be empty")
     private String username;
+    @NotBlank(message = "Password cannot be empty")
     private String password;
+    @NotNull(message = "Role cannot be null")
     private ChefRole role;
     private boolean modificationAllowed;
     private List<MenuItemViewModel> menuItems;

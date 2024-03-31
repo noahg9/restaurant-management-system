@@ -29,7 +29,7 @@ public class SecurityConfig {
      */
     @Bean
     public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(auths -> auths.requestMatchers(regexMatcher("^/(menu-items|chefs|search-chefs|search-menu-items|history|switch-language|error|registration)")).permitAll().requestMatchers(antMatcher(HttpMethod.GET, "/api/**")).permitAll().requestMatchers(antMatcher(HttpMethod.GET, "/js/**"), antMatcher(HttpMethod.GET, "/css/**"), antMatcher(HttpMethod.GET, "/images/**"), antMatcher(HttpMethod.GET, "/webjars/**"), regexMatcher(HttpMethod.GET, "\\.ico$")).permitAll().requestMatchers(antMatcher(HttpMethod.GET, "/")).permitAll().anyRequest().authenticated());
+        http.authorizeHttpRequests(auths -> auths.requestMatchers(regexMatcher("^/(menu-items|chefs|menu-item\\?.+|chef\\?.+|search-menu-items|search-chefs|switch-language|error)")).permitAll().requestMatchers(antMatcher(HttpMethod.GET, "/api/**")).permitAll().requestMatchers(antMatcher(HttpMethod.GET, "/js/**"), antMatcher(HttpMethod.GET, "/css/**"), antMatcher(HttpMethod.GET, "/images/**"), antMatcher(HttpMethod.GET, "/webjars/**"), regexMatcher(HttpMethod.GET, "\\.ico$")).permitAll().requestMatchers(antMatcher(HttpMethod.GET, "/")).permitAll().anyRequest().authenticated());
         http.formLogin(formLogin -> formLogin.loginPage("/login").permitAll());
         http.exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint((request, response, exception) -> {
             if (request.getRequestURI().startsWith("/api")) {

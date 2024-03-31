@@ -17,7 +17,7 @@ async function fillMenuItemsTable() {
 const deleteButtons = document.querySelectorAll("button.btn-danger");
 
 for (const deleteButton of deleteButtons) {
-    deleteButton.addEventListener("click", handleDeleteMenuItem)
+    deleteButton?.addEventListener("click", handleDeleteMenuItem)
 }
 
 async function handleDeleteMenuItem(event) {
@@ -71,7 +71,7 @@ function addMenuItemToTable(menuItem) {
     if (!courseGroup) {
         // Create a new group if it doesn't exist
         cardGroup = document.createElement("div");
-        cardGroup.classList.add("course-group", "mb-4", "row"); // Add Bootstrap classes for rows
+        cardGroup.classList.add("course-group", "mb-4", "row", "text-secondary"); // Add Bootstrap classes for rows
         cardGroup.id = menuItem.course + "-group";
 
         const groupName = document.createElement("h2");
@@ -100,11 +100,11 @@ function addMenuItemToTable(menuItem) {
     cardGroup.appendChild(cardColumn);
 
     const newDeleteButton = card.querySelector('button');
-    newDeleteButton.addEventListener("click", (event) => {
+    newDeleteButton?.addEventListener("click", (event) => {
         event.stopPropagation();
         handleDeleteMenuItem(event);
     });
-    card.addEventListener("click", () => {
+    card?.addEventListener("click", () => {
         window.location.href = `/menu-item?id=${menuItem.id}`;
     });
 }
@@ -114,4 +114,4 @@ fillMenuItemsTable().catch(error => {
     console.error('Error fetching menu items:', error);
 });
 
-addButton.addEventListener("click", addNewMenuItem);
+addButton?.addEventListener("click", addNewMenuItem);

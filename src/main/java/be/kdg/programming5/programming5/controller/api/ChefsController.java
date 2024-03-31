@@ -6,11 +6,13 @@ import be.kdg.programming5.programming5.dto.NewChefDto;
 import be.kdg.programming5.programming5.dto.UpdateChefDto;
 import be.kdg.programming5.programming5.model.Chef;
 import be.kdg.programming5.programming5.model.MenuItemChef;
+import be.kdg.programming5.programming5.repository.ChefRepository;
 import be.kdg.programming5.programming5.service.ChefService;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,17 +25,23 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/chefs")
 public class ChefsController {
     private final ChefService chefService;
+    private final ChefRepository chefRepository;
     private final ModelMapper modelMapper;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     /**
      * Instantiates a new Chefs controller.
      *
-     * @param chefService the chef service
-     * @param modelMapper the model mapper
+     * @param chefService     the chef service
+     * @param chefRepository  the chef repository
+     * @param modelMapper     the model mapper
+     * @param passwordEncoder the password encoder
      */
-    public ChefsController(ChefService chefService, ModelMapper modelMapper) {
+    public ChefsController(ChefService chefService, ChefRepository chefRepository, ModelMapper modelMapper, BCryptPasswordEncoder passwordEncoder) {
         this.chefService = chefService;
+        this.chefRepository = chefRepository;
         this.modelMapper = modelMapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     /**
@@ -113,7 +121,10 @@ public class ChefsController {
      */
     @PostMapping
     ResponseEntity<ChefDto> addChef(@RequestBody @Valid NewChefDto chefDto) {
-        Chef createdChef = chefService.addChef(chefDto.getFirstName(), chefDto.getLastName(), chefDto.getDateOfBirth(), chefDto.getUsername(), chefDto.getPassword(), chefDto.getRole());
+        if (chefRepository.findByUsername(chefDto.getUsername()).isPresent()) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+        Chef createdChef = chefService.addChef(chefDto.getFirstName(), chefDto.getLastName(), chefDto.getDateOfBirth(), chefDto.getUsername(), passwordEncoder.encode(chefDto.getPassword()), chefDto.getRole());
         return new ResponseEntity<>(modelMapper.map(createdChef, ChefDto.class), HttpStatus.CREATED);
     }
 

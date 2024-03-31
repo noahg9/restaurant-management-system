@@ -1,6 +1,8 @@
 package be.kdg.programming5.programming5.controller.web;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,7 +16,7 @@ import java.util.Locale.Builder;
  */
 @Controller
 public class LanguageController {
-
+    private final Logger logger = LoggerFactory.getLogger(MenuItemController.class);
     private final LocaleResolver localeResolver;
 
     /**
@@ -26,7 +28,6 @@ public class LanguageController {
         this.localeResolver = localeResolver;
     }
 
-
     /**
      * Switch language response entity.
      *
@@ -35,6 +36,7 @@ public class LanguageController {
      */
     @PostMapping("/switch-language")
     public ResponseEntity<Void> switchLanguage(HttpServletRequest request) {
+        logger.info("Switching language");
         Locale currentLocale = localeResolver.resolveLocale(request);
         Locale newLocale = currentLocale.getLanguage().equals("en") ? new Builder().setLanguage("nl").build() : new Builder().setLanguage("en").build();
         localeResolver.setLocale(request, null, newLocale);

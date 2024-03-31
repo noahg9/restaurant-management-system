@@ -1,5 +1,5 @@
 const searchTermInput = document.getElementById("searchTerm");
-searchTermInput.addEventListener('keyup', showResults);
+searchTermInput?.addEventListener('keyup', showResults);
 
 async function showResults(e) {
     const searchResults = document.getElementById("searchResultsSection");

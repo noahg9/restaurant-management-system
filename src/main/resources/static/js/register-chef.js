@@ -1,4 +1,5 @@
-import {header, token} from "./util/csrf";
+const header = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+const token = document.querySelector('meta[name="_csrf"]').getAttribute('content');
 
 const firstName = document.getElementById("firstName");
 const lastName = document.getElementById("lastName");
@@ -9,7 +10,7 @@ const role = document.getElementById("role");
 const registerButton = document.getElementById("registerButton");
 
 async function addNewChef() {
-    const response = await fetch(`/api/chefs`, {
+    await fetch(`/api/chefs`, {
         method: "POST", headers: {
             "Accept": "application/json", "Content-Type": "application/json", [header]: token
         }, body: JSON.stringify({
@@ -17,10 +18,10 @@ async function addNewChef() {
             lastName: lastName.value,
             dateOfBirth: dateOfBirth.value,
             username: username.value,
-            password: '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6',
+            password: password.value,
             role: role.value
         })
-    })
+    });
 }
 
-registerButton.addEventListener("click", addNewChef);
+registerButton?.addEventListener("click", addNewChef);

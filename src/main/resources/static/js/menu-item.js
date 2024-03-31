@@ -27,7 +27,7 @@ async function toggleChefs() {
     }
 }
 
-toggleChefsButton.addEventListener("click", toggleChefs);
+toggleChefsButton?.addEventListener("click", toggleChefs);
 
 const name = document.getElementById("nameField");
 const price = document.getElementById("priceField");
@@ -53,5 +53,5 @@ async function saveMenuItem() {
     }
 }
 
-saveButton.addEventListener("click", saveMenuItem);
-name.addEventListener("", () => saveButton.disabled = false);
+saveButton?.addEventListener("click", saveMenuItem);
+name?.addEventListener("", () => saveButton.disabled = false);
