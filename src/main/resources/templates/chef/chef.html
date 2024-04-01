@@ -11,12 +11,11 @@
 <header th:replace="~{fragments/includes::header}"></header>
 <main class="container text-center">
     <div class="row justify-content-center">
+        <!-- Title Section -->
         <div class="col-md-12">
             <h1 class="page-title text-primary" th:text="${one_chef.firstName + ' ' + one_chef.lastName}"></h1>
         </div>
-    </div>
-    <div class="row justify-content-center">
-        <!-- Details Sections -->
+        <!-- Details Section -->
         <div class="col-md-6">
             <section class="mt-5 text-center">
                 <div class="row mb-3 justify-content-center">
@@ -119,7 +118,7 @@
         <!-- Associated Menu Items Section -->
         <div class="col-md-6">
             <section class="mt-5 text-center">
-                <!-- Dropdown -->
+                <!-- Dropdown Button -->
                 <div class="dropdown" id="dropdownButtonWrapper">
                     <button class="btn btn-primary col-md-5 dropdown-toggle" id="toggleMenuItemInformation"
                             th:text="#{message.menuItemsDropdown}"

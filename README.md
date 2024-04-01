@@ -48,6 +48,7 @@ test - Used for testing purposes.
 GET http://localhost:9242/api/menu-items/1
 Accept: application/json
 ```
+
 ```
 HTTP/1.1 200 
 Content-Type: application/json
@@ -99,6 +100,7 @@ Connection: keep-alive
 ```
 DELETE http://localhost:9242/api/menu-items/1
 ```
+
 ```
 HTTP/1.1 204 
 Date: Thu, 07 Mar 2024 15:28:29 GMT
@@ -196,7 +198,6 @@ Date: Sun, 10 Mar 2024 16:22:13 GMT
 Keep-Alive: timeout=60
 Connection: keep-alive
 ```
-
 
 ### Changing a menu item name - Not Found
 

@@ -12,10 +12,11 @@
 <header th:replace="~{fragments/includes::header}"></header>
 <main class="container text-center">
     <div class="row justify-content-center">
+        <!-- Title Section -->
         <div class="col-md-12">
             <h1 class="page-title text-primary" th:text="#{title.menuItems}">Menu Items</h1>
         </div>
-        <!-- Menu Item List Section -->
+        <!-- List Section -->
         <div class="col-md-6">
             <section class="mt-5 text-center">
                 <div class="row mb-3 justify-content-center" id="menuItemBody">
@@ -23,7 +24,7 @@
                 </div>
             </section>
         </div>
-        <!-- Add Menu Item Section -->
+        <!-- Addition Form Section -->
         <div class="col-md-6" sec:authorize="isAuthenticated()">
             <section class="mt-5 text-center">
                 <h2 class="text-secondary" th:text="#{header.add}">Add</h2>

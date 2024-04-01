@@ -28,7 +28,7 @@ public class ErrorHandling {
                     .body(new ErrorDto(e.getMessage()));
         }
         final ModelAndView modelAndView = new ModelAndView(
-                "error",
+                "error/error",
                 HttpStatus.INTERNAL_SERVER_ERROR
         );
         modelAndView.addObject("message", e.getMessage());

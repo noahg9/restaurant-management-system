@@ -7,13 +7,15 @@
 <header th:replace="~{fragments/includes::header}"></header>
 <main class="container text-center">
     <div class="row justify-content-center">
+        <!-- Title Section -->
         <div class="col-md-12">
             <h1 class="page-title text-primary" th:text="#{title.history}">Session History</h1>
             <p class="lead text-body text-body" th:text="#{message.history}">Your 20 most recently visited pages.</p>
         </div>
+        <!-- History Section -->
         <div class="col-md-4">
             <table class="table">
-                <!-- Column Headers -->
+                <!-- Columns -->
                 <thead>
                 <tr>
                     <th th:text="#{attribute.page}">Page</th>

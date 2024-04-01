@@ -10,14 +10,20 @@
 <header th:replace="~{fragments/includes::header}"></header>
 <main class="container text-center">
     <div class="row justify-content-center">
+        <!-- Title Section -->
         <div class="col-md-12">
             <h1 class="page-title text-primary" th:text="#{title.home}">Home</h1>
             <p class="lead text-body text-body" th:text="#{message.home}">A restaurant database for chefs.</p>
         </div>
+        <!-- Description Section -->
+        <div class="col-md-12">
+            <p class="lead text-body text-body" th:text="#{message.home}">A restaurant database for chefs.</p>
+        </div>
+        <!-- Page Cards Section -->
         <div class="col-md-8">
+            <!-- Menu Items-->
             <div class="row mb-3 justify-content-center">
                 <div class="col-md-6">
-                    <!-- Menu Items Card -->
                     <div class="card" onclick="location.href='/menu-items';" style="cursor: pointer;">
                         <div class="card-body">
                             <h5 class="card-title" th:text="#{message.viewMenuItems}">View Menu Items</h5>
@@ -25,9 +31,9 @@
                     </div>
                 </div>
             </div>
+            <!-- Chefs -->
             <div class="row mb-3 justify-content-center">
                 <div class="col-md-6">
-                    <!-- Chefs Card -->
                     <div class="card" onclick="location.href='/chefs';" style="cursor: pointer;">
                         <div class="card-body">
                             <h5 class="card-title" th:text="#{message.viewChefs}">View Chefs</h5>
@@ -39,7 +45,7 @@
         <!-- Home Page Image -->
         <div class="col-md-6">
             <div class="mt-4">
-                <img alt="Home Image" class="img-fluid" th:src="@{/images/home-image.jpg}"/>
+                <img alt="Home Image" class="img-fluid" th:src="@{/images/home-page.jpg}"/>
             </div>
         </div>
     </div>

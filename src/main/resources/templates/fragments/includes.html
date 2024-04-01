@@ -10,7 +10,6 @@
         <meta name="_csrf" th:content="${_csrf.token}"/>
         <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
         <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
-        <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
         <link href="/images/logo.png" rel="icon" type="image/png">
         <script th:src="@{/js/language-switch.js}"></script>
@@ -24,70 +23,72 @@
 <body>
 <header class="pb-3" th:fragment="header">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <!-- Website Name -->
-        <a class="navbar-brand" th:href="@{/}" th:text="#{title.website}">Restaurant Management</a>
-        <!-- Toggler -->
-        <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
-                class="navbar-toggler"
-                data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <!-- Left Side -->
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <!-- Home -->
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/}">
-                        <i class="fas fa-home"></i>
-                        <span th:text="#{title.home}">Home</span>
-                    </a>
-                </li>
-                <!-- Menu Items -->
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/menu-items}">
-                        <i class="fas fa-utensils"></i>
-                        <span th:text="#{title.menuItems}">Menu Items</span>
-                    </a>
-                </li>
-                <!-- Chefs -->
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/chefs}">
-                        <i class="fas fa-user"></i>
-                        <span th:text="#{title.chefs}">Chefs</span>
-                    </a>
-                </li>
-                <!-- History -->
-                <li class="nav-item" sec:authorize="isAuthenticated()">
-                    <a class="nav-link" th:href="@{/history}">
-                        <i class="fas fa-history"></i>
-                        <span th:text="#{title.history}">History</span>
-                    </a>
-                </li>
-            </ul>
-            <!-- Right Side -->
-            <ul class="navbar-nav ms-auto">
-                <!-- Welcome Message -->
-                <li class="nav-item me-2 pt-2" sec:authorize="isAuthenticated()">
-                    <span class="navbar-text" th:text="#{message.loggedInAs}">Logged in as</span>
-                    <span class="navbar-text" sec:authentication="name">user</span>
-                </li>
-                <!-- Logout Button -->
-                <li sec:authorize="isAuthenticated()">
-                    <form class="d-flex" th:action="@{/logout}" th:method="POST">
-                        <button class="btn" type="submit"><i class="fas fa-sign-out-alt"></i></button>
-                    </form>
-                </li>
-                <!-- Login Button -->
-                <li class="nav-item" sec:authorize="!isAuthenticated()">
-                    <a class="nav-link" th:href="@{/login}"><i class="fas fa-sign-in-alt"></i></a>
-                </li>
-                <!-- Language Switch -->
-                <li class="navbar-item">
-                    <button class="nav-link btn btn-link btn-secondary" onclick="switchLanguage()"
-                            th:text="#{button.language}"
-                            type="button"></button>
-                </li>
-            </ul>
+        <div class="container-fluid">
+            <!-- Website Name -->
+            <a class="navbar-brand" th:href="@{/}" th:text="#{title.website}">Restaurant Management</a>
+            <!-- Toggler -->
+            <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+                    class="navbar-toggler"
+                    data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Left Side -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <!-- Home Page -->
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/}">
+                            <i class="fas fa-home"></i>
+                            <span th:text="#{title.home}">Home</span>
+                        </a>
+                    </li>
+                    <!-- Menu Items Page -->
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/menu-items}">
+                            <i class="fas fa-utensils"></i>
+                            <span th:text="#{title.menuItems}">Menu Items</span>
+                        </a>
+                    </li>
+                    <!-- Chefs Page -->
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/chefs}">
+                            <i class="fas fa-user"></i>
+                            <span th:text="#{title.chefs}">Chefs</span>
+                        </a>
+                    </li>
+                    <!-- History Page -->
+                    <li class="nav-item" sec:authorize="isAuthenticated()">
+                        <a class="nav-link" th:href="@{/history}">
+                            <i class="fas fa-history"></i>
+                            <span th:text="#{title.history}">History</span>
+                        </a>
+                    </li>
+                </ul>
+                <!-- Right Side -->
+                <ul class="navbar-nav ms-auto">
+                    <!-- Welcome Message -->
+                    <li class="nav-item me-2 pt-2" sec:authorize="isAuthenticated()">
+                        <span class="navbar-text" th:text="#{message.loggedInAs}">Logged in as</span>
+                        <span class="navbar-text" sec:authentication="name">user</span>
+                    </li>
+                    <!-- Logout Button -->
+                    <li sec:authorize="isAuthenticated()">
+                        <form class="d-flex" th:action="@{/logout}" th:method="POST">
+                            <button class="btn" type="submit"><i class="fas fa-sign-out-alt"></i></button>
+                        </form>
+                    </li>
+                    <!-- Login Button -->
+                    <li class="nav-item" sec:authorize="!isAuthenticated()">
+                        <a class="nav-link" th:href="@{/login}"><i class="fas fa-sign-in-alt"></i></a>
+                    </li>
+                    <!-- Language Toggle Button -->
+                    <li class="navbar-item">
+                        <button class="nav-link btn btn-link btn-secondary" onclick="switchLanguage()"
+                                th:text="#{button.language}"
+                                type="button"></button>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
 </header>
