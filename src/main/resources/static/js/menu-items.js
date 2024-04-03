@@ -1,23 +1,47 @@
 import {header, token} from "./util/csrf.js";
 
-async function fillMenuItemsTable() {
-    const response = await fetch('/api/menu-items', {
-        headers: {
-            "Accept": "application/json", [header]: token
-        }
-    });
-    if (response.status === 200) {
-        const menuItems = await response.json();
-        menuItems.forEach(menuItem => {
-            addMenuItemToTable(menuItem)
-        })
-    }
-}
-
+const menuItemBody = document.getElementById("menuItemBody");
+const nameInput = document.getElementById("name");
+const priceInput = document.getElementById("price");
+const courseNameSelect = document.getElementById("courseName");
+const vegetarianCheckbox = document.getElementById("vegetarian");
+const spiceLevelInput = document.getElementById("spiceLevel");
+const chefsSelect = document.getElementById("chefs");
+const addButton = document.getElementById("addButton");
 const deleteButtons = document.querySelectorAll("button.btn-danger");
+
+addButton?.addEventListener("click", addNewMenuItem);
 
 for (const deleteButton of deleteButtons) {
     deleteButton?.addEventListener("click", handleDeleteMenuItem)
+}
+
+fillMenuItemsTable().catch(error => {
+    console.error('Error fetching menu items:', error);
+});
+
+fetchChefs().catch(error => {
+    console.error('Error fetching chefs:', error);
+});
+
+async function fillMenuItemsTable() {
+    try {
+        const response = await fetch('/api/menu-items', {
+            headers: {
+                "Accept": "application/json", [header]: token
+            }
+        });
+        if (response.ok) {
+            const menuItems = await response.json();
+            menuItems.forEach(menuItem => {
+                addMenuItemToTable(menuItem)
+            })
+        } else {
+            console.error('Failed to fetch menu items:', response.statusText);
+        }
+    } catch (error) {
+        console.error('Error fetching menu items:', error);
+    }
 }
 
 async function handleDeleteMenuItem(event) {
@@ -33,37 +57,62 @@ async function handleDeleteMenuItem(event) {
     }
 }
 
-const name = document.getElementById("name");
-const price = document.getElementById("price");
-const courseName = document.getElementById("courseName");
-const vegetarian = document.getElementById("vegetarian");
-const spiceLvl = document.getElementById("spiceLvl");
-const addButton = document.getElementById("addButton");
-const menuItemBody = document.getElementById("menuItemBody");
-
-async function addNewMenuItem() {
-    const response = await fetch(`/api/menu-items`, {
-        method: "POST", headers: {
-            "Accept": "application/json", "Content-Type": "application/json", [header]: token
-        }, body: JSON.stringify({
-            name: name.value,
-            price: price.value,
-            courseName: courseName.value,
-            vegetarian: vegetarian.checked,
-            spiceLvl: spiceLvl.value
-        })
-    })
-    if (response.status === 201) {
-        /**
-         * @type {{id: number, name: string, price: number, courseName: string, vegetarian: boolean, spiceLvl: number}}
-         */
-        const menuItem = await response.json()
-        addMenuItemToTable(menuItem);
+async function fetchChefs() {
+    try {
+        const response = await fetch('/api/chefs', {
+            headers: {
+                "Accept": "application/json", [header]: token
+            }
+        });
+        if (response.ok) {
+            const chefs = await response.json();
+            populateChefsSelect(chefs);
+        } else {
+            console.error('Failed to fetch chefs:', response.statusText);
+        }
+    } catch (error) {
+        console.error('Error fetching chefs:', error);
     }
 }
 
+async function addNewMenuItem() {
+    const selectedChefs = Array.from(chefsSelect.selectedOptions).map(option => option.value);
+    try {
+        const response = await fetch(`/api/menu-items`, {
+            method: "POST", headers: {
+                "Accept": "application/json", "Content-Type": "application/json", [header]: token
+            }, body: JSON.stringify({
+                name: nameInput.value,
+                price: priceInput.value,
+                courseName: courseNameSelect.value,
+                vegetarian: vegetarianCheckbox.checked,
+                spiceLevel: spiceLevelInput.value,
+                chefs: selectedChefs
+            })
+        });
+        if (response.ok) {
+            const menuItem = await response.json();
+            addMenuItemToTable(menuItem);
+        } else {
+            console.error('Failed to add menu item:', response.statusText);
+        }
+    } catch (error) {
+        console.error('Error adding menu item:', error);
+    }
+}
+
+function populateChefsSelect(chefs) {
+    chefsSelect.innerHTML = '';
+    chefs.forEach(chef => {
+        const option = document.createElement('option');
+        option.value = chef.id;
+        option.textContent = chef.firstName + ' ' + chef.lastName;
+        chefsSelect.appendChild(option);
+    });
+}
+
 /**
- * @param {{id: number, name: string, price: number, courseName: string, vegetarian: boolean, spiceLvl: number}} menuItem
+ * @param {{id: string, name: string, price: number, course: string, vegetarian: boolean, spiceLevel: number}} menuItem
  */
 function addMenuItemToTable(menuItem) {
     const courseNames = {
@@ -95,9 +144,9 @@ function addMenuItemToTable(menuItem) {
     }
 
     const cardColumn = document.createElement("div");
-    cardColumn.classList.add("col-md-6"); // Bootstrap class for columns
+    cardColumn.classList.add("col-md-6");
     const card = document.createElement("div");
-    card.classList.add("card", "mb-3"); // Adjusted width for two cards per row
+    card.classList.add("card", "mb-3");
     const vegetarianIndicator = menuItem.vegetarian ? "(V)" : ""; // "(V)" for vegetarian, empty string for non-vegetarian
     card.innerHTML = `
         <div class="card-body" style="cursor: pointer;">
@@ -113,16 +162,11 @@ function addMenuItemToTable(menuItem) {
     const newDeleteButton = card.querySelector('button');
     newDeleteButton?.addEventListener("click", (event) => {
         event.stopPropagation();
-        handleDeleteMenuItem(event);
+        handleDeleteMenuItem(event).catch(error => {
+            console.error('Error deleting menu item:', error);
+        });
     });
     card?.addEventListener("click", () => {
         window.location.href = `/menu-item?id=${menuItem.id}`;
     });
 }
-
-
-fillMenuItemsTable().catch(error => {
-    console.error('Error fetching menu items:', error);
-});
-
-addButton?.addEventListener("click", addNewMenuItem);

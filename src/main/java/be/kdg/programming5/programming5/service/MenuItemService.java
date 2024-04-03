@@ -19,22 +19,16 @@ import java.util.Optional;
  */
 @Service
 public class MenuItemService {
-    private final MenuItemRepository menuItemRepository;
+    private final ChefService chefService;
     private final AssignedChefService assignedChefService;
+    private final MenuItemRepository menuItemRepository;
     private final AssignedChefRepository assignedChefRepository;
     private final ChefRepository chefRepository;
 
-    /**
-     * Instantiates a new Menu item service.
-     *
-     * @param menuItemRepository     the menu item repository
-     * @param assignedChefService    the menu item chef service
-     * @param assignedChefRepository the menu item chef repository
-     * @param chefRepository         the chef repository
-     */
-    public MenuItemService(MenuItemRepository menuItemRepository, AssignedChefService assignedChefService, AssignedChefRepository assignedChefRepository, ChefRepository chefRepository) {
-        this.menuItemRepository = menuItemRepository;
+    public MenuItemService(ChefService chefService, AssignedChefService assignedChefService, MenuItemRepository menuItemRepository, AssignedChefRepository assignedChefRepository, ChefRepository chefRepository) {
+        this.chefService = chefService;
         this.assignedChefService = assignedChefService;
+        this.menuItemRepository = menuItemRepository;
         this.assignedChefRepository = assignedChefRepository;
         this.chefRepository = chefRepository;
     }
@@ -64,8 +58,14 @@ public class MenuItemService {
      * @param menuItemId the menu item id
      * @return the menu item with chefs
      */
+    @Transactional
     public MenuItem getMenuItemWithChefs(long menuItemId) {
-        return menuItemRepository.findByIdWithChefs(menuItemId).orElse(null);
+        return menuItemRepository.findByIdWithChefs(menuItemId)
+                .map(menuItem -> {
+                    menuItem.getChefs().size(); // Force initialization of the chefs collection
+                    return menuItem;
+                })
+                .orElse(null);
     }
 
     /**
@@ -89,72 +89,69 @@ public class MenuItemService {
     }
 
     /**
-     * Add menu item menu item.
+     * Save menu item menu item.
      *
      * @param name       the name
      * @param price      the price
      * @param course     the course
      * @param vegetarian the vegetarian
-     * @param spiceLvl   the spice lvl
+     * @param spiceLevel   the spice level
      * @return the menu item
      */
     @Transactional
-    public MenuItem addMenuItem(String name, double price, Course course, Boolean vegetarian, int spiceLvl) {
-        return menuItemRepository.save(new MenuItem(name, price, course, vegetarian, spiceLvl));
+    public MenuItem saveMenuItem(String name, double price, Course course, Boolean vegetarian, int spiceLevel) {
+        return menuItemRepository.save(new MenuItem(name, price, course, vegetarian, spiceLevel));
     }
 
     /**
-     * Add menu item menu item.
+     * Save menu item menu item.
      *
      * @param name       the name
      * @param price      the price
      * @param course     the course
      * @param vegetarian the vegetarian
-     * @param spiceLvl   the spice lvl
+     * @param spiceLevel   the spice level
      * @param userId     the user id
      * @return the menu item
      */
     @Transactional
-    public MenuItem addMenuItem(String name, double price, Course course, Boolean vegetarian, int spiceLvl, long userId) {
-        MenuItem menuItem = menuItemRepository.save(new MenuItem(name, price, course, vegetarian, spiceLvl));
-        Chef chef = chefRepository.findById(userId).orElse(null);
-        assignedChefRepository.save(new AssignedChef(menuItem, chef, LocalDateTime.now()));
+    public MenuItem saveMenuItem(String name, double price, Course course, Boolean vegetarian, int spiceLevel, List<Long> chefIds, long userId) {
+        MenuItem menuItem = menuItemRepository.save(new MenuItem(name, price, course, vegetarian, spiceLevel));
+        Chef user = chefRepository.findById(userId).orElse(null);
+        assignedChefRepository.save(new AssignedChef(menuItem, user, LocalDateTime.now()));
+        if (chefIds != null && !chefIds.isEmpty()) {
+            for (Long chefId : chefIds) {
+                Chef chef = chefService.getChefById(chefId);
+                if (chef != null) {
+                    assignedChefService.assignChefToMenuItem(chef, menuItem);
+                }
+            }
+        }
         return menuItem;
     }
 
+    /**
+     * Save menu item menu item.
+     *
+     * @param menuItem the menu item
+     * @return the menu item
+     */
     @Transactional
-    public MenuItem addMenuItem(MenuItem menuItem) {
+    public MenuItem saveMenuItem(MenuItem menuItem) {
         return menuItemRepository.save(menuItem);
     }
 
     /**
-     * Remove menu item boolean.
-     *
-     * @param menuItemId the menu item id
-     * @return the boolean
-     */
-    @Transactional
-    public boolean removeMenuItem(long menuItemId) {
-        Optional<MenuItem> menuItem = menuItemRepository.findByIdWithChefs(menuItemId);
-        if (menuItem.isEmpty()) {
-            return false;
-        }
-        assignedChefRepository.deleteAll(menuItem.get().getChefs());
-        menuItemRepository.deleteById(menuItemId);
-        return true;
-    }
-
-    /**
-     * Change menu item boolean.
+     * Update menu item boolean.
      *
      * @param menuItemId the menu item id
      * @param name       the name
      * @param price      the price
      * @param vegetarian the vegetarian
-     * @param spiceLvl   the spice lvl
+     * @param spiceLevel   the spice level
      * @return the boolean
      */
-    public boolean changeMenuItem(long menuItemId, String name, double price, boolean vegetarian, int spiceLvl) {
+    public boolean updateMenuItem(long menuItemId, String name, double price, boolean vegetarian, int spiceLevel) {
         MenuItem menuItem = menuItemRepository.findById(menuItemId).orElse(null);
         if (menuItem == null) {
             return false;
@@ -162,8 +159,25 @@ public class MenuItemService {
         menuItem.setName(name);
         menuItem.setPrice(price);
         menuItem.setVegetarian(vegetarian);
-        menuItem.setSpiceLvl(spiceLvl);
+        menuItem.setSpiceLevel(spiceLevel);
         menuItemRepository.save(menuItem);
+        return true;
+    }
+
+    /**
+     * Delete menu item boolean.
+     *
+     * @param menuItemId the menu item id
+     * @return the boolean
+     */
+    @Transactional
+    public boolean deleteMenuItem(long menuItemId) {
+        Optional<MenuItem> menuItem = menuItemRepository.findByIdWithChefs(menuItemId);
+        if (menuItem.isEmpty()) {
+            return false;
+        }
+        assignedChefRepository.deleteAll(menuItem.get().getChefs());
+        menuItemRepository.deleteById(menuItemId);
         return true;
     }
 }

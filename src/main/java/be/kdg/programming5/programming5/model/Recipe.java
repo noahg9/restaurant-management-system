@@ -23,19 +23,22 @@ public class Recipe extends AbstractEntity<Long> implements Serializable {
     private MenuItem menuItem;
 
     public Recipe() {
+        setInstructions("");
+        setCookingTime(0);
+        setDifficulty(0);
     }
 
     public Recipe(String instructions, int cookingTime, int difficulty) {
-        this.instructions = instructions;
-        this.cookingTime = cookingTime;
-        this.difficulty = difficulty;
+        setInstructions(instructions);
+        setCookingTime(cookingTime);
+        setDifficulty(difficulty);
     }
 
     public Recipe(String instructions, int cookingTime, int difficulty, MenuItem menuItem) {
-        this.instructions = instructions;
-        this.cookingTime = cookingTime;
-        this.difficulty = difficulty;
-        this.menuItem = menuItem;
+        setInstructions(instructions);
+        setCookingTime(cookingTime);
+        setDifficulty(difficulty);
+        setMenuItem(menuItem);
     }
 
     // Getters and setters
@@ -71,5 +74,15 @@ public class Recipe extends AbstractEntity<Long> implements Serializable {
     public void setMenuItem(MenuItem menuItem) {
         this.menuItem = menuItem;
         menuItem.setRecipe(this);
+    }
+
+    @Override
+    public String toString() {
+        return "Recipe{" +
+                "instructions='" + instructions + '\'' +
+                ", cookingTime=" + cookingTime +
+                ", difficulty=" + difficulty +
+                ", menuItem=" + menuItem.getName() +
+                '}';
     }
 }

@@ -11,7 +11,7 @@ public class MenuItemDto {
     private double price;
     private Course course;
     private boolean vegetarian;
-    private int spiceLvl;
+    private int spiceLevel;
 
     /**
      * Instantiates a new Menu item dto.
@@ -27,15 +27,15 @@ public class MenuItemDto {
      * @param price      the price
      * @param course     the course
      * @param vegetarian the vegetarian
-     * @param spiceLvl   the spice lvl
+     * @param spiceLevel   the spice level
      */
-    public MenuItemDto(long id, String name, double price, Course course, boolean vegetarian, int spiceLvl) {
+    public MenuItemDto(long id, String name, double price, Course course, boolean vegetarian, int spiceLevel) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.course = course;
         this.vegetarian = vegetarian;
-        this.spiceLvl = spiceLvl;
+        this.spiceLevel = spiceLevel;
     }
 
     /**
@@ -129,20 +129,20 @@ public class MenuItemDto {
     }
 
     /**
-     * Gets spice lvl.
+     * Gets spice level.
      *
-     * @return the spice lvl
+     * @return the spice level
      */
-    public int getSpiceLvl() {
-        return spiceLvl;
+    public int getSpiceLevel() {
+        return spiceLevel;
     }
 
     /**
-     * Sets spice lvl.
+     * Sets spice level.
      *
-     * @param spiceLvl the spice lvl
+     * @param spiceLevel the spice level
      */
-    public void setSpiceLvl(int spiceLvl) {
-        this.spiceLvl = spiceLvl;
+    public void setSpiceLevel(int spiceLevel) {
+        this.spiceLevel = spiceLevel;
     }
 }

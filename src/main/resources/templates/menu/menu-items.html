@@ -67,9 +67,18 @@
                     <!-- Spice Level -->
                     <div class="row mb-3 justify-content-center">
                         <div class="col-sm-4">
-                            <label class="form-label" for="spiceLvl" th:text="#{attribute.spiceLvl}">Spice
+                            <label class="form-label" for="spiceLevel" th:text="#{attribute.spiceLevel}">Spice
                                 Level</label>
-                            <input class="form-control" id="spiceLvl" required type="number">
+                            <input class="form-control" id="spiceLevel" required type="number">
+                        </div>
+                    </div>
+                    <!-- Chefs -->
+                    <div class="row mb-3 justify-content-center">
+                        <div class="col-sm-4">
+                            <label class="form-label" for="chefs" th:text="#{attribute.chefs}">Chefs</label>
+                            <select class="form-select" id="chefs" name="chefs" multiple>
+                                <!-- Populate options dynamically -->
+                            </select>
                         </div>
                     </div>
                     <!-- Add Button -->

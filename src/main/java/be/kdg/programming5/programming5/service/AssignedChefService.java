@@ -1,9 +1,11 @@
 package be.kdg.programming5.programming5.service;
 
+import be.kdg.programming5.programming5.model.AssignedChef;
 import be.kdg.programming5.programming5.model.Chef;
 import be.kdg.programming5.programming5.model.MenuItem;
 import be.kdg.programming5.programming5.repository.AssignedChefRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * The type Menu item chef service.
@@ -32,5 +34,21 @@ public class AssignedChefService {
         return assignedChefRepository
                 .findByMenuItemIdAndChefId(menuItemId, chefId)
                 .isPresent();
+    }
+
+    @Transactional
+    public void assignChefToMenuItem(Chef chef, MenuItem menuItem) {
+        // Check if the chef is already assigned to the menu item
+        if (assignedChefRepository.existsByChefAndMenuItem(chef, menuItem)) {
+            throw new IllegalArgumentException("Chef is already assigned to this menu item");
+        }
+
+        // Create the association
+        AssignedChef assignedChef = new AssignedChef();
+        assignedChef.setChef(chef);
+        assignedChef.setMenuItem(menuItem);
+
+        // Save the association
+        assignedChefRepository.save(assignedChef);
     }
 }

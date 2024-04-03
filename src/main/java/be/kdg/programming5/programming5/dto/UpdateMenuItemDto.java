@@ -1,10 +1,8 @@
 package be.kdg.programming5.programming5.dto;
 
-import be.kdg.programming5.programming5.model.Course;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 
 /**
  * The type Update menu item dto.
@@ -16,7 +14,7 @@ public class UpdateMenuItemDto {
     private double price;
     private boolean vegetarian;
     @Min(value = 0)
-    private int spiceLvl;
+    private int spiceLevel;
 
     /**
      * Instantiates a new Update menu item dto.
@@ -79,20 +77,20 @@ public class UpdateMenuItemDto {
     }
 
     /**
-     * Gets spice lvl.
+     * Gets spice level.
      *
-     * @return the spice lvl
+     * @return the spice level
      */
-    public int getSpiceLvl() {
-        return spiceLvl;
+    public int getSpiceLevel() {
+        return spiceLevel;
     }
 
     /**
-     * Sets spice lvl.
+     * Sets spice level.
      *
-     * @param spiceLvl the spice lvl
+     * @param spiceLevel the spice level
      */
-    public void setSpiceLvl(int spiceLvl) {
-        this.spiceLvl = spiceLvl;
+    public void setSpiceLevel(int spiceLevel) {
+        this.spiceLevel = spiceLevel;
     }
 }

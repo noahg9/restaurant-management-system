@@ -71,7 +71,7 @@ public class ChefController extends BaseController {
         setupPage(session, model, "Chef");
         Chef chef = chefService.getChefWithMenuItems(chefId);
         mav.setViewName("chef/chef");
-        mav.addObject("one_chef", new ChefViewModel(chef.getId(), chef.getFirstName(), chef.getLastName(), chef.getDateOfBirth(), chef.getUsername(), chef.getRole().getName(), user != null && (user.getChefId() == chefId || request.isUserInRole(HEAD_CHEF.getCode())), chef.getMenuItems().stream().map(assignedChef -> new MenuItemViewModel(assignedChef.getMenuItem().getId(), assignedChef.getMenuItem().getName(), assignedChef.getMenuItem().getPrice(), assignedChef.getMenuItem().getCourse().getName(), assignedChef.getMenuItem().isVegetarian(), assignedChef.getMenuItem().getSpiceLvl(), false)).toList()));
+        mav.addObject("one_chef", new ChefViewModel(chef.getId(), chef.getFirstName(), chef.getLastName(), chef.getDateOfBirth(), chef.getUsername(), chef.getRole().getName(), user != null && (user.getChefId() == chefId || request.isUserInRole(HEAD_CHEF.getCode())), chef.getMenuItems().stream().map(assignedChef -> new MenuItemViewModel(assignedChef.getMenuItem().getId(), assignedChef.getMenuItem().getName(), assignedChef.getMenuItem().getPrice(), assignedChef.getMenuItem().getCourse().getName(), assignedChef.getMenuItem().isVegetarian(), assignedChef.getMenuItem().getSpiceLevel(), false)).toList()));
         mav.addObject("roleNames", Arrays.stream(ChefRole.values()).map(ChefRole::getName).toList());
         return mav;
     }
@@ -104,23 +104,4 @@ public class ChefController extends BaseController {
         mav.addObject("roleNames", Arrays.stream(ChefRole.values()).map(ChefRole::getName).toList());
         return mav;
     }
-
-    /**
-     * Update chef string.
-     *
-     * @param chefViewModel the chef view model
-     * @param bindingResult the binding result
-     * @param user          the user
-     * @param request       the request
-     * @return the string
-     */
-    /*@PostMapping("/chef/update")
-    public String updateChef(@Valid ChefViewModel chefViewModel, BindingResult bindingResult, @AuthenticationPrincipal CustomUserDetails user, HttpServletRequest request) {
-        logger.info("Updating chef");
-        if ((user.getChefId() == chefViewModel.getId() || request.isUserInRole(HEAD_CHEF.getCode())) && (!bindingResult.hasErrors())) {
-            chefService.changeChef(chefViewModel.getId(), chefViewModel.getFirstName(), chefViewModel.getLastName(), chefViewModel.getDateOfBirth(), chefViewModel.getUsername(), chefViewModel.getRoleName());
-        }
-        return "redirect:/chef?id=" + chefViewModel.getId();
-    }
-     */
 }

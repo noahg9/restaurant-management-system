@@ -23,11 +23,20 @@ public class ChefService {
      * Instantiates a new Chef service.
      *
      * @param chefRepository         the chef repository
-     * @param assignedChefRepository the menu item chef repository
+     * @param assignedChefRepository the assigned chef repository
      */
     public ChefService(ChefRepository chefRepository, AssignedChefRepository assignedChefRepository) {
         this.chefRepository = chefRepository;
         this.assignedChefRepository = assignedChefRepository;
+    }
+
+    @Transactional
+    public Chef getChefById(long chefId) {
+        Chef chef = chefRepository.findById(chefId).orElse(null);
+        if (chef != null) {
+            chef.getMenuItems().size();
+        }
+        return chef;
     }
 
     /**
@@ -60,12 +69,12 @@ public class ChefService {
     }
 
     /**
-     * Gets chef by name.
+     * Gets chef by username.
      *
      * @param username the username
-     * @return the chef by name
+     * @return the chef by username
      */
-    public Chef getChefByName(String username) {
+    public Chef getChefByUsername(String username) {
         return chefRepository.findByUsername(username).orElse(null);
     }
 
@@ -100,7 +109,7 @@ public class ChefService {
     }
 
     /**
-     * Add chef chef.
+     * Save chef chef.
      *
      * @param firstName   the first name
      * @param lastName    the last name
@@ -111,29 +120,12 @@ public class ChefService {
      * @return the chef
      */
     @Transactional
-    public Chef addChef(String firstName, String lastName, LocalDate dateOfBirth, String username, String password, ChefRole role) {
+    public Chef saveChef(String firstName, String lastName, LocalDate dateOfBirth, String username, String password, ChefRole role) {
         return chefRepository.save(new Chef(firstName, lastName, dateOfBirth, username, password, role));
     }
 
     /**
-     * Remove chef boolean.
-     *
-     * @param chefId the chef id
-     * @return the boolean
-     */
-    @Transactional
-    public boolean removeChef(long chefId) {
-        Optional<Chef> chef = chefRepository.findByIdWithMenuItems(chefId);
-        if (chef.isEmpty()) {
-            return false;
-        }
-        assignedChefRepository.deleteAll(chef.get().getMenuItems());
-        chefRepository.deleteById(chefId);
-        return true;
-    }
-
-    /**
-     * Change chef boolean.
+     * Update chef boolean.
      *
      * @param chefId      the chef id
      * @param firstName   the first name
@@ -142,7 +134,7 @@ public class ChefService {
      * @param username    the username
      * @return the boolean
      */
-    public boolean changeChef(long chefId, String firstName, String lastName, LocalDate dateOfBirth, String username) {
+    public boolean updateChef(long chefId, String firstName, String lastName, LocalDate dateOfBirth, String username) {
         Chef chef = chefRepository.findById(chefId).orElse(null);
         if (chef == null) {
             return false;
@@ -152,6 +144,23 @@ public class ChefService {
         chef.setDateOfBirth(dateOfBirth);
         chef.setUsername(username);
         chefRepository.save(chef);
+        return true;
+    }
+
+    /**
+     * Delete chef boolean.
+     *
+     * @param chefId the chef id
+     * @return the boolean
+     */
+    @Transactional
+    public boolean deleteChef(long chefId) {
+        Optional<Chef> chef = chefRepository.findByIdWithMenuItems(chefId);
+        if (chef.isEmpty()) {
+            return false;
+        }
+        assignedChefRepository.deleteAll(chef.get().getMenuItems());
+        chefRepository.deleteById(chefId);
         return true;
     }
 }

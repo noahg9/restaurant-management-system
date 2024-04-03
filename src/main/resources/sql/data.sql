@@ -12,7 +12,7 @@ VALUES ('Noah', 'Guerin', '2002-09-12', 'noahg', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeq
        ('David', 'Chang', '1977-08-05', 'davidc', '$2a$10$xWIjXLXcCeiYbvgvO7yHyuvOa2jHro8QZVE/fDnFxvuwdVuQaIa7S',
         'SOUS_CHEF');
 
-INSERT INTO menu_item (name, price, course, vegetarian, spice_lvl)
+INSERT INTO menu_item (name, price, course, vegetarian, spice_level)
 VALUES ('Ceasar Salad', 3.5, 'MAIN', FALSE, 0),
        ('Grilled Salmon', 5, 'MAIN', FALSE, 2),
        ('Spaghetti Carbonara', 5, 'MAIN', FALSE, 0),

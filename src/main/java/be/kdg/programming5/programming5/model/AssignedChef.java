@@ -12,11 +12,11 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "assigned_chef", uniqueConstraints = {@UniqueConstraint(columnNames = {"menu_item_id", "chef_id"})})
 public class AssignedChef extends AbstractEntity<Long> implements Serializable {
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "menu_item_id")
     private MenuItem menuItem;
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "chef_id")
     private Chef chef;
 

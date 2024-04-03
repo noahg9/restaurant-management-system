@@ -1,10 +1,11 @@
 package be.kdg.programming5.programming5.dto;
 
-import be.kdg.programming5.programming5.model.Course;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+
+import java.util.List;
 
 /**
  * The type New menu item dto.
@@ -19,7 +20,9 @@ public class NewMenuItemDto {
     @NotNull
     private boolean vegetarian;
     @Min(value = 0)
-    private int spiceLvl;
+    private int spiceLevel;
+
+    List<Long> chefIds;
 
     /**
      * Instantiates a new New menu item dto.
@@ -34,14 +37,23 @@ public class NewMenuItemDto {
      * @param price      the price
      * @param courseName     the course
      * @param vegetarian the vegetarian
-     * @param spiceLvl   the spice lvl
+     * @param spiceLevel   the spice level
      */
-    public NewMenuItemDto(String name, double price, String courseName, boolean vegetarian, int spiceLvl) {
+    public NewMenuItemDto(String name, double price, String courseName, boolean vegetarian, int spiceLevel) {
         this.name = name;
         this.price = price;
         this.courseName = courseName;
         this.vegetarian = vegetarian;
-        this.spiceLvl = spiceLvl;
+        this.spiceLevel = spiceLevel;
+    }
+
+    public NewMenuItemDto(String name, double price, String courseName, boolean vegetarian, int spiceLevel, List<Long> chefIds) {
+        this.name = name;
+        this.price = price;
+        this.courseName = courseName;
+        this.vegetarian = vegetarian;
+        this.spiceLevel = spiceLevel;
+        this.chefIds = chefIds;
     }
 
     /**
@@ -117,20 +129,28 @@ public class NewMenuItemDto {
     }
 
     /**
-     * Gets spice lvl.
+     * Gets spice level.
      *
-     * @return the spice lvl
+     * @return the spice level
      */
-    public int getSpiceLvl() {
-        return spiceLvl;
+    public int getSpiceLevel() {
+        return spiceLevel;
     }
 
     /**
-     * Sets spice lvl.
+     * Sets spice level.
      *
-     * @param spiceLvl the spice lvl
+     * @param spiceLevel the spice level
      */
-    public void setSpiceLvl(int spiceLvl) {
-        this.spiceLvl = spiceLvl;
+    public void setSpiceLevel(int spiceLevel) {
+        this.spiceLevel = spiceLevel;
+    }
+
+    public List<Long> getChefIds() {
+        return chefIds;
+    }
+
+    public void setChefIds(List<Long> chefIds) {
+        this.chefIds = chefIds;
     }
 }

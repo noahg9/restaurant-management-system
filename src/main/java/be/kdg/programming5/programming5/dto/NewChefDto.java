@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * The type New chef dto.
@@ -22,6 +23,8 @@ public class NewChefDto {
     private String password;
     @NotBlank
     private String roleName;
+
+    private List<Long> menuItemIds;
 
     /**
      * Instantiates a new New chef dto.
@@ -46,6 +49,16 @@ public class NewChefDto {
         this.username = username;
         this.password = password;
         this.roleName = roleName;
+    }
+
+    public NewChefDto(String firstName, String lastName, LocalDate dateOfBirth, String username, String password, String roleName, List<Long> menuItemIds) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
+        this.username = username;
+        this.password = password;
+        this.roleName = roleName;
+        this.menuItemIds = menuItemIds;
     }
 
     /**
@@ -154,5 +167,13 @@ public class NewChefDto {
      */
     public void setRoleName(String roleName) {
         this.roleName = roleName;
+    }
+
+    public List<Long> getMenuItemIds() {
+        return menuItemIds;
+    }
+
+    public void setMenuItemIds(List<Long> menuItemIds) {
+        this.menuItemIds = menuItemIds;
     }
 }

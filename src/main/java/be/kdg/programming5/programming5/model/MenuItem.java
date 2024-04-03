@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -28,7 +29,7 @@ public class MenuItem extends AbstractEntity<Long> implements Serializable {
     private boolean vegetarian;
 
     @Column(nullable = false)
-    private int spiceLvl;
+    private int spiceLevel;
 
     @OneToOne(mappedBy = "menuItem", cascade = CascadeType.ALL)
     private Recipe recipe;
@@ -39,7 +40,13 @@ public class MenuItem extends AbstractEntity<Long> implements Serializable {
     /**
      * Instantiates a new Menu item.
      */
-    protected MenuItem() {
+    public MenuItem() {
+        setName("Unnamed Item " + LocalDate.now());
+        setPrice(0);
+        setCourse(Course.OTHER);
+        setVegetarian(false);
+        setSpiceLevel(0);
+        setChefs(new ArrayList<>());
     }
 
     /**
@@ -49,14 +56,34 @@ public class MenuItem extends AbstractEntity<Long> implements Serializable {
      * @param price      the price
      * @param course     the course
      * @param vegetarian the vegetarian
-     * @param spiceLvl   the spice lvl
+     * @param spiceLevel the spice level
      */
-    public MenuItem(String name, double price, Course course, boolean vegetarian, int spiceLvl) {
+    public MenuItem(String name, double price, Course course, boolean vegetarian, int spiceLevel) {
         setName(name);
         setPrice(price);
         setCourse(course);
         setVegetarian(vegetarian);
-        setSpiceLvl(spiceLvl);
+        setSpiceLevel(spiceLevel);
+        setChefs(new ArrayList<>());
+    }
+
+    /**
+     * Instantiates a new Menu item.
+     *
+     * @param name       the name
+     * @param price      the price
+     * @param course     the course
+     * @param vegetarian the vegetarian
+     * @param spiceLevel the spice level
+     * @param chefs      the chefs
+     */
+    public MenuItem(String name, double price, Course course, boolean vegetarian, int spiceLevel, List<AssignedChef> chefs) {
+        setName(name);
+        setPrice(price);
+        setCourse(course);
+        setVegetarian(vegetarian);
+        setSpiceLevel(spiceLevel);
+        setChefs(chefs);
     }
 
     /**
@@ -141,21 +168,21 @@ public class MenuItem extends AbstractEntity<Long> implements Serializable {
     }
 
     /**
-     * Gets spice lvl.
+     * Gets spice level.
      *
-     * @return the spice lvl
+     * @return the spice level
      */
-    public int getSpiceLvl() {
-        return this.spiceLvl;
+    public int getSpiceLevel() {
+        return this.spiceLevel;
     }
 
     /**
-     * Sets spice lvl.
+     * Sets spice level.
      *
-     * @param spiceLvl the spice lvl
+     * @param spiceLevel the spice level
      */
-    public void setSpiceLvl(int spiceLvl) {
-        this.spiceLvl = spiceLvl;
+    public void setSpiceLevel(int spiceLevel) {
+        this.spiceLevel = spiceLevel;
     }
 
     /**
@@ -198,15 +225,25 @@ public class MenuItem extends AbstractEntity<Long> implements Serializable {
     /**
      * Add assigned chef.
      *
-     * @param assignedChef the assigned chef
+     * @param chef the chef
      */
-    public void addAssignedChef(AssignedChef assignedChef) {
+    public void addAssignedChef(Chef chef) {
+        if (chef == null) {
+            throw new IllegalArgumentException("Chef cannot be null");
+        }
         if (chefs == null) {
             chefs = new ArrayList<>();
+        } else {
+            for (AssignedChef assignedChef : chefs) {
+                if (assignedChef.getChef().equals(chef)) {
+                    throw new IllegalArgumentException("Chef is already assigned to this menu item");
+                }
+            }
         }
+        AssignedChef assignedChef = new AssignedChef(this, chef);
         chefs.add(assignedChef);
-        assignedChef.setMenuItem(this);
     }
+
 
     @Override
     public boolean equals(Object o) {
@@ -219,5 +256,17 @@ public class MenuItem extends AbstractEntity<Long> implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "MenuItem{" +
+                "name='" + name + '\'' +
+                ", price=" + price +
+                ", course=" + course +
+                ", vegetarian=" + vegetarian +
+                ", spiceLevel=" + spiceLevel +
+                ", recipe=" + recipe +
+                '}';
     }
 }

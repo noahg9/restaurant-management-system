@@ -85,17 +85,17 @@
                                 <!-- Spice Level -->
                                 <tr>
                                     <th class="col-sm-4">
-                                        <label class="form-label" for="spiceLvlField"
-                                               th:text="#{attribute.spiceLvl}">Spice
+                                        <label class="form-label" for="spiceLevelField"
+                                               th:text="#{attribute.spiceLevel}">Spice
                                             Level:</label>
                                     </th>
                                     <td class="col-sm-8">
-                                        <input class="form-control" id="spiceLvlField" required
+                                        <input class="form-control" id="spiceLevelField" required
                                                th:if="${one_menu_item.modificationAllowed}"
-                                               th:value="${one_menu_item.spiceLvl}"
+                                               th:value="${one_menu_item.spiceLevel}"
                                                type="number">
                                         <p th:if="${!one_menu_item.modificationAllowed}"
-                                           th:text="${one_menu_item.spiceLvl}">
+                                           th:text="${one_menu_item.spiceLevel}">
                                     </td>
                                 </tr>
                                 </tbody>

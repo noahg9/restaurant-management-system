@@ -26,8 +26,23 @@ public class ChefViewModel {
 
     /**
      * Instantiates a new Chef view model.
+     *
+     * @param id                  the id
+     * @param firstName           the first name
+     * @param lastName            the last name
+     * @param dateOfBirth         the date of birth
+     * @param username            the username
+     * @param roleName                the role
+     * @param modificationAllowed the modification allowed
      */
-    public ChefViewModel() {
+    public ChefViewModel(long id, String firstName, String lastName, LocalDate dateOfBirth, String username, String roleName, boolean modificationAllowed) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
+        this.username = username;
+        this.roleName = roleName;
+        this.modificationAllowed = modificationAllowed;
     }
 
     /**
@@ -51,27 +66,6 @@ public class ChefViewModel {
         this.roleName = roleName;
         this.modificationAllowed = modificationAllowed;
         this.menuItems = menuItems;
-    }
-
-    /**
-     * Instantiates a new Chef view model.
-     *
-     * @param id                  the id
-     * @param firstName           the first name
-     * @param lastName            the last name
-     * @param dateOfBirth         the date of birth
-     * @param username            the username
-     * @param roleName                the role
-     * @param modificationAllowed the modification allowed
-     */
-    public ChefViewModel(long id, String firstName, String lastName, LocalDate dateOfBirth, String username, String roleName, boolean modificationAllowed) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.dateOfBirth = dateOfBirth;
-        this.username = username;
-        this.roleName = roleName;
-        this.modificationAllowed = modificationAllowed;
     }
 
     /**

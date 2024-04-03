@@ -46,13 +46,13 @@ public class ChefsController {
     }
 
     /**
-     * Gets one chef.
+     * Gets chef.
      *
      * @param chefId the chef id
-     * @return the one chef
+     * @return the chef
      */
     @GetMapping("{id}")
-    ResponseEntity<ChefDto> getOneChef(@PathVariable("id") long chefId) {
+    ResponseEntity<ChefDto> getChef(@PathVariable("id") long chefId) {
         Chef chef = chefService.getChef(chefId);
         if (chef == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -115,18 +115,34 @@ public class ChefsController {
     }
 
     /**
-     * Add chef response entity.
+     * Create chef response entity.
      *
      * @param chefDto the chef dto
      * @return the response entity
      */
     @PostMapping
-    ResponseEntity<ChefDto> addChef(@RequestBody @Valid NewChefDto chefDto) {
+    ResponseEntity<ChefDto> createChef(@RequestBody @Valid NewChefDto chefDto) {
         if (chefRepository.findByUsername(chefDto.getUsername()).isPresent()) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
-        Chef createdChef = chefService.addChef(chefDto.getFirstName(), chefDto.getLastName(), chefDto.getDateOfBirth(), chefDto.getUsername(), passwordEncoder.encode(chefDto.getPassword()), ChefRole.fromName(chefDto.getRoleName()));
+        Chef createdChef = chefService.saveChef(chefDto.getFirstName(), chefDto.getLastName(), chefDto.getDateOfBirth(), chefDto.getUsername(), passwordEncoder.encode(chefDto.getPassword()), ChefRole.fromName(chefDto.getRoleName()));
         return new ResponseEntity<>(modelMapper.map(createdChef, ChefDto.class), HttpStatus.CREATED);
+    }
+
+    /**
+     * Update chef response entity.
+     *
+     * @param chefId        the chef id
+     * @param updateChefDto the update chef dto
+     * @return the response entity
+     */
+    @PatchMapping("{id}")
+    ResponseEntity<Void> updateChef(@PathVariable("id") long chefId, @RequestBody @Valid UpdateChefDto updateChefDto) {
+        if (chefService.updateChef(chefId, updateChefDto.getFirstName(), updateChefDto.getLastName(), updateChefDto.getDateOfBirth(), updateChefDto.getUsername())) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     /**
@@ -137,25 +153,9 @@ public class ChefsController {
      */
     @DeleteMapping("{id}")
     ResponseEntity<Void> deleteChef(@PathVariable("id") long chefId) {
-        if (chefService.removeChef(chefId)) {
+        if (chefService.deleteChef(chefId)) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
-    /**
-     * Change chef response entity.
-     *
-     * @param chefId        the chef id
-     * @param updateChefDto the update chef dto
-     * @return the response entity
-     */
-    @PatchMapping("{id}")
-    ResponseEntity<Void> changeChef(@PathVariable("id") long chefId, @RequestBody @Valid UpdateChefDto updateChefDto) {
-        if (chefService.changeChef(chefId, updateChefDto.getFirstName(), updateChefDto.getLastName(), updateChefDto.getDateOfBirth(), updateChefDto.getUsername())) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
     }
 }

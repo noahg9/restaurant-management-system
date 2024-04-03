@@ -1,10 +1,8 @@
 package be.kdg.programming5.programming5.controller.web.viewmodel;
 
-import be.kdg.programming5.programming5.model.Course;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
 
@@ -12,7 +10,6 @@ import java.util.List;
  * The type Menu item view model.
  */
 public class MenuItemViewModel {
-
     private long id;
     @NotBlank(message = "Name cannot be empty")
     private String name;
@@ -22,17 +19,31 @@ public class MenuItemViewModel {
     private String courseName;
     private boolean vegetarian;
     @Min(value = 0, message = "Spice level must be at least 1")
-    private int spiceLvl;
-
-    private List<ChefViewModel> chefs;
+    private int spiceLevel;
 
     private boolean modificationAllowed;
 
+    private List<ChefViewModel> chefs;
 
     /**
      * Instantiates a new Menu item view model.
+     *
+     * @param id                  the id
+     * @param name                the name
+     * @param price               the price
+     * @param courseName          the course
+     * @param vegetarian          the vegetarian
+     * @param spiceLevel          the spice level
+     * @param modificationAllowed the modification allowed
      */
-    public MenuItemViewModel() {
+    public MenuItemViewModel(long id, String name, double price, String courseName, boolean vegetarian, int spiceLevel, boolean modificationAllowed) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.courseName = courseName;
+        this.vegetarian = vegetarian;
+        this.spiceLevel = spiceLevel;
+        this.modificationAllowed = modificationAllowed;
     }
 
     /**
@@ -41,42 +52,21 @@ public class MenuItemViewModel {
      * @param id                  the id
      * @param name                the name
      * @param price               the price
-     * @param courseName              the course
+     * @param courseName          the course
      * @param vegetarian          the vegetarian
-     * @param spiceLvl            the spice lvl
+     * @param spiceLevel          the spice level
      * @param modificationAllowed the modification allowed
      * @param chefs               the chefs
      */
-    public MenuItemViewModel(long id, String name, double price, String courseName, boolean vegetarian, int spiceLvl, boolean modificationAllowed, List<ChefViewModel> chefs) {
+    public MenuItemViewModel(long id, String name, double price, String courseName, boolean vegetarian, int spiceLevel, boolean modificationAllowed, List<ChefViewModel> chefs) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.courseName = courseName;
         this.vegetarian = vegetarian;
-        this.spiceLvl = spiceLvl;
+        this.spiceLevel = spiceLevel;
         this.modificationAllowed = modificationAllowed;
         this.chefs = chefs;
-    }
-
-    /**
-     * Instantiates a new Menu item view model.
-     *
-     * @param id                  the id
-     * @param name                the name
-     * @param price               the price
-     * @param courseName              the course
-     * @param vegetarian          the vegetarian
-     * @param spiceLvl            the spice lvl
-     * @param modificationAllowed the modification allowed
-     */
-    public MenuItemViewModel(long id, String name, double price, String courseName, boolean vegetarian, int spiceLvl, boolean modificationAllowed) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
-        this.courseName = courseName;
-        this.vegetarian = vegetarian;
-        this.spiceLvl = spiceLvl;
-        this.modificationAllowed = modificationAllowed;
     }
 
     /**
@@ -170,21 +160,21 @@ public class MenuItemViewModel {
     }
 
     /**
-     * Gets spice lvl.
+     * Gets spice level.
      *
-     * @return the spice lvl
+     * @return the spice level
      */
-    public int getSpiceLvl() {
-        return spiceLvl;
+    public int getSpiceLevel() {
+        return spiceLevel;
     }
 
     /**
-     * Sets spice lvl.
+     * Sets spice level.
      *
-     * @param spiceLvl the spice lvl
+     * @param spiceLevel the spice level
      */
-    public void setSpiceLvl(int spiceLvl) {
-        this.spiceLvl = spiceLvl;
+    public void setSpiceLevel(int spiceLevel) {
+        this.spiceLevel = spiceLevel;
     }
 
     /**

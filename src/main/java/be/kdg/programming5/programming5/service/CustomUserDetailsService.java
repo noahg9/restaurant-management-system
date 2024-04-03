@@ -29,7 +29,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Chef chef = chefService.getChefByName(username);
+        Chef chef = chefService.getChefByUsername(username);
         if (chef != null) {
             Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
             authorities.add(new SimpleGrantedAuthority(chef.getRole().getCode()));

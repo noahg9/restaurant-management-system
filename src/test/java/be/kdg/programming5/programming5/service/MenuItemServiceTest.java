@@ -53,7 +53,7 @@ class MenuItemServiceTest {
         MenuItem createdMenuItem = menuItemRepository.save(new MenuItem("Cheese Bagel", 1.0, Course.MAIN, false, 1));
 
         // Act
-        boolean result = menuItemService.changeMenuItem(createdMenuItem.getId(), "Ham Bagel", 1.5, true, 2);
+        boolean result = menuItemService.updateMenuItem(createdMenuItem.getId(), "Ham Bagel", 1.5, true, 2);
 
         // Assert
         assertTrue(result);
@@ -68,7 +68,7 @@ class MenuItemServiceTest {
         // Arrange: No need to arrange anything as we are testing with a non-existing menu item
 
         // Act
-        boolean result = menuItemService.changeMenuItem(9999, "Ham Bagel", 1.5, true, 2);
+        boolean result = menuItemService.updateMenuItem(9999, "Ham Bagel", 1.5, true, 2);
 
         // Assert
         assertFalse(result); // The method should return false for a non-existing menu item
@@ -80,8 +80,8 @@ class MenuItemServiceTest {
         // Arrange
         Chef chef = chefRepository.save(new Chef("John", "Doe", LocalDate.of(1998, 6, 20), "johnd", "john", ChefRole.SOUS_CHEF));
 
-        MenuItem menuItem1 = menuItemService.addMenuItem("Item 1", 10.0, Course.MAIN, false, 1);
-        MenuItem menuItem2 = menuItemService.addMenuItem("Item 2", 12.0, Course.DESSERT, true, 2);
+        MenuItem menuItem1 = menuItemService.saveMenuItem("Item 1", 10.0, Course.MAIN, false, 1);
+        MenuItem menuItem2 = menuItemService.saveMenuItem("Item 2", 12.0, Course.DESSERT, true, 2);
 
         // Create AssignedChef instances to associate Chef with MenuItem
         AssignedChef assignedChef1 = assignedChefRepository.save(new AssignedChef(menuItem1, chef, LocalDateTime.now()));

@@ -8,6 +8,8 @@ const password = document.getElementById("password");
 const roleName = document.getElementById("roleName");
 const registerButton = document.getElementById("registerButton");
 
+registerButton?.addEventListener("click", addNewChef);
+
 async function addNewChef() {
     await fetch(`/api/chefs`, {
         method: "POST", headers: {
@@ -22,5 +24,3 @@ async function addNewChef() {
         })
     });
 }
-
-registerButton?.addEventListener("click", addNewChef);

@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -39,7 +40,14 @@ public class Chef extends AbstractEntity<Long> implements Serializable {
     /**
      * Instantiates a new Chef.
      */
-    protected Chef() {
+    public Chef() {
+        setFirstName("John");
+        setLastName("Doe");
+        setDateOfBirth(LocalDate.of(2000, 1, 1));
+        setUsername("username" + LocalDate.now());
+        setPassword("password");
+        setRole(ChefRole.SOUS_CHEF);
+        setMenuItems(new ArrayList<>());
     }
 
     /**
@@ -59,6 +67,28 @@ public class Chef extends AbstractEntity<Long> implements Serializable {
         setUsername(username);
         setPassword(password);
         setRole(role);
+        setMenuItems(new ArrayList<>());
+    }
+
+    /**
+     * Instantiates a new Chef.
+     *
+     * @param firstName   the first name
+     * @param lastName    the last name
+     * @param dateOfBirth the date of birth
+     * @param username    the username
+     * @param password    the password
+     * @param role        the role
+     * @param menuItems   the menu items
+     */
+    public Chef(String firstName, String lastName, LocalDate dateOfBirth, String username, String password, ChefRole role, List<AssignedChef> menuItems) {
+        setFirstName(firstName);
+        setLastName(lastName);
+        setDateOfBirth(dateOfBirth);
+        setUsername(username);
+        setPassword(password);
+        setRole(role);
+        setMenuItems(menuItems);
     }
 
     /**
@@ -192,5 +222,39 @@ public class Chef extends AbstractEntity<Long> implements Serializable {
      */
     public void setMenuItems(List<AssignedChef> menuItems) {
         this.menuItems = menuItems;
+    }
+
+    /**
+     * Add assigned menu item.
+     *
+     * @param menuItem the menu item
+     */
+    public void addAssignedMenuItem(MenuItem menuItem) {
+        if (menuItem == null) {
+            throw new IllegalArgumentException("Menu item cannot be null");
+        }
+        if (menuItems == null) {
+            menuItems = new ArrayList<>();
+        } else {
+            for (AssignedChef assignedChef : menuItems) {
+                if (assignedChef.getMenuItem().equals(menuItem)) {
+                    throw new IllegalArgumentException("Menu item is already assigned to this chef");
+                }
+            }
+        }
+        AssignedChef assignedChef = new AssignedChef(menuItem, this);
+        menuItems.add(assignedChef);
+    }
+
+    @Override
+    public String toString() {
+        return "Chef{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
+                '}';
     }
 }

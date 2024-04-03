@@ -4,11 +4,9 @@ import be.kdg.programming5.programming5.dto.ChefDto;
 import be.kdg.programming5.programming5.dto.MenuItemDto;
 import be.kdg.programming5.programming5.dto.NewMenuItemDto;
 import be.kdg.programming5.programming5.dto.UpdateMenuItemDto;
-import be.kdg.programming5.programming5.model.AssignedChef;
-import be.kdg.programming5.programming5.model.Course;
-import be.kdg.programming5.programming5.model.CustomUserDetails;
-import be.kdg.programming5.programming5.model.MenuItem;
+import be.kdg.programming5.programming5.model.*;
 import be.kdg.programming5.programming5.service.AssignedChefService;
+import be.kdg.programming5.programming5.service.ChefService;
 import be.kdg.programming5.programming5.service.MenuItemService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -31,30 +29,25 @@ import static be.kdg.programming5.programming5.model.ChefRole.HEAD_CHEF;
 @RequestMapping("/api/menu-items")
 public class MenuItemsController {
     private final MenuItemService menuItemService;
+    private final ChefService chefService;
     private final AssignedChefService assignedChefService;
     private final ModelMapper modelMapper;
 
-    /**
-     * Instantiates a new Menu items controller.
-     *
-     * @param menuItemService     the menu item service
-     * @param assignedChefService the menu item chef service
-     * @param modelMapper         the model mapper
-     */
-    public MenuItemsController(MenuItemService menuItemService, AssignedChefService assignedChefService, ModelMapper modelMapper) {
+    public MenuItemsController(MenuItemService menuItemService, ChefService chefService, AssignedChefService assignedChefService, ModelMapper modelMapper) {
         this.menuItemService = menuItemService;
+        this.chefService = chefService;
         this.assignedChefService = assignedChefService;
         this.modelMapper = modelMapper;
     }
 
     /**
-     * Gets one menu item.
+     * Gets menu item.
      *
      * @param menuItemId the menu item id
-     * @return the one menu item
+     * @return the menu item
      */
     @GetMapping("{id}")
-    ResponseEntity<MenuItemDto> getOneMenuItem(@PathVariable("id") long menuItemId) {
+    ResponseEntity<MenuItemDto> getMenuItem(@PathVariable("id") long menuItemId) {
         MenuItem menuItem = menuItemService.getMenuItem(menuItemId);
         if (menuItem == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -117,16 +110,37 @@ public class MenuItemsController {
     }
 
     /**
-     * Add menu item response entity.
+     * Create menu item response entity.
      *
      * @param menuItemDto the menu item dto
      * @param user        the user
      * @return the response entity
      */
     @PostMapping
-    ResponseEntity<MenuItemDto> addMenuItem(@RequestBody @Valid NewMenuItemDto menuItemDto, @AuthenticationPrincipal CustomUserDetails user) {
-        MenuItem createdMenuItem = menuItemService.addMenuItem(menuItemDto.getName(), menuItemDto.getPrice(), Course.fromName(menuItemDto.getCourseName()), menuItemDto.isVegetarian(), menuItemDto.getSpiceLvl(), user.getChefId());
+    ResponseEntity<MenuItemDto> createMenuItem(@RequestBody @Valid NewMenuItemDto menuItemDto, @AuthenticationPrincipal CustomUserDetails user) {
+        MenuItem createdMenuItem = menuItemService.saveMenuItem(menuItemDto.getName(), menuItemDto.getPrice(), Course.fromName(menuItemDto.getCourseName()), menuItemDto.isVegetarian(), menuItemDto.getSpiceLevel(), menuItemDto.getChefIds(), user.getChefId());
         return new ResponseEntity<>(modelMapper.map(createdMenuItem, MenuItemDto.class), HttpStatus.CREATED);
+    }
+
+    /**
+     * Update menu item response entity.
+     *
+     * @param menuItemId        the menu item id
+     * @param updateMenuItemDto the update menu item dto
+     * @param user              the user
+     * @param request           the request
+     * @return the response entity
+     */
+    @PatchMapping("{id}")
+    ResponseEntity<Void> updateMenuItem(@PathVariable("id") long menuItemId, @RequestBody @Valid UpdateMenuItemDto updateMenuItemDto, @AuthenticationPrincipal CustomUserDetails user, HttpServletRequest request) {
+        if (!assignedChefService.isChefAssignedToMenuItem(menuItemId, user.getChefId()) && !request.isUserInRole(HEAD_CHEF.getCode())) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+        if (menuItemService.updateMenuItem(menuItemId, updateMenuItemDto.getName(), updateMenuItemDto.getPrice(), updateMenuItemDto.isVegetarian(), updateMenuItemDto.getSpiceLevel())) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     /**
@@ -142,30 +156,9 @@ public class MenuItemsController {
         if (!assignedChefService.isChefAssignedToMenuItem(menuItemId, user.getChefId()) && !request.isUserInRole(HEAD_CHEF.getCode())) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
-        if (menuItemService.removeMenuItem(menuItemId)) {
+        if (menuItemService.deleteMenuItem(menuItemId)) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
-    /**
-     * Change menu item response entity.
-     *
-     * @param menuItemId        the menu item id
-     * @param updateMenuItemDto the update menu item dto
-     * @param user              the user
-     * @param request           the request
-     * @return the response entity
-     */
-    @PatchMapping("{id}")
-    ResponseEntity<Void> changeMenuItem(@PathVariable("id") long menuItemId, @RequestBody @Valid UpdateMenuItemDto updateMenuItemDto, @AuthenticationPrincipal CustomUserDetails user, HttpServletRequest request) {
-        if (!assignedChefService.isChefAssignedToMenuItem(menuItemId, user.getChefId()) && !request.isUserInRole(HEAD_CHEF.getCode())) {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-        }
-        if (menuItemService.changeMenuItem(menuItemId, updateMenuItemDto.getName(), updateMenuItemDto.getPrice(), updateMenuItemDto.isVegetarian(), updateMenuItemDto.getSpiceLvl())) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
     }
 }

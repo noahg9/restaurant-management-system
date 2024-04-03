@@ -67,7 +67,7 @@ public class MenuItemController extends BaseController {
                                 menuItem.getPrice(),
                                 menuItem.getCourse().getName(),
                                 menuItem.isVegetarian(),
-                                menuItem.getSpiceLvl(),
+                                menuItem.getSpiceLevel(),
                                 request.isUserInRole(HEAD_CHEF.getCode())
                                         || chefId != null
                                         && assignedChefService.isChefAssignedToMenuItem(menuItem.getId(), chefId)))
@@ -99,7 +99,7 @@ public class MenuItemController extends BaseController {
                         menuItem.getPrice(),
                         menuItem.getCourse().getName(),
                         menuItem.isVegetarian(),
-                        menuItem.getSpiceLvl(),
+                        menuItem.getSpiceLevel(),
                         request.isUserInRole(HEAD_CHEF.getCode()) || chefId != null && menuItem.getChefs().stream().map(AssignedChef::getChef).anyMatch(chef -> Objects.equals(chef.getId(), chefId)),
                         menuItem.getChefs().stream().map(assignedChef -> new ChefViewModel(
                                 assignedChef.getChef().getId(),

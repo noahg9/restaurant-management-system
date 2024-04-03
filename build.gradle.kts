@@ -16,7 +16,7 @@ repositories {
     mavenCentral()
 }
 
-application{
+application {
     mainClass.set("be.kdg.programming5.programming5.Programming5Application")
 }
 
