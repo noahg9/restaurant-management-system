@@ -12,16 +12,11 @@
     <div class="row justify-content-center error-container">
         <!-- Title Section -->
         <div class="col-md-12">
-            <h1 class="display-4 error-message text-primary">Oops! Something went wrong...</h1>
-        </div>
-        <!-- Error Message Section -->
-        <div class="col-md-12">
-            <p class="error-message text-body">We apologize for the inconvenience. Please try again later.</p>
-            <div class="mt-5">
-                <img alt="Error Icon" class="img-fluid error-image" th:src="@{/images/error-icon.png}"/>
+            <div class="row mb-3 justify-content-center">
+                <h1 class="display-4 error-message text-primary">Oops! Something went wrong...</h1>
             </div>
         </div>
-        <!-- Bottom Page Buttons Section -->
+        <!-- Top Page Buttons Section -->
         <div class="col-md-12">
             <div class="row mb-3 justify-content-center">
                 <!-- Return Button -->
@@ -32,6 +27,13 @@
                         </a>
                     </div>
                 </div>
+            </div>
+        </div>
+        <!-- Error Message Section -->
+        <div class="col-md-12">
+            <p class="error-message text-body">We apologize for the inconvenience. Please try again later.</p>
+            <div class="mt-5">
+                <img alt="Error Icon" class="img-fluid error-image" th:src="@{/images/error-icon.png}"/>
             </div>
         </div>
     </div>

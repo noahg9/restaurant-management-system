@@ -14,7 +14,23 @@
     <div class="row justify-content-center">
         <!-- Title Section -->
         <div class="col-md-12">
-            <h1 class="page-title text-primary" th:text="#{title.menuItems}">Menu Items</h1>
+            <div class="row mb-3 justify-content-center">
+                <h1 class="page-title text-primary" th:text="#{title.menuItems}">Menu Items</h1>
+            </div>
+        </div>
+        <!-- Top Page Buttons Section -->
+        <div class="col-md-12">
+            <div class="row mb-3 justify-content-center">
+                <!-- Search Menu Items Button -->
+                <div class="col-md-2">
+                    <div class="center-container text-center">
+                        <a class="btn btn-secondary" th:href="@{/search-menu-items}">
+                            <i class="fas fa-search"></i>
+                            <span th:text="#{title.searchMenuItems}">Search Menu Items</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
         <!-- List Section -->
         <div class="col-md-6">
@@ -76,7 +92,7 @@
                     <div class="row mb-3 justify-content-center">
                         <div class="col-sm-4">
                             <label class="form-label" for="chefs" th:text="#{attribute.chefs}">Chefs</label>
-                            <select class="form-select" id="chefs" name="chefs" multiple>
+                            <select class="form-select" id="chefs" multiple name="chefs">
                                 <!-- Populate options dynamically -->
                             </select>
                         </div>
@@ -91,20 +107,6 @@
                     </div>
                 </form>
             </section>
-        </div>
-        <!-- Bottom Page Buttons Section -->
-        <div class="col-md-12">
-            <div class="row mb-3 justify-content-center">
-                <!-- Search Menu Items Button -->
-                <div class="col-md-2">
-                    <div class="center-container text-center">
-                        <a class="btn btn-secondary" th:href="@{/search-menu-items}">
-                            <i class="fas fa-search"></i>
-                            <span th:text="#{title.searchMenuItems}">Search Menu Items</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </main>

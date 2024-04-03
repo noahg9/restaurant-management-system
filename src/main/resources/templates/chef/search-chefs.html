@@ -13,7 +13,22 @@
     <div class="row justify-content-center">
         <!-- Title Section -->
         <div class="col-md-12">
-            <h1 class="page-title text-primary" th:text="#{title.searchChefs}">Search Chefs</h1>
+            <div class="row mb-3 justify-content-center">
+                <h1 class="page-title text-primary" th:text="#{title.searchChefs}">Search Chefs</h1>
+            </div>
+        </div>
+        <!-- Top Page Buttons Section -->
+        <div class="col-md-12">
+            <div class="row mb-3 justify-content-center">
+                <!-- Return Button -->
+                <div class="col-md-2">
+                    <div class="center-container text-center">
+                        <a class="btn btn-secondary" href="javascript:history.back()" th:text="#{button.return}">
+                            <i class="fas fa-arrow-left"></i> Return
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
         <!-- Search Section -->
         <div class="col-md-4">
@@ -29,19 +44,6 @@
             <!-- Search Results -->
             <div id="searchResultsSection">
                 <!-- Queried chefs will be dynamically added here -->
-            </div>
-        </div>
-        <!-- Bottom Page Buttons Section -->
-        <div class="col-md-12">
-            <div class="row mb-3 justify-content-center">
-                <!-- Return Button -->
-                <div class="col-md-2">
-                    <div class="center-container text-center">
-                        <a class="btn btn-secondary" href="javascript:history.back()" th:text="#{button.return}">
-                            <i class="fas fa-arrow-left"></i> Return
-                        </a>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

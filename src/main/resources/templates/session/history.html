@@ -9,8 +9,16 @@
     <div class="row justify-content-center">
         <!-- Title Section -->
         <div class="col-md-12">
-            <h1 class="page-title text-primary" th:text="#{title.history}">Session History</h1>
-            <p class="lead text-body text-body" th:text="#{message.history}">Your 20 most recently visited pages.</p>
+            <div class="row mb-3 justify-content-center">
+                <h1 class="page-title text-primary" th:text="#{title.history}">Session History</h1>
+            </div>
+        </div>
+        <!-- Description Section -->
+        <div class="col-md-12">
+            <div class="row mb-3 justify-content-center">
+                <p class="lead text-body text-body" th:text="#{message.history}">Your 20 most recently visited
+                    pages.</p>
+            </div>
         </div>
         <!-- History Section -->
         <div class="col-md-4">

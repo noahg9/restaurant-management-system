@@ -13,7 +13,7 @@ public class Recipe extends AbstractEntity<Long> implements Serializable {
     private String instructions;
 
     @Column(nullable = false)
-    private int cookingTime;
+    private double cookingTime;
 
     @Column(nullable = false)
     private int difficulty;
@@ -28,13 +28,13 @@ public class Recipe extends AbstractEntity<Long> implements Serializable {
         setDifficulty(0);
     }
 
-    public Recipe(String instructions, int cookingTime, int difficulty) {
+    public Recipe(String instructions, double cookingTime, int difficulty) {
         setInstructions(instructions);
         setCookingTime(cookingTime);
         setDifficulty(difficulty);
     }
 
-    public Recipe(String instructions, int cookingTime, int difficulty, MenuItem menuItem) {
+    public Recipe(String instructions, double cookingTime, int difficulty, MenuItem menuItem) {
         setInstructions(instructions);
         setCookingTime(cookingTime);
         setDifficulty(difficulty);
@@ -51,11 +51,11 @@ public class Recipe extends AbstractEntity<Long> implements Serializable {
         this.instructions = instructions;
     }
 
-    public int getCookingTime() {
+    public double getCookingTime() {
         return cookingTime;
     }
 
-    public void setCookingTime(int cookingTime) {
+    public void setCookingTime(double cookingTime) {
         this.cookingTime = cookingTime;
     }
 
