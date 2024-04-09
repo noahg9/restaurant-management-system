@@ -19,15 +19,11 @@ import java.util.Optional;
  */
 @Service
 public class MenuItemService {
-    private final ChefService chefService;
-    private final AssignedChefService assignedChefService;
     private final MenuItemRepository menuItemRepository;
     private final AssignedChefRepository assignedChefRepository;
     private final ChefRepository chefRepository;
 
-    public MenuItemService(ChefService chefService, AssignedChefService assignedChefService, MenuItemRepository menuItemRepository, AssignedChefRepository assignedChefRepository, ChefRepository chefRepository) {
-        this.chefService = chefService;
-        this.assignedChefService = assignedChefService;
+    public MenuItemService(MenuItemRepository menuItemRepository, AssignedChefRepository assignedChefRepository, ChefRepository chefRepository) {
         this.menuItemRepository = menuItemRepository;
         this.assignedChefRepository = assignedChefRepository;
         this.chefRepository = chefRepository;
@@ -62,7 +58,7 @@ public class MenuItemService {
     public MenuItem getMenuItemWithChefs(long menuItemId) {
         return menuItemRepository.findByIdWithChefs(menuItemId)
                 .map(menuItem -> {
-                    menuItem.getChefs().size(); // Force initialization of the chefs collection
+                    menuItem.getChefs().size();
                     return menuItem;
                 })
                 .orElse(null);
@@ -121,10 +117,7 @@ public class MenuItemService {
         assignedChefRepository.save(new AssignedChef(menuItem, user, LocalDateTime.now()));
         if (chefIds != null && !chefIds.isEmpty()) {
             for (Long chefId : chefIds) {
-                Chef chef = chefService.getChefById(chefId);
-                if (chef != null) {
-                    assignedChefService.assignChefToMenuItem(chef, menuItem);
-                }
+                chefRepository.findById(chefId).ifPresent(chef -> assignedChefRepository.save(new AssignedChef(menuItem, chef, LocalDateTime.now())));
             }
         }
         return menuItem;

@@ -30,13 +30,14 @@ public class ChefService {
         this.assignedChefRepository = assignedChefRepository;
     }
 
-    @Transactional
-    public Chef getChefById(long chefId) {
-        Chef chef = chefRepository.findById(chefId).orElse(null);
-        if (chef != null) {
-            chef.getMenuItems().size();
-        }
-        return chef;
+    /**
+     * Gets chef.
+     *
+     * @param chefId the chef id
+     * @return the chef
+     */
+    public Chef getChef(long chefId) {
+        return chefRepository.findById(chefId).orElse(null);
     }
 
     /**
@@ -46,16 +47,6 @@ public class ChefService {
      */
     public List<Chef> getAllChefs() {
         return chefRepository.findAll();
-    }
-
-    /**
-     * Gets chef.
-     *
-     * @param chefId the chef id
-     * @return the chef
-     */
-    public Chef getChef(long chefId) {
-        return chefRepository.findById(chefId).orElse(null);
     }
 
     /**

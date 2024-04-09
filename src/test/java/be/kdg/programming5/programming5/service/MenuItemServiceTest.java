@@ -31,42 +31,39 @@ class MenuItemServiceTest {
     @Autowired
     private AssignedChefRepository assignedChefRepository;
 
-    private long testMenuItemId;
-    private long testChefId;
+    private Chef chef;
+    private MenuItem menuItem1;
+    private MenuItem menuItem2;
 
     @BeforeAll
     public void setup() {
-        Chef testChef = chefRepository.save(new Chef("John", "Doe", LocalDate.of(1998, 6, 20), "johnd", "john", ChefRole.SOUS_CHEF));
-        MenuItem testMenuItem = menuItemRepository.save(new MenuItem("Cheese Bagel", 1.0, Course.MAIN, false, 1));
-        testMenuItemId = testMenuItem.getId();
-        testChefId = testChef.getId();
+        chef = chefRepository.save(new Chef("John", "Doe", LocalDate.of(1998, 6, 20), "johnd", "john", ChefRole.SOUS_CHEF));
+        menuItem1 = menuItemService.saveMenuItem("Item 1", 10.0, Course.MAIN, false, 1);
+        menuItem2 = menuItemService.saveMenuItem("Item 2", 12.0, Course.DESSERT, true, 2);
+        assignedChefRepository.save(new AssignedChef(menuItem1, chef, LocalDateTime.now()));
+        assignedChefRepository.save(new AssignedChef(menuItem2, chef, LocalDateTime.now()));
     }
 
     @AfterAll
     public void tearDown() {
-        menuItemRepository.deleteById(testMenuItemId);
+        chefRepository.delete(chef);
+        menuItemRepository.delete(menuItem1);
+        menuItemRepository.delete(menuItem2);
     }
 
     @Test
     void changeMenuItemShouldReturnTrueForExistingMenuItemAndUpdateSaidMenuItem() {
-        // Arrange
-        MenuItem createdMenuItem = menuItemRepository.save(new MenuItem("Cheese Bagel", 1.0, Course.MAIN, false, 1));
 
         // Act
-        boolean result = menuItemService.updateMenuItem(createdMenuItem.getId(), "Ham Bagel", 1.5, true, 2);
+        boolean result = menuItemService.updateMenuItem(menuItem1.getId(), "Ham Bagel", 1.5, true, 2);
 
         // Assert
         assertTrue(result);
-        assertEquals("Ham Bagel", menuItemRepository.findById(createdMenuItem.getId()).get().getName());
-
-        // Cleanup
-        menuItemRepository.deleteById(createdMenuItem.getId());
+        assertEquals("Ham Bagel", menuItemRepository.findById(menuItem1.getId()).get().getName());
     }
 
     @Test
     void changeMenuItemShouldReturnFalseForNonExistingMenuItem() {
-        // Arrange: No need to arrange anything as we are testing with a non-existing menu item
-
         // Act
         boolean result = menuItemService.updateMenuItem(9999, "Ham Bagel", 1.5, true, 2);
 
@@ -77,16 +74,6 @@ class MenuItemServiceTest {
 
     @Test
     void getMenuItemsOfChefShouldReturnCorrectItems() {
-        // Arrange
-        Chef chef = chefRepository.save(new Chef("John", "Doe", LocalDate.of(1998, 6, 20), "johnd", "john", ChefRole.SOUS_CHEF));
-
-        MenuItem menuItem1 = menuItemService.saveMenuItem("Item 1", 10.0, Course.MAIN, false, 1);
-        MenuItem menuItem2 = menuItemService.saveMenuItem("Item 2", 12.0, Course.DESSERT, true, 2);
-
-        // Create AssignedChef instances to associate Chef with MenuItem
-        AssignedChef assignedChef1 = assignedChefRepository.save(new AssignedChef(menuItem1, chef, LocalDateTime.now()));
-        AssignedChef assignedChef2 = assignedChefRepository.save(new AssignedChef(menuItem2, chef, LocalDateTime.now()));
-
         // Act
         List<MenuItem> chefMenuItems = menuItemService.getMenuItemsOfChef(chef.getId());
 

@@ -224,27 +224,6 @@ public class Chef extends AbstractEntity<Long> implements Serializable {
         this.menuItems = menuItems;
     }
 
-    /**
-     * Add assigned menu item.
-     *
-     * @param menuItem the menu item
-     */
-    public void addAssignedMenuItem(MenuItem menuItem) {
-        if (menuItem == null) {
-            throw new IllegalArgumentException("Menu item cannot be null");
-        }
-        if (menuItems == null) {
-            menuItems = new ArrayList<>();
-        } else {
-            for (AssignedChef assignedChef : menuItems) {
-                if (assignedChef.getMenuItem().equals(menuItem)) {
-                    throw new IllegalArgumentException("Menu item is already assigned to this chef");
-                }
-            }
-        }
-        AssignedChef assignedChef = new AssignedChef(menuItem, this);
-        menuItems.add(assignedChef);
-    }
 
     @Override
     public String toString() {

@@ -2,6 +2,7 @@ package be.kdg.programming5.programming5.service;
 
 import be.kdg.programming5.programming5.model.Chef;
 import be.kdg.programming5.programming5.model.CustomUserDetails;
+import be.kdg.programming5.programming5.repository.ChefRepository;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -16,20 +17,20 @@ import java.util.Collection;
  */
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
-    private final ChefService chefService;
+    private final ChefRepository chefRepository;
 
     /**
      * Instantiates a new Custom user details service.
      *
-     * @param chefService the chef service
+     * @param chefRepository the chef repository
      */
-    public CustomUserDetailsService(ChefService chefService) {
-        this.chefService = chefService;
+    public CustomUserDetailsService(ChefRepository chefRepository) {
+        this.chefRepository = chefRepository;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Chef chef = chefService.getChefByUsername(username);
+        Chef chef = chefRepository.findByUsername(username).orElse(null);
         if (chef != null) {
             Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
             authorities.add(new SimpleGrantedAuthority(chef.getRole().getCode()));
