@@ -34,7 +34,6 @@ dependencies {
     implementation("com.google.code.gson:gson:2.10.1")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     runtimeOnly("org.webjars:bootstrap:5.3.2")
-    runtimeOnly("com.h2database:h2")
     runtimeOnly("org.postgresql:postgresql")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")
@@ -42,8 +41,4 @@ dependencies {
 
 tasks.withType<Test> {
     useJUnitPlatform()
-}
-
-tasks.bootBuildImage {
-    builder.set("paketobuildpacks/builder-jammy-base:latest")
 }

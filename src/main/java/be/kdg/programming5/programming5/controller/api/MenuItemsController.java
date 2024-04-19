@@ -29,13 +29,11 @@ import static be.kdg.programming5.programming5.model.ChefRole.HEAD_CHEF;
 @RequestMapping("/api/menu-items")
 public class MenuItemsController {
     private final MenuItemService menuItemService;
-    private final ChefService chefService;
     private final AssignedChefService assignedChefService;
     private final ModelMapper modelMapper;
 
-    public MenuItemsController(MenuItemService menuItemService, ChefService chefService, AssignedChefService assignedChefService, ModelMapper modelMapper) {
+    public MenuItemsController(MenuItemService menuItemService, AssignedChefService assignedChefService, ModelMapper modelMapper) {
         this.menuItemService = menuItemService;
-        this.chefService = chefService;
         this.assignedChefService = assignedChefService;
         this.modelMapper = modelMapper;
     }

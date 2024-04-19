@@ -22,7 +22,6 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/recipe")
 public class RecipeController {
     private final RecipeService recipeService;
-    private final MenuItemService menuItemService;
     private final ModelMapper modelMapper;
 
     /**
@@ -32,9 +31,8 @@ public class RecipeController {
      * @param menuItemService the menu item service
      * @param modelMapper     the model mapper
      */
-    public RecipeController(RecipeService recipeService, MenuItemService menuItemService, ModelMapper modelMapper) {
+    public RecipeController(RecipeService recipeService, ModelMapper modelMapper) {
         this.recipeService = recipeService;
-        this.menuItemService = menuItemService;
         this.modelMapper = modelMapper;
     }
 

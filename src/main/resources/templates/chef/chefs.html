@@ -20,16 +20,16 @@
         </div>
         <!-- Top Page Buttons Section -->
         <div class="col-md-12">
+            <!-- Register Chef Button -->
             <div class="row mb-3 justify-content-center">
-                <!-- Register Chef Button -->
-                <div class="col-md-2 center-container text-center" sec:authorize="isAuthenticated()">
+                <div class="col-md-3 center-container text-center" sec:authorize="isAuthenticated()">
                     <a class="btn btn-primary" th:href="@{/register-chef}">
                         <i class="fas fa-plus"></i>
                         <span th:text="#{title.registerChef}">Register Chef</span>
                     </a>
                 </div>
                 <!-- Search Chefs Button -->
-                <div class="col-md-2 center-container text-center">
+                <div class="col-md-3 center-container text-center">
                     <div class="center-container text-center">
                         <a class="btn btn-secondary" th:href="@{/search-chefs}">
                             <i class="fas fa-search"></i>

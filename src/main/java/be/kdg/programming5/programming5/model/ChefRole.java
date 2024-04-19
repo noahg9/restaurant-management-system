@@ -18,7 +18,6 @@ public enum ChefRole {
      */
     LINE_COOK("ROLE_LINE_COOK", "Line Chef");
 
-
     private final String code;
     private final String name;
 

@@ -17,14 +17,13 @@
         </div>
         <!-- Top Page Buttons Section -->
         <div class="col-md-12">
+            <!-- Return Button -->
             <div class="row mb-3 justify-content-center">
-                <!-- Return Button -->
-                <div class="col-md-2">
-                    <div class="center-container text-center">
-                        <a class="btn btn-secondary" href="javascript:history.back()" th:text="#{button.return}">
-                            <i class="fas fa-arrow-left"></i> Return
-                        </a>
-                    </div>
+                <div class="center-container text-center">
+                    <a class="btn btn-secondary" href="javascript:history.back()">
+                        <i class="fas fa-arrow-left"></i>
+                        <span th:text="#{button.return}">Return</span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -33,6 +32,12 @@
             <section class="mt-5 text-center">
                 <div class="row mb-3 justify-content-center">
                     <form method="POST" th:action="@{/login}">
+                        <!-- Error messages -->
+                        <div class="row pb-3 justify-content-center">
+                            <div class="col-sm-4 alert alert-danger" th:if="${param.error}">
+                                Invalid username and password.
+                            </div>
+                        </div>
                         <!-- Username -->
                         <div class="row pb-3 justify-content-center">
                             <div class="col-sm-2">
