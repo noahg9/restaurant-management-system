@@ -1,7 +1,7 @@
-package be.kdg.programming5.programming5.controller.web;
+package be.kdg.programming5.programming5.controller.mvc;
 
-import be.kdg.programming5.programming5.controller.web.viewmodel.ChefViewModel;
-import be.kdg.programming5.programming5.controller.web.viewmodel.MenuItemViewModel;
+import be.kdg.programming5.programming5.controller.mvc.viewmodel.ChefViewModel;
+import be.kdg.programming5.programming5.controller.mvc.viewmodel.MenuItemViewModel;
 import be.kdg.programming5.programming5.model.Chef;
 import be.kdg.programming5.programming5.model.ChefRole;
 import be.kdg.programming5.programming5.model.CustomUserDetails;

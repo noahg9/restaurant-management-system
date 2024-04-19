@@ -165,11 +165,11 @@ public class MenuItemService {
      */
     @Transactional
     public boolean deleteMenuItem(long menuItemId) {
-        Optional<MenuItem> menuItem = menuItemRepository.findByIdWithChefs(menuItemId);
-        if (menuItem.isEmpty()) {
+        MenuItem menuItem = menuItemRepository.findByIdWithChefs(menuItemId).orElse(null);
+        if (menuItem == null) {
             return false;
         }
-        assignedChefRepository.deleteAll(menuItem.get().getChefs());
+        assignedChefRepository.deleteAll(menuItem.getChefs());
         menuItemRepository.deleteById(menuItemId);
         return true;
     }

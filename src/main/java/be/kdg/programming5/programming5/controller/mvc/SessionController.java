@@ -1,4 +1,4 @@
-package be.kdg.programming5.programming5.controller.web;
+package be.kdg.programming5.programming5.controller.mvc;
 
 import be.kdg.programming5.programming5.model.util.HistoryUtil;
 import jakarta.servlet.http.HttpSession;

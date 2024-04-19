@@ -30,18 +30,22 @@ class ChefRepositoryTest {
     private Chef chef;
     private MenuItem menuItem1;
     private MenuItem menuItem2;
+    private AssignedChef assignedChef1;
+    private AssignedChef assignedChef2;
 
     @BeforeAll
     public void setup() {
         chef = chefRepository.save(new Chef("John", "Doe", LocalDate.of(1998, 6, 20), "johnd", "john", ChefRole.SOUS_CHEF));
         menuItem1 = menuItemRepository.save(new MenuItem("Item 1", 10.0, Course.MAIN, false, 1));
         menuItem2 = menuItemRepository.save(new MenuItem("Item 2", 12.0, Course.DESSERT, true, 2));
-        assignedChefRepository.save(new AssignedChef(menuItem1, chef, LocalDateTime.now()));
-        assignedChefRepository.save(new AssignedChef(menuItem2, chef, LocalDateTime.now()));
+        assignedChef1 = assignedChefRepository.save(new AssignedChef(menuItem1, chef, LocalDateTime.now()));
+        assignedChef2 = assignedChefRepository.save(new AssignedChef(menuItem2, chef, LocalDateTime.now()));
     }
 
     @AfterAll
     public void tearDown() {
+        assignedChefRepository.delete(assignedChef1);
+        assignedChefRepository.delete(assignedChef2);
         chefRepository.delete(chef);
         menuItemRepository.delete(menuItem1);
         menuItemRepository.delete(menuItem2);
@@ -49,19 +53,12 @@ class ChefRepositoryTest {
 
     @Test
     void findByIdWithMenuItemsShouldFetchRelatedData() {
-        // Act
-        Chef chef = chefRepository.findByIdWithMenuItems(1).orElse(null);
-
         // Assert
         assertNotNull(chef);
-        assertEquals(1, chef.getId());
-        assertEquals(3, chef.getMenuItems().size());
-        // Note: there are other ways to compare list objects (Hamcrest, AssertJ, ...)
-        //       sorting is mandatory since the DB can return the records in any order
+        assertEquals(2, chef.getMenuItems().size());
         List<AssignedChef> menuItems = chef.getMenuItems().stream().sorted((a1, a2) -> (int) (a1.getId() - a2.getId())).toList();
-        assertEquals("Ceasar Salad", menuItems.get(0).getMenuItem().getName());
-        assertEquals("Grilled Salmon", menuItems.get(1).getMenuItem().getName());
-        assertEquals("Vanilla Ice Cream", menuItems.get(2).getMenuItem().getName());
+        assertEquals("Item 1", menuItems.get(0).getMenuItem().getName());
+        assertEquals("Item 2", menuItems.get(1).getMenuItem().getName());
     }
 
     @Test

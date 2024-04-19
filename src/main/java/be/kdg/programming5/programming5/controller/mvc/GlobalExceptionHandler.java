@@ -1,4 +1,4 @@
-package be.kdg.programming5.programming5.controller.web;
+package be.kdg.programming5.programming5.controller.mvc;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -146,11 +146,11 @@ public class ChefService {
      */
     @Transactional
     public boolean deleteChef(long chefId) {
-        Optional<Chef> chef = chefRepository.findByIdWithMenuItems(chefId);
-        if (chef.isEmpty()) {
+        Chef chef = chefRepository.findByIdWithMenuItems(chefId).orElse(null);
+        if (chef == null) {
             return false;
         }
-        assignedChefRepository.deleteAll(chef.get().getMenuItems());
+        assignedChefRepository.deleteAll(chef.getMenuItems());
         chefRepository.deleteById(chefId);
         return true;
     }
