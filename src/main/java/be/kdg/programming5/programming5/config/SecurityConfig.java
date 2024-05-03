@@ -33,9 +33,22 @@ public class SecurityConfig {
                 auths.requestMatchers(
                         regexMatcher("^/(menu-items|chefs|menu-item\\?.+|chef\\?.+|search-menu-items|search-chefs|switch-language|error)"))
                         .permitAll()
-                        .requestMatchers(antMatcher(HttpMethod.GET, "/api/**"))
+                        .requestMatchers(
+                                antMatcher(HttpMethod.GET, "/api/**"))
                         .permitAll()
-                        .requestMatchers(antMatcher(HttpMethod.GET, "/js/**"), antMatcher(HttpMethod.GET, "/css/**"), antMatcher(HttpMethod.GET, "/images/**"), antMatcher(HttpMethod.GET, "/webjars/**"), regexMatcher(HttpMethod.GET, "\\.ico$")).permitAll().requestMatchers(antMatcher(HttpMethod.GET, "/")).permitAll().anyRequest().authenticated());
+                        .requestMatchers(
+                                antMatcher(HttpMethod.GET, "/js/**"),
+                                antMatcher(HttpMethod.GET, "/css/**"),
+                                antMatcher(HttpMethod.GET, "/images/**"),
+                                antMatcher(HttpMethod.GET, "/webjars/**"),
+                                regexMatcher(HttpMethod.GET, "\\.ico$"),
+                                antMatcher(HttpMethod.POST, "/api/menu-items"))
+                        .permitAll()
+                        .requestMatchers(
+                                antMatcher(HttpMethod.GET, "/")).permitAll().anyRequest().authenticated());
+        http.csrf(csrf -> csrf.ignoringRequestMatchers(
+                antMatcher(HttpMethod.POST, "/api/menu-items") // Disable specifically for the client application
+        ));
         http.formLogin(formLogin -> formLogin.loginPage("/login").permitAll());
         http.exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint((request, response, exception) -> {
             if (request.getRequestURI().startsWith("/api")) {
