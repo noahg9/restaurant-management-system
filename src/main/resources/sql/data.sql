@@ -1,7 +1,7 @@
 INSERT INTO chef (first_name, last_name, date_of_birth, username, password, role)
 VALUES ('Noah', 'Guerin', '2002-09-12', 'noahg', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6',
         'HEAD_CHEF'),
-       ('Lars', 'Willemsens', '1994-09-12', 'larsw', '$2a$10$baZxBvqmulvtmHOgFsJbceeEL9bUj3jUqAoJqt1WbvXDRnkLZd2Cm',
+       ('Lars', 'Willemsens', '1984-09-12', 'larsw', '$2a$10$baZxBvqmulvtmHOgFsJbceeEL9bUj3jUqAoJqt1WbvXDRnkLZd2Cm',
         'HEAD_CHEF'),
        ('Gordon', 'Ramsey', '1966-11-08', 'gordonr', '$2a$10$gcliD3L2KyxBrCSB3Rk7deorG7lTBlJaJ4i3XML8Wmbc4v4owTrEe',
         'SOUS_CHEF'),

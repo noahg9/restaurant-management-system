@@ -31,45 +31,47 @@ class MenuItemServiceTest {
     @Autowired
     private AssignedChefRepository assignedChefRepository;
 
-    private Chef chef;
-    private MenuItem menuItem1;
-    private MenuItem menuItem2;
+    private long testMenuItemId;
 
     @BeforeAll
     public void setup() {
-        chef = chefRepository.save(new Chef("John", "Doe", LocalDate.of(1998, 6, 20), "johnd", "john", ChefRole.SOUS_CHEF));
-        menuItem1 = menuItemService.saveMenuItem("Item 1", 10.0, Course.MAIN, false, 1);
-        menuItem2 = menuItemService.saveMenuItem("Item 2", 12.0, Course.DESSERT, true, 2);
-        assignedChefRepository.save(new AssignedChef(menuItem1, chef, LocalDateTime.now()));
-        assignedChefRepository.save(new AssignedChef(menuItem2, chef, LocalDateTime.now()));
+        var testMenuItem = menuItemRepository.save(new MenuItem("Lasagne", 10, Course.MAIN, false, 1));
+        testMenuItemId = testMenuItem.getId();
     }
 
     @AfterAll
     public void tearDown() {
-        chefRepository.delete(chef);
-        menuItemRepository.delete(menuItem1);
-        menuItemRepository.delete(menuItem2);
+        menuItemRepository.deleteById(testMenuItemId);
     }
 
     @Test
     void changeMenuItemShouldReturnTrueForExistingMenuItemAndUpdateSaidMenuItem() {
+        // Arrange
+        var createdMenuItem = menuItemRepository.save(new MenuItem("Lasagne", 10, Course.MAIN, false, 1));
 
         // Act
-        boolean result = menuItemService.updateMenuItem(menuItem1.getId(), "Ham Bagel", 1.5, true, 2);
+        var result = menuItemService.updateMenuItem(
+                createdMenuItem.getId(), "Lasagne", 1.0, true, 1);
 
         // Assert
         assertTrue(result);
-        assertEquals("Ham Bagel", menuItemRepository.findById(menuItem1.getId()).get().getName());
+        assertEquals("Lasagne",
+                menuItemRepository.findById(createdMenuItem.getId()).get().getName());
+
+        // (cleanup)
+        menuItemRepository.deleteById(createdMenuItem.getId());
     }
 
     @Test
     void changeMenuItemShouldReturnFalseForNonExistingMenuItem() {
         // Act
-        boolean result = menuItemService.updateMenuItem(9999, "Ham Bagel", 1.5, true, 2);
+        var result = menuItemService.updateMenuItem(
+                9999, "Lasagne", 1.0, true, 1);
 
         // Assert
-        assertFalse(result); // The method should return false for a non-existing menu item
-        assertTrue(menuItemRepository.findById(9999L).isEmpty()); // The menu item should not exist in the repository
+        assertFalse(result);
+        // This is a bit over the top (my "assumptions" were clear).
+        assertTrue(menuItemRepository.findById(9999L).isEmpty());
     }
 
     @Test
