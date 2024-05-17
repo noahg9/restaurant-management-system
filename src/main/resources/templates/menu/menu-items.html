@@ -51,6 +51,7 @@
                             <label class="form-label" for="name" th:text="#{attribute.name}">Name</label>
                             <input class="form-control" id="name" required th:placeholder="#{attribute.name}"
                                    type="text">
+                            <div class="invalid-feedback"></div>
                         </div>
                     </div>
                     <!-- Price -->
@@ -58,6 +59,7 @@
                         <div class="col-sm-4">
                             <label class="form-label" for="price" th:text="#{attribute.price}">Price</label>
                             <input class="form-control" id="price" required step="0.01" type="number">
+                            <div class="invalid-feedback"></div>
                         </div>
                     </div>
                     <!-- Course -->
@@ -70,6 +72,7 @@
                                         th:value="${courseName}">
                                 </option>
                             </select>
+                            <div class="invalid-feedback"></div>
                         </div>
                     </div>
                     <!-- Vegetarian -->
@@ -78,6 +81,7 @@
                             <label class="form-label" for="vegetarian"
                                    th:text="#{attribute.vegetarian}">Vegetarian</label>
                             <input class="form-check" id="vegetarian" type="checkbox">
+                            <div class="invalid-feedback"></div>
                         </div>
                     </div>
                     <!-- Spice Level -->
@@ -86,6 +90,7 @@
                             <label class="form-label" for="spiceLevel" th:text="#{attribute.spiceLevel}">Spice
                                 Level</label>
                             <input class="form-control" id="spiceLevel" required type="number">
+                            <div class="invalid-feedback"></div>
                         </div>
                     </div>
                     <!-- Chefs -->

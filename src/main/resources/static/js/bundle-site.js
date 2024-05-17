@@ -7439,32 +7439,6 @@ reference element's position.
             // extracted by mini-css-extract-plugin
 
 
-            /***/ }),
-
-        /***/ './src/main/js/language-switch.js':
-        /*!****************************************!*\
-  !*** ./src/main/js/language-switch.js ***!
-  \****************************************/
-        /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-            __webpack_require__.r(__webpack_exports__)
-            const header = document.querySelector('meta[name="_csrf_header"]').getAttribute('content')
-            const token = document.querySelector('meta[name="_csrf"]').getAttribute('content')
-
-            function switchLanguage() {
-                const xhr = new XMLHttpRequest()
-                xhr.open('POST', '/switch-language', true) // Change the URL based on your endpoint
-                xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')
-                xhr.setRequestHeader(header, token) // Include CSRF token in request headers
-                xhr.onload = function () {
-                    if (xhr.status === 200) {
-                        location.reload() // Reload the page after switching language
-                    }
-                }
-                xhr.send()
-            }
-
-
             /***/ })
 
         /******/ 	})
@@ -7532,8 +7506,6 @@ reference element's position.
         __webpack_require__.r(__webpack_exports__)
         /* harmony import */ var _scss_site_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../scss/site.scss */ './src/main/scss/site.scss')
         /* harmony import */ var bootstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! bootstrap */ './node_modules/bootstrap/dist/js/bootstrap.esm.js')
-        /* harmony import */ var _js_language_switch_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../js/language-switch.js */ './src/main/js/language-switch.js')
-
 
 
 
