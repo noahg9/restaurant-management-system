@@ -6,7 +6,7 @@
 <head>
     <title th:text="#{title.menuItems}">Menu Items</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
-    <script src="/js/menu-items.js" type="module"></script>
+    <script src="/js/bundle-menu-items.js" defer></script>
 </head>
 <body>
 <header th:replace="~{fragments/includes::header}"></header>

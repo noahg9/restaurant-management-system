@@ -5,7 +5,7 @@
 <head>
     <title th:text="${one_chef.firstName + ' ' + one_chef.lastName}">Chef</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
-    <script src="/js/chef.js" type="module"></script>
+    <script src="/js/bundle-chef.js" defer></script>
 </head>
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
