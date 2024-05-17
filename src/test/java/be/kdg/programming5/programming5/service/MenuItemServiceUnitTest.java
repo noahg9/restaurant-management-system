@@ -1,7 +1,7 @@
 package be.kdg.programming5.programming5.service;
 
-import be.kdg.programming5.programming5.model.Course;
-import be.kdg.programming5.programming5.model.MenuItem;
+import be.kdg.programming5.programming5.domain.Course;
+import be.kdg.programming5.programming5.domain.MenuItem;
 import be.kdg.programming5.programming5.repository.MenuItemRepository;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;

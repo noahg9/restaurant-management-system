@@ -1,7 +1,7 @@
 package be.kdg.programming5.programming5.repository;
 
-import be.kdg.programming5.programming5.model.Chef;
-import be.kdg.programming5.programming5.model.ChefRole;
+import be.kdg.programming5.programming5.domain.Chef;
+import be.kdg.programming5.programming5.domain.ChefRole;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

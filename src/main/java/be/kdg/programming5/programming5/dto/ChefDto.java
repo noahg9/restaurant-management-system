@@ -1,6 +1,6 @@
 package be.kdg.programming5.programming5.dto;
 
-import be.kdg.programming5.programming5.model.ChefRole;
+import be.kdg.programming5.programming5.domain.ChefRole;
 
 import java.time.LocalDate;
 

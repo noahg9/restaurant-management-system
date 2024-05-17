@@ -13,7 +13,8 @@ const addButton = document.getElementById('addButton')
 const deleteButtons = document.querySelectorAll('button.btn-danger')
 const newMenuItemForm = document.getElementById('newMenuItemForm')
 
-addButton?.addEventListener('click', addNewMenuItem)
+addButton?.addEventListener('click', addButtonClicked)
+newMenuItemForm?.addEventListener('submit', trySubmitForm)
 
 for (const deleteButton of deleteButtons) {
     deleteButton?.addEventListener('click', handleDeleteMenuItem)
@@ -30,35 +31,27 @@ fetchChefs().catch(error => {
 const inputMap = new Map()
 inputMap.set('name', nameInput)
 inputMap.set('price', priceInput)
-inputMap.set('course', courseNameSelect)
-inputMap.set('vegetarian', vegetarianCheckbox)
 inputMap.set('spiceLevel', spiceLevelInput)
 
 async function trySubmitForm() {
     const menuItemSchema = Joi.object({
         name: Joi.string()
-            .min(5)
+            .min(2)
             .max(30)
             .required(),
         price: Joi.number()
             .precision(2)
             .required(),
-        courses: Joi.string()
-            .required(),
-        vegetarian: Joi.boolean()
-            .required(),
         spiceLevel: Joi.number()
             .integer()
             .min(0)
-            .max(10)
+            .max(5)
             .required()
     })
 
     const menuItemObject = {
         name: nameInput.value,
         price: priceInput.value,
-        course: courseNameSelect.value,
-        vegetarian: vegetarianCheckbox.checked,
         spiceLevel: spiceLevelInput.value
     }
 
@@ -66,8 +59,6 @@ async function trySubmitForm() {
 
     nameInput.setCustomValidity('')
     priceInput.setCustomValidity('')
-    courseNameSelect.setCustomValidity('')
-    vegetarianCheckbox.setCustomValidity('')
     spiceLevelInput.setCustomValidity('')
 
     if (validationResult.error) {
@@ -240,5 +231,12 @@ function addMenuItemToTable(menuItem) {
     })
     card?.addEventListener('click', () => {
         window.location.href = `/menu-item?id=${menuItem.id}`
+    })
+}
+
+function addButtonClicked(event) {
+    event.preventDefault()
+    trySubmitForm().then(r => {
+        console.log('Form submitted:', r)
     })
 }

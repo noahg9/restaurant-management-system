@@ -1,7 +1,7 @@
 package be.kdg.programming5.programming5.service;
 
-import be.kdg.programming5.programming5.model.MenuItem;
-import be.kdg.programming5.programming5.model.Recipe;
+import be.kdg.programming5.programming5.domain.MenuItem;
+import be.kdg.programming5.programming5.domain.Recipe;
 import be.kdg.programming5.programming5.repository.MenuItemRepository;
 import be.kdg.programming5.programming5.repository.RecipeRepository;
 import jakarta.transaction.Transactional;

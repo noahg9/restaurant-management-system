@@ -2,10 +2,10 @@ package be.kdg.programming5.programming5.controller.mvc;
 
 import be.kdg.programming5.programming5.controller.mvc.viewmodel.ChefViewModel;
 import be.kdg.programming5.programming5.controller.mvc.viewmodel.MenuItemViewModel;
-import be.kdg.programming5.programming5.model.Course;
-import be.kdg.programming5.programming5.model.MenuItem;
-import be.kdg.programming5.programming5.model.AssignedChef;
-import be.kdg.programming5.programming5.model.CustomUserDetails;
+import be.kdg.programming5.programming5.domain.Course;
+import be.kdg.programming5.programming5.domain.MenuItem;
+import be.kdg.programming5.programming5.domain.AssignedChef;
+import be.kdg.programming5.programming5.domain.CustomUserDetails;
 import be.kdg.programming5.programming5.service.AssignedChefService;
 import be.kdg.programming5.programming5.service.MenuItemService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,7 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.Arrays;
 import java.util.Objects;
 
-import static be.kdg.programming5.programming5.model.ChefRole.HEAD_CHEF;
+import static be.kdg.programming5.programming5.domain.ChefRole.HEAD_CHEF;
 
 /**
  * The type Menu item controller.

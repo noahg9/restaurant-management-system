@@ -1,7 +1,5 @@
 package be.kdg.programming5.programming5.dto;
 
-import be.kdg.programming5.programming5.model.Course;
-
 /**
  * The type Recipe dto.
  */

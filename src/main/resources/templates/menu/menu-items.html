@@ -44,7 +44,7 @@
         <div class="col-md-6" sec:authorize="isAuthenticated()">
             <section class="mt-5 text-center">
                 <h2 class="text-secondary" th:text="#{header.add}">Add</h2>
-                <form>
+                <form id="newMenuItemForm">
                     <!-- Name -->
                     <div class="row mb-3 justify-content-center">
                         <div class="col-sm-4">
@@ -72,7 +72,6 @@
                                         th:value="${courseName}">
                                 </option>
                             </select>
-                            <div class="invalid-feedback"></div>
                         </div>
                     </div>
                     <!-- Vegetarian -->
@@ -81,7 +80,6 @@
                             <label class="form-label" for="vegetarian"
                                    th:text="#{attribute.vegetarian}">Vegetarian</label>
                             <input class="form-check" id="vegetarian" type="checkbox">
-                            <div class="invalid-feedback"></div>
                         </div>
                     </div>
                     <!-- Spice Level -->

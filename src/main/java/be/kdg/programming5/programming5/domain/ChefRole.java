@@ -1,4 +1,4 @@
-package be.kdg.programming5.programming5.model;
+package be.kdg.programming5.programming5.domain;
 
 /**
  * The enum Chef role.

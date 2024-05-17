@@ -1,8 +1,8 @@
 package be.kdg.programming5.programming5.service;
 
-import be.kdg.programming5.programming5.model.AssignedChef;
-import be.kdg.programming5.programming5.model.Chef;
-import be.kdg.programming5.programming5.model.MenuItem;
+import be.kdg.programming5.programming5.domain.AssignedChef;
+import be.kdg.programming5.programming5.domain.Chef;
+import be.kdg.programming5.programming5.domain.MenuItem;
 import be.kdg.programming5.programming5.repository.AssignedChefRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

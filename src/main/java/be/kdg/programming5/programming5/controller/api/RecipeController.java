@@ -2,8 +2,7 @@ package be.kdg.programming5.programming5.controller.api;
 
 import be.kdg.programming5.programming5.dto.RecipeDto;
 import be.kdg.programming5.programming5.dto.UpdateRecipeDto;
-import be.kdg.programming5.programming5.model.Recipe;
-import be.kdg.programming5.programming5.service.MenuItemService;
+import be.kdg.programming5.programming5.domain.Recipe;
 import be.kdg.programming5.programming5.service.RecipeService;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;

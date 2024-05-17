@@ -1,4 +1,4 @@
-package be.kdg.programming5.programming5.model;
+package be.kdg.programming5.programming5.domain;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;

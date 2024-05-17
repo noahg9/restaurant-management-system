@@ -4,9 +4,8 @@ import be.kdg.programming5.programming5.dto.ChefDto;
 import be.kdg.programming5.programming5.dto.MenuItemDto;
 import be.kdg.programming5.programming5.dto.NewMenuItemDto;
 import be.kdg.programming5.programming5.dto.UpdateMenuItemDto;
-import be.kdg.programming5.programming5.model.*;
+import be.kdg.programming5.programming5.domain.*;
 import be.kdg.programming5.programming5.service.AssignedChefService;
-import be.kdg.programming5.programming5.service.ChefService;
 import be.kdg.programming5.programming5.service.MenuItemService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -19,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static be.kdg.programming5.programming5.model.ChefRole.HEAD_CHEF;
+import static be.kdg.programming5.programming5.domain.ChefRole.HEAD_CHEF;
 
 
 /**

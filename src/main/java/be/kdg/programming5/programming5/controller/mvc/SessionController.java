@@ -1,6 +1,6 @@
 package be.kdg.programming5.programming5.controller.mvc;
 
-import be.kdg.programming5.programming5.model.util.HistoryUtil;
+import be.kdg.programming5.programming5.domain.util.HistoryUtil;
 import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

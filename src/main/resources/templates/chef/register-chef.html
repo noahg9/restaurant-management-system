@@ -33,13 +33,14 @@
         <div class="col-md-12">
             <section class="mt-5 text-center">
                 <div class="row mb-3 justify-content-center">
-                    <form>
+                    <form id="newChefForm">
                         <!-- First Name -->
                         <div class="row pb-3 justify-content-center">
                             <div class="col-sm-2">
                                 <label class="form-label" for="firstName"
                                        th:text="#{attribute.firstName}">First Name</label>
                                 <input class="form-control" id="firstName" name="firstName" type="text">
+                                <div class="invalid-feedback"></div>
                             </div>
                         </div>
                         <!-- Last Name -->
@@ -48,6 +49,7 @@
                                 <label class="form-label" for="lastName"
                                        th:text="#{attribute.lastName}">Last Name</label>
                                 <input class="form-control" id="lastName" name="lastName" type="text">
+                                <div class="invalid-feedback"></div>
                             </div>
                         </div>
                         <!-- Date of Birth -->
@@ -56,6 +58,7 @@
                                 <label class="form-label" for="dateOfBirth" th:text="#{attribute.dateOfBirth}">Date of
                                     Birth</label>
                                 <input class="form-control" id="dateOfBirth" type="date">
+                                <div class="invalid-feedback"></div>
                             </div>
                         </div>
                         <!-- Username -->
@@ -64,6 +67,7 @@
                                 <label class="form-label" for="username"
                                        th:text="#{attribute.username}">Username</label>
                                 <input class="form-control" id="username" name="username" type="text">
+                                <div class="invalid-feedback"></div>
                             </div>
                         </div>
                         <!-- Password -->
@@ -72,6 +76,7 @@
                                 <label class="form-label" for="password"
                                        th:text="#{attribute.password}">Password</label>
                                 <input class="form-control" id="password" name="password" type="password">
+                                <div class="invalid-feedback"></div>
                             </div>
                         </div>
                         <!-- Role -->

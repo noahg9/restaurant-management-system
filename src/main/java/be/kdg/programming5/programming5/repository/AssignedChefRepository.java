@@ -1,8 +1,8 @@
 package be.kdg.programming5.programming5.repository;
 
-import be.kdg.programming5.programming5.model.AssignedChef;
-import be.kdg.programming5.programming5.model.Chef;
-import be.kdg.programming5.programming5.model.MenuItem;
+import be.kdg.programming5.programming5.domain.AssignedChef;
+import be.kdg.programming5.programming5.domain.Chef;
+import be.kdg.programming5.programming5.domain.MenuItem;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

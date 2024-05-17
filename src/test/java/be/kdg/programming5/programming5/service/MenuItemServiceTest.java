@@ -1,6 +1,6 @@
 package be.kdg.programming5.programming5.service;
 
-import be.kdg.programming5.programming5.model.*;
+import be.kdg.programming5.programming5.domain.*;
 import be.kdg.programming5.programming5.repository.AssignedChefRepository;
 import be.kdg.programming5.programming5.repository.ChefRepository;
 import be.kdg.programming5.programming5.repository.MenuItemRepository;
@@ -12,8 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;

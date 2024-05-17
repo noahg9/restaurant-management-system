@@ -2,9 +2,9 @@ package be.kdg.programming5.programming5.controller.mvc;
 
 import be.kdg.programming5.programming5.controller.mvc.viewmodel.ChefViewModel;
 import be.kdg.programming5.programming5.controller.mvc.viewmodel.MenuItemViewModel;
-import be.kdg.programming5.programming5.model.Chef;
-import be.kdg.programming5.programming5.model.ChefRole;
-import be.kdg.programming5.programming5.model.CustomUserDetails;
+import be.kdg.programming5.programming5.domain.Chef;
+import be.kdg.programming5.programming5.domain.ChefRole;
+import be.kdg.programming5.programming5.domain.CustomUserDetails;
 import be.kdg.programming5.programming5.service.ChefService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -19,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Arrays;
 
-import static be.kdg.programming5.programming5.model.ChefRole.HEAD_CHEF;
+import static be.kdg.programming5.programming5.domain.ChefRole.HEAD_CHEF;
 
 /**
  * The type Chef controller.

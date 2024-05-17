@@ -1,6 +1,6 @@
 package be.kdg.programming5.programming5.dto;
 
-import be.kdg.programming5.programming5.model.Course;
+import be.kdg.programming5.programming5.domain.Course;
 
 /**
  * The type Menu item dto.

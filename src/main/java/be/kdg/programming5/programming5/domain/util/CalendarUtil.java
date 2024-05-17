@@ -1,4 +1,4 @@
-package be.kdg.programming5.programming5.model.util;
+package be.kdg.programming5.programming5.domain.util;
 
 import java.util.Calendar;
 
