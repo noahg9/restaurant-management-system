@@ -1,12 +1,10 @@
 package be.kdg.programming5.programming5.service;
 
-import be.kdg.programming5.programming5.domain.AssignedChef;
-import be.kdg.programming5.programming5.domain.Chef;
-import be.kdg.programming5.programming5.domain.Course;
-import be.kdg.programming5.programming5.domain.MenuItem;
+import be.kdg.programming5.programming5.domain.*;
 import be.kdg.programming5.programming5.repository.AssignedChefRepository;
 import be.kdg.programming5.programming5.repository.ChefRepository;
 import be.kdg.programming5.programming5.repository.MenuItemRepository;
+import be.kdg.programming5.programming5.repository.RecipeRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -21,11 +19,21 @@ public class MenuItemService {
     private final MenuItemRepository menuItemRepository;
     private final AssignedChefRepository assignedChefRepository;
     private final ChefRepository chefRepository;
+    private final RecipeRepository recipeRepository;
 
-    public MenuItemService(MenuItemRepository menuItemRepository, AssignedChefRepository assignedChefRepository, ChefRepository chefRepository) {
+    /**
+     * Instantiates a new Menu item service.
+     *
+     * @param menuItemRepository     the menu item repository
+     * @param assignedChefRepository the assigned chef repository
+     * @param chefRepository         the chef repository
+     * @param recipeRepository       the recipe repository
+     */
+    public MenuItemService(MenuItemRepository menuItemRepository, AssignedChefRepository assignedChefRepository, ChefRepository chefRepository, RecipeRepository recipeRepository) {
         this.menuItemRepository = menuItemRepository;
         this.assignedChefRepository = assignedChefRepository;
         this.chefRepository = chefRepository;
+        this.recipeRepository = recipeRepository;
     }
 
     /**
@@ -95,7 +103,10 @@ public class MenuItemService {
      */
     @Transactional
     public MenuItem saveMenuItem(String name, double price, Course course, Boolean vegetarian, int spiceLevel) {
-        return menuItemRepository.save(new MenuItem(name, price, course, vegetarian, spiceLevel));
+        MenuItem newMenuItem = menuItemRepository.save(new MenuItem(name, price, course, vegetarian, spiceLevel));
+        Recipe newRecipe = recipeRepository.save(new Recipe("Undefined", 0, 0));
+        newRecipe.setMenuItem(newMenuItem);
+        return newMenuItem;
     }
 
     /**
@@ -119,6 +130,8 @@ public class MenuItemService {
                 chefRepository.findById(chefId).ifPresent(chef -> assignedChefRepository.save(new AssignedChef(menuItem, chef, LocalDateTime.now())));
             }
         }
+        Recipe newRecipe = recipeRepository.save(new Recipe("", 0, 0));
+        newRecipe.setMenuItem(menuItem);
         return menuItem;
     }
 

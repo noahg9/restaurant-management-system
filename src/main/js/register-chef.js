@@ -25,20 +25,16 @@ async function trySubmitForm() {
         firstName: Joi.string()
             .min(2)
             .max(30)
-            .required(),
-        lastName: Joi.string()
+            .required(), lastName: Joi.string()
             .min(2)
             .max(30)
-            .required(),
-        dateOfBirth: Joi.date()
+            .required(), dateOfBirth: Joi.date()
             .min('1-1-1900')
             .max('now')
-            .required(),
-        username: Joi.string()
+            .required(), username: Joi.string()
             .min(2)
             .max(30)
-            .required(),
-        password: Joi.string()
+            .required(), password: Joi.string()
             .min(2)
             .max(30)
             .required()
@@ -52,7 +48,7 @@ async function trySubmitForm() {
         password: passwordInput.value
     }
 
-    const validationResult = chefSchema.validate(chefObject, { abortEarly: false })
+    const validationResult = chefSchema.validate(chefObject, {abortEarly: false})
 
     firstNameInput.setCustomValidity('')
     lastNameInput.setCustomValidity('')

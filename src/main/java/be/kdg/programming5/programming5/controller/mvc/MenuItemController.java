@@ -2,12 +2,11 @@ package be.kdg.programming5.programming5.controller.mvc;
 
 import be.kdg.programming5.programming5.controller.mvc.viewmodel.ChefViewModel;
 import be.kdg.programming5.programming5.controller.mvc.viewmodel.MenuItemViewModel;
-import be.kdg.programming5.programming5.domain.Course;
-import be.kdg.programming5.programming5.domain.MenuItem;
-import be.kdg.programming5.programming5.domain.AssignedChef;
-import be.kdg.programming5.programming5.domain.CustomUserDetails;
+import be.kdg.programming5.programming5.controller.mvc.viewmodel.RecipeViewModel;
+import be.kdg.programming5.programming5.domain.*;
 import be.kdg.programming5.programming5.service.AssignedChefService;
 import be.kdg.programming5.programming5.service.MenuItemService;
+import be.kdg.programming5.programming5.service.RecipeService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
@@ -31,16 +30,19 @@ import static be.kdg.programming5.programming5.domain.ChefRole.HEAD_CHEF;
 public class MenuItemController extends BaseController {
     private final Logger logger = LoggerFactory.getLogger(MenuItemController.class);
     private final MenuItemService menuItemService;
+    private final RecipeService recipeService;
     private final AssignedChefService assignedChefService;
 
     /**
      * Instantiates a new Menu item controller.
      *
      * @param menuItemService     the menu item service
-     * @param assignedChefService the menu item chef service
+     * @param recipeService       the recipe service
+     * @param assignedChefService the assigned chef service
      */
-    public MenuItemController(MenuItemService menuItemService, AssignedChefService assignedChefService) {
+    public MenuItemController(MenuItemService menuItemService, RecipeService recipeService, AssignedChefService assignedChefService) {
         this.menuItemService = menuItemService;
+        this.recipeService = recipeService;
         this.assignedChefService = assignedChefService;
     }
 
@@ -91,6 +93,7 @@ public class MenuItemController extends BaseController {
         setupPage(session, model, "Menu Item");
         Long chefId = user != null ? user.getChefId() : null;
         MenuItem menuItem = menuItemService.getMenuItemWithChefs(menuItemId);
+        Recipe recipe = menuItem.getRecipe();
         mav.setViewName("menu/menu-item");
         mav.addObject("one_menu_item",
                 new MenuItemViewModel(
@@ -109,6 +112,7 @@ public class MenuItemController extends BaseController {
                                 assignedChef.getChef().getUsername(),
                                 assignedChef.getChef().getRole().getName(),
                                 false)).toList()));
+        mav.addObject("one_recipe", new RecipeViewModel(recipe.getId(), recipe.getInstructions(), recipe.getCookingTime(), recipe.getDifficulty()));
         mav.addObject("courseNames", Arrays.stream(Course.values()).map(Course::getName).toList());
         return mav;
     }

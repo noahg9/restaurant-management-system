@@ -1,5 +1,3 @@
-import '../scss/search.scss'
-
 const searchTermInput = document.getElementById('searchTerm')
 
 searchTermInput?.addEventListener('keyup', showResults)

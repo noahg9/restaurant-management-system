@@ -1,3 +1,4 @@
+-- Chefs
 INSERT INTO chef (first_name, last_name, date_of_birth, username, password, role)
 VALUES ('Noah', 'Guerin', '2002-09-12', 'noahg', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6',
         'HEAD_CHEF'),
@@ -12,27 +13,30 @@ VALUES ('Noah', 'Guerin', '2002-09-12', 'noahg', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeq
        ('David', 'Chang', '1977-08-05', 'davidc', '$2a$10$xWIjXLXcCeiYbvgvO7yHyuvOa2jHro8QZVE/fDnFxvuwdVuQaIa7S',
         'SOUS_CHEF');
 
+-- Menu Items
 INSERT INTO menu_item (name, price, course, vegetarian, spice_level)
 VALUES ('Ceasar Salad', 3.5, 'MAIN', FALSE, 0),
        ('Grilled Salmon', 5, 'MAIN', FALSE, 2),
        ('Spaghetti Carbonara', 5, 'MAIN', FALSE, 0),
        ('Vanilla Ice Cream', 1.5, 'DESSERT', TRUE, 0);
 
+-- Assigned Chefs
 INSERT INTO assigned_chef (menu_item_id, chef_id, assigned_date_time)
-VALUES (1, 1, '2024-03-01 12:00:00'),
-       (1, 2, '2024-03-02 12:00:00'),
-       (2, 1, '2024-03-03 12:00:00'),
-       (2, 6, '2024-03-04 12:00:00'),
-       (3, 3, '2024-03-05 12:00:00'),
-       (3, 4, '2024-03-06 12:00:00'),
-       (4, 1, '2024-03-07 12:00:00'),
-       (4, 2, '2024-03-08 12:00:00'),
-       (4, 5, '2024-03-09 12:00:00');
+VALUES (1, 1, now()),
+       (1, 2, now()),
+       (2, 1, now()),
+       (2, 6, now()),
+       (3, 3, now()),
+       (3, 4, now()),
+       (4, 1, now()),
+       (4, 2, now()),
+       (4, 5, now());
 
+-- Recipes
 INSERT INTO recipe (instructions, cooking_time, difficulty, menu_item_id)
-VALUES ('1. Wash and chop lettuce.\n2. Mix with Caesar dressing and croutons.\n3. Serve chilled.', 15, 1, 1),
-       ('1. Preheat grill.\n2. Season salmon with salt and pepper.\n3. Grill for 10 minutes, flipping once.\n4. Serve hot.',
+VALUES ('1. Wash and chop lettuce. 2. Mix with Caesar dressing and croutons. 3. Serve chilled.', 15, 1, 1),
+       ('1. Preheat grill. 2. Season salmon with salt and pepper. 3. Grill for 10 minutes, flipping once. 4. Serve hot.',
         20, 2, 2),
-       ('1. Cook spaghetti according to package instructions.\n2. In a separate pan, cook pancetta until crispy.\n3. Mix cooked spaghetti with beaten eggs and grated cheese.\n4. Add pancetta and mix well.\n5. Serve hot.',
+       ('1. Cook spaghetti according to package instructions. 2. In a separate pan, cook pancetta until crispy. 3. Mix cooked spaghetti with beaten eggs and grated cheese. 4. Add pancetta and mix well. 5. Serve hot.',
         25, 2, 3),
-       ('1. Scoop desired amount of ice cream into bowl.\n2. Serve immediately.', 0, 1, 4);
+       ('1. Scoop desired amount of ice cream into bowl. 2. Serve immediately.', 0, 1, 4);

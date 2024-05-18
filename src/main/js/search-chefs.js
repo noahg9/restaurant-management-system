@@ -1,11 +1,9 @@
-import '../scss/search.scss'
-
 const searchTermInput = document.getElementById('searchTerm')
 
 searchTermInput?.addEventListener('keyup', showResults)
 
 async function showResults(e) {
-    const searchResults = document.getElementById('searchResultsSection')
+    const searchResults = document.getElementById('searchResultDropdown')
     const searchTerm = e.target.value.trim()
     if (!searchTerm) {
         searchResults.innerHTML = ''

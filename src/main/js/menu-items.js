@@ -38,11 +38,9 @@ async function trySubmitForm() {
         name: Joi.string()
             .min(2)
             .max(30)
-            .required(),
-        price: Joi.number()
+            .required(), price: Joi.number()
             .precision(2)
-            .required(),
-        spiceLevel: Joi.number()
+            .required(), spiceLevel: Joi.number()
             .integer()
             .min(0)
             .max(5)
@@ -50,12 +48,10 @@ async function trySubmitForm() {
     })
 
     const menuItemObject = {
-        name: nameInput.value,
-        price: priceInput.value,
-        spiceLevel: spiceLevelInput.value
+        name: nameInput.value, price: priceInput.value, spiceLevel: spiceLevelInput.value
     }
 
-    const validationResult = menuItemSchema.validate(menuItemObject, { abortEarly: false })
+    const validationResult = menuItemSchema.validate(menuItemObject, {abortEarly: false})
 
     nameInput.setCustomValidity('')
     priceInput.setCustomValidity('')
@@ -109,11 +105,7 @@ async function handleDeleteMenuItem(event) {
     })
     if (response.status === 204) {
         anime({
-            targets: card,
-            opacity: 0.0,
-            easing: 'linear',
-            duration: 600,
-            complete: function() {
+            targets: card, opacity: 0.0, easing: 'linear', duration: 600, complete: function () {
                 card.remove()
             }
         })

@@ -42,11 +42,7 @@ async function handleDeleteChef(event) {
     })
     if (response.status === 204) {
         anime({
-            targets: card,
-            opacity: 0.0,
-            easing: 'linear',
-            duration: 600,
-            complete: function() {
+            targets: card, opacity: 0.0, easing: 'linear', duration: 600, complete: function () {
                 card.remove()
             }
         })
