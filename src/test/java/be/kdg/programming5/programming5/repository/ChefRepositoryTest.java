@@ -28,15 +28,6 @@ class ChefRepositoryTest {
     @Autowired
     private AssignedChefRepository assignedChefRepository;
 
-
-    @BeforeAll
-    public void setup() {
-    }
-
-    @AfterAll
-    public void tearDown() {
-    }
-
     @Test
     void findByIdWithMenuItemsShouldFetchRelatedData() {
         // Act
