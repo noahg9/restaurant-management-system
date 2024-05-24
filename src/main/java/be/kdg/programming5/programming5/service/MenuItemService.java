@@ -164,8 +164,15 @@ public class MenuItemService {
     public void processMenuItemsCsv(InputStream inputStream) {
         Scanner scanner = new Scanner(inputStream);
         while (scanner.hasNextLine()) {
-            var line = scanner.nextLine();
-            LOGGER.info(line);
+            String line = scanner.nextLine();
+            var columns = line.split(",");
+            String name = columns[0].trim();
+            double price = Double.parseDouble(columns[1].trim());
+            Course course = Course.valueOf(columns[2].trim());
+            boolean vegetarian = Boolean.parseBoolean(columns[3].trim());
+            int spiceLevel = Integer.parseInt(columns[4].trim());
+            menuItemRepository.save(new MenuItem(name, price, course, vegetarian, spiceLevel));
         }
+        scanner.close(); // Close the scanner when done reading the input stream
     }
 }

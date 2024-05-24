@@ -104,27 +104,14 @@ public class ChefService {
         return chefRepository.save(new Chef(firstName, lastName, dateOfBirth, username, password, role));
     }
 
-    /**
-     * Update chef boolean.
-     *
-     * @param chefId      the chef id
-     * @param firstName   the first name
-     * @param lastName    the last name
-     * @param dateOfBirth the date of birth
-     * @param username    the username
-     * @return the boolean
-     */
-    public boolean updateChef(long chefId, String firstName, String lastName, LocalDate dateOfBirth, String username) {
-        Chef chef = chefRepository.findById(chefId).orElse(null);
-        if (chef == null) {
-            return false;
-        }
-        chef.setFirstName(firstName);
-        chef.setLastName(lastName);
-        chef.setDateOfBirth(dateOfBirth);
-        chef.setUsername(username);
-        chefRepository.save(chef);
-        return true;
+    public void updateChef(long chefId, String firstName, String lastName, LocalDate dateOfBirth, String username) {
+        chefRepository.findById(chefId).ifPresent(chef -> {
+            chef.setFirstName(firstName);
+            chef.setLastName(lastName);
+            chef.setDateOfBirth(dateOfBirth);
+            chef.setUsername(username);
+            chefRepository.save(chef);
+        });
     }
 
     /**

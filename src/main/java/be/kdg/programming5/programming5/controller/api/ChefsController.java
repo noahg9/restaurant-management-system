@@ -3,7 +3,6 @@ package be.kdg.programming5.programming5.controller.api;
 import be.kdg.programming5.programming5.dto.ChefDto;
 import be.kdg.programming5.programming5.dto.MenuItemDto;
 import be.kdg.programming5.programming5.dto.NewChefDto;
-import be.kdg.programming5.programming5.dto.UpdateChefDto;
 import be.kdg.programming5.programming5.domain.AssignedChef;
 import be.kdg.programming5.programming5.domain.Chef;
 import be.kdg.programming5.programming5.domain.ChefRole;
@@ -127,22 +126,6 @@ public class ChefsController {
         }
         Chef createdChef = chefService.saveChef(chefDto.getFirstName(), chefDto.getLastName(), chefDto.getDateOfBirth(), chefDto.getUsername(), passwordEncoder.encode(chefDto.getPassword()), ChefRole.fromName(chefDto.getRoleName()));
         return new ResponseEntity<>(modelMapper.map(createdChef, ChefDto.class), HttpStatus.CREATED);
-    }
-
-    /**
-     * Update chef response entity.
-     *
-     * @param chefId        the chef id
-     * @param updateChefDto the update chef dto
-     * @return the response entity
-     */
-    @PatchMapping("{id}")
-    ResponseEntity<Void> updateChef(@PathVariable("id") long chefId, @RequestBody @Valid UpdateChefDto updateChefDto) {
-        if (chefService.updateChef(chefId, updateChefDto.getFirstName(), updateChefDto.getLastName(), updateChefDto.getDateOfBirth(), updateChefDto.getUsername())) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
     }
 
     /**

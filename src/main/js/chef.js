@@ -3,16 +3,22 @@ import {header, token} from './util/csrf.js'
 const chefId = document.getElementById('chefId')
 const toggleMenuItemsButton = document.getElementById('toggleMenuItemInformation')
 const associatedMenuItems = document.getElementById('associatedMenuItems')
-const firstName = document.getElementById('firstNameField')
-const lastName = document.getElementById('lastNameField')
-const dateOfBirth = document.getElementById('dateOfBirthField')
-const username = document.getElementById('usernameField')
+const firstNameInput = document.getElementById('firstNameField')
+const lastNameInput = document.getElementById('lastNameField')
+const dateOfBirthInput = document.getElementById('dateOfBirthField')
+const usernameInput = document.getElementById('usernameField')
 const saveButton = document.getElementById('saveButton')
+const oldFirstName = firstNameInput?.value
+const oldLastName = lastNameInput?.value
+const oldDateOfBirth = dateOfBirthInput?.value
+const oldUsername = usernameInput?.value
 
 toggleMenuItemsButton?.addEventListener('click', toggleMenuItems)
 saveButton?.addEventListener('click', saveChef)
-firstName?.addEventListener('input', () => saveButton.disabled = false)
-lastName?.addEventListener('input', () => saveButton.disabled = false)
+firstNameInput?.addEventListener('input', saveChef)
+lastNameInput?.addEventListener('input', saveChef)
+dateOfBirthInput?.addEventListener('input', saveChef)
+usernameInput?.addEventListener('input', saveChef)
 
 async function toggleMenuItems() {
     if (associatedMenuItems.innerHTML !== '') {
@@ -36,18 +42,7 @@ async function toggleMenuItems() {
     }
 }
 
-async function saveChef() {
-    const response = await fetch(`/api/chefs/${chefId.value}`, {
-        method: 'PATCH', headers: {
-            'Content-Type': 'application/json', [header]: token
-        }, body: JSON.stringify({
-            firstName: firstName.value,
-            lastName: lastName.value,
-            dateOfBirth: dateOfBirth.value,
-            username: username.value
-        }), redirect: 'manual'
-    })
-    if (response.status === 204) {
-        saveButton.disabled = true
-    }
+function saveChef() {
+    saveButton.disabled = (firstNameInput.value === oldFirstName && lastNameInput.value === oldLastName &&
+        dateOfBirthInput.value === oldDateOfBirth && usernameInput.value === oldUsername)
 }

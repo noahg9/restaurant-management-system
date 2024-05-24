@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -134,6 +135,7 @@ public class MenuItemController extends BaseController {
     }
 
     @GetMapping("/menu-items-csv")
+    @PreAuthorize("hasRole('ROLE_HEAD_CHEF')")
     public ModelAndView uploadCsv(HttpSession session, Model model) {
         setupPage(session, model, "Menu Items CSV");
         var mav = new ModelAndView("menu/menu-items-csv");
@@ -142,7 +144,8 @@ public class MenuItemController extends BaseController {
     }
 
     @PostMapping("/menu-items-csv")
-    public ModelAndView uploadCsv(@RequestParam("csv-file") MultipartFile file) throws IOException {
+    @PreAuthorize("hasRole('ROLE_HEAD_CHEF')")
+    public ModelAndView uploadCsv(@RequestParam("menu-items-csv") MultipartFile file) throws IOException {
         menuItemService.processMenuItemsCsv(file.getInputStream());
         var mav = new ModelAndView("menu/menu-items-csv");
         mav.getModel().put("inProgress", true);

@@ -34,97 +34,79 @@
             <section class="mt-5 text-center">
                 <div class="row mb-3 justify-content-center">
                     <div class="col-md-8">
-                        <input id="chefId" th:value="${one_chef.id}" type="hidden">
-                        <div class="row mt-3 justify-content-center">
-                            <table class="table">
-                                <tbody>
-                                <!-- ID -->
-                                <tr>
-                                    <th class="col-sm-4" th:text="#{attribute.id}">ID</th>
-                                    <td class="col-sm-8" th:text="*{one_chef.id}"></td>
-                                </tr>
-                                <!-- First Name -->
-                                <tr>
-                                    <th class="col-sm-4">
-                                        <label class="form-label" for="firstNameField"
-                                               th:text="#{attribute.firstName}">
-                                            First Name:</label>
-                                    </th>
-                                    <td class="col-sm-8">
-                                        <input class="form-control" id="firstNameField"
-                                               th:if="${one_chef.modificationAllowed}"
-                                               th:value="${one_chef.firstName}" type="text">
-                                        <p th:if="${!one_chef.modificationAllowed}" th:text="${one_chef.firstName}">
-                                    </td>
-                                </tr>
-                                <!-- Last Name -->
-                                <tr>
-                                    <th class="col-sm-4">
-                                        <label class="form-label" for="lastNameField"
-                                               th:text="#{attribute.lastName}">
-                                            Last Name:
-                                        </label>
-                                    </th>
-                                    <td class="col-sm-8">
-                                        <input class="form-control" id="lastNameField"
-                                               th:if="${one_chef.modificationAllowed}"
-                                               th:value="${one_chef.lastName}"
-                                               type="text">
-                                        <p th:if="${!one_chef.modificationAllowed}" th:text="${one_chef.lastName}">
-                                    </td>
-                                </tr>
-                                <!-- Date of Birth -->
-                                <tr>
-                                    <th class="col-sm-4">
-                                        <label class="form-label" for="dateOfBirthField"
-                                               th:text="#{attribute.dateOfBirth}">
-                                            Date of Birth:
-                                        </label>
-                                    </th>
-                                    <td class="col-sm-8">
-                                        <input class="form-control" id="dateOfBirthField"
-                                               th:if="${one_chef.modificationAllowed}"
-                                               th:value="${one_chef.dateOfBirth}"
-                                               type="date">
-                                        <p th:if="${!one_chef.modificationAllowed}" th:text="${one_chef.dateOfBirth}">
-                                    </td>
-                                </tr>
-                                <!-- Username -->
-                                <tr>
-                                    <th class="col-sm-4">
-                                        <label class="form-label" for="usernameField"
-                                               th:text="#{attribute.username}">
-                                            Username:
-                                        </label>
-                                    </th>
-                                    <td class="col-sm-8">
-                                        <input class="form-control" id="usernameField"
-                                               th:if="${one_chef.modificationAllowed}"
-                                               th:value="${one_chef.username}"
-                                               type="text">
-                                        <p th:if="${!one_chef.modificationAllowed}" th:text="${one_chef.username}">
-                                    </td>
-                                </tr>
-                                <!-- Role -->
-                                <tr>
-                                    <th class="col-sm-4">
-                                        <label class="form-label" th:text="#{attribute.role}">Role:</label>
-                                    </th>
-                                    <td class="col-sm-8">
-                                        <p th:text="${one_chef.roleName}">
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <!-- Save Button -->
-                        <div class="row mt-3 justify-content-center" th:if="${one_chef.modificationAllowed}">
-                            <div class="col-sm-4">
-                                <button class="btn btn-primary" id="saveButton" th:text="#{button.save}" type="button">
-                                    Save
-                                </button>
+                        <form th:method="post" th:object="${one_chef}" th:action="@{/chef/update}">
+                            <input type="hidden" th:field="*{id}">
+                            <div class="row mt-3 justify-content-center">
+                                <table class="table">
+                                    <tbody>
+                                    <!-- ID -->
+                                    <tr>
+                                        <th class="col-sm-4" th:text="#{attribute.id}">ID</th>
+                                        <td class="col-sm-8" th:text="*{id}"></td>
+                                    </tr>
+                                    <!-- First Name -->
+                                    <tr>
+                                        <th class="col-sm-4">
+                                            <label class="form-label" for="firstNameField" th:text="#{attribute.firstName}">
+                                                First Name:</label>
+                                        </th>
+                                        <td class="col-sm-8">
+                                            <input class="form-control" id="firstNameField" th:if="${one_chef.modificationAllowed}" th:field="*{firstName}" type="text">
+                                            <p th:if="${!one_chef.modificationAllowed}" th:text="${one_chef.firstName}"></p>
+                                        </td>
+                                    </tr>
+                                    <!-- Last Name -->
+                                    <tr>
+                                        <th class="col-sm-4">
+                                            <label class="form-label" for="lastNameField" th:text="#{attribute.lastName}">
+                                                Last Name:</label>
+                                        </th>
+                                        <td class="col-sm-8">
+                                            <input class="form-control" id="lastNameField" th:if="${one_chef.modificationAllowed}" th:field="*{lastName}" type="text">
+                                            <p th:if="${!one_chef.modificationAllowed}" th:text="${one_chef.lastName}"></p>
+                                        </td>
+                                    </tr>
+                                    <!-- Date of Birth -->
+                                    <tr>
+                                        <th class="col-sm-4">
+                                            <label class="form-label" for="dateOfBirthField" th:text="#{attribute.dateOfBirth}">
+                                                Date of Birth:</label>
+                                        </th>
+                                        <td class="col-sm-8">
+                                            <input class="form-control" id="dateOfBirthField" th:if="${one_chef.modificationAllowed}" th:field="*{dateOfBirth}" type="date">
+                                            <p th:if="${!one_chef.modificationAllowed}" th:text="${one_chef.dateOfBirth}"></p>
+                                        </td>
+                                    </tr>
+                                    <!-- Username -->
+                                    <tr>
+                                        <th class="col-sm-4">
+                                            <label class="form-label" for="usernameField" th:text="#{attribute.username}">
+                                                Username:</label>
+                                        </th>
+                                        <td class="col-sm-8">
+                                            <input class="form-control" id="usernameField" th:if="${one_chef.modificationAllowed}" th:field="*{username}" type="text">
+                                            <p th:if="${!one_chef.modificationAllowed}" th:text="${one_chef.username}"></p>
+                                        </td>
+                                    </tr>
+                                    <!-- Role -->
+                                    <tr>
+                                        <th class="col-sm-4">
+                                            <label class="form-label" th:text="#{attribute.role}">Role:</label>
+                                        </th>
+                                        <td class="col-sm-8">
+                                            <p th:text="${one_chef.roleName}"></p>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                        </div>
+                            <!-- Save Button -->
+                            <div class="row mt-3 justify-content-center" th:if="${one_chef.modificationAllowed}">
+                                <div class="col-sm-4">
+                                    <button class="btn btn-primary" id="saveButton" th:text="#{button.save}" type="submit">Save</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </section>

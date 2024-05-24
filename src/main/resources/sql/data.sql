@@ -34,9 +34,11 @@ VALUES (1, 1, now()),
 
 -- Recipes
 INSERT INTO recipe (instructions, cooking_time, difficulty, menu_item_id)
-VALUES ('1. Wash and chop lettuce. 2. Mix with Caesar dressing and croutons. 3. Serve chilled.', 15, 1, 1),
+VALUES ('1. Wash and chop lettuce. 2. Mix with Caesar dressing and croutons. 3. Serve chilled.',
+        15, 1, 1),
        ('1. Preheat grill. 2. Season salmon with salt and pepper. 3. Grill for 10 minutes, flipping once. 4. Serve hot.',
         20, 2, 2),
        ('1. Cook spaghetti according to package instructions. 2. In a separate pan, cook pancetta until crispy. 3. Mix cooked spaghetti with beaten eggs and grated cheese. 4. Add pancetta and mix well. 5. Serve hot.',
         25, 2, 3),
-       ('1. Scoop desired amount of ice cream into bowl. 2. Serve immediately.', 0, 1, 4);
+       ('1. Scoop desired amount of ice cream into bowl. 2. Serve immediately.',
+        0, 1, 4);

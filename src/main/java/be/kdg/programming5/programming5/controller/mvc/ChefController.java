@@ -144,9 +144,9 @@ public class ChefController extends BaseController {
 
     @PostMapping("/chef/update")
     public String updateChef(@Valid UpdateChefViewModel chefViewModel,
-                                  BindingResult bindingResult,
-                                  @AuthenticationPrincipal CustomUserDetails user,
-                                  HttpServletRequest request) {
+                             BindingResult bindingResult,
+                             @AuthenticationPrincipal CustomUserDetails user,
+                             HttpServletRequest request) {
         if (user != null && (user.getChefId() == chefViewModel.getId() || request.isUserInRole(HEAD_CHEF.getCode()))
                 && (!bindingResult.hasErrors())) {
             chefService.updateChef(
