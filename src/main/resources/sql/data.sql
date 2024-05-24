@@ -4,7 +4,7 @@ VALUES ('Noah', 'Guerin', '2002-09-12', 'noahg', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeq
         'HEAD_CHEF'),
        ('Lars', 'Willemsens', '1984-09-12', 'larsw', '$2a$10$baZxBvqmulvtmHOgFsJbceeEL9bUj3jUqAoJqt1WbvXDRnkLZd2Cm',
         'HEAD_CHEF'),
-       ('Gordon', 'Ramsey', '1966-11-08', 'gordonr', '$2a$10$gcliD3L2KyxBrCSB3Rk7deorG7lTBlJaJ4i3XML8Wmbc4v4owTrEe',
+       ('Gordon', 'Ramsay', '1966-11-08', 'gordonr', '$2a$10$gcliD3L2KyxBrCSB3Rk7deorG7lTBlJaJ4i3XML8Wmbc4v4owTrEe',
         'SOUS_CHEF'),
        ('Jamie', 'Oliver', '1975-05-27', 'jamieo', '$2a$10$zBR9lh77iJXaxFXZ7Vmd8.h7hRG1Tr5XEUhFlrx.YcVWN/zFaeMRm',
         'SOUS_CHEF'),
@@ -22,15 +22,13 @@ VALUES ('Ceasar Salad', 3.5, 'MAIN', FALSE, 0),
 
 -- Assigned Chefs
 INSERT INTO assigned_chef (menu_item_id, chef_id, assigned_date_time)
-VALUES (1, 1, now()),
-       (1, 2, now()),
-       (2, 1, now()),
-       (2, 6, now()),
-       (3, 3, now()),
-       (3, 4, now()),
-       (4, 1, now()),
-       (4, 2, now()),
-       (4, 5, now());
+VALUES (1, 1, '2024-03-03 12:00'),
+       (1, 2, '2024-03-04 12:00'),
+       (2, 1, '2024-03-05 12:00'),
+       (2, 6, '2024-03-06 12:00'),
+       (4, 1, '2024-03-07 12:00'),
+       (4, 2, '2024-03-08 12:00'),
+       (4, 5, '2024-03-09 12:00');
 
 -- Recipes
 INSERT INTO recipe (instructions, cooking_time, difficulty, menu_item_id)

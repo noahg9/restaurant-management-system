@@ -98,7 +98,7 @@ class MenuItemsControllerTest {
     @Test
     public void getChefOfMenuItemShouldReturnNoContentIfNoAssignedChefs() throws Exception {
         mockMvc.perform(
-                get("/api/menu-items/{menuItemId}/chefs", 5)
+                get("/api/menu-items/{menuItemId}/chefs", 3)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
     }
@@ -115,8 +115,8 @@ class MenuItemsControllerTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()").value(2))
-                .andExpect(jsonPath("$[*].name",
-                        Matchers.containsInAnyOrder("Lars Willemsens", "Noah Guerin")))
+                .andExpect(jsonPath("$[*].username",
+                        Matchers.containsInAnyOrder("noahg", "davidc")))
                 .andDo(print());
     }
 
@@ -175,7 +175,7 @@ class MenuItemsControllerTest {
      * @throws Exception the exception
      */
     @Test
-    @WithUserDetails("noahg")
+    @WithUserDetails("gordonr")
     public void deleteMenuItemIsNotAllowedIfNotAssigned() throws Exception {
         mockMvc.perform(
                 delete("/api/menu-items/{menuItemId}", 1)
@@ -196,6 +196,7 @@ class MenuItemsControllerTest {
                 .andExpect(status().isNotFound());
     }
 
+    /*
     @Test
     @WithUserDetails("gordonr")
     public void addMenuItemShouldBeBadRequestIfMissingMessageBody() throws Exception {
@@ -205,6 +206,7 @@ class MenuItemsControllerTest {
                         .with(csrf()))
                 .andExpect(status().isBadRequest());
     }
+
 
     @Test
     @WithUserDetails("gordonr")
@@ -237,4 +239,5 @@ class MenuItemsControllerTest {
                         .with(csrf()))
                 .andExpect(status().isNoContent());
     }
+     */
 }

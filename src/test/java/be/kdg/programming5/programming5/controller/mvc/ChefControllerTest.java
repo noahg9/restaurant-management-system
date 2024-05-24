@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -50,19 +51,20 @@ class ChefControllerTest {
         var mvcResult = mockMvc.perform(
                 get("/chef")
                         .queryParam("id", "1"))
-                .andExpect(view().name("chef"))
+                .andExpect(view().name("chef/chef"))
                 .andExpect(model().attribute("one_chef",
                         Matchers.samePropertyValuesAs(
-                                new ChefViewModel(1, "John", "Doe", LocalDate.of(1999, 9, 9), "johnd", "Head Chef", false),
+                                new ChefViewModel(1, "Noah", "Guerin", LocalDate.of(2002, 9, 12), "noahg", "Head Chef", false),
                                 "menuItems")))
                 .andReturn();
 
-        var oneChef = (ChefViewModel) mvcResult.getModelAndView().getModel().get("one_chef");
+        var oneChef = (ChefViewModel) Objects.requireNonNull(mvcResult.getModelAndView()).getModel().get("one_chef");
         assertEquals(3, oneChef.getMenuItems().size());
         MatcherAssert.assertThat(oneChef.getMenuItems(), containsInAnyOrder(
-                Matchers.samePropertyValuesAs(new MenuItemViewModel(1, "Spaghetti", 10.0, "Main", false, 1, false)),
-                Matchers.samePropertyValuesAs(new MenuItemViewModel(2, "Lasagna", 12.0, "Main", false, 2, false)),
-                Matchers.samePropertyValuesAs(new MenuItemViewModel(4, "Pizza", 8.0, "Main", false, 1, false))));
+                Matchers.samePropertyValuesAs(new MenuItemViewModel(1, "Ceasar Salad", 3.5, "Main", false, 0, false)),
+                Matchers.samePropertyValuesAs(new MenuItemViewModel(2, "Grilled Salmon", 5, "Main", false, 2, false)),
+                Matchers.samePropertyValuesAs(new MenuItemViewModel(4, "Vanilla Ice Cream", 1.5, "Dessert", true, 0, false))
+        ));
     }
 
     /**
@@ -75,16 +77,16 @@ class ChefControllerTest {
     public void chefViewShouldAllowModificationIfChefSignedIn() throws Exception {
         var mvcResult = mockMvc.perform(
                 get("/chef")
-                        .queryParam("id", "1"))
-                .andExpect(view().name("chef"))
+                        .queryParam("id", "2"))
+                .andExpect(view().name("chef/chef"))
                 .andExpect(model().attribute("one_chef",
-                        Matchers.samePropertyValuesAs(new ChefViewModel(1, "Jane", "Doe", LocalDate.of(1989, 8, 8), "janed", "Head Chef", false),
+                        Matchers.samePropertyValuesAs(new ChefViewModel(2, "Lars", "Willemsens", LocalDate.of(1984, 9, 12), "larsw", "Head Chef", true),
                                 "menuItems")))
                 .andReturn();
 
         var chef = (ChefViewModel) mvcResult.getModelAndView().getModel().get("one_chef");
         var chefMenuItems = chef.getMenuItems();
-        assertEquals(3, chefMenuItems.size());
+        assertEquals(2, chefMenuItems.size());
     }
 
     /**
@@ -97,16 +99,16 @@ class ChefControllerTest {
     public void chefViewShouldAllowModificationIfAdminSignedIn() throws Exception {
         var mvcResult = mockMvc.perform(
                 get("/chef")
-                        .queryParam("id", "2"))
-                .andExpect(view().name("chef"))
+                        .queryParam("id", "3"))
+                .andExpect(view().name("chef/chef"))
                 .andExpect(model().attribute("one_chef",
-                        Matchers.samePropertyValuesAs(new ChefViewModel(1, "Jane", "Doe", LocalDate.of(1989, 8, 8), "janed", "Head Chef", true),
+                        Matchers.samePropertyValuesAs(new ChefViewModel(3, "Gordon", "Ramsay", LocalDate.of(1966, 11, 8), "gordonr", "Sous Chef", true),
                                 "menuItems")))
                 .andReturn();
 
         var chef = (ChefViewModel) mvcResult.getModelAndView().getModel().get("one_chef");
         var chefMenuItems = chef.getMenuItems();
-        assertEquals(2, chefMenuItems.size());
+        assertEquals(1, chefMenuItems.size());
     }
 
     /**
@@ -119,16 +121,16 @@ class ChefControllerTest {
     public void chefViewShouldNotAllowModificationIfDifferentChef() throws Exception {
         var mvcResult = mockMvc.perform(
                         get("/chef")
-                                .queryParam("id", "1"))
-                .andExpect(view().name("chef"))
+                                .queryParam("id", "2"))
+                .andExpect(view().name("chef/chef"))
                 .andExpect(model().attribute("one_chef",
-                        Matchers.samePropertyValuesAs(new ChefViewModel(1, "John", "Doe", LocalDate.of(1999, 9, 9), "johnd", "Head Chef", false),
+                        Matchers.samePropertyValuesAs(new ChefViewModel(2, "Lars", "Willemsens", LocalDate.of(1984, 9, 12), "larsw", "Head Chef", false),
                                 "menuItems")))
                 .andReturn();
 
         var chef = (ChefViewModel) mvcResult.getModelAndView().getModel().get("one_chef");
         var chefMenuItems = chef.getMenuItems();
-        assertEquals(3, chefMenuItems.size());
+        assertEquals(2, chefMenuItems.size());
     }
 
     @Test
@@ -160,7 +162,7 @@ class ChefControllerTest {
                                         LocalDate.of(1999, 9, 9),
                                         "johnd",
                                         "Head Chef",
-                                        false
+                                        true
                                 ),
                                 "menuItems"
                         )));
@@ -222,7 +224,7 @@ class ChefControllerTest {
                         .param("username", "johnd")
                         .with(csrf()))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/chef?id=" + createdChef.getId()));
+                .andExpect(redirectedUrl("/access-denied"));
 
         mockMvc.perform(get("/chef")
                         .queryParam("id", String.valueOf(createdChef.getId())))
@@ -232,7 +234,7 @@ class ChefControllerTest {
                                 new ChefViewModel(
                                         createdChef.getId(),
                                         "John",
-                                        "Does",
+                                        "Doe",
                                         LocalDate.of(1999, 9, 9),
                                         "johnd",
                                         "Head Chef",
@@ -258,7 +260,7 @@ class ChefControllerTest {
                         .param("username", "johnd")
                         .with(csrf()))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/chef?id=" + createdChef.getId()));
+                .andExpect(redirectedUrl("/login"));
 
         mockMvc.perform(get("/chef")
                         .queryParam("id", String.valueOf(createdChef.getId())))
@@ -268,7 +270,7 @@ class ChefControllerTest {
                                 new ChefViewModel(
                                         createdChef.getId(),
                                         "John",
-                                        "Does",
+                                        "Doe",
                                         LocalDate.of(1999, 9, 9),
                                         "johnd",
                                         "Head Chef",
@@ -309,7 +311,7 @@ class ChefControllerTest {
                                                 LocalDate.of(1999, 9, 9),
                                                 "johnd",
                                                 "Head Chef",
-                                                false
+                                                true
                                         ),
                                         "menuItems"
                                 )));
