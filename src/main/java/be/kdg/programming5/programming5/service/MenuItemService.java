@@ -6,16 +6,24 @@ import be.kdg.programming5.programming5.repository.ChefRepository;
 import be.kdg.programming5.programming5.repository.MenuItemRepository;
 import be.kdg.programming5.programming5.repository.RecipeRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Scanner;
+import java.util.logging.Logger;
 
 /**
  * The type Menu item service.
  */
 @Service
 public class MenuItemService {
+    private static final Logger LOGGER = Logger.getLogger(MenuItemService.class.getName());
+
     private final MenuItemRepository menuItemRepository;
     private final AssignedChefRepository assignedChefRepository;
     private final ChefRepository chefRepository;
@@ -72,41 +80,14 @@ public class MenuItemService {
     }
 
     /**
-     * Gets menu items of chef.
-     *
-     * @param chefId the chef id
-     * @return the menu items of chef
-     */
-    public List<MenuItem> getMenuItemsOfChef(long chefId) {
-        return menuItemRepository.findByChefId(chefId);
-    }
-
-    /**
      * Search menu items by name like list.
      *
      * @param searchTerm the search term
      * @return the list
      */
+    @Cacheable("search-menu-items")
     public List<MenuItem> searchMenuItemsByNameLike(String searchTerm) {
         return menuItemRepository.findMenuItemsByNameLikeIgnoreCase("%" + searchTerm + "%");
-    }
-
-    /**
-     * Save menu item menu item.
-     *
-     * @param name       the name
-     * @param price      the price
-     * @param course     the course
-     * @param vegetarian the vegetarian
-     * @param spiceLevel   the spice level
-     * @return the menu item
-     */
-    @Transactional
-    public MenuItem saveMenuItem(String name, double price, Course course, Boolean vegetarian, int spiceLevel) {
-        MenuItem newMenuItem = menuItemRepository.save(new MenuItem(name, price, course, vegetarian, spiceLevel));
-        Recipe newRecipe = recipeRepository.save(new Recipe("Undefined", 0, 0));
-        newRecipe.setMenuItem(newMenuItem);
-        return newMenuItem;
     }
 
     /**
@@ -121,6 +102,7 @@ public class MenuItemService {
      * @return the menu item
      */
     @Transactional
+    @CacheEvict(value = "search-menu-items", allEntries = true)
     public MenuItem saveMenuItem(String name, double price, Course course, Boolean vegetarian, int spiceLevel, List<Long> chefIds, long userId) {
         MenuItem menuItem = menuItemRepository.save(new MenuItem(name, price, course, vegetarian, spiceLevel));
         Chef user = chefRepository.findById(userId).orElse(null);
@@ -136,17 +118,6 @@ public class MenuItemService {
     }
 
     /**
-     * Save menu item menu item.
-     *
-     * @param menuItem the menu item
-     * @return the menu item
-     */
-    @Transactional
-    public MenuItem saveMenuItem(MenuItem menuItem) {
-        return menuItemRepository.save(menuItem);
-    }
-
-    /**
      * Update menu item boolean.
      *
      * @param menuItemId the menu item id
@@ -156,6 +127,7 @@ public class MenuItemService {
      * @param spiceLevel   the spice level
      * @return the boolean
      */
+    @CacheEvict(value = "search-menu-items", allEntries = true)
     public boolean updateMenuItem(long menuItemId, String name, double price, boolean vegetarian, int spiceLevel) {
         MenuItem menuItem = menuItemRepository.findById(menuItemId).orElse(null);
         if (menuItem == null) {
@@ -176,6 +148,7 @@ public class MenuItemService {
      * @return the boolean
      */
     @Transactional
+    @CacheEvict(value = "search-menu-items", allEntries = true)
     public boolean deleteMenuItem(long menuItemId) {
         MenuItem menuItem = menuItemRepository.findByIdWithChefs(menuItemId).orElse(null);
         if (menuItem == null) {
@@ -184,5 +157,15 @@ public class MenuItemService {
         assignedChefRepository.deleteAll(menuItem.getChefs());
         menuItemRepository.deleteById(menuItemId);
         return true;
+    }
+
+    @Async
+    @CacheEvict(value = "search-menu-items", allEntries = true)
+    public void processMenuItemsCsv(InputStream inputStream) {
+        Scanner scanner = new Scanner(inputStream);
+        while (scanner.hasNextLine()) {
+            var line = scanner.nextLine();
+            LOGGER.info(line);
+        }
     }
 }

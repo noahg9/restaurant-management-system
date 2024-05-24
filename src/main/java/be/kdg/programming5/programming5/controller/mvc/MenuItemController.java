@@ -15,9 +15,12 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -128,5 +131,21 @@ public class MenuItemController extends BaseController {
     public String searchMenuItems(HttpSession session, Model model) {
         setupPage(session, model, "Search Menu Items");
         return "menu/search-menu-items";
+    }
+
+    @GetMapping("/menu-items-csv")
+    public ModelAndView uploadCsv(HttpSession session, Model model) {
+        setupPage(session, model, "Menu Items CSV");
+        var mav = new ModelAndView("menu/menu-items-csv");
+        mav.getModel().put("inProgress", false);
+        return mav;
+    }
+
+    @PostMapping("/menu-items-csv")
+    public ModelAndView uploadCsv(@RequestParam("csv-file") MultipartFile file) throws IOException {
+        menuItemService.processMenuItemsCsv(file.getInputStream());
+        var mav = new ModelAndView("menu/menu-items-csv");
+        mav.getModel().put("inProgress", true);
+        return mav;
     }
 }

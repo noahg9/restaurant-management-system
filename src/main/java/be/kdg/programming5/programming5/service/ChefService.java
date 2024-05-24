@@ -79,16 +79,6 @@ public class ChefService {
     }
 
     /**
-     * Gets chefs of menu item.
-     *
-     * @param menuItemId the menu item id
-     * @return the chefs of menu item
-     */
-    public List<Chef> getChefsOfMenuItem(int menuItemId) {
-        return chefRepository.findByMenuItemId(menuItemId);
-    }
-
-    /**
      * Search chefs by first name or last name list.
      *
      * @param searchTerm the search term
