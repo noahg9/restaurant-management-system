@@ -1,0 +1,37 @@
+image: larsdroid/jdk-gradle-node:21-8.7.0-20.12.1-alpine
+
+before_script:
+  - GRADLE_USER_HOME="$(pwd)/.gradle"
+  - export GRADLE_USER_HOME
+
+build:
+  stage: build
+  script: gradle --build-cache assemble
+  cache:
+    key: "$CI_COMMIT_REF_NAME"
+    policy: push
+    paths:
+      - build
+      - .gradle
+
+test:
+  stage: test
+  services:
+    - postgres:16.1-alpine
+  variables:
+    POSTGRES_DB: 'programming5'
+    POSTGRES_USER: 'admin'
+    POSTGRES_PASSWORD: 'admin'
+    CI_DB_HOST_PORT: 'postgres:5432'
+  script: gradle check
+  cache:
+    key: "$CI_COMMIT_REF_NAME"
+    policy: pull
+    paths:
+      - build
+      - .gradle
+
+deploy:
+  stage: deploy
+  script: echo "Define your deployment script!"
+  environment: production
