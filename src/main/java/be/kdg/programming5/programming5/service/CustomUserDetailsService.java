@@ -31,7 +31,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Chef chef = chefService.getChefByUsername(username);
         if (chef != null) {
-            Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
+            var authorities = new ArrayList<SimpleGrantedAuthority>();
             authorities.add(new SimpleGrantedAuthority(chef.getRole().getCode()));
             // Spring's `User`
             return new CustomUserDetails(chef.getUsername(), chef.getPassword(), authorities, chef.getId());

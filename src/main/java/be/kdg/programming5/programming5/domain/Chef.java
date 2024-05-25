@@ -31,10 +31,9 @@ public class Chef extends AbstractEntity<Long> implements Serializable {
     private String password;
 
     @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
     private ChefRole role;
 
-    @OneToMany(mappedBy = "chef")
+    @OneToMany(mappedBy = "chef", fetch = FetchType.EAGER)
     private List<MenuAssignment> menuItems;
 
     /**

@@ -31,7 +31,7 @@ class ChefRepositoryTest {
         var chef = chefOptional.get();
         assertEquals(1, chef.getId());
         assertEquals("Noah", chef.getFirstName());
-        // There are other ways to compare lists in tests (Hamcrest, AssertJ, ...)
+
         var menuItems = chef.getMenuItems().stream().sorted((a1, a2) -> (int) (a1.getId() - a2.getId())).toList();
         assertEquals("Ceasar Salad", menuItems.get(0).getMenuItem().getName());
         assertEquals(LocalDateTime.of(2024, 3, 5, 12, 0, 0), menuItems.get(1).getAssignedDateTime());

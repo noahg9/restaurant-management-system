@@ -19,7 +19,10 @@ public class CustomUserDetails extends User {
      * @param authorities the authorities
      * @param chefId      the chef id
      */
-    public CustomUserDetails(String username, String password, Collection<? extends GrantedAuthority> authorities, long chefId) {
+    public CustomUserDetails(String username,
+                             String password,
+                             Collection<? extends GrantedAuthority> authorities,
+                             long chefId) {
         super(username, password, authorities);
         this.chefId = chefId;
     }

@@ -34,7 +34,7 @@ public class MenuItem extends AbstractEntity<Long> implements Serializable {
     @OneToOne(mappedBy = "menuItem", cascade = CascadeType.ALL)
     private Recipe recipe;
 
-    @OneToMany(mappedBy = "menuItem")
+    @OneToMany(mappedBy = "menuItem", fetch = FetchType.EAGER)
     private List<MenuAssignment> chefs;
 
     /**

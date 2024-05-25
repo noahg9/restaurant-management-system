@@ -1,17 +1,17 @@
 -- Chefs
 INSERT INTO chef (first_name, last_name, date_of_birth, username, password, role)
 VALUES ('Noah', 'Guerin', '2002-09-12', 'noahg', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6',
-        'HEAD_CHEF'),
+        0),
        ('Lars', 'Willemsens', '1984-09-12', 'larsw', '$2a$10$baZxBvqmulvtmHOgFsJbceeEL9bUj3jUqAoJqt1WbvXDRnkLZd2Cm',
-        'HEAD_CHEF'),
+        0),
        ('Gordon', 'Ramsay', '1966-11-08', 'gordonr', '$2a$10$gcliD3L2KyxBrCSB3Rk7deorG7lTBlJaJ4i3XML8Wmbc4v4owTrEe',
-        'SOUS_CHEF'),
+        1),
        ('Jamie', 'Oliver', '1975-05-27', 'jamieo', '$2a$10$zBR9lh77iJXaxFXZ7Vmd8.h7hRG1Tr5XEUhFlrx.YcVWN/zFaeMRm',
-        'SOUS_CHEF'),
+        1),
        ('Joan', 'Roca', '1964-02-11', 'joanr', '$2a$10$7fY.LodT6N9QT1zeILJOUO1YhpNlATdvMN2baO8DXI5.6fVYVYfmq',
-        'SOUS_CHEF'),
+        1),
        ('David', 'Chang', '1977-08-05', 'davidc', '$2a$10$xWIjXLXcCeiYbvgvO7yHyuvOa2jHro8QZVE/fDnFxvuwdVuQaIa7S',
-        'SOUS_CHEF');
+        1);
 
 -- Menu Items
 INSERT INTO menu_item (name, price, course, vegetarian, spice_level)

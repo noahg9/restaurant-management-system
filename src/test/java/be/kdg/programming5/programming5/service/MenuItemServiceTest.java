@@ -51,6 +51,7 @@ class MenuItemServiceTest {
 
         // Assert
         assertTrue(result);
+        assertTrue(menuItemRepository.findById(createdMenuItem.getId()).isPresent());
         assertEquals("Lasagne",
                 menuItemRepository.findById(createdMenuItem.getId()).get().getName());
 

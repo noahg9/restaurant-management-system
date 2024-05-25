@@ -120,7 +120,7 @@ public class ChefController extends BaseController {
      * @param model   the model
      * @return the string
      */
-    @GetMapping("/chef/search")
+    @GetMapping("/search-chefs")
     public String searchChefs(HttpSession session, Model model) {
         setupPage(session, model, "Search Chefs");
         return "chef/search-chefs";
@@ -134,7 +134,7 @@ public class ChefController extends BaseController {
      * @param mav     the mav
      * @return the model and view
      */
-    @GetMapping("/chef/register")
+    @GetMapping("/register-chef")
     public ModelAndView registerChef(HttpSession session, Model model, ModelAndView mav) {
         setupPage(session, model, "Register Chef");
         mav.setViewName("chef/register-chef");
@@ -147,21 +147,15 @@ public class ChefController extends BaseController {
                              BindingResult bindingResult,
                              @AuthenticationPrincipal CustomUserDetails user,
                              HttpServletRequest request) {
-        if (user == null) {
-            return "redirect:/login";  // Redirect to login if user is not authenticated
+        if (user != null && (user.getChefId() == chefViewModel.getId() || request.isUserInRole(HEAD_CHEF.getCode()))
+                && (!bindingResult.hasErrors())) {
+            chefService.updateChef(
+                chefViewModel.getId(),
+                chefViewModel.getFirstName(),
+                chefViewModel.getLastName(),
+                chefViewModel.getDateOfBirth(),
+                chefViewModel.getUsername());
         }
-
-        if (user.getChefId() == chefViewModel.getId() || request.isUserInRole(HEAD_CHEF.getCode())) {
-            if (!bindingResult.hasErrors()) {
-                chefService.updateChef(
-                        chefViewModel.getId(),
-                        chefViewModel.getFirstName(),
-                        chefViewModel.getLastName(),
-                        chefViewModel.getDateOfBirth(),
-                        chefViewModel.getUsername());
-            }
-            return "redirect:/chef?id=" + chefViewModel.getId();
-        }
-        return "redirect:/access-denied";  // Redirect to access-denied page if user does not have permission
+        return "redirect:/chef?id=" + chefViewModel.getId();
     }
 }
