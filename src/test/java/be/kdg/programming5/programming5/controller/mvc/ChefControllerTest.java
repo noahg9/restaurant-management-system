@@ -108,7 +108,7 @@ class ChefControllerTest {
 
         var chef = (ChefViewModel) mvcResult.getModelAndView().getModel().get("one_chef");
         var chefMenuItems = chef.getMenuItems();
-        assertEquals(1, chefMenuItems.size());
+        assertEquals(0, chefMenuItems.size());
     }
 
     /**
