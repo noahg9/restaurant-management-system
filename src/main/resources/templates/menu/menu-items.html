@@ -30,6 +30,15 @@
                         </a>
                     </div>
                 </div>
+                <!-- Insert Menu Items Button -->
+                <div class="col-md-3 center-container text-center" sec:authorize="isAuthenticated()">
+                    <div class="center-container text-center">
+                        <a class="btn btn-secondary" th:href="@{/insert-menu-items}">
+                            <i class="fas fa-file"></i>
+                            <span th:text="#{title.insertMenuItems}">Insert Menu Items</span>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
         <!-- List Section -->

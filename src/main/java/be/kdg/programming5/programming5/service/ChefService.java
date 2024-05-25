@@ -2,7 +2,7 @@ package be.kdg.programming5.programming5.service;
 
 import be.kdg.programming5.programming5.domain.Chef;
 import be.kdg.programming5.programming5.domain.ChefRole;
-import be.kdg.programming5.programming5.repository.AssignedChefRepository;
+import be.kdg.programming5.programming5.repository.MenuAssignmentRepository;
 import be.kdg.programming5.programming5.repository.ChefRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -16,17 +16,17 @@ import java.util.List;
 @Service
 public class ChefService {
     private final ChefRepository chefRepository;
-    private final AssignedChefRepository assignedChefRepository;
+    private final MenuAssignmentRepository menuAssignmentRepository;
 
     /**
      * Instantiates a new Chef service.
      *
      * @param chefRepository         the chef repository
-     * @param assignedChefRepository the assigned chef repository
+     * @param menuAssignmentRepository the assigned chef repository
      */
-    public ChefService(ChefRepository chefRepository, AssignedChefRepository assignedChefRepository) {
+    public ChefService(ChefRepository chefRepository, MenuAssignmentRepository menuAssignmentRepository) {
         this.chefRepository = chefRepository;
-        this.assignedChefRepository = assignedChefRepository;
+        this.menuAssignmentRepository = menuAssignmentRepository;
     }
 
     /**
@@ -126,7 +126,7 @@ public class ChefService {
         if (chef == null) {
             return false;
         }
-        assignedChefRepository.deleteAll(chef.getMenuItems());
+        menuAssignmentRepository.deleteAll(chef.getMenuItems());
         chefRepository.deleteById(chefId);
         return true;
     }

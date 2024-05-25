@@ -2,7 +2,7 @@ package be.kdg.programming5.programming5.controller.api;
 
 import be.kdg.programming5.programming5.domain.ChefRole;
 import be.kdg.programming5.programming5.domain.CustomUserDetails;
-import be.kdg.programming5.programming5.service.AssignedChefService;
+import be.kdg.programming5.programming5.service.MenuAssignmentService;
 import be.kdg.programming5.programming5.service.MenuItemService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +34,7 @@ class MenuItemsControllerUnitTest {
     private MenuItemService menuItemService;
 
     @MockBean
-    private AssignedChefService assignedChefService;
+    private MenuAssignmentService menuAssignmentService;
 
     @Test
     public void deleteMenuItemShouldBeUnauthorizedIfNotSignedIn() throws Exception {
@@ -50,7 +50,7 @@ class MenuItemsControllerUnitTest {
         long menuItemId = 7777L;
         long chefId = 8888L;
         var userDetails = new CustomUserDetails("gordonr", "noah", List.of(), chefId);
-        given(assignedChefService.isChefAssignedToMenuItem(menuItemId, chefId))
+        given(menuAssignmentService.isChefAssignedToMenuItem(menuItemId, chefId))
                 .willReturn(true);
         given(menuItemService.deleteMenuItem(menuItemId)).willReturn(true);
 
@@ -69,7 +69,7 @@ class MenuItemsControllerUnitTest {
         var userDetails = new CustomUserDetails("jamieo", "noah",
                 List.of(new SimpleGrantedAuthority(ChefRole.HEAD_CHEF.getCode())),
                 chefId);
-        given(assignedChefService.isChefAssignedToMenuItem(menuItemId, chefId))
+        given(menuAssignmentService.isChefAssignedToMenuItem(menuItemId, chefId))
                 .willReturn(false);
         given(menuItemService.deleteMenuItem(menuItemId)).willReturn(true);
 
@@ -87,7 +87,7 @@ class MenuItemsControllerUnitTest {
         long chefId = 8888L;
         var userDetails = new CustomUserDetails("jamieo", "noah",
                 List.of(), chefId);
-        given(assignedChefService.isChefAssignedToMenuItem(menuItemId, chefId))
+        given(menuAssignmentService.isChefAssignedToMenuItem(menuItemId, chefId))
                 .willReturn(false);
 
         mockMvc.perform(delete("/api/menu-items/{id}", menuItemId)
@@ -105,7 +105,7 @@ class MenuItemsControllerUnitTest {
         var userDetails = new CustomUserDetails("jamieo", "noah",
                 List.of(new SimpleGrantedAuthority(ChefRole.HEAD_CHEF.getCode())),
                 chefId);
-        given(assignedChefService.isChefAssignedToMenuItem(menuItemId, chefId))
+        given(menuAssignmentService.isChefAssignedToMenuItem(menuItemId, chefId))
                 .willReturn(false);
         given(menuItemService.deleteMenuItem(menuItemId)).willReturn(false);
 

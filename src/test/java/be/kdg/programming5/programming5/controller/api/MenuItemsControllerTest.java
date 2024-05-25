@@ -1,15 +1,13 @@
 package be.kdg.programming5.programming5.controller.api;
 
-import be.kdg.programming5.programming5.domain.AssignedChef;
+import be.kdg.programming5.programming5.domain.MenuAssignment;
 import be.kdg.programming5.programming5.domain.Course;
 import be.kdg.programming5.programming5.domain.MenuItem;
-import be.kdg.programming5.programming5.dto.NewMenuItemDto;
-import be.kdg.programming5.programming5.repository.AssignedChefRepository;
+import be.kdg.programming5.programming5.repository.MenuAssignmentRepository;
 import be.kdg.programming5.programming5.repository.ChefRepository;
 import be.kdg.programming5.programming5.repository.MenuItemRepository;
 import be.kdg.programming5.programming5.service.MenuItemService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jayway.jsonpath.JsonPath;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -45,14 +43,14 @@ class MenuItemsControllerTest {
     @Autowired
     private ChefRepository chefRepository;
     @Autowired
-    private AssignedChefRepository assignedChefRepository;
+    private MenuAssignmentRepository menuAssignmentRepository;
     @Autowired
     private MockMvc mockMvc;
     @Autowired
     private ObjectMapper objectMapper;
 
     private long createdMenuItemId;
-    private long createdAssignedChefId;
+    private long createdMenuAssignmentId;
 
     /**
      * Sets each.
@@ -63,9 +61,9 @@ class MenuItemsControllerTest {
                 new MenuItem("Spaghetti", 10.0, Course.MAIN, false, 1));
         createdMenuItemId = createdMenuItem.getId();
 
-        var createdAssignedChef = assignedChefRepository.save(
-                new AssignedChef(createdMenuItem, chefRepository.findByUsername("gordonr").orElseThrow(), LocalDateTime.now()));
-        createdAssignedChefId = createdAssignedChef.getId();
+        var createdMenuAssignmentId1 = menuAssignmentRepository.save(
+                new MenuAssignment(createdMenuItem, chefRepository.findByUsername("gordonr").orElseThrow(), LocalDateTime.now()));
+        createdMenuAssignmentId = createdMenuAssignmentId1.getId();
     }
 
     /**
@@ -73,7 +71,7 @@ class MenuItemsControllerTest {
      */
     @AfterEach
     public void tearDownEach() {
-        assignedChefRepository.deleteById(createdAssignedChefId);
+        menuAssignmentRepository.deleteById(createdMenuAssignmentId);
         menuItemRepository.deleteById(createdMenuItemId);
     }
 

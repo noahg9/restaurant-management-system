@@ -5,7 +5,7 @@ import be.kdg.programming5.programming5.dto.MenuItemDto;
 import be.kdg.programming5.programming5.dto.NewMenuItemDto;
 import be.kdg.programming5.programming5.dto.UpdateMenuItemDto;
 import be.kdg.programming5.programming5.domain.*;
-import be.kdg.programming5.programming5.service.AssignedChefService;
+import be.kdg.programming5.programming5.service.MenuAssignmentService;
 import be.kdg.programming5.programming5.service.MenuItemService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -28,12 +28,12 @@ import static be.kdg.programming5.programming5.domain.ChefRole.HEAD_CHEF;
 @RequestMapping("/api/menu-items")
 public class MenuItemsController {
     private final MenuItemService menuItemService;
-    private final AssignedChefService assignedChefService;
+    private final MenuAssignmentService menuAssignmentService;
     private final ModelMapper modelMapper;
 
-    public MenuItemsController(MenuItemService menuItemService, AssignedChefService assignedChefService, ModelMapper modelMapper) {
+    public MenuItemsController(MenuItemService menuItemService, MenuAssignmentService menuAssignmentService, ModelMapper modelMapper) {
         this.menuItemService = menuItemService;
-        this.assignedChefService = assignedChefService;
+        this.menuAssignmentService = menuAssignmentService;
         this.modelMapper = modelMapper;
     }
 
@@ -83,7 +83,7 @@ public class MenuItemsController {
         if (menuItem.getChefs().isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return ResponseEntity.ok(menuItem.getChefs().stream().map(AssignedChef::getChef).map(chef -> modelMapper.map(chef, ChefDto.class)).toList());
+        return ResponseEntity.ok(menuItem.getChefs().stream().map(MenuAssignment::getChef).map(chef -> modelMapper.map(chef, ChefDto.class)).toList());
     }
 
     /**
@@ -130,7 +130,7 @@ public class MenuItemsController {
      */
     @PatchMapping("{id}")
     ResponseEntity<Void> updateMenuItem(@PathVariable("id") long menuItemId, @RequestBody @Valid UpdateMenuItemDto updateMenuItemDto, @AuthenticationPrincipal CustomUserDetails user, HttpServletRequest request) {
-        if (!assignedChefService.isChefAssignedToMenuItem(menuItemId, user.getChefId()) && !request.isUserInRole(HEAD_CHEF.getCode())) {
+        if (!menuAssignmentService.isChefAssignedToMenuItem(menuItemId, user.getChefId()) && !request.isUserInRole(HEAD_CHEF.getCode())) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
         if (menuItemService.updateMenuItem(menuItemId, updateMenuItemDto.getName(), updateMenuItemDto.getPrice(), updateMenuItemDto.isVegetarian(), updateMenuItemDto.getSpiceLevel())) {
@@ -150,7 +150,7 @@ public class MenuItemsController {
      */
     @DeleteMapping("{id}")
     ResponseEntity<Void> deleteMenuItem(@PathVariable("id") long menuItemId, @AuthenticationPrincipal CustomUserDetails user, HttpServletRequest request) {
-        if (!assignedChefService.isChefAssignedToMenuItem(menuItemId, user.getChefId()) && !request.isUserInRole(HEAD_CHEF.getCode())) {
+        if (!menuAssignmentService.isChefAssignedToMenuItem(menuItemId, user.getChefId()) && !request.isUserInRole(HEAD_CHEF.getCode())) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
         if (menuItemService.deleteMenuItem(menuItemId)) {

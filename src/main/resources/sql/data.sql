@@ -21,7 +21,7 @@ VALUES ('Ceasar Salad', 3.5, 'MAIN', FALSE, 0),
        ('Vanilla Ice Cream', 1.5, 'DESSERT', TRUE, 0);
 
 -- Assigned Chefs
-INSERT INTO assigned_chef (menu_item_id, chef_id, assigned_date_time)
+INSERT INTO menu_assignment (menu_item_id, chef_id, assigned_date_time)
 VALUES (1, 1, '2024-03-03 12:00'),
        (1, 2, '2024-03-04 12:00'),
        (2, 1, '2024-03-05 12:00'),

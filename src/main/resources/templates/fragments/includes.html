@@ -57,13 +57,6 @@
                             <span th:text="#{title.chefs}">Chefs</span>
                         </a>
                     </li>
-                    <!-- Menu Items CSV Page -->
-                    <li class="nav-item" sec:authorize="isAuthenticated()">
-                        <a class="nav-link" th:href="@{/menu-items-csv}">
-                            <i class="fas fa-file"></i>
-                            <span th:text="#{title.menuItemsCSV}">Menu Items CSV</span>
-                        </a>
-                    </li>
                     <!-- History Page -->
                     <li class="nav-item" sec:authorize="isAuthenticated()">
                         <a class="nav-link" th:href="@{/history}">

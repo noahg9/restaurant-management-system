@@ -35,7 +35,7 @@ public class MenuItem extends AbstractEntity<Long> implements Serializable {
     private Recipe recipe;
 
     @OneToMany(mappedBy = "menuItem")
-    private List<AssignedChef> chefs;
+    private List<MenuAssignment> chefs;
 
     /**
      * Instantiates a new Menu item.
@@ -77,7 +77,7 @@ public class MenuItem extends AbstractEntity<Long> implements Serializable {
      * @param spiceLevel the spice level
      * @param chefs      the chefs
      */
-    public MenuItem(String name, double price, Course course, boolean vegetarian, int spiceLevel, List<AssignedChef> chefs) {
+    public MenuItem(String name, double price, Course course, boolean vegetarian, int spiceLevel, List<MenuAssignment> chefs) {
         setName(name);
         setPrice(price);
         setCourse(course);
@@ -208,7 +208,7 @@ public class MenuItem extends AbstractEntity<Long> implements Serializable {
      *
      * @return the chefs
      */
-    public List<AssignedChef> getChefs() {
+    public List<MenuAssignment> getChefs() {
         return this.chefs;
     }
 
@@ -217,7 +217,7 @@ public class MenuItem extends AbstractEntity<Long> implements Serializable {
      *
      * @param chefs the chefs
      */
-    public void setChefs(List<AssignedChef> chefs) {
+    public void setChefs(List<MenuAssignment> chefs) {
         this.chefs = chefs;
     }
 
@@ -234,14 +234,14 @@ public class MenuItem extends AbstractEntity<Long> implements Serializable {
         if (chefs == null) {
             chefs = new ArrayList<>();
         } else {
-            for (AssignedChef assignedChef : chefs) {
-                if (assignedChef.getChef().equals(chef)) {
+            for (MenuAssignment menuAssignment : chefs) {
+                if (menuAssignment.getChef().equals(chef)) {
                     throw new IllegalArgumentException("Chef is already assigned to this menu item");
                 }
             }
         }
-        AssignedChef assignedChef = new AssignedChef(this, chef);
-        chefs.add(assignedChef);
+        MenuAssignment menuAssignment = new MenuAssignment(this, chef);
+        chefs.add(menuAssignment);
     }
 
 

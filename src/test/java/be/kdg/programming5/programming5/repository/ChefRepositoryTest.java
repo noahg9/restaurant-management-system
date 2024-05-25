@@ -1,16 +1,11 @@
 package be.kdg.programming5.programming5.repository;
 
-import be.kdg.programming5.programming5.domain.Chef;
-import be.kdg.programming5.programming5.domain.ChefRole;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
-import org.junit.jupiter.api.function.Executable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ActiveProfiles;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -24,7 +19,7 @@ class ChefRepositoryTest {
     @Autowired
     private MenuItemRepository menuItemRepository;
     @Autowired
-    private AssignedChefRepository assignedChefRepository;
+    private MenuAssignmentRepository menuAssignmentRepository;
 
     @Test
     void findByIdWithMenuItemsShouldFetchRelatedData() {

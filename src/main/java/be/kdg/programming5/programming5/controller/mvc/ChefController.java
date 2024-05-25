@@ -98,14 +98,14 @@ public class ChefController extends BaseController {
                         user != null && (user.getChefId() == chefId || request.isUserInRole(HEAD_CHEF.getCode())),
                         chef.getMenuItems()
                                 .stream().map(
-                                        assignedChef ->
+                                        menuAssignment ->
                                                 new MenuItemViewModel(
-                                                        assignedChef.getMenuItem().getId(),
-                                                        assignedChef.getMenuItem().getName(),
-                                                        assignedChef.getMenuItem().getPrice(),
-                                                        assignedChef.getMenuItem().getCourse().getName(),
-                                                        assignedChef.getMenuItem().isVegetarian(),
-                                                        assignedChef.getMenuItem().getSpiceLevel(),
+                                                        menuAssignment.getMenuItem().getId(),
+                                                        menuAssignment.getMenuItem().getName(),
+                                                        menuAssignment.getMenuItem().getPrice(),
+                                                        menuAssignment.getMenuItem().getCourse().getName(),
+                                                        menuAssignment.getMenuItem().isVegetarian(),
+                                                        menuAssignment.getMenuItem().getSpiceLevel(),
                                                         false))
                                 .toList()
                 ));

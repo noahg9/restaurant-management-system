@@ -1,7 +1,7 @@
 package be.kdg.programming5.programming5.service;
 
 import be.kdg.programming5.programming5.domain.*;
-import be.kdg.programming5.programming5.repository.AssignedChefRepository;
+import be.kdg.programming5.programming5.repository.MenuAssignmentRepository;
 import be.kdg.programming5.programming5.repository.ChefRepository;
 import be.kdg.programming5.programming5.repository.MenuItemRepository;
 import be.kdg.programming5.programming5.repository.RecipeRepository;
@@ -25,7 +25,7 @@ public class MenuItemService {
     private static final Logger LOGGER = Logger.getLogger(MenuItemService.class.getName());
 
     private final MenuItemRepository menuItemRepository;
-    private final AssignedChefRepository assignedChefRepository;
+    private final MenuAssignmentRepository menuAssignmentRepository;
     private final ChefRepository chefRepository;
     private final RecipeRepository recipeRepository;
 
@@ -33,13 +33,13 @@ public class MenuItemService {
      * Instantiates a new Menu item service.
      *
      * @param menuItemRepository     the menu item repository
-     * @param assignedChefRepository the assigned chef repository
+     * @param menuAssignmentRepository the assigned chef repository
      * @param chefRepository         the chef repository
      * @param recipeRepository       the recipe repository
      */
-    public MenuItemService(MenuItemRepository menuItemRepository, AssignedChefRepository assignedChefRepository, ChefRepository chefRepository, RecipeRepository recipeRepository) {
+    public MenuItemService(MenuItemRepository menuItemRepository, MenuAssignmentRepository menuAssignmentRepository, ChefRepository chefRepository, RecipeRepository recipeRepository) {
         this.menuItemRepository = menuItemRepository;
-        this.assignedChefRepository = assignedChefRepository;
+        this.menuAssignmentRepository = menuAssignmentRepository;
         this.chefRepository = chefRepository;
         this.recipeRepository = recipeRepository;
     }
@@ -106,10 +106,10 @@ public class MenuItemService {
     public MenuItem saveMenuItem(String name, double price, Course course, Boolean vegetarian, int spiceLevel, List<Long> chefIds, long userId) {
         MenuItem menuItem = menuItemRepository.save(new MenuItem(name, price, course, vegetarian, spiceLevel));
         Chef user = chefRepository.findById(userId).orElse(null);
-        assignedChefRepository.save(new AssignedChef(menuItem, user, LocalDateTime.now()));
+        menuAssignmentRepository.save(new MenuAssignment(menuItem, user, LocalDateTime.now()));
         if (chefIds != null && !chefIds.isEmpty()) {
             for (Long chefId : chefIds) {
-                chefRepository.findById(chefId).ifPresent(chef -> assignedChefRepository.save(new AssignedChef(menuItem, chef, LocalDateTime.now())));
+                chefRepository.findById(chefId).ifPresent(chef -> menuAssignmentRepository.save(new MenuAssignment(menuItem, chef, LocalDateTime.now())));
             }
         }
         Recipe newRecipe = recipeRepository.save(new Recipe("", 0, 0));
@@ -154,7 +154,7 @@ public class MenuItemService {
         if (menuItem == null) {
             return false;
         }
-        assignedChefRepository.deleteAll(menuItem.getChefs());
+        menuAssignmentRepository.deleteAll(menuItem.getChefs());
         menuItemRepository.deleteById(menuItemId);
         return true;
     }

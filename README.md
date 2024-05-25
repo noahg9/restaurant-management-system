@@ -1,9 +1,10 @@
-# Programming 5
+# Restaurant Management
 
-**Noah Guerin**  
-*noah.guerin@student.kdg.be*  
-*0152794-19*  
-*ACS202*
+**Course name:** Programming 5  
+**Student name:** Noah Guerin  
+**Email address:** noah.guerin@student.kdg.be  
+**Student ID:** 0152794-19  
+**Group:** ACS202
 
 ## Domain Entities
 
