@@ -103,13 +103,15 @@ public class MenuItemService {
      */
     @Transactional
     @CacheEvict(value = "search-menu-items", allEntries = true)
-    public MenuItem saveMenuItem(String name, double price, Course course, Boolean vegetarian, int spiceLevel, List<Long> chefIds, long userId) {
+    public MenuItem saveMenuItem(String name, double price, Course course, Boolean vegetarian, int spiceLevel, List<Long> chefIds, Long chefId) {
         MenuItem menuItem = menuItemRepository.save(new MenuItem(name, price, course, vegetarian, spiceLevel));
-        Chef user = chefRepository.findById(userId).orElse(null);
-        menuAssignmentRepository.save(new MenuAssignment(menuItem, user, LocalDateTime.now()));
+        if (chefId != null) {
+            Chef chef = chefRepository.findById(chefId).orElse(null);
+            menuAssignmentRepository.save(new MenuAssignment(menuItem, chef, LocalDateTime.now()));
+        }
         if (chefIds != null && !chefIds.isEmpty()) {
-            for (Long chefId : chefIds) {
-                chefRepository.findById(chefId).ifPresent(chef -> menuAssignmentRepository.save(new MenuAssignment(menuItem, chef, LocalDateTime.now())));
+            for (Long associatedChefId : chefIds) {
+                chefRepository.findById(associatedChefId).ifPresent(chef -> menuAssignmentRepository.save(new MenuAssignment(menuItem, chef, LocalDateTime.now())));
             }
         }
         Recipe newRecipe = recipeRepository.save(new Recipe("", 0, 0));

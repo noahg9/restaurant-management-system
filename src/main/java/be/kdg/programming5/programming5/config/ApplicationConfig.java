@@ -32,7 +32,7 @@ public class ApplicationConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/api/**")
-                        .allowedOrigins("http://localhost:9293")
+                        .allowedOrigins("http://localhost:9243")
                         .allowedMethods(
                                 HttpMethod.GET.name(),
                                 HttpMethod.POST.name());
