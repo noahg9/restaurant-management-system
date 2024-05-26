@@ -1,5 +1,8 @@
 const header = document.querySelector('meta[name="_csrf_header"]').getAttribute('content')
 const token = document.querySelector('meta[name="_csrf"]').getAttribute('content')
+const languageSwitch = document.getElementById('languageSwitch')
+
+languageSwitch?.addEventListener('click', switchLanguage)
 
 function switchLanguage() {
     const xhr = new XMLHttpRequest()

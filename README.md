@@ -48,6 +48,7 @@ Chef >------< MenuItem ------ Recipe
 | chef (other)               | Limited | Limited   | Full      |
 | menu-item (not-associated) | Limited | Limited   | Full      |
 | register-chef              | None    | None      | Full      |
+| insert-menu-items          | None    | None      | Full      |
 
 ## Spring Profiles
 
@@ -317,7 +318,7 @@ Connection: keep-alive
 
 ### Code coverage
 
-![](code_coverage.png)
+![code_coverage.png](code_coverage.png)
 
 ### Classes containing MVC tests
 
@@ -355,6 +356,15 @@ Client-side validation is implemented in the add and register forms on the follo
 http://localhost:9242/menu-items (menu-items.html)  
 http://localhost:9242/register-chef (register-chef.html)  
 
+### JavaScript dependencies
+
+A JavaScript library called notyf.js is used to display notifications on the following pages:
+http://localhost:9242/menu-items (menu-items.html)  
+http://localhost:9242/register-chef (register-chef.html)  
+Add a menu item or register a chef to see the notification in action!
+
 ## Week 12
 
+### Test report
 
+[Test Report](https://gitlab.com/kdg-ti/programming-5/projects-23-24/acs202/noah.guerin/programming-5/-/pipelines/1306045975/test_report)

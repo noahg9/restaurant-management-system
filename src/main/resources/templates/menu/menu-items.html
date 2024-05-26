@@ -24,7 +24,7 @@
                 <!-- Search Menu Items Button -->
                 <div class="col-md-3">
                     <div class="center-container text-center">
-                        <a class="btn btn-secondary" th:href="@{/search-menu-items}">
+                        <a class="btn btn-primary" th:href="@{/search-menu-items}">
                             <i class="bi bi-search"></i>
                             <span th:text="#{title.searchMenuItems}">Search Menu Items</span>
                         </a>
@@ -33,7 +33,7 @@
                 <!-- Insert Menu Items Button -->
                 <div class="col-md-3 center-container text-center" sec:authorize="isAuthenticated()">
                     <div class="center-container text-center">
-                        <a class="btn btn-secondary" th:href="@{/insert-menu-items}">
+                        <a class="btn btn-primary" th:href="@{/insert-menu-items}">
                             <i class="bi bi-filetype-csv"></i>
                             <span th:text="#{title.insertMenuItems}">Insert Menu Items</span>
                         </a>

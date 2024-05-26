@@ -1,4 +1,6 @@
 import * as Joi from 'joi'
+import { Notyf } from 'notyf'
+import 'notyf/notyf.min.css'
 import {header, token} from './util/csrf.js'
 
 const firstNameInput = document.getElementById('firstName')
@@ -9,6 +11,14 @@ const passwordInput = document.getElementById('password')
 const roleNameInput = document.getElementById('roleName')
 const registerButton = document.getElementById('registerButton')
 const newChefForm = document.getElementById('newChefForm')
+
+const notyf = new Notyf({
+    duration: 3000,
+    position: {
+        x: 'right',
+        y: 'top'
+    }
+})
 
 registerButton?.addEventListener('click', addButtonClicked)
 newChefForm?.addEventListener('submit', trySubmitForm)
@@ -75,7 +85,7 @@ async function trySubmitForm() {
 }
 
 async function addNewChef() {
-    await fetch('/api/chefs', {
+    const response = await fetch('/api/chefs', {
         method: 'POST', headers: {
             'Accept': 'application/json', 'Content-Type': 'application/json', [header]: token
         }, body: JSON.stringify({
@@ -87,6 +97,12 @@ async function addNewChef() {
             roleName: roleNameInput.value
         })
     })
+    if (response.ok) {
+        const chef = await response.json()
+        notyf.success(chef.username + ' added successfully')
+    } else {
+        console.error('Failed to add chef:', response.statusText)
+    }
 }
 
 function addButtonClicked(event) {

@@ -1,5 +1,7 @@
 import anime from 'animejs'
 import * as Joi from 'joi'
+import { Notyf } from 'notyf'
+import 'notyf/notyf.min.css'
 import {header, token} from './util/csrf.js'
 
 const menuItemBody = document.getElementById('menuItemBody')
@@ -12,6 +14,14 @@ const chefsSelect = document.getElementById('chefs')
 const addButton = document.getElementById('addButton')
 const deleteButtons = document.querySelectorAll('button.btn-danger')
 const newMenuItemForm = document.getElementById('newMenuItemForm')
+
+const notyf = new Notyf({
+    duration: 3000,
+    position: {
+        x: 'right',
+        y: 'top'
+    }
+})
 
 addButton?.addEventListener('click', addButtonClicked)
 newMenuItemForm?.addEventListener('submit', trySubmitForm)
@@ -148,6 +158,7 @@ async function addNewMenuItem() {
         if (response.ok) {
             const menuItem = await response.json()
             addMenuItemToTable(menuItem)
+            notyf.success(menuItem.name + ' added successfully')
         } else {
             console.error('Failed to add menu item:', response.statusText)
         }
