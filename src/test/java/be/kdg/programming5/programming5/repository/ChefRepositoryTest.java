@@ -27,20 +27,36 @@ class ChefRepositoryTest {
 
     @Test
     void findByIdWithMenuItemsShouldFetchRelatedData() {
-        // Act
-        var chefOptional = chefRepository.findByIdWithMenuItems(1);
+        // Arrange
+        var chef = chefRepository.findByIdWithMenuItems(1).get();
+        var menuItems = chef.getMenuItems().stream().sorted((a1, a2) -> (int) (a1.getId() - a2.getId())).toList();
 
         // Assert
-        assertTrue(chefOptional.isPresent());
-        var chef = chefOptional.get();
         assertEquals(1, chef.getId());
         assertEquals("Noah", chef.getFirstName());
-
-        var menuItems = chef.getMenuItems().stream().sorted((a1, a2) -> (int) (a1.getId() - a2.getId())).toList();
         assertEquals("Ceasar Salad", menuItems.get(0).getMenuItem().getName());
         assertEquals(LocalDateTime.of(2024, 3, 5, 12, 0, 0), menuItems.get(1).getAssignedDateTime());
         assertEquals("Grilled Salmon", menuItems.get(1).getMenuItem().getName());
         assertEquals(LocalDateTime.of(2024, 3, 7, 12, 0, 0), menuItems.get(2).getAssignedDateTime());
+    }
+
+    @Test
+    void deleteChefShouldNotDeleteAssociatedMenuItems() {
+        // Arrange
+        var chef = chefRepository.findByIdWithMenuItems(2).get();
+        var menuItems = chef.getMenuItems();
+        var menuItemIds = menuItems.stream().map(MenuAssignment::getMenuItem).map(MenuItem::getId).toList();
+
+        // Act
+        for (var menuItem : menuItems) {
+            menuAssignmentRepository.delete(menuAssignmentRepository.findByMenuItemIdAndChefId(menuItem.getMenuItem().getId(), chef.getId()).get());
+        }
+        chefRepository.delete(chefRepository.findByIdWithMenuItems(2).get());
+
+        // Assert
+        for (var menuItemId : menuItemIds) {
+            assertTrue(menuItemRepository.findById(menuItemId).isPresent());
+        }
     }
 
     @Test

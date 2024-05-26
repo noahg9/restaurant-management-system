@@ -12,11 +12,10 @@ public enum ChefRole {
     /**
      * The Sous chef.
      */
-    SOUS_CHEF("ROLE_SOUS_CHEF", "Sous Chef"),
+    SOUS_CHEF("ROLE_SOUS_CHEF", "Sous Chef");
     /**
      * The Line cook.
      */
-    LINE_COOK("ROLE_LINE_COOK", "Line Chef");
 
     private final String code;
     private final String name;

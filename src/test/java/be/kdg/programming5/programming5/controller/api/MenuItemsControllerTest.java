@@ -6,8 +6,6 @@ import be.kdg.programming5.programming5.domain.MenuItem;
 import be.kdg.programming5.programming5.repository.MenuAssignmentRepository;
 import be.kdg.programming5.programming5.repository.ChefRepository;
 import be.kdg.programming5.programming5.repository.MenuItemRepository;
-import be.kdg.programming5.programming5.service.MenuItemService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,7 +22,6 @@ import java.time.LocalDateTime;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -37,8 +34,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 class MenuItemsControllerTest {
     @Autowired
-    private MenuItemService menuItemService;
-    @Autowired
     private MenuItemRepository menuItemRepository;
     @Autowired
     private ChefRepository chefRepository;
@@ -46,8 +41,6 @@ class MenuItemsControllerTest {
     private MenuAssignmentRepository menuAssignmentRepository;
     @Autowired
     private MockMvc mockMvc;
-    @Autowired
-    private ObjectMapper objectMapper;
 
     private long createdMenuItemId;
     private long createdMenuAssignmentId;
@@ -193,49 +186,4 @@ class MenuItemsControllerTest {
                                 .with(csrf()))
                 .andExpect(status().isNotFound());
     }
-
-    /*
-    @Test
-    @WithUserDetails("gordonr")
-    public void addMenuItemShouldBeBadRequestIfMissingMessageBody() throws Exception {
-        mockMvc.perform(post("/api/menu-items")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .with(csrf()))
-                .andExpect(status().isBadRequest());
-    }
-
-
-    @Test
-    @WithUserDetails("gordonr")
-    public void addMenuItemShouldBeCreatedIfCorrectMessageBody() throws Exception {
-        var mvcResult = mockMvc.perform(post("/api/menuItems")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .with(csrf())
-                        .content(objectMapper.writeValueAsString(new NewMenuItemDto(
-                                "Lasagne", 9, "Main", false, 1
-                        ))))
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id").isNumber())
-                .andExpect(jsonPath("$.name").value("Lasagne"))
-                .andExpect(jsonPath("$.price").isNumber())
-                .andExpect(jsonPath("$.course").value("Main"))
-                .andExpect(jsonPath("$.vegetarian").isBoolean())
-                .andExpect(jsonPath("$.spiceLevel").isNumber())
-                .andReturn();
-
-        var httpResponseBody = mvcResult.getResponse().getContentAsString();
-        long menuItemId = (Integer) JsonPath.read(httpResponseBody, "$.id");
-
-        mockMvc.perform(get("/api/menu-items/{id}", menuItemId)
-                        .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(menuItemId));
-
-        mockMvc.perform(delete("/api/menu-items/{id}", menuItemId)
-                        .with(csrf()))
-                .andExpect(status().isNoContent());
-    }
-     */
 }

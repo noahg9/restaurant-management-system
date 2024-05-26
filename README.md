@@ -12,7 +12,7 @@ Chef >------< MenuItem ------ Recipe
 
 ## Build/Run Instructions
 
-1. Run the docker-compose file to start the database:  
+1. Run the docker-compose.yml file to start the database  
 2. Run the application:  
 ```./gradlew bootRun```
 3. Access the application at:  
@@ -49,6 +49,14 @@ Chef >------< MenuItem ------ Recipe
 | menu-item (not-associated) | Limited | Limited   | Full      |
 | register-chef              | None    | None      | Full      |
 | insert-menu-items          | None    | None      | Full      |
+
+### Example pages
+
+The following page can be accessed by all users:  
+```http://localhost:9242/menu-items```
+
+The following page requires authentication to be accessible:  
+```http://localhost:9242/history```
 
 ## Spring Profiles
 
