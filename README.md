@@ -10,6 +10,18 @@
 
 Chef >------< MenuItem ------ Recipe
 
+## Build/Run Instructions
+
+1. Run the docker-compose file to start the database:  
+2. Run the application:  
+```./gradlew bootRun```
+3. Access the application at:  
+```http://localhost:9242```
+4. Export the test profile:
+```export SPRING_PROFILES_ACTIVE=test```
+5. Run the tests:  
+```./gradlew test```
+
 ## User Accounts
 
 | Username | Password | Role      |
@@ -300,3 +312,49 @@ Connection: keep-alive
     <spiceLvl>0</spiceLvl>
 </MenuItemDto>
 ```
+
+## Week 7
+
+### Code coverage
+
+![](code_coverage.png)
+
+### Classes containing MVC tests
+
+- ChefControllerTest
+
+### Classes containing API tests
+
+- MenuItemsControllerTest  
+- MenuItemsControllerUnitTest
+
+### Classes containing role verification tests
+
+- ChefControllerTest
+
+## Week 8
+
+### Classes containing mocking tests
+
+- MenuItemsControllerUnitTest  
+- MenuItemServiceUnitTest
+
+### Classes containing verify tests
+
+- MenuItemsControllerUnitTest
+
+## Week 11
+
+### Bootstrap icons
+
+Every page contains bootstrap icons, so feel free to explore the application!
+
+### Client-side validation
+
+Client-side validation is implemented in the add and register forms on the following pages:  
+http://localhost:9242/menu-items (menu-items.html)  
+http://localhost:9242/register-chef (register-chef.html)  
+
+## Week 12
+
+

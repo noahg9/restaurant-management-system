@@ -1,9 +1,6 @@
 package be.kdg.programming5.programming5.dto;
 
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 
 import java.util.List;
 
@@ -11,14 +8,19 @@ import java.util.List;
  * The type New menu item dto.
  */
 public class NewMenuItemDto {
+    @NotNull
     @NotBlank
+    @Size(min = 3, max = 50)
     private String name;
+    @NotNull
     @DecimalMin(value = "0.0")
     private double price;
+    @NotNull
     @NotBlank
     private String courseName;
     @NotNull
     private boolean vegetarian;
+    @NotNull
     @Min(value = 0)
     private int spiceLevel;
 

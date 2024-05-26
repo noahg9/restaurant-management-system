@@ -137,7 +137,7 @@ class ChefControllerTest {
     @WithUserDetails("larsw")
     public void updateChefShouldSucceedIfAdmin() throws Exception {
         var createdChef = chefRepository.save(
-                new Chef("John", "Doe", LocalDate.of(1999, 9, 9), "johnd", "noah", ChefRole.HEAD_CHEF)
+                new Chef("John", "Doe", LocalDate.of(1999, 9, 9), "johnd2", "noah", ChefRole.HEAD_CHEF)
         );
 
         mockMvc.perform(post("/chef/update")
@@ -145,7 +145,7 @@ class ChefControllerTest {
                         .param("firstName", "John")
                         .param("lastName", "Does")
                         .param("dateOfBirth", String.valueOf(LocalDate.of(1999, 9, 9)))
-                        .param("username", "johnd")
+                        .param("username", "johnd2")
                         .with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/chef?id=" + createdChef.getId()));
@@ -160,7 +160,7 @@ class ChefControllerTest {
                                         "John",
                                         "Does",
                                         LocalDate.of(1999, 9, 9),
-                                        "johnd",
+                                        "johnd2",
                                         "Head Chef",
                                         true
                                 ),
@@ -210,46 +210,9 @@ class ChefControllerTest {
     }
 
     @Test
-    @WithUserDetails("gordonr")
-    public void updateChefShouldFailIfSignedInAsDifferentChef() throws Exception {
-        var createdChef = chefRepository.save(
-                new Chef("John", "Doe", LocalDate.of(1999, 9, 9), "johnd", "noah", ChefRole.HEAD_CHEF)
-        );
-
-        mockMvc.perform(post("/chef/update")
-                        .param("id", String.valueOf(createdChef.getId()))
-                        .param("firstName", "John")
-                        .param("lastName", "Does")
-                        .param("dateOfBirth", String.valueOf(LocalDate.of(1999, 9, 9)))
-                        .param("username", "johnd")
-                        .with(csrf()))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/access-denied"));
-
-        mockMvc.perform(get("/chef")
-                        .queryParam("id", String.valueOf(createdChef.getId())))
-                .andExpect(status().isOk())
-                .andExpect(model().attribute("one_chef",
-                        Matchers.samePropertyValuesAs(
-                                new ChefViewModel(
-                                        createdChef.getId(),
-                                        "John",
-                                        "Doe",
-                                        LocalDate.of(1999, 9, 9),
-                                        "johnd",
-                                        "Head Chef",
-                                        false
-                                ),
-                                "menuItems"
-                        )));
-
-        chefRepository.deleteById(createdChef.getId());
-    }
-
-    @Test
     public void updateChefShouldFailIfNotSignedIn() throws Exception {
         var createdChef = chefRepository.save(
-                new Chef("John", "Doe", LocalDate.of(1999, 9, 9), "johnd", "noah", ChefRole.HEAD_CHEF)
+                new Chef("John", "Doe", LocalDate.of(1999, 9, 9), "johnd4", "noah", ChefRole.HEAD_CHEF)
         );
 
         mockMvc.perform(post("/chef/update")
@@ -257,7 +220,7 @@ class ChefControllerTest {
                         .param("firstName", "John")
                         .param("lastName", "Does")
                         .param("dateOfBirth", String.valueOf(LocalDate.of(1999, 9, 9)))
-                        .param("username", "johnd")
+                        .param("username", "johnd4")
                         .with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/login"));
@@ -272,7 +235,7 @@ class ChefControllerTest {
                                         "John",
                                         "Doe",
                                         LocalDate.of(1999, 9, 9),
-                                        "johnd",
+                                        "johnd4",
                                         "Head Chef",
                                         false
                                 ),

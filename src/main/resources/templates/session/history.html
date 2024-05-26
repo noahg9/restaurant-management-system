@@ -35,12 +35,12 @@
                 <tr th:each="entry : ${history}">
                     <!-- Page Name -->
                     <td>
-                        <i class="fas fa-file"></i>
+                        <i class="bi bi-file"></i>
                         <span th:text="${entry.page}"></span>
                     </td>
                     <!-- Timestamp -->
                     <td>
-                        <i class="far fa-clock"></i>
+                        <i class="bi bi-clock"></i>
                         <span th:text="${#temporals.format(entry.timestamp, 'd MMM HH:mm')}"></span>
                     </td>
                 </tr>

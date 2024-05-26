@@ -23,14 +23,14 @@
             <div class="row mb-3 justify-content-center">
                 <div class="center-container text-center">
                     <a class="btn btn-secondary" href="javascript:history.back()">
-                        <i class="fas fa-arrow-left"></i>
+                        <i class="bi bi-arrow-return-left"></i>
                         <span th:text="#{button.return}">Return</span>
                     </a>
                 </div>
             </div>
         </div>
         <!-- List Section -->
-        <div class="col-md-6">
+        <div class="col-md-4">
             <section class="mt-5 text-center">
                 <form th:action="@{/insert-menu-items}"
                       th:method="POST"

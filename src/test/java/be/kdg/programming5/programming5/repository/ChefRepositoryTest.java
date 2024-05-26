@@ -1,11 +1,15 @@
 package be.kdg.programming5.programming5.repository;
 
+import be.kdg.programming5.programming5.domain.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.function.Executable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -39,26 +43,18 @@ class ChefRepositoryTest {
         assertEquals(LocalDateTime.of(2024, 3, 7, 12, 0, 0), menuItems.get(2).getAssignedDateTime());
     }
 
-    /*
     @Test
-    void chefShouldBeUnique() {
+    void chefUsernameShouldBeUnique() {
         // Arrange
         var harry = chefRepository.save(new Chef(
                 "Harry", "Potter", LocalDate.of(2000, 1, 1), "harry", "password123", ChefRole.SOUS_CHEF));
 
         // Act
         Executable executable = () -> chefRepository.save(new Chef(
-                "Harry", "Smith", LocalDate.of(2000, 1, 1), "harry2", "password123", ChefRole.SOUS_CHEF));
+                "Harry", "Smith", LocalDate.of(2000, 1, 1), "harry", "password123", ChefRole.SOUS_CHEF));
 
         // Assert
         assertThrows(DataIntegrityViolationException.class, executable);
-        //assertThrows(DataIntegrityViolationException.class,
-        // Act
-        //() -> chefRepository.save(new Chef(
-        //        "harry@kdg.be", "Harry2", "harry2", "password123",
-        //        ChefRole.USER
-        //)));
         chefRepository.delete(harry);
     }
-     */
 }

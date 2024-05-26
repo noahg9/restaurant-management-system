@@ -24,7 +24,7 @@ public class Chef extends AbstractEntity<Long> implements Serializable {
     @Column(nullable = false)
     private LocalDate dateOfBirth;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String username;
 
     @Column(nullable = false)

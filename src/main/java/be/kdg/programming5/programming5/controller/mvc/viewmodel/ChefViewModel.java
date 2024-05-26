@@ -11,15 +11,10 @@ import java.util.List;
  */
 public class ChefViewModel {
     private long id;
-    @NotBlank(message = "First name cannot be empty")
     private String firstName;
-    @NotBlank(message = "Last name cannot be empty")
     private String lastName;
-    @NotNull(message = "Date of birth cannot be null")
     private LocalDate dateOfBirth;
-    @NotBlank(message = "Username cannot be empty")
     private String username;
-    @NotBlank(message = "Role name cannot be empty")
     private String roleName;
     private boolean modificationAllowed;
     private List<MenuItemViewModel> menuItems;

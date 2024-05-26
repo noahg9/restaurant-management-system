@@ -11,14 +11,10 @@ import java.util.List;
  */
 public class MenuItemViewModel {
     private long id;
-    @NotBlank(message = "Name cannot be empty")
     private String name;
-    @DecimalMin(value = "0.0", message = "Price must be greater than 0.0")
     private double price;
-    @NotBlank(message = "Course cannot be empty")
     private String courseName;
     private boolean vegetarian;
-    @Min(value = 0, message = "Spice level must be at least 1")
     private int spiceLevel;
 
     private boolean modificationAllowed;

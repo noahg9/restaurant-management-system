@@ -71,8 +71,8 @@ class MenuItemServiceTest {
         assertTrue(menuItemRepository.findById(9999L).isEmpty());
     }
 
-    @Test
-    void getMenuItemsOfChefShouldReturnCorrectItems() {
+    //@Test
+    //void getMenuItemsOfChefShouldReturnCorrectItems() {
         // Act
         //List<MenuItem> chefMenuItems = menuItemService.getMenuItemsOfChef(chef.getId());
 
@@ -80,6 +80,6 @@ class MenuItemServiceTest {
         //assertEquals(2, chefMenuItems.size());
         //assertTrue(chefMenuItems.contains(menuItem1));
         //assertTrue(chefMenuItems.contains(menuItem2));
-    }
+    //}
 
 }
