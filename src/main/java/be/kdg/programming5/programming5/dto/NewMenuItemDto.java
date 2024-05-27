@@ -25,11 +25,6 @@ public class NewMenuItemDto {
     private int spiceLevel;
 
     /**
-     * The Chef ids.
-     */
-    List<Long> chefIds;
-
-    /**
      * Instantiates a new New menu item dto.
      */
     public NewMenuItemDto() {
@@ -50,25 +45,6 @@ public class NewMenuItemDto {
         this.courseName = courseName;
         this.vegetarian = vegetarian;
         this.spiceLevel = spiceLevel;
-    }
-
-    /**
-     * Instantiates a new New menu item dto.
-     *
-     * @param name       the name
-     * @param price      the price
-     * @param courseName the course name
-     * @param vegetarian the vegetarian
-     * @param spiceLevel the spice level
-     * @param chefIds    the chef ids
-     */
-    public NewMenuItemDto(String name, double price, String courseName, boolean vegetarian, int spiceLevel, List<Long> chefIds) {
-        this.name = name;
-        this.price = price;
-        this.courseName = courseName;
-        this.vegetarian = vegetarian;
-        this.spiceLevel = spiceLevel;
-        this.chefIds = chefIds;
     }
 
     /**
@@ -159,23 +135,5 @@ public class NewMenuItemDto {
      */
     public void setSpiceLevel(int spiceLevel) {
         this.spiceLevel = spiceLevel;
-    }
-
-    /**
-     * Gets chef ids.
-     *
-     * @return the chef ids
-     */
-    public List<Long> getChefIds() {
-        return chefIds;
-    }
-
-    /**
-     * Sets chef ids.
-     *
-     * @param chefIds the chef ids
-     */
-    public void setChefIds(List<Long> chefIds) {
-        this.chefIds = chefIds;
     }
 }

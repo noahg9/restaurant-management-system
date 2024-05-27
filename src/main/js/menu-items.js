@@ -10,7 +10,6 @@ const priceInput = document.getElementById('price')
 const courseNameSelect = document.getElementById('courseName')
 const vegetarianCheckbox = document.getElementById('vegetarian')
 const spiceLevelInput = document.getElementById('spiceLevel')
-const chefsSelect = document.getElementById('chefs')
 const addButton = document.getElementById('addButton')
 const deleteButtons = document.querySelectorAll('button.btn-danger')
 const newMenuItemForm = document.getElementById('newMenuItemForm')
@@ -148,7 +147,6 @@ async function fetchChefs() {
 }
 
 async function addNewMenuItem() {
-    const selectedChefsIds  = Array.from(chefsSelect.selectedOptions).map(option => option.value)
     try {
         const response = await fetch('/api/menu-items', {
             method: 'POST', headers: {
@@ -158,8 +156,7 @@ async function addNewMenuItem() {
                 price: priceInput.value,
                 courseName: courseNameSelect.value,
                 vegetarian: vegetarianCheckbox.checked,
-                spiceLevel: spiceLevelInput.value,
-                chefs: selectedChefsIds
+                spiceLevel: spiceLevelInput.value
             })
         })
         if (response.ok) {

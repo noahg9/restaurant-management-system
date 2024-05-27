@@ -98,13 +98,12 @@ public class MenuItemService {
      * @param course     the course
      * @param vegetarian the vegetarian
      * @param spiceLevel the spice level
-     * @param chefIds    the chef ids
      * @param chefId     the chef id
      * @return the menu item
      */
     @Transactional
     @CacheEvict(value = "search-menu-items", allEntries = true)
-    public MenuItem saveMenuItem(String name, double price, Course course, Boolean vegetarian, int spiceLevel, List<Long> chefIds, Long chefId) {
+    public MenuItem saveMenuItem(String name, double price, Course course, Boolean vegetarian, int spiceLevel, Long chefId) {
         Logger logger = Logger.getLogger(this.getClass().getName());
 
         MenuItem menuItem = menuItemRepository.save(new MenuItem(name, price, course, vegetarian, spiceLevel));
@@ -118,22 +117,6 @@ public class MenuItemService {
             } else {
                 logger.warning("Chef with ID " + chefId + " not found.");
             }
-        }
-
-        // Handle the list of chefIds if provided
-        if (chefIds != null && !chefIds.isEmpty()) {
-            logger.info("Processing list of chefIds: " + chefIds);
-            for (Long associatedChefId : chefIds) {
-                logger.info("Processing chefId: " + associatedChefId);
-                chefRepository.findById(associatedChefId).ifPresentOrElse(chef -> {
-                    menuAssignmentRepository.save(new MenuAssignment(menuItem, chef, LocalDateTime.now()));
-                    logger.info("ChefId from list associated: " + associatedChefId);
-                }, () -> {
-                    logger.warning("Chef with ID " + associatedChefId + " not found.");
-                });
-            }
-        } else {
-            logger.info("No additional chefIds provided.");
         }
 
         // Save a new recipe and associate it with the MenuItem

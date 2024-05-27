@@ -123,7 +123,7 @@ public class MenuItemsController {
     @PostMapping
     ResponseEntity<MenuItemDto> createMenuItem(@RequestBody @Valid NewMenuItemDto menuItemDto, @AuthenticationPrincipal CustomUserDetails user) {
         MenuItem createdMenuItem = menuItemService.saveMenuItem(
-                menuItemDto.getName(), menuItemDto.getPrice(), Course.fromName(menuItemDto.getCourseName()), menuItemDto.isVegetarian(), menuItemDto.getSpiceLevel(), menuItemDto.getChefIds(), user == null ? null : user.getChefId());
+                menuItemDto.getName(), menuItemDto.getPrice(), Course.fromName(menuItemDto.getCourseName()), menuItemDto.isVegetarian(), menuItemDto.getSpiceLevel(), user == null ? null : user.getChefId());
         return new ResponseEntity<>(modelMapper.map(createdMenuItem, MenuItemDto.class), HttpStatus.CREATED);
     }
 
