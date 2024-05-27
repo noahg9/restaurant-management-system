@@ -148,7 +148,7 @@ async function fetchChefs() {
 }
 
 async function addNewMenuItem() {
-    const selectedChefs = Array.from(chefsSelect.selectedOptions).map(option => option.value)
+    const selectedChefsIds  = Array.from(chefsSelect.selectedOptions).map(option => option.value)
     try {
         const response = await fetch('/api/menu-items', {
             method: 'POST', headers: {
@@ -159,13 +159,20 @@ async function addNewMenuItem() {
                 courseName: courseNameSelect.value,
                 vegetarian: vegetarianCheckbox.checked,
                 spiceLevel: spiceLevelInput.value,
-                chefs: selectedChefs
+                chefs: selectedChefsIds
             })
         })
         if (response.ok) {
             const menuItem = await response.json()
             addMenuItemToTable(menuItem)
             notyf.success(menuItem.name + ' added successfully')
+            anime({
+                targets: '.card',
+                opacity: 1,
+                easing: 'linear',
+                duration: 600,
+                delay: anime.stagger(100)
+            })
         } else {
             console.error('Failed to add menu item:', response.statusText)
         }

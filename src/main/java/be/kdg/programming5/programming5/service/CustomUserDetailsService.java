@@ -21,7 +21,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     /**
      * Instantiates a new Custom user details service.
      *
-     * @param chefService the chef repository
+     * @param chefService the chef service
      */
     public CustomUserDetailsService(ChefService chefService) {
         this.chefService = chefService;

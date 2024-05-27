@@ -21,8 +21,8 @@ public class ChefService {
     /**
      * Instantiates a new Chef service.
      *
-     * @param chefRepository         the chef repository
-     * @param menuAssignmentRepository the assigned chef repository
+     * @param chefRepository           the chef repository
+     * @param menuAssignmentRepository the menu assignment repository
      */
     public ChefService(ChefRepository chefRepository, MenuAssignmentRepository menuAssignmentRepository) {
         this.chefRepository = chefRepository;
@@ -109,6 +109,15 @@ public class ChefService {
         return chefRepository.save(new Chef(firstName, lastName, dateOfBirth, username, password, role));
     }
 
+    /**
+     * Update chef.
+     *
+     * @param chefId      the chef id
+     * @param firstName   the first name
+     * @param lastName    the last name
+     * @param dateOfBirth the date of birth
+     * @param username    the username
+     */
     public void updateChef(long chefId, String firstName, String lastName, LocalDate dateOfBirth, String username) {
         chefRepository.findById(chefId).ifPresent(chef -> {
             chef.setFirstName(firstName);

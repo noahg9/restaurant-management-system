@@ -142,6 +142,15 @@ public class ChefController extends BaseController {
         return mav;
     }
 
+    /**
+     * Update chef string.
+     *
+     * @param chefViewModel the chef view model
+     * @param bindingResult the binding result
+     * @param user          the user
+     * @param request       the request
+     * @return the string
+     */
     @PostMapping("/chef/update")
     public String updateChef(@Valid UpdateChefViewModel chefViewModel,
                              BindingResult bindingResult,

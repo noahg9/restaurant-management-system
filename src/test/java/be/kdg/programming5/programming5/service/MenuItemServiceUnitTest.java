@@ -18,6 +18,9 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
+/**
+ * The type Menu item service unit test.
+ */
 @SpringBootTest
 @ActiveProfiles("test")
 class MenuItemServiceUnitTest {
@@ -27,6 +30,9 @@ class MenuItemServiceUnitTest {
     @MockBean
     private MenuItemRepository menuItemRepository;
 
+    /**
+     * Update menu item fails when menu item doesnt exist.
+     */
     @Test
     void updateMenuItemFailsWhenMenuItemDoesntExist() {
         // Arrange
@@ -40,6 +46,9 @@ class MenuItemServiceUnitTest {
         verify(menuItemRepository, never()).save(any());
     }
 
+    /**
+     * Update menu item succeeds when menu item exists.
+     */
     @Test
     void updateMenuItemSucceedsWhenMenuItemExists() {
         // Arrange

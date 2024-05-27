@@ -32,10 +32,10 @@ public class MenuItemService {
     /**
      * Instantiates a new Menu item service.
      *
-     * @param menuItemRepository     the menu item repository
-     * @param menuAssignmentRepository the assigned chef repository
-     * @param chefRepository         the chef repository
-     * @param recipeRepository       the recipe repository
+     * @param menuItemRepository       the menu item repository
+     * @param menuAssignmentRepository the menu assignment repository
+     * @param chefRepository           the chef repository
+     * @param recipeRepository         the recipe repository
      */
     public MenuItemService(MenuItemRepository menuItemRepository, MenuAssignmentRepository menuAssignmentRepository, ChefRepository chefRepository, RecipeRepository recipeRepository) {
         this.menuItemRepository = menuItemRepository;
@@ -97,7 +97,8 @@ public class MenuItemService {
      * @param price      the price
      * @param course     the course
      * @param vegetarian the vegetarian
-     * @param spiceLevel   the spice level
+     * @param spiceLevel the spice level
+     * @param chefIds    the chef ids
      * @param chefId     the chef id
      * @return the menu item
      */
@@ -149,7 +150,7 @@ public class MenuItemService {
      * @param name       the name
      * @param price      the price
      * @param vegetarian the vegetarian
-     * @param spiceLevel   the spice level
+     * @param spiceLevel the spice level
      * @return the boolean
      */
     @CacheEvict(value = "search-menu-items", allEntries = true)
@@ -184,6 +185,11 @@ public class MenuItemService {
         return true;
     }
 
+    /**
+     * Process menu items csv.
+     *
+     * @param inputStream the input stream
+     */
     @Async
     @CacheEvict(value = "search-menu-items", allEntries = true)
     public void processMenuItemsCsv(InputStream inputStream) {

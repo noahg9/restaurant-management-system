@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 /**
- * The interface Menu item chef repository.
+ * The interface Menu assignment repository.
  */
 public interface MenuAssignmentRepository extends JpaRepository<MenuAssignment, Long> {
     /**
@@ -20,5 +20,12 @@ public interface MenuAssignmentRepository extends JpaRepository<MenuAssignment, 
      */
     Optional<MenuAssignment> findByMenuItemIdAndChefId(long menuItemId, long chefId);
 
+    /**
+     * Exists by chef and menu item boolean.
+     *
+     * @param chef     the chef
+     * @param menuItem the menu item
+     * @return the boolean
+     */
     boolean existsByChefAndMenuItem(Chef chef, MenuItem menuItem);
 }

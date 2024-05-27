@@ -31,6 +31,13 @@ public class MenuItemsController {
     private final MenuAssignmentService menuAssignmentService;
     private final ModelMapper modelMapper;
 
+    /**
+     * Instantiates a new Menu items controller.
+     *
+     * @param menuItemService       the menu item service
+     * @param menuAssignmentService the menu assignment service
+     * @param modelMapper           the model mapper
+     */
     public MenuItemsController(MenuItemService menuItemService, MenuAssignmentService menuAssignmentService, ModelMapper modelMapper) {
         this.menuItemService = menuItemService;
         this.menuAssignmentService = menuAssignmentService;

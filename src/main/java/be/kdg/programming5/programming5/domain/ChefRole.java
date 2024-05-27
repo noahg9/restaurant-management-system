@@ -13,9 +13,6 @@ public enum ChefRole {
      * The Sous chef.
      */
     SOUS_CHEF("ROLE_SOUS_CHEF", "Sous Chef");
-    /**
-     * The Line cook.
-     */
 
     private final String code;
     private final String name;
@@ -35,9 +32,9 @@ public enum ChefRole {
     }
 
     /**
-     * Gets role name.
+     * Gets name.
      *
-     * @return the role name
+     * @return the name
      */
     public String getName() {
         return name;

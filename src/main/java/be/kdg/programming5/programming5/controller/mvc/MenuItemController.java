@@ -6,7 +6,6 @@ import be.kdg.programming5.programming5.controller.mvc.viewmodel.RecipeViewModel
 import be.kdg.programming5.programming5.domain.*;
 import be.kdg.programming5.programming5.service.MenuAssignmentService;
 import be.kdg.programming5.programming5.service.MenuItemService;
-import be.kdg.programming5.programming5.service.RecipeService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
@@ -34,19 +33,16 @@ import static be.kdg.programming5.programming5.domain.ChefRole.HEAD_CHEF;
 public class MenuItemController extends BaseController {
     private final Logger logger = LoggerFactory.getLogger(MenuItemController.class);
     private final MenuItemService menuItemService;
-    private final RecipeService recipeService;
     private final MenuAssignmentService menuAssignmentService;
 
     /**
      * Instantiates a new Menu item controller.
      *
-     * @param menuItemService     the menu item service
-     * @param recipeService       the recipe service
-     * @param menuAssignmentService the assigned chef service
+     * @param menuItemService       the menu item service
+     * @param menuAssignmentService the menu assignment service
      */
-    public MenuItemController(MenuItemService menuItemService, RecipeService recipeService, MenuAssignmentService menuAssignmentService) {
+    public MenuItemController(MenuItemService menuItemService, MenuAssignmentService menuAssignmentService) {
         this.menuItemService = menuItemService;
-        this.recipeService = recipeService;
         this.menuAssignmentService = menuAssignmentService;
     }
 
@@ -55,6 +51,7 @@ public class MenuItemController extends BaseController {
      *
      * @param session the session
      * @param model   the model
+     * @param mav     the mav
      * @param user    the user
      * @param request the request
      * @return the model and view
@@ -88,6 +85,7 @@ public class MenuItemController extends BaseController {
      * @param menuItemId the menu item id
      * @param session    the session
      * @param model      the model
+     * @param mav        the mav
      * @param user       the user
      * @param request    the request
      * @return the model and view
@@ -134,6 +132,13 @@ public class MenuItemController extends BaseController {
         return "menu/search-menu-items";
     }
 
+    /**
+     * Upload csv model and view.
+     *
+     * @param session the session
+     * @param model   the model
+     * @return the model and view
+     */
     @GetMapping("/insert-menu-items")
     @PreAuthorize("hasRole('ROLE_HEAD_CHEF')")
     public ModelAndView uploadCsv(HttpSession session, Model model) {
@@ -143,6 +148,13 @@ public class MenuItemController extends BaseController {
         return mav;
     }
 
+    /**
+     * Upload csv model and view.
+     *
+     * @param file the file
+     * @return the model and view
+     * @throws IOException the io exception
+     */
     @PostMapping("/insert-menu-items")
     @PreAuthorize("hasRole('ROLE_HEAD_CHEF')")
     public ModelAndView uploadCsv(@RequestParam("menu-items-csv") MultipartFile file) throws IOException {

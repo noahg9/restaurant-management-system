@@ -14,6 +14,9 @@ import org.springframework.test.context.ActiveProfiles;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * The type Menu item service test.
+ */
 @SpringBootTest
 @ActiveProfiles("test")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -29,17 +32,26 @@ class MenuItemServiceTest {
 
     private long testMenuItemId;
 
+    /**
+     * Sets .
+     */
     @BeforeAll
     public void setup() {
         var testMenuItem = menuItemRepository.save(new MenuItem("Lasagne", 10, Course.MAIN, false, 1));
         testMenuItemId = testMenuItem.getId();
     }
 
+    /**
+     * Tear down.
+     */
     @AfterAll
     public void tearDown() {
         menuItemRepository.deleteById(testMenuItemId);
     }
 
+    /**
+     * Change menu item should return true for existing menu item and update said menu item.
+     */
     @Test
     void changeMenuItemShouldReturnTrueForExistingMenuItemAndUpdateSaidMenuItem() {
         // Arrange
@@ -59,6 +71,9 @@ class MenuItemServiceTest {
         menuItemRepository.deleteById(createdMenuItem.getId());
     }
 
+    /**
+     * Change menu item should return false for non existing menu item.
+     */
     @Test
     void changeMenuItemShouldReturnFalseForNonExistingMenuItem() {
         // Act

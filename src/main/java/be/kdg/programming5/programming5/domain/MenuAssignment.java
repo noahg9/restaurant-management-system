@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * The type Menu item chef.
+ * The type Menu assignment.
  */
 @Entity
 @Table(name = "menu_assignment", uniqueConstraints = {@UniqueConstraint(columnNames = {"menu_item_id", "chef_id"})})
@@ -24,13 +24,13 @@ public class MenuAssignment extends AbstractEntity<Long> implements Serializable
     private LocalDateTime assignedDateTime;
 
     /**
-     * Instantiates a new Menu item chef.
+     * Instantiates a new Menu assignment.
      */
     public MenuAssignment() {
     }
 
     /**
-     * Instantiates a new Menu item chef.
+     * Instantiates a new Menu assignment.
      *
      * @param id       the id
      * @param menuItem the menu item
@@ -43,7 +43,7 @@ public class MenuAssignment extends AbstractEntity<Long> implements Serializable
     }
 
     /**
-     * Instantiates a new Menu item chef.
+     * Instantiates a new Menu assignment.
      *
      * @param menuItem the menu item
      * @param chef     the chef
@@ -54,7 +54,7 @@ public class MenuAssignment extends AbstractEntity<Long> implements Serializable
     }
 
     /**
-     * Instantiates a new Menu item chef.
+     * Instantiates a new Menu assignment.
      *
      * @param id               the id
      * @param menuItem         the menu item
@@ -69,7 +69,7 @@ public class MenuAssignment extends AbstractEntity<Long> implements Serializable
     }
 
     /**
-     * Instantiates a new Menu item chef.
+     * Instantiates a new Menu assignment.
      *
      * @param menuItem         the menu item
      * @param chef             the chef

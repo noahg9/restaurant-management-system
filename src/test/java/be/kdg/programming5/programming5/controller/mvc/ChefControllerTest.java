@@ -133,6 +133,11 @@ class ChefControllerTest {
         assertEquals(2, chefMenuItems.size());
     }
 
+    /**
+     * Update chef should succeed if admin.
+     *
+     * @throws Exception the exception
+     */
     @Test
     @WithUserDetails("larsw")
     public void updateChefShouldSucceedIfAdmin() throws Exception {
@@ -170,6 +175,11 @@ class ChefControllerTest {
         chefRepository.deleteById(createdChef.getId());
     }
 
+    /**
+     * Update chef should succeed if signed in as same chef.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void updateChefShouldSucceedIfSignedInAsSameChef() throws Exception {
         var createdChef = chefRepository.save(
@@ -209,6 +219,11 @@ class ChefControllerTest {
         chefRepository.deleteById(createdChef.getId());
     }
 
+    /**
+     * Update chef should fail if not signed in.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void updateChefShouldFailIfNotSignedIn() throws Exception {
         var createdChef = chefRepository.save(
@@ -245,6 +260,11 @@ class ChefControllerTest {
         chefRepository.deleteById(createdChef.getId());
     }
 
+    /**
+     * Update chef should fail if invalid email address.
+     *
+     * @throws Exception the exception
+     */
     @Test
     @WithUserDetails("larsw")
     public void updateChefShouldFailIfInvalidEmailAddress() throws Exception {

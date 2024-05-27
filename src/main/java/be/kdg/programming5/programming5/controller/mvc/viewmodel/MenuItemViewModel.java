@@ -27,7 +27,7 @@ public class MenuItemViewModel {
      * @param id                  the id
      * @param name                the name
      * @param price               the price
-     * @param courseName          the course
+     * @param courseName          the course name
      * @param vegetarian          the vegetarian
      * @param spiceLevel          the spice level
      * @param modificationAllowed the modification allowed
@@ -48,7 +48,7 @@ public class MenuItemViewModel {
      * @param id                  the id
      * @param name                the name
      * @param price               the price
-     * @param courseName          the course
+     * @param courseName          the course name
      * @param vegetarian          the vegetarian
      * @param spiceLevel          the spice level
      * @param modificationAllowed the modification allowed
@@ -120,18 +120,18 @@ public class MenuItemViewModel {
     }
 
     /**
-     * Gets course.
+     * Gets course name.
      *
-     * @return the course
+     * @return the course name
      */
     public String getCourseName() {
         return courseName;
     }
 
     /**
-     * Sets course.
+     * Sets course name.
      *
-     * @param courseName the course
+     * @param courseName the course name
      */
     public void setCourseName(String courseName) {
         this.courseName = courseName;

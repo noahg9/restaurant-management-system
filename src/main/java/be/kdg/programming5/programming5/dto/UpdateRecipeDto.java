@@ -1,7 +1,7 @@
 package be.kdg.programming5.programming5.dto;
 
 /**
- * The type Recipe dto.
+ * The type Update recipe dto.
  */
 public class UpdateRecipeDto {
     private String instructions;
@@ -9,7 +9,7 @@ public class UpdateRecipeDto {
     private int difficulty;
 
     /**
-     * Instantiates a new Recipe dto.
+     * Instantiates a new Update recipe dto.
      */
     public UpdateRecipeDto() {
     }

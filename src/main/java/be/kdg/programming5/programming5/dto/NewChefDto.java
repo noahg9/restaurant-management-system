@@ -40,7 +40,7 @@ public class NewChefDto {
      * @param dateOfBirth the date of birth
      * @param username    the username
      * @param password    the password
-     * @param roleName        the role
+     * @param roleName    the role name
      */
     public NewChefDto(String firstName, String lastName, LocalDate dateOfBirth, String username, String password, String roleName) {
         this.firstName = firstName;
@@ -51,6 +51,17 @@ public class NewChefDto {
         this.roleName = roleName;
     }
 
+    /**
+     * Instantiates a new New chef dto.
+     *
+     * @param firstName   the first name
+     * @param lastName    the last name
+     * @param dateOfBirth the date of birth
+     * @param username    the username
+     * @param password    the password
+     * @param roleName    the role name
+     * @param menuItemIds the menu item ids
+     */
     public NewChefDto(String firstName, String lastName, LocalDate dateOfBirth, String username, String password, String roleName, List<Long> menuItemIds) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -152,27 +163,37 @@ public class NewChefDto {
     }
 
     /**
-     * Gets role.
+     * Gets role name.
      *
-     * @return the role
+     * @return the role name
      */
     public String getRoleName() {
         return roleName;
     }
 
     /**
-     * Sets role.
+     * Sets role name.
      *
-     * @param roleName the role
+     * @param roleName the role name
      */
     public void setRoleName(String roleName) {
         this.roleName = roleName;
     }
 
+    /**
+     * Gets menu item ids.
+     *
+     * @return the menu item ids
+     */
     public List<Long> getMenuItemIds() {
         return menuItemIds;
     }
 
+    /**
+     * Sets menu item ids.
+     *
+     * @param menuItemIds the menu item ids
+     */
     public void setMenuItemIds(List<Long> menuItemIds) {
         this.menuItemIds = menuItemIds;
     }

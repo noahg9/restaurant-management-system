@@ -24,6 +24,9 @@ public class NewMenuItemDto {
     @Min(value = 0)
     private int spiceLevel;
 
+    /**
+     * The Chef ids.
+     */
     List<Long> chefIds;
 
     /**
@@ -37,9 +40,9 @@ public class NewMenuItemDto {
      *
      * @param name       the name
      * @param price      the price
-     * @param courseName     the course
+     * @param courseName the course name
      * @param vegetarian the vegetarian
-     * @param spiceLevel   the spice level
+     * @param spiceLevel the spice level
      */
     public NewMenuItemDto(String name, double price, String courseName, boolean vegetarian, int spiceLevel) {
         this.name = name;
@@ -49,6 +52,16 @@ public class NewMenuItemDto {
         this.spiceLevel = spiceLevel;
     }
 
+    /**
+     * Instantiates a new New menu item dto.
+     *
+     * @param name       the name
+     * @param price      the price
+     * @param courseName the course name
+     * @param vegetarian the vegetarian
+     * @param spiceLevel the spice level
+     * @param chefIds    the chef ids
+     */
     public NewMenuItemDto(String name, double price, String courseName, boolean vegetarian, int spiceLevel, List<Long> chefIds) {
         this.name = name;
         this.price = price;
@@ -95,18 +108,18 @@ public class NewMenuItemDto {
     }
 
     /**
-     * Gets course.
+     * Gets course name.
      *
-     * @return the course
+     * @return the course name
      */
     public String getCourseName() {
         return courseName;
     }
 
     /**
-     * Sets course.
+     * Sets course name.
      *
-     * @param courseName the course
+     * @param courseName the course name
      */
     public void setCourseName(String courseName) {
         this.courseName = courseName;
@@ -148,10 +161,20 @@ public class NewMenuItemDto {
         this.spiceLevel = spiceLevel;
     }
 
+    /**
+     * Gets chef ids.
+     *
+     * @return the chef ids
+     */
     public List<Long> getChefIds() {
         return chefIds;
     }
 
+    /**
+     * Sets chef ids.
+     *
+     * @param chefIds the chef ids
+     */
     public void setChefIds(List<Long> chefIds) {
         this.chefIds = chefIds;
     }

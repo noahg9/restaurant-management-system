@@ -27,7 +27,7 @@ public class MenuItemDto {
      * @param price      the price
      * @param course     the course
      * @param vegetarian the vegetarian
-     * @param spiceLevel   the spice level
+     * @param spiceLevel the spice level
      */
     public MenuItemDto(long id, String name, double price, Course course, boolean vegetarian, int spiceLevel) {
         this.id = id;

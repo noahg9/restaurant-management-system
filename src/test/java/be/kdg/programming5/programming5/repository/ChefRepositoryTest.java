@@ -14,6 +14,9 @@ import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * The type Chef repository test.
+ */
 @SpringBootTest
 @ActiveProfiles("test")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -25,6 +28,9 @@ class ChefRepositoryTest {
     @Autowired
     private MenuAssignmentRepository menuAssignmentRepository;
 
+    /**
+     * Find by id with menu items should fetch related data.
+     */
     @Test
     void findByIdWithMenuItemsShouldFetchRelatedData() {
         // Arrange
@@ -40,6 +46,9 @@ class ChefRepositoryTest {
         assertEquals(LocalDateTime.of(2024, 3, 7, 12, 0, 0), menuItems.get(2).getAssignedDateTime());
     }
 
+    /**
+     * Delete chef should not delete associated menu items.
+     */
     @Test
     void deleteChefShouldNotDeleteAssociatedMenuItems() {
         // Arrange
@@ -59,6 +68,9 @@ class ChefRepositoryTest {
         }
     }
 
+    /**
+     * Chef username should be unique.
+     */
     @Test
     void chefUsernameShouldBeUnique() {
         // Arrange

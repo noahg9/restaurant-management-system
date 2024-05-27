@@ -26,6 +26,11 @@ public class ApplicationConfig {
         return new ModelMapper();
     }
 
+    /**
+     * Cors configurer web mvc configurer.
+     *
+     * @return the web mvc configurer
+     */
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {

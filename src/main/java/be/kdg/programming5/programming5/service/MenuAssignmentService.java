@@ -8,16 +8,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * The type Menu item chef service.
+ * The type Menu assignment service.
  */
 @Service
 public class MenuAssignmentService {
     private final MenuAssignmentRepository menuAssignmentRepository;
 
     /**
-     * Instantiates a new Menu item chef service.
+     * Instantiates a new Menu assignment service.
      *
-     * @param menuAssignmentRepository the menu item chef repository
+     * @param menuAssignmentRepository the menu assignment repository
      */
     public MenuAssignmentService(MenuAssignmentRepository menuAssignmentRepository) {
         this.menuAssignmentRepository = menuAssignmentRepository;
@@ -36,6 +36,12 @@ public class MenuAssignmentService {
                 .isPresent();
     }
 
+    /**
+     * Assign chef to menu item.
+     *
+     * @param chef     the chef
+     * @param menuItem the menu item
+     */
     @Transactional
     public void assignChefToMenuItem(Chef chef, MenuItem menuItem) {
         // Check if the chef is already assigned to the menu item

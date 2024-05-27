@@ -23,6 +23,9 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * The type Menu items controller unit test.
+ */
 @SpringBootTest
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
@@ -36,6 +39,11 @@ class MenuItemsControllerUnitTest {
     @MockBean
     private MenuAssignmentService menuAssignmentService;
 
+    /**
+     * Delete menu item should be unauthorized if not signed in.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void deleteMenuItemShouldBeUnauthorizedIfNotSignedIn() throws Exception {
         mockMvc.perform(delete("/api/menu-items/{id}", 7777L)
@@ -45,6 +53,11 @@ class MenuItemsControllerUnitTest {
         verify(menuItemService, never()).deleteMenuItem(7777L);
     }
 
+    /**
+     * Delete menu item should be allowed if chef is assigned.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void deleteMenuItemShouldBeAllowedIfChefIsAssigned() throws Exception {
         long menuItemId = 7777L;
@@ -62,6 +75,11 @@ class MenuItemsControllerUnitTest {
         verify(menuItemService).deleteMenuItem(menuItemId);
     }
 
+    /**
+     * Delete menu item should be allowed if admin.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void deleteMenuItemShouldBeAllowedIfAdmin() throws Exception {
         long menuItemId = 7777L;
@@ -81,6 +99,11 @@ class MenuItemsControllerUnitTest {
         verify(menuItemService).deleteMenuItem(menuItemId);
     }
 
+    /**
+     * Delete menu item should not be allowed if not assigned.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void deleteMenuItemShouldNotBeAllowedIfNotAssigned() throws Exception {
         long menuItemId = 7777L;
@@ -98,6 +121,11 @@ class MenuItemsControllerUnitTest {
         verify(menuItemService, never()).deleteMenuItem(menuItemId);
     }
 
+    /**
+     * Delete menu item should be not found if menu item doesnt exist.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void deleteMenuItemShouldBeNotFoundIfMenuItemDoesntExist() throws Exception {
         long menuItemId = 7777L;

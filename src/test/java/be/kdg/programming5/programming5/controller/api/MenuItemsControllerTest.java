@@ -60,7 +60,7 @@ class MenuItemsControllerTest {
     }
 
     /**
-     * After each.
+     * Tear down each.
      */
     @AfterEach
     public void tearDownEach() {
@@ -82,7 +82,7 @@ class MenuItemsControllerTest {
     }
 
     /**
-     * Gets chef of menu item should return no content when no chefs.
+     * Gets chef of menu item should return no content if no assigned chefs.
      *
      * @throws Exception the exception
      */
@@ -112,7 +112,7 @@ class MenuItemsControllerTest {
     }
 
     /**
-     * Delete menu item should be forbidden if not signed in.
+     * Delete menu item is not allowed if not signed in.
      *
      * @throws Exception the exception
      */
@@ -125,7 +125,7 @@ class MenuItemsControllerTest {
     }
 
     /**
-     * Delete menu item should be allowed if chef is assigned.
+     * Delete menu item is allowed if chef is assigned.
      *
      * @throws Exception the exception
      */
@@ -143,7 +143,7 @@ class MenuItemsControllerTest {
     }
 
     /**
-     * Delete menu item should be allowed if admin.
+     * Delete menu item is allowed if admin.
      *
      * @throws Exception the exception
      */
@@ -161,7 +161,7 @@ class MenuItemsControllerTest {
     }
 
     /**
-     * Delete menu item should not be allowed if not assigned.
+     * Delete menu item is not allowed if not assigned.
      *
      * @throws Exception the exception
      */
@@ -178,6 +178,11 @@ class MenuItemsControllerTest {
                 .andExpect(status().isOk());
     }
 
+    /**
+     * Delete menu item should return not found if menu item does not exist.
+     *
+     * @throws Exception the exception
+     */
     @Test
     @WithUserDetails("larsw")
     public void deleteMenuItemShouldReturnNotFoundIfMenuItemDoesNotExist() throws Exception {

@@ -27,7 +27,7 @@ public class ChefViewModel {
      * @param lastName            the last name
      * @param dateOfBirth         the date of birth
      * @param username            the username
-     * @param roleName                the role
+     * @param roleName            the role name
      * @param modificationAllowed the modification allowed
      */
     public ChefViewModel(long id, String firstName, String lastName, LocalDate dateOfBirth, String username, String roleName, boolean modificationAllowed) {
@@ -48,7 +48,7 @@ public class ChefViewModel {
      * @param lastName            the last name
      * @param dateOfBirth         the date of birth
      * @param username            the username
-     * @param roleName                the role
+     * @param roleName            the role name
      * @param modificationAllowed the modification allowed
      * @param menuItems           the menu items
      */
@@ -154,35 +154,55 @@ public class ChefViewModel {
     }
 
     /**
-     * Gets role.
+     * Gets role name.
      *
-     * @return the role
+     * @return the role name
      */
     public String getRoleName() {
         return roleName;
     }
 
     /**
-     * Sets role.
+     * Sets role name.
      *
-     * @param roleName the role
+     * @param roleName the role name
      */
     public void setRoleName(String roleName) {
         this.roleName = roleName;
     }
 
+    /**
+     * Is modification allowed boolean.
+     *
+     * @return the boolean
+     */
     public boolean isModificationAllowed() {
         return modificationAllowed;
     }
 
+    /**
+     * Sets modification allowed.
+     *
+     * @param modificationAllowed the modification allowed
+     */
     public void setModificationAllowed(boolean modificationAllowed) {
         this.modificationAllowed = modificationAllowed;
     }
 
+    /**
+     * Gets menu items.
+     *
+     * @return the menu items
+     */
     public List<MenuItemViewModel> getMenuItems() {
         return menuItems;
     }
 
+    /**
+     * Sets menu items.
+     *
+     * @param menuItems the menu items
+     */
     public void setMenuItems(List<MenuItemViewModel> menuItems) {
         this.menuItems = menuItems;
     }

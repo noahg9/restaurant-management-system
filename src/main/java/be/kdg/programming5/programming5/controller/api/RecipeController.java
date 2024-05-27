@@ -26,9 +26,8 @@ public class RecipeController {
     /**
      * Instantiates a new Recipe controller.
      *
-     * @param recipeService   the recipe service
-     * @param menuItemService the menu item service
-     * @param modelMapper     the model mapper
+     * @param recipeService the recipe service
+     * @param modelMapper   the model mapper
      */
     public RecipeController(RecipeService recipeService, ModelMapper modelMapper) {
         this.recipeService = recipeService;
