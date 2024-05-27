@@ -55,7 +55,12 @@ public class ChefService {
      * @return the chef with menu items
      */
     public Chef getChefWithMenuItems(long chefId) {
-        return chefRepository.findByIdWithMenuItems(chefId).orElse(null);
+        return chefRepository.findByIdWithMenuItems(chefId)
+                .map(chef -> {
+                    chef.getMenuItems().size();
+                    return chef;
+                })
+                .orElse(null);
     }
 
     /**

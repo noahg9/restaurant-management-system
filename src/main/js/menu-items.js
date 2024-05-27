@@ -97,6 +97,13 @@ async function fillMenuItemsTable() {
             menuItems.forEach(menuItem => {
                 addMenuItemToTable(menuItem)
             })
+            anime({
+                targets: '.card',
+                opacity: 1,
+                easing: 'linear',
+                duration: 600,
+                delay: anime.stagger(100)
+            })
         } else {
             console.error('Failed to fetch menu items:', response.statusText)
         }
@@ -212,7 +219,7 @@ function addMenuItemToTable(menuItem) {
     const cardColumn = document.createElement('div')
     cardColumn.classList.add('col-md-6')
     const card = document.createElement('div')
-    card.classList.add('card', 'mb-3')
+    card.classList.add('card', 'mb-3', 'card-hidden') // Add 'card-hidden' class
     const vegetarianIndicator = menuItem.vegetarian ? '(V)' : '' // "(V)" for vegetarian, empty string for non-vegetarian
     card.innerHTML = `
         <div class="card-body" style="cursor: pointer;">

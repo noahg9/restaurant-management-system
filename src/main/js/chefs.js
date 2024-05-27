@@ -16,13 +16,21 @@ async function fillChefsTable() {
     try {
         const response = await fetch('/api/chefs', {
             headers: {
-                'Accept': 'application/json', [header]: token
+                'Accept': 'application/json',
+                [header]: token
             }
         })
         if (response.status === 200) {
             const chefs = await response.json()
             chefs.forEach(chef => {
                 addChefToTable(chef)
+            })
+            anime({
+                targets: '.card',
+                opacity: [0, 1],
+                easing: 'linear',
+                duration: 600,
+                delay: anime.stagger(100)
             })
         } else {
             console.error('Failed to fetch chefs:', response.statusText)
@@ -54,7 +62,9 @@ async function handleDeleteChef(event) {
  */
 function addChefToTable(chef) {
     const roleNames = {
-        'HEAD_CHEF': 'Head Chef', 'SOUS_CHEF': 'Sous Chef', 'LINE_COOK': 'Line Cook'
+        'HEAD_CHEF': 'Head Chef',
+        'SOUS_CHEF': 'Sous Chef',
+        'LINE_COOK': 'Line Cook'
     }
 
     const roleName = roleNames[chef.role]
@@ -79,7 +89,7 @@ function addChefToTable(chef) {
     const cardColumn = document.createElement('div')
     cardColumn.classList.add('col-md-6')
     const card = document.createElement('div')
-    card.classList.add('card', 'mb-3')
+    card.classList.add('card', 'mb-3', 'card-hidden') // Add 'card-hidden' class
     const age = Math.floor((new Date() - new Date(chef.dateOfBirth)) / (1000 * 60 * 60 * 24 * 365))
     card.innerHTML = `
         <div class="card-body" onclick="location.href='/chef?id=${chef.id}';" style="cursor: pointer;">

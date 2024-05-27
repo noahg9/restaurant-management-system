@@ -23,7 +23,6 @@ public interface ChefRepository extends JpaRepository<Chef, Long> {
     @Query("""
         select c from Chef c
         left join fetch c.menuItems menuItems
-        left join fetch menuItems.menuItem
         where c.id = :chefId
         """)
     Optional<Chef> findByIdWithMenuItems(long chefId);

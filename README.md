@@ -366,9 +366,14 @@ http://localhost:9242/register-chef (register-chef.html)
 
 ### JavaScript dependencies
 
-A JavaScript library called notyf.js is used to display notifications on the following pages:
-http://localhost:9242/menu-items (menu-items.html)  
-http://localhost:9242/register-chef (register-chef.html)  
+A JavaScript library called **anime.js** is used to fade out a card when it is deleted and fade in each card one by one when the page is loaded on the following pages:  
+http://localhost:9242/menu-items (menu-items.js)  
+http://localhost:9242/chefs (chefs.js)  
+Access the page and delete a card to see the animations in action!
+
+A JavaScript library called **notyf.js** is used to display notifications on the following pages:  
+http://localhost:9242/menu-items (menu-items.js)  
+http://localhost:9242/register-chef (register-chef.js)  
 Add a menu item or register a chef to see the notification in action!
 
 ## Week 12
