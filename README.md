@@ -1,5 +1,9 @@
 # Restaurant Management
 
+## Overview
+
+A Java Spring web application that manages chefs, menu items, and recipes in a restaurant.
+
 ## Domain Entities
 
 Chef >------< MenuItem ------ Recipe
