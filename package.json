@@ -1,12 +1,12 @@
 {
-  "name": "programming5",
+  "name": "restaurant-management-system",
   "version": "0.1.0",
   "type": "module",
-  "author": "Noah Guerin",
+  "author": "Noah G",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@gitlab.com/kdg-ti/programming-5/projects-23-24/acs202/noah.guerin/programming-5.git"
+    "url": "git+ssh://git@github.com:noahg9/restaurant-management-system.git"
   },
   "dependencies": {
     "@interactjs/interact": "^1.10.27",

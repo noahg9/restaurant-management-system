@@ -1,1 +1,1 @@
-rootProject.name = "programming-5"
+rootProject.name = "restaurant-management-system"
