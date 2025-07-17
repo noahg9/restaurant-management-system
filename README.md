@@ -1,4 +1,4 @@
-# Restaurant Management
+# Restaurant Management System
 
 ## Overview
 
@@ -50,16 +50,8 @@ Chef >------< MenuItem ------ Recipe
 
 ### Example pages
 
-The following page can be accessed by all users:  
+The following page is accessible by all users:  
 ```http://localhost:9242/menu-items```
 
 The following page requires authentication to be accessible:  
 ```http://localhost:9242/history```
-
-## Spring Profiles
-
-test - Used for testing purposes.
-
-## Code coverage
-
-![code_coverage.png](code_coverage.png)
